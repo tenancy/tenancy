@@ -1,0 +1,34 @@
+version: 2
+
+references:
+    steps: &steps
+        working_directory: ~/repo
+        steps:
+            - checkout
+            - run: apt-get -yqq update
+            - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
+            - run: docker-php-ext-install pdo_pgsql pdo_mysql gd
+            - run: curl -sS https://getcomposer.org/installer | php
+            - run: chmod +x composer.phar
+            - run: mv composer.phar /usr/local/bin/composer
+            - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
+            - run: composer install -n --prefer-dist --no-progress -o
+            - run: ./vendor/bin/phpunit
+
+jobs:
+    "php-7.1":
+        docker:
+            - image: php:7.1
+        <<: *steps
+    "php-7.2":
+        docker:
+            - image: php:7.2
+        <<: *steps
+
+
+workflows:
+    version: 2
+    test:
+        jobs:
+            - "php-7.1"
+            - "php-7.2"
