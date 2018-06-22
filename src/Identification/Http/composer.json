@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/identification-driver-http",
+    "description": "The tenancy/tenancy identification driver for http",
+    "keywords": ["identification", "tenancy", "http"],
+    "license": "MIT",
+    "require": {
+        "tenancy/tenancy": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Identification\\Drivers\\Http\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider"
+            ]
+        }
+    }
+}

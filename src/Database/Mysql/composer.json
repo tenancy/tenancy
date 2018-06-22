@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/db-driver-mysql",
+    "description": "The tenancy/tenancy database driver for mysql",
+    "keywords": ["database", "tenancy", "mysql", "mariadb"],
+    "license": "MIT",
+    "require": {
+        "tenancy/tenancy": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Database\\Drivers\\Mysql\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Database\\Drivers\\Mysql\\Providers\\DatabaseProvider"
+            ]
+        }
+    }
+}

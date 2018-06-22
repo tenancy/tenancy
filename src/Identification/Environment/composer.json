@@ -1,0 +1,31 @@
+{
+    "name": "tenancy/identification-driver-environment",
+    "description": "The tenancy/tenancy identification driver using environment variables",
+    "keywords": ["identification", "tenancy", "environment"],
+    "license": "MIT",
+    "require": {
+        "tenancy/tenancy": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Identification\\Drivers\\Environment\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider"
+            ]
+        }
+    }
+}
