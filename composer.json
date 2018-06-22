@@ -22,7 +22,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tenancy\\Tests\\": "tests/"
+            "Tenancy\\Tests\\": "tests/unit/Tenancy",
+            "Tenancy\\Tests\\Database\\Drivers\\": "tests/unit/Database",
+            "Tenancy\\Tests\\Identification\\Drivers\\": "tests/unit/Identification"
         }
     },
     "replace": {
