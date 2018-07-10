@@ -69,7 +69,7 @@ class TenantResolver implements ResolvesTenants
     public function addModel(string $class)
     {
         if (! in_array(Tenant::class, class_implements($class))) {
-            throw new \InvalidArgumentException("$class has to implement ".Tenant::class);
+            throw new \InvalidArgumentException("$class has to implement " . Tenant::class);
         }
 
         $this->models->push($class);

@@ -17,7 +17,7 @@ namespace Tenancy\Providers\Provides;
 trait ProvidesConfig
 {
     protected $configs = [
-        __DIR__.'/../../resources/config/tenancy.php' => 'tenancy',
+        __DIR__ . '/../../resources/config/tenancy.php' => 'tenancy',
     ];
 
     protected function registerProvidesConfig()

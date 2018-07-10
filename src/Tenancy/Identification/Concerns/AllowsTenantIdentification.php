@@ -53,7 +53,7 @@ trait AllowsTenantIdentification
      */
     public function getTenantIdentifier(): string
     {
-        return $this->getConnectionName().'.'.$this->getTable();
+        return $this->getConnectionName() . '.' . $this->getTable();
     }
 
     /**

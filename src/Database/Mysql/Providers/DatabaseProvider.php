@@ -28,8 +28,8 @@ class DatabaseProvider extends EventServiceProvider
 
     public function register()
     {
-        $this->publishes([__DIR__.'/../../resources/config/db-driver-mysql.php'], 'db-driver-mysql');
+        $this->publishes([__DIR__ . '/../../resources/config/db-driver-mysql.php'], 'db-driver-mysql');
 
-        $this->mergeConfigFrom(__DIR__.'/../../resources/config/db-driver-mysql.php', 'db-driver-mysql');
+        $this->mergeConfigFrom(__DIR__ . '/../../resources/config/db-driver-mysql.php', 'db-driver-mysql');
     }
 }

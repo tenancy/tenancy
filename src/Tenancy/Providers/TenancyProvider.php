@@ -50,10 +50,10 @@ class TenancyProvider extends ServiceProvider
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = 'register'.class_basename($trait))) {
+            if (method_exists($class, $method = 'register' . class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
-            if (method_exists($class, $method = 'servicesOf'.class_basename($trait))) {
+            if (method_exists($class, $method = 'servicesOf' . class_basename($trait))) {
                 $this->providesServices = array_merge($this->providesServices, call_user_func([$this, $method]));
             }
         }
@@ -64,7 +64,7 @@ class TenancyProvider extends ServiceProvider
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = 'boot'.class_basename($trait))) {
+            if (method_exists($class, $method = 'boot' . class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
         }
