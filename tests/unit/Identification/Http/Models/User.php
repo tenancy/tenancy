@@ -15,10 +15,10 @@ class User extends \App\User implements Tenant, IdentifiesByHttp
      * Specify whether the tenant model is matching the request.
      *
      * @param Request $request
-     * @return bool
+     * @return Tenant
      */
-    public function tenantIdentificationByHttp(Request $request): bool
+    public static function tenantIdentificationByHttp(Request $request): ? Tenant
     {
-        return $this->name === $request->path();
+        return static::newQuery()->where('username', $request->path())->first();
     }
 }

@@ -13,5 +13,5 @@ interface IdentifiesByHttp
      * @param Request $request
      * @return Tenant
      */
-    public function tenantIdentificationByHttp(Request $request): ?Tenant;
+    public static function tenantIdentificationByHttp(Request $request): ? Tenant;
 }
