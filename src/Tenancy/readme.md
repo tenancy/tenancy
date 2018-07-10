@@ -5,7 +5,7 @@ in development. Feel free to show support by starring the project
 following progress via [twitter](https://twitter.com/laraveltenancy) and
 backing its development over at [OpenCollective](https://opencollective.com/tenancy).
 
-[![CircleCI](https://circleci.com/gh/tenancy/tenancy.svg?style=svg)](https://circleci.com/gh/tenancy/tenancy)
+[![CircleCI](https://circleci.com/gh/tenancy/framework.svg?style=svg)](https://circleci.com/gh/tenancy/framework)
 
 [![Backers on Open Collective](https://opencollective.com/tenancy/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/tenancy/sponsors/badge.svg)](#sponsors)
 

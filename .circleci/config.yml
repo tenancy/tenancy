@@ -14,6 +14,10 @@ references:
             - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
             - run: composer install -n --prefer-dist --no-progress -o
             - run: ./vendor/bin/phpunit
+            - persist_to_workspace:
+                root: ./
+                paths:
+                    - vendor
 
 jobs:
     "php-7.1":
@@ -24,6 +28,24 @@ jobs:
         docker:
             - image: php:7.2
         <<: *steps
+    style:
+        docker:
+            - image: php:7.2
+        steps:
+            - attach_workspace:
+                at: ./
+            - run: ./vendor/bin/phpcs
+    coverage:
+        docker:
+            - image: php:7.2
+        steps:
+            - attach_workspace:
+                at: ./
+            - run: pecl install xdebug
+            - run: docker-php-ext-enable xdebug
+            - run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
+            - run: bash <(curl -s https://codecov.io/bash)
+
 
 
 workflows:
@@ -32,3 +54,10 @@ workflows:
         jobs:
             - "php-7.1"
             - "php-7.2"
+            - style:
+                requires:
+                    - "php-7.1"
+                    - "php-7.2"
+            - coverage:
+                requires:
+                    - style
