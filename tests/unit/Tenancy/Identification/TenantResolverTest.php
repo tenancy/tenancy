@@ -15,6 +15,7 @@
 namespace Tenancy\Tests\Unit\Identification;
 
 use Illuminate\Foundation\Auth\User;
+use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Tests\Mocks\Tenant;
@@ -22,14 +23,10 @@ use Tenancy\Tests\TestCase;
 
 class TenantResolverTest extends TestCase
 {
-    /**
-     * @var ResolvesTenants
-     */
+    /** @var ResolvesTenants */
     protected $resolver;
 
-    /**
-     * @var Tenant
-     */
+    /** @var Tenant */
     protected $tenant;
 
     protected function afterSetUp()

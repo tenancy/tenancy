@@ -22,6 +22,10 @@ use Tenancy\Providers\TenancyProvider;
 
 trait CreatesApplication
 {
+    protected $additionalProviders = [];
+    protected $additionalMocks = [];
+    protected $tenantModels = [];
+
     /**
      * @var Environment
      */
@@ -73,9 +77,17 @@ trait CreatesApplication
     {
         $this->app->register(TenancyProvider::class);
 
+        foreach($this->additionalProviders as $provider) {
+            $this->app->register($provider);
+        }
+
         /** @var Factory $factory */
         $factory = $this->app->make(Factory::class);
         $factory->load(__DIR__ . '/../Mocks/factories/');
+
+        foreach($this->additionalMocks as $mock) {
+            $factory->load($mock);
+        }
 
         $this->environment = $this->app->make(Environment::class);
         $this->events = $this->app->make(Dispatcher::class);

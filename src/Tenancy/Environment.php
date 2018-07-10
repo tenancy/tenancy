@@ -41,11 +41,6 @@ class Environment
      */
     private $app;
 
-    /**
-     * @var ResolvesTenants
-     */
-    protected static $identificationResolver;
-
     public function __construct(Application $app)
     {
         $this->app = $app;
@@ -62,27 +57,13 @@ class Environment
     {
         if (! $this->identified || $refresh) {
             $this->setTenant(
-                static::getIdentificationResolver()->__invoke()
+                app(ResolvesTenants::class)->__invoke()
             );
 
             $this->identified = true;
         }
 
         return $this->tenant;
-    }
-
-    public static function getIdentificationResolver(): ResolvesTenants
-    {
-        if (! static::$identificationResolver) {
-            static::$identificationResolver = resolve(Identification\TenantResolver::class);
-        }
-
-        return static::$identificationResolver;
-    }
-
-    public static function setIdentificationResolver(ResolvesTenants $resolver)
-    {
-        static::$identificationResolver = $resolver;
     }
 
     public function isIdentified(): bool

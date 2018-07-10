@@ -18,6 +18,12 @@ use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant as Contract;
 
+/**
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
+ */
 class Tenant extends Model implements Contract
 {
     protected $table = 'users';

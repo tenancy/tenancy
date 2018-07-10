@@ -28,8 +28,6 @@ class TenancyProvider extends ServiceProvider
         Provides\ProvidesServices,
         Provides\ProvidesEloquentConnections;
 
-    protected $defer = true;
-
     public $singletons = [
         Environment::class => Environment::class,
         ResolvesTenants::class => TenantResolver::class

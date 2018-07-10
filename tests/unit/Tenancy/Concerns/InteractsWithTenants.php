@@ -18,8 +18,8 @@ use Tenancy\Tests\Mocks\Tenant;
 
 trait InteractsWithTenants
 {
-    protected function tenant(): Tenant
+    protected function tenant(string $class = null, bool $saved = false): Tenant
     {
-        return factory(Tenant::class)->make();
+        return factory($class ?? Tenant::class)->{$saved ? 'create' : 'make'}();
     }
 }
