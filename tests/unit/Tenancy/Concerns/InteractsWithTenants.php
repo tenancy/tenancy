@@ -14,12 +14,6 @@
 
 namespace Tenancy\Tests\Concerns;
 
-use Tenancy\Tests\Mocks\Tenant;
-
 trait InteractsWithTenants
 {
-    protected function tenant(string $class = null, bool $saved = false): Tenant
-    {
-        return factory($class ?? Tenant::class)->{$saved ? 'create' : 'make'}();
-    }
 }

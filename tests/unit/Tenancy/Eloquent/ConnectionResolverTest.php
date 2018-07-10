@@ -16,6 +16,7 @@ namespace Tenancy\Tests\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Eloquent\ConnectionResolver;
+use Tenancy\Tests\Mocks\Tenant;
 use Tenancy\Tests\TestCase;
 
 class ConnectionResolverTest extends TestCase
@@ -44,7 +45,7 @@ class ConnectionResolverTest extends TestCase
 
         $this->assertEquals(
             config('tenancy.database.tenant-connection-name'),
-            $this->tenant()->getConnection()->getName()
+            factory(Tenant::class)->make()->getConnection()->getName()
         );
     }
 

@@ -24,7 +24,7 @@ class IdentifyByHttpTest extends TestCase
         $resolver = $this->app->make(ResolvesTenants::class);
         $resolver->addModel(Tenant::class);
 
-        $this->tenant = $this->tenant(Tenant::class, true);
+        $this->tenant = factory(Tenant::class)->create();
     }
 
     /**
