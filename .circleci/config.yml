@@ -8,7 +8,7 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-              keys:
+                keys:
                     - composer-7.1-{{ checksum "composer.json" }}
             - run: apt-get -yqq update
             - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
@@ -30,7 +30,7 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-              keys:
+                keys:
                     - composer-7.2-{{ checksum "composer.json" }}
             - run: apt-get -yqq update
             - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
