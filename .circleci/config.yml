@@ -7,6 +7,9 @@ jobs:
         working_directory: ~/repo
         steps:
             - checkout
+            - restore_cache:
+              keys:
+                    - composer-7.1-{{ checksum "composer.json" }}
             - run: apt-get -yqq update
             - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
             - run: docker-php-ext-install pdo_pgsql pdo_mysql gd
@@ -15,6 +18,10 @@ jobs:
             - run: mv composer.phar /usr/local/bin/composer
             - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
             - run: composer install -n --prefer-dist --no-progress -o
+            - save_cache:
+                key: composer-7.1-{{ checksum "composer.json" }}
+                paths:
+                    - vendor/
             - run: ./vendor/bin/phpunit
     "php-7.2":
         docker:
@@ -22,6 +29,9 @@ jobs:
         working_directory: ~/repo
         steps:
             - checkout
+            - restore_cache:
+              keys:
+                    - composer-7.2-{{ checksum "composer.json" }}
             - run: apt-get -yqq update
             - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
             - run: docker-php-ext-install pdo_pgsql pdo_mysql gd
@@ -30,6 +40,10 @@ jobs:
             - run: mv composer.phar /usr/local/bin/composer
             - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
             - run: composer install -n --prefer-dist --no-progress -o
+            - save_cache:
+                key: composer-7.2-{{ checksum "composer.json" }}
+                paths:
+                    - vendor/
             - run: ./vendor/bin/phpunit
             - persist_to_workspace:
                 root: ./
@@ -39,6 +53,7 @@ jobs:
         docker:
             - image: php:7.2
         steps:
+            - checkout
             - attach_workspace:
                 at: ./
             - run: ./vendor/bin/phpcs
@@ -46,6 +61,7 @@ jobs:
         docker:
             - image: php:7.2
         steps:
+            - checkout
             - attach_workspace:
                 at: ./
             - run: pecl install xdebug
