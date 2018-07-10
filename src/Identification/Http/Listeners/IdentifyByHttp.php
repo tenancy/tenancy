@@ -2,7 +2,6 @@
 
 namespace Tenancy\Identification\Drivers\Http\Listeners;
 
-use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Events\Resolving;
@@ -17,8 +16,11 @@ class IdentifyByHttp
             return null;
         }
 
-        return $models->first(function ($tenant) {
-            return app()->call("$tenant@tenantIdentificationByHttp");
-        });
+        return $models
+            ->map(function ($tenant) {
+                return app()->call("$tenant@tenantIdentificationByHttp");
+            })
+            ->filter()
+            ->first();
     }
 }

@@ -10,9 +10,7 @@ use Tenancy\Tests\TestCase;
 class IdentifyByHttpTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
-    protected $additionalMocks = [
-        __DIR__ . '/Mocks/factories/'
-    ];
+    protected $additionalMocks = [__DIR__ . '/Mocks/factories/'];
 
     /** @var User */
     protected $user;
@@ -34,12 +32,6 @@ class IdentifyByHttpTest extends TestCase
      */
     public function request_identifies_tenant()
     {
-        /** @var ResolvesTenants $resolver */
-        $resolver = $this->app->make(ResolvesTenants::class);
-        $this->assertCount(1, $resolver->getModels());
-
-        $this->assertTrue($this->tenant->exists);
-
         $this->assertFalse($this->environment->isIdentified());
 
         $this->get('/' . $this->tenant->name);
