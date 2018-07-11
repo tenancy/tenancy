@@ -12,10 +12,12 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Identification\Middleware;
+namespace Tenancy\Identification\Drivers\Console\Middleware;
 
 use Closure;
+use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Contracts\Foundation\Application;
+use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Environment;
 
 class EagerIdentification
@@ -30,20 +32,14 @@ class EagerIdentification
         $this->app = $app;
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(CommandStarting $event)
     {
         /** @var Environment $tenancy */
         $tenancy = $this->app->make(Environment::class);
 
         if (! $tenancy->isIdentified()) {
+            $this->app->instance(InputInterface::class, $event->input);
             $tenancy->getTenant();
         }
-
-        return $next($request);
     }
 }
