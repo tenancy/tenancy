@@ -6,6 +6,7 @@ git subsplit init git@github.com:tenancy/framework.git
 git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/tenancy.git
 
 # Identification drivers
+git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
 git subsplit publish --heads="master" src/Identification/Environment:git@github.com:tenancy/identification-driver-environment.git
 git subsplit publish --heads="master" src/Identification/Http:git@github.com:tenancy/identification-driver-http.git
 
