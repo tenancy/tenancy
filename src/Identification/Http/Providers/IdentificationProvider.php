@@ -2,15 +2,12 @@
 
 namespace Tenancy\Identification\Drivers\Http\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
-use Tenancy\Identification\Drivers\Http\Listeners\IdentifyByHttp;
-use Tenancy\Identification\Events\Resolving;
+use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
+use Tenancy\Identification\Support\DriverProvider;
 
-class IdentificationProvider extends EventServiceProvider
+class IdentificationProvider extends DriverProvider
 {
-    protected $listen = [
-        Resolving::class => [
-            IdentifyByHttp::class
-        ]
+    protected $drivers = [
+        IdentifiesByHttp::class => 'tenantIdentificationByHttp'
     ];
 }

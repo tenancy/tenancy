@@ -3,6 +3,7 @@
 namespace Tenancy\Tests\Identification\Drivers\Http;
 
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
 use Tenancy\Tests\TestCase;
@@ -39,5 +40,15 @@ class IdentifyByHttpTest extends TestCase
         $this->assertTrue($this->environment->isIdentified());
 
         $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
+    }
+
+    public function can_register_driver()
+    {
+        $resolver = $this->app->make(ResolvesTenants::class);
+
+        $resolver->registerDriver(
+            IdentifiesByHttp::class,
+            'tenantIdentificationByHttp'
+        );
     }
 }

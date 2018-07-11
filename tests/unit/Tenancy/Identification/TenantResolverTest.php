@@ -15,7 +15,6 @@
 namespace Tenancy\Tests\Unit\Identification;
 
 use Illuminate\Foundation\Auth\User;
-use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Tests\Mocks\Tenant;

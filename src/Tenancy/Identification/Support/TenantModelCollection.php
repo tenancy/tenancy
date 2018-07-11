@@ -18,10 +18,18 @@ use Illuminate\Support\Collection;
 
 class TenantModelCollection extends Collection
 {
-    public function filterByContract(string $contract)
+    /**
+     * @param string|array $contracts
+     * @return static
+     */
+    public function filterByContract($contracts)
     {
-        return $this->filter(function (string $item) use ($contract) {
-            return ($contracts = class_implements($item)) && in_array($contract, $contracts);
+        $contracts = array_wrap($contracts);
+
+        return $this->filter(function (string $item) use ($contracts) {
+            $implements = class_implements($item);
+
+            return count(array_intersect($implements, $contracts));
         });
     }
 }

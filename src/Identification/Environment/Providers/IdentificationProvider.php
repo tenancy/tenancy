@@ -2,15 +2,12 @@
 
 namespace Tenancy\Identification\Drivers\Environment\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
-use Tenancy\Identification\Drivers\Environment\Listeners\IdentifyByEnvironment;
-use Tenancy\Identification\Events\Resolving;
+use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
+use Tenancy\Identification\Support\DriverProvider;
 
-class IdentificationProvider extends EventServiceProvider
+class IdentificationProvider extends DriverProvider
 {
-    protected $listen = [
-        Resolving::class => [
-            IdentifyByEnvironment::class
-        ]
+    protected $drivers = [
+        IdentifiesByEnvironment::class => 'tenantIdentificationByEnvironment'
     ];
 }

@@ -36,6 +36,8 @@ class TenantResolver implements ResolvesTenants
      */
     protected $models;
 
+    protected $drivers = [];
+
     public function __construct(Dispatcher $events)
     {
         $this->models = new TenantModelCollection();
@@ -46,7 +48,11 @@ class TenantResolver implements ResolvesTenants
 
     public function __invoke(): ?Tenant
     {
-        $tenant = $this->events->until(new Events\Resolving($this->getModels()));
+        $tenant = $this->events->until(new Events\Resolving($models = $this->getModels()));
+
+        if (! $tenant) {
+            $tenant = $this->resolveFromDrivers($models);
+        }
 
         if ($tenant) {
             $this->events->dispatch(new Events\Identified($tenant));
@@ -93,5 +99,44 @@ class TenantResolver implements ResolvesTenants
         $this->models = $collection;
 
         return $this;
+    }
+
+    /**
+     * @param string $contract
+     * @param string $method
+     * @return $this
+     */
+    public function registerDriver(string $contract, string $method)
+    {
+        $this->drivers[$contract] = $method;
+
+        return $this;
+    }
+
+    /**
+     * @param TenantModelCollection $models
+     * @return Tenant
+     */
+    protected function resolveFromDrivers(TenantModelCollection $models): ?Tenant
+    {
+        $tenant = null;
+
+        $models
+            ->filterByContract(array_keys($this->drivers))
+            ->each(function (string $item) use (&$tenant) {
+                $implements = class_implements($item);
+                $drivers    = array_intersect($implements, array_keys($this->drivers));
+
+                foreach ($drivers as $driver) {
+                    $method = $this->drivers[$driver];
+                    $tenant = app()->call("$item@$method");
+
+                    if ($tenant) {
+                        return false;
+                    }
+                }
+            });
+
+        return $tenant;
     }
 }
