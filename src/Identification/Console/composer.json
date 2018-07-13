@@ -1,5 +1,5 @@
 {
-    "name": "tenancy/identification-driver-environment",
+    "name": "tenancy/identification-driver-console",
     "description": "The tenancy/tenancy identification driver for the console",
     "keywords": ["identification", "tenancy", "console"],
     "license": "MIT",
