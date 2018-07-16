@@ -58,6 +58,10 @@ jobs:
             - attach_workspace:
                 at: ./
             - run: ./vendor/bin/phpcs
+            - persist_to_workspace:
+                root: ./
+                paths:
+                    - vendor
     coverage:
         docker:
             - image: php:7.2
