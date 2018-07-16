@@ -52,6 +52,7 @@ jobs:
     style:
         docker:
             - image: php:7.2
+        working_directory: ~/repo
         steps:
             - checkout
             - attach_workspace:
@@ -60,6 +61,7 @@ jobs:
     coverage:
         docker:
             - image: php:7.2
+        working_directory: ~/repo
         steps:
             - checkout
             - attach_workspace:
