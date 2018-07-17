@@ -99,4 +99,9 @@ trait CreatesApplication
     {
         // ..
     }
+
+    protected function createSystemTable(string $table, \Closure $callback)
+    {
+        $this->getConnection()->getSchemaBuilder()->create($table, $callback);
+    }
 }

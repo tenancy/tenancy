@@ -2,9 +2,11 @@
 
 namespace Tenancy\Tests\Identification\Drivers\Http;
 
+use Illuminate\Database\Schema\Blueprint;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
+use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
 use Tenancy\Tests\TestCase;
 
@@ -16,39 +18,49 @@ class IdentifyByHttpTest extends TestCase
     /** @var User */
     protected $user;
 
-    /** @var Tenant */
-    protected $tenant;
+    /** @var Hostname */
+    protected $hostname;
 
     protected function afterSetUp()
     {
         /** @var ResolvesTenants $resolver */
         $resolver = $this->app->make(ResolvesTenants::class);
-        $resolver->addModel(Tenant::class);
+        $resolver->addModel(Hostname::class);
 
-        $this->tenant = factory(Tenant::class)->create();
+        $this->createSystemTable('hostnames', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('fqdn');
+            $table->timestamps();
+        });
+
+        $this->hostname = factory(Hostname::class)->create();
     }
 
     /**
      * @test
      */
-    public function request_identifies_tenant()
-    {
-        $this->assertFalse($this->environment->isIdentified());
-
-        $this->get('/' . $this->tenant->name);
-
-        $this->assertTrue($this->environment->isIdentified());
-
-        $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
-    }
-
     public function can_register_driver()
     {
+        /** @var ResolvesTenants $resolver */
         $resolver = $this->app->make(ResolvesTenants::class);
 
         $resolver->registerDriver(
             IdentifiesByHttp::class,
             'tenantIdentificationByHttp'
         );
+    }
+
+    /**
+     * @test
+     */
+    public function request_identifies_hostname()
+    {
+        $this->assertFalse($this->environment->isIdentified());
+
+        $this->get("http://" . $this->hostname->fqdn);
+
+        $this->assertTrue($this->environment->isIdentified());
+
+        $this->assertEquals($this->hostname->fqdn, optional($this->environment->getTenant())->fqdn);
     }
 }
