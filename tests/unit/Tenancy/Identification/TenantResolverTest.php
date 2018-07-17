@@ -17,6 +17,7 @@ namespace Tenancy\Tests\Unit\Identification;
 use Illuminate\Foundation\Auth\User;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
+use Tenancy\Identification\Support\TenantModelCollection;
 use Tenancy\Tests\Mocks\Tenant;
 use Tenancy\Tests\TestCase;
 
@@ -31,7 +32,7 @@ class TenantResolverTest extends TestCase
     protected function afterSetUp()
     {
         $this->resolver = $this->app->make(ResolvesTenants::class);
-        $this->tenant = factory(Tenant::class)->make();
+        $this->tenant   = factory(Tenant::class)->make();
     }
 
     /**
@@ -82,5 +83,16 @@ class TenantResolverTest extends TestCase
         $this->resolver->addModel(Tenant::class);
 
         $this->resolver->__invoke();
+    }
+
+    /**
+     * @test
+     */
+    public function register_valid_models()
+    {
+        $this->resolver->setModels(new TenantModelCollection([Tenant::class]));
+
+        $this->assertCount(1, $this->resolver->getModels());
+        $this->assertEquals(Tenant::class, $this->resolver->getModels()->first());
     }
 }

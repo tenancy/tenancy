@@ -33,6 +33,7 @@ class AllowTenantIdentificationTest extends TestCase
 
     /**
      * @test
+     * @covers \Tenancy\Identification\Concerns\AllowsTenantIdentification
      */
     public function has_required_methods()
     {

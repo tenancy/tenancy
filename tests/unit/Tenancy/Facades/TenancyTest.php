@@ -22,7 +22,9 @@ class TenancyTest extends TestCase
         $resolver->addModel(Tenant::class);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_proxy_environment_calls()
     {
         $this->assertNull(Tenancy::getTenant());

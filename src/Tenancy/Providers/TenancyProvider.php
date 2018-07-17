@@ -25,7 +25,6 @@ class TenancyProvider extends ServiceProvider
         Provides\ProvidesListeners,
         Provides\ProvidesMiddleware,
         Provides\ProvidesMigrations,
-        Provides\ProvidesServices,
         Provides\ProvidesEloquentConnections;
 
     public $singletons = [
