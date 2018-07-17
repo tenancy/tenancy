@@ -17,6 +17,7 @@ namespace Tenancy\Eloquent\Listeners;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Tenancy\Environment;
 
 class OverridesModelConnections
 {
@@ -43,14 +44,14 @@ class OverridesModelConnections
         }
 
         if (in_array($class, static::$forced['system'])) {
-            $model->setConnection(config('tenancy.database.system-connection-name'));
+            $model->setConnection(Environment::getDefaultSystemConnectionName());
         }
 
         if (config('tenancy.database.models-default-to-tenant-connection')) {
             $model->setConnection(config('tenancy.database.tenant-connection-name'));
         }
         if (config('tenancy.database.models-default-to-system-connection')) {
-            $model->setConnection(config('tenancy.database.system-connection-name'));
+            $model->setConnection(Environment::getDefaultSystemConnectionName());
         }
     }
 
