@@ -17,7 +17,7 @@ namespace Tenancy\Facades;
 use Illuminate\Support\Facades\Facade;
 use Tenancy\Environment;
 
-class TenancyFacade extends Facade
+class Tenancy extends Facade
 {
     protected static function getFacadeAccessor()
     {

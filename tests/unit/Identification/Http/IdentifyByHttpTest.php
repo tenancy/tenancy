@@ -4,7 +4,6 @@ namespace Tenancy\Tests\Identification\Drivers\Http;
 
 use Illuminate\Database\Schema\Blueprint;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
@@ -34,20 +33,6 @@ class IdentifyByHttpTest extends TestCase
         });
 
         $this->hostname = factory(Hostname::class)->create();
-    }
-
-    /**
-     * @test
-     */
-    public function can_register_driver()
-    {
-        /** @var ResolvesTenants $resolver */
-        $resolver = $this->app->make(ResolvesTenants::class);
-
-        $resolver->registerDriver(
-            IdentifiesByHttp::class,
-            'tenantIdentificationByHttp'
-        );
     }
 
     /**

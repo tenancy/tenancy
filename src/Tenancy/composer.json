@@ -30,7 +30,7 @@
                 "Tenancy\\Providers\\TenancyProvider"
             ],
             "aliases": {
-                "Tenancy": "Tenancy\\Facades\\TenancyFacade"
+                "Tenancy": "Tenancy\\Facades\\Tenancy"
             }
         }
     }
