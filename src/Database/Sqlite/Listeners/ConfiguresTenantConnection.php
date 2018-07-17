@@ -12,10 +12,10 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Mysql\Listeners;
+namespace Tenancy\Database\Drivers\Sqlite\Listeners;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Drivers\Mysql\Driver\Sqlite;
+use Tenancy\Database\Drivers\Sqlite\Driver\Sqlite;
 use Tenancy\Database\Events\Resolving;
 
 class ConfiguresTenantConnection

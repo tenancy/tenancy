@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/db-driver-sqlite",
+    "description": "The tenancy/tenancy database driver for sqlite",
+    "keywords": ["database", "tenancy", "sqlite"],
+    "license": "MIT",
+    "require": {
+        "tenancy/tenancy": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Database\\Drivers\\Sqlite\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Database\\Drivers\\Sqlite\\Providers\\DatabaseProvider"
+            ]
+        }
+    }
+}

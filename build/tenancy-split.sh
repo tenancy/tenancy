@@ -12,5 +12,6 @@ git subsplit publish --heads="master" src/Identification/Http:git@github.com:ten
 
 # Database drivers
 git subsplit publish --heads="master" src/Database/Mysql:git@github.com:tenancy/db-driver-mysql.git
+git subsplit publish --heads="master" src/Database/Sqlite:git@github.com:tenancy/db-driver-sqlite.git
 
 rm -rf .subsplit/
