@@ -74,6 +74,16 @@ jobs:
             - run: docker-php-ext-enable xdebug
             - run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
             - run: bash <(curl -s https://codecov.io/bash)
+    psalm:
+        docker:
+            - image: php:7.2
+        working_directory: ~/repo
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ./
+            - run: ./vendor/bin/psalm --show-info=false
+
 
 workflows:
     version: 2
@@ -85,6 +95,11 @@ workflows:
                 requires:
                     - "php-7.1"
                     - "php-7.2"
+            - psalm:
+                requires:
+                    - "php-7.1"
+                    - "php-7.2"
             - coverage:
                 requires:
                     - style
+                    - psalm
