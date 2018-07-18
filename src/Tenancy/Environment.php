@@ -85,10 +85,10 @@ class Environment
         );
     }
 
-    public function getSystemConnection(): ?Connection
+    public function getSystemConnection(Tenant $tenant = null): ?Connection
     {
         return $this->app['db']->connection(
-            optional($this->getTenant())->getManagingSystemConnection() ??
+            optional($tenant ?? $this->getTenant())->getManagingSystemConnection() ??
             static::getDefaultSystemConnectionName()
         );
     }
