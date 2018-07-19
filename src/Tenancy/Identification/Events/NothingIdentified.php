@@ -19,7 +19,7 @@ use Tenancy\Identification\Contracts\Tenant;
 class NothingIdentified
 {
     /**
-     * @var Tenant
+     * @var Tenant|null
      */
     public $tenant;
 

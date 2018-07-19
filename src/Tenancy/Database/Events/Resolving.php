@@ -19,15 +19,15 @@ use Tenancy\Identification\Contracts\Tenant;
 class Resolving
 {
     /**
-     * @var Tenant
+     * @var Tenant|null
      */
     public $tenant;
     /**
-     * @var string
+     * @var string|null
      */
     public $connection;
 
-    public function __construct(Tenant $tenant, string $connection = null)
+    public function __construct(Tenant $tenant = null, string $connection = null)
     {
         $this->tenant = $tenant;
         $this->connection = $connection;

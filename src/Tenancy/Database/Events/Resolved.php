@@ -20,19 +20,19 @@ use Tenancy\Identification\Contracts\Tenant;
 class Resolved
 {
     /**
-     * @var Tenant
+     * @var Tenant|null
      */
     public $tenant;
     /**
-     * @var ProvidesDatabase
+     * @var ProvidesDatabase|null
      */
     public $provider;
     /**
-     * @var string
+     * @var string|null
      */
     public $connection;
 
-    public function __construct(Tenant $tenant, string $connection = null, ProvidesDatabase &$provider = null)
+    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesDatabase &$provider = null)
     {
         $this->tenant = $tenant;
         $this->provider = &$provider;

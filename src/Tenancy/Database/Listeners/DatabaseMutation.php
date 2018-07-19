@@ -30,12 +30,18 @@ abstract class DatabaseMutation
 
     public function __construct(DatabaseResolver $resolver, Environment $environment)
     {
-        $this->driver = $resolver->__invoke($environment->getTenant());
-        $this->connection = $environment->getSystemConnection();
+        $tenant = $environment->getTenant();
+
+        $this->driver = $resolver->__invoke($tenant);
+        $this->connection = $environment->getSystemConnection($tenant);
     }
 
     protected function processRawStatements(array $statements = null)
     {
+        if ($statements === null) {
+            return;
+        }
+
         $this->connection->beginTransaction();
 
         foreach ($statements as $statement) {

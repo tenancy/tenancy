@@ -54,7 +54,7 @@ class Mysql implements ProvidesDatabase
      */
     public function update(Tenant $tenant): array
     {
-        // TODO: Implement update() method.
+        return [];
     }
 
     /**

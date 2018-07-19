@@ -18,12 +18,12 @@ use Tenancy\Tenant\Events\Updated;
 
 class AutoUpdating extends DatabaseMutation
 {
-    public function handle(Updated $updated)
+    public function handle(Updated $updated): ?array
     {
         if ($this->driver && config('tenancy.db.auto-update')) {
             return $this->driver->update($updated->tenant);
         }
 
-        return [];
+        return null;
     }
 }

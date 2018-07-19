@@ -48,6 +48,7 @@ class TenantResolver implements ResolvesTenants
 
     public function __invoke(): ?Tenant
     {
+        /** @var Tenant|null $tenant */
         $tenant = $this->events->until(new Events\Resolving($models = $this->getModels()));
 
         if (! $tenant) {

@@ -51,7 +51,20 @@ class Sqlite implements ProvidesDatabase
      */
     public function update(Tenant $tenant): array
     {
-        // TODO: Implement update() method.
+        $original = $tenant->newInstance($tenant->getOriginal());
+
+        $previous = $this->configure($original);
+
+        $config = $this->configure($tenant);
+
+        if ($previous['database'] !== $config['database']) {
+            rename(
+                database_path($previous['database']),
+                database_path($config['database'])
+            );
+        }
+
+        return [];
     }
 
     /**

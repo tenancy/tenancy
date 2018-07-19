@@ -26,7 +26,7 @@ trait ProvidesMiddleware
 
     protected function registerProvidesMiddleware()
     {
-        /** @var Kernel $kernel */
+        /** @var Kernel|\Illuminate\Foundation\Http\Kernel $kernel */
         $kernel = $this->app->make(Kernel::class);
 
         foreach ($this->middlewares as $key => $middleware) {

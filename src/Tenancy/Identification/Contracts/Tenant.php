@@ -27,7 +27,7 @@ interface Tenant
     /**
      * The actual value of the key for the tenant Model.
      *
-     * @return mixed
+     * @return string|int
      */
     public function getTenantKey();
 

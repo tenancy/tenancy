@@ -20,7 +20,7 @@ use Tenancy\Identification\Contracts\Tenant;
 class Identified
 {
     /**
-     * @var Tenant
+     * @var Tenant|null
      */
     public $tenant;
     /**
@@ -28,11 +28,11 @@ class Identified
      */
     public $provider;
     /**
-     * @var string
+     * @var string|null
      */
     public $connection;
 
-    public function __construct(Tenant $tenant, string $connection = null, ProvidesDatabase &$provider)
+    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesDatabase &$provider)
     {
         $this->tenant = $tenant;
         $this->provider = &$provider;

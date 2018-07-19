@@ -14,8 +14,8 @@
 
 namespace Tenancy;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Connection;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Traits\Macroable;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Contracts\ResolvesTenants;
@@ -25,7 +25,7 @@ class Environment
     use Macroable;
 
     /**
-     * @var Tenant
+     * @var Tenant|null
      */
     protected $tenant;
 
@@ -37,13 +37,13 @@ class Environment
     protected $identified = false;
 
     /**
-     * @var Application
+     * @var DatabaseManager
      */
-    private $app;
+    private $db;
 
-    public function __construct(Application $app)
+    public function __construct(DatabaseManager $db)
     {
-        $this->app = $app;
+        $this->db = $db;
     }
 
     public function setTenant(Tenant $tenant = null)
@@ -80,14 +80,14 @@ class Environment
 
     public function getTenantConnection(): ?Connection
     {
-        return $this->app['db']->connection(
+        return $this->db->connection(
             config('tenancy.database.tenant-connection-name')
         );
     }
 
-    public function getSystemConnection(Tenant $tenant = null): ?Connection
+    public function getSystemConnection(Tenant $tenant = null): Connection
     {
-        return $this->app['db']->connection(
+        return $this->db->connection(
             optional($tenant ?? $this->getTenant())->getManagingSystemConnection() ??
             static::getDefaultSystemConnectionName()
         );
