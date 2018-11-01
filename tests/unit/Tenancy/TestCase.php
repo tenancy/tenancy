@@ -18,7 +18,6 @@ use Illuminate\Foundation\Testing;
 
 class TestCase extends Testing\TestCase
 {
-
     use Concerns\CreatesApplication,
         Concerns\InteractsWithTenants,
         Concerns\MocksApplicationServices,

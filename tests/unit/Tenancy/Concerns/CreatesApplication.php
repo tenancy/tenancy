@@ -56,10 +56,12 @@ trait CreatesApplication
         $appPaths[] = realpath(__DIR__.'/../../../../vendor/laravel/laravel');
 
         foreach ($appPaths as $path) {
-            $path = "$path/bootstrap/app.php";
+            $bootstrap = "$path/bootstrap/app.php";
 
-            if (file_exists($path)) {
-                $app = require $path;
+            if (file_exists($bootstrap)) {
+                $this->injectServiceProvider($path);
+
+                $app = require $bootstrap;
                 break;
             }
         }
@@ -103,5 +105,16 @@ trait CreatesApplication
     protected function createSystemTable(string $table, \Closure $callback)
     {
         $this->getConnection()->getSchemaBuilder()->create($table, $callback);
+    }
+
+    protected function injectServiceProvider(string $base)
+    {
+        $config = include "$base/config/app.php";
+
+        if (!in_array(TenancyProvider::class, $config['providers'])) {
+            array_unshift($config['providers'], TenancyProvider::class);
+
+            file_put_contents("$base/config/app.php", sprintf('<?php return %s;', var_export($config, true)));
+        }
     }
 }
