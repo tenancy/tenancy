@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the tenancy/db-driver-mariadb package.
+ * This file is part of the tenancy/tenancy package.
  *
  * (c) Daniël Klabbers <daniel@klabbers.email>
  *

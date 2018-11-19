@@ -81,7 +81,7 @@ trait CreatesApplication
     {
         $this->app->register(TenancyProvider::class);
 
-        foreach($this->additionalProviders as $provider) {
+        foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
 
@@ -89,7 +89,7 @@ trait CreatesApplication
         $factory = $this->app->make(Factory::class);
         $factory->load(__DIR__ . '/../Mocks/factories/');
 
-        foreach($this->additionalMocks as $mock) {
+        foreach ($this->additionalMocks as $mock) {
             $factory->load($mock);
         }
 
