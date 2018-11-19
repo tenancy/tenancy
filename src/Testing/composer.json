@@ -4,12 +4,11 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.7.*",
-        "psr/container": "^1.0.0"
+        "tenancy/tenancy": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\": ""
+            "Tenancy\\Testing\\": ""
         }
     },
     "authors": [
@@ -18,17 +17,5 @@
             "email": "daniel@klabbers.email",
             "homepage": "http://luceos.com"
         }
-    ],
-    "scripts": {
-        "test": [
-            "vendor/bin/phpunit"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "aliases": {
-                "Tenancy": "Tenancy\\Facades\\Tenancy"
-            }
-        }
-    }
+    ]
 }
