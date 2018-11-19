@@ -1,5 +1,5 @@
 {
-    "name": "tenancy/tenancy",
+    "name": "tenancy/framework",
     "description": "Creating multi tenant saas from your Laravel app with ease",
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
