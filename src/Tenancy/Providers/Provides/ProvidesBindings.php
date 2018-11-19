@@ -6,8 +6,8 @@ trait ProvidesBindings
 {
     protected function registerProvidesBindings()
     {
-        foreach ($this->singletons as $singleton) {
-            $this->app->singleton($singleton);
+        foreach ($this->singletons as $contract => $singleton) {
+            $this->app->singleton($contract, $singleton);
         }
     }
 }
