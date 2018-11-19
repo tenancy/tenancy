@@ -21,7 +21,8 @@ use Tenancy\Identification\TenantResolver;
 
 class TenancyProvider extends ServiceProvider
 {
-    use Provides\ProvidesConfig,
+    use Provides\ProvidesBindings,
+        Provides\ProvidesConfig,
         Provides\ProvidesEloquent,
         Provides\ProvidesListeners,
         Provides\ProvidesMiddleware,
