@@ -16,7 +16,7 @@ namespace Tenancy\Tests\Unit\Identification\Middleware;
 
 use Illuminate\Http\Request;
 use Tenancy\Identification\Middleware\EagerIdentification;
-use Tenancy\Tests\TestCase;
+use Tenancy\Testing\TestCase;
 
 class EagerIdentificationTest extends TestCase
 {

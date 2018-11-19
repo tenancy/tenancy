@@ -12,7 +12,7 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Concerns;
+namespace Tenancy\Testing\Concerns;
 
 trait InteractsWithTenants
 {

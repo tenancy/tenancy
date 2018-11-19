@@ -12,7 +12,7 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Mocks;
+namespace Tenancy\Testing\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;

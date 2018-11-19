@@ -13,7 +13,7 @@
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Mocks\Tenant;
+use Tenancy\Testing\Mocks\Tenant;
 
 /*
 |--------------------------------------------------------------------------

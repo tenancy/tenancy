@@ -6,8 +6,8 @@ use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
-use Tenancy\Tests\Mocks\Tenant;
-use Tenancy\Tests\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class TenancyTest extends TestCase
 {

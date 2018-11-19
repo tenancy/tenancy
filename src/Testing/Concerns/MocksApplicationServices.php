@@ -12,7 +12,7 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Concerns;
+namespace Tenancy\Testing\Concerns;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;

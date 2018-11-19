@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Identification\Contracts\Tenant as Contract;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 
-class Tenant extends \Tenancy\Tests\Mocks\Tenant implements IdentifiesByConsole
+class Tenant extends \Tenancy\Testing\Mocks\Tenant implements IdentifiesByConsole
 {
     /**
      * Specify whether the tenant model is matching the request.

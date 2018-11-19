@@ -5,9 +5,9 @@ namespace Tenancy\Tests\Identification\Drivers\Http;
 use Illuminate\Database\Schema\Blueprint;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
+use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
-use Tenancy\Tests\TestCase;
 
 class IdentifyByHttpTest extends TestCase
 {

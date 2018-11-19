@@ -12,7 +12,7 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Concerns;
+namespace Tenancy\Testing\Concerns;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -52,8 +52,10 @@ trait CreatesApplication
             $appPaths[] = realpath(getenv('CI_PROJECT_DIR').'/vendor/laravel/laravel');
         }
 
-        $appPaths[] = realpath(__DIR__.'/../../../../');
-        $appPaths[] = realpath(__DIR__.'/../../../../vendor/laravel/laravel');
+        // inside vendor
+        $appPaths[] = realpath(__DIR__ . '/../../framework/');
+        // as a framework
+        $appPaths[] = realpath(__DIR__ . '/../../../vendor/laravel/laravel');
 
         foreach ($appPaths as $path) {
             $bootstrap = "$path/bootstrap/app.php";

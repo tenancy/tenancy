@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\TestCase;
+use Tenancy\Testing\TestCase;
 
 class AllowTenantIdentificationTest extends TestCase
 {

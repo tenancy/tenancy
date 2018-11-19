@@ -12,7 +12,7 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests;
+namespace Tenancy\Testing;
 
 use Illuminate\Foundation\Testing;
 

@@ -4,8 +4,8 @@ namespace Tenancy\Tests\Identification\Drivers\Http;
 
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Environment\Providers\IdentificationProvider;
+use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Identification\Drivers\Environment\Mocks\Tenant;
-use Tenancy\Tests\TestCase;
 
 class IdentifyByEnvironmentTest extends TestCase
 {

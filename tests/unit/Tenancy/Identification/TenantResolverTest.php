@@ -18,8 +18,8 @@ use Illuminate\Foundation\Auth\User;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Support\TenantModelCollection;
-use Tenancy\Tests\Mocks\Tenant;
-use Tenancy\Tests\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class TenantResolverTest extends TestCase
 {
