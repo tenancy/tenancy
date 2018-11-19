@@ -22,6 +22,7 @@ use Tenancy\Identification\TenantResolver;
 class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesConfig,
+        Provides\ProvidesEloquent,
         Provides\ProvidesListeners,
         Provides\ProvidesMiddleware,
         Provides\ProvidesMigrations;
@@ -33,31 +34,20 @@ class TenancyProvider extends ServiceProvider
 
     public function register()
     {
-        $this->registerTenantTraits();
+        $this->runTrait('register');
     }
 
     public function boot()
     {
-        $this->bootTenantTraits();
+        $this->runTrait('boot');
     }
 
-    protected function registerTenantTraits()
+    protected function runTrait(string $runtime)
     {
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = 'register' . class_basename($trait))) {
-                call_user_func([$this, $method]);
-            }
-        }
-    }
-
-    protected function bootTenantTraits()
-    {
-        $class = static::class;
-
-        foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = 'boot' . class_basename($trait))) {
+            if (method_exists($class, $method = $runtime . class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
         }
