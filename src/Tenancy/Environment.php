@@ -70,9 +70,12 @@ class Environment
 
     public function getTenantConnection(): ?Connection
     {
-        return $this->db()->connection(
-            config('tenancy.database.tenant-connection-name')
-        );
+        return $this->db()->connection(static::getTenantConnectionName());
+    }
+
+    public static function getTenantConnectionName(): string
+    {
+        return config('tenancy.database.tenant-connection-name', 'tenant');
     }
 
     public function getSystemConnection(Tenant $tenant = null): Connection
