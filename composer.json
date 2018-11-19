@@ -33,6 +33,8 @@
     "replace": {
         "tenancy/tenancy": "self.version",
         "tenancy/database-driver-mysql": "self.version",
+        "tenancy/database-driver-sqlite": "self.version",
+        "tenancy/identification-driver-console": "self.version",
         "tenancy/identification-driver-environment": "self.version",
         "tenancy/identification-driver-http": "self.version"
     },
