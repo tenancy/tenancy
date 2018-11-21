@@ -36,6 +36,8 @@ class TenancyProvider extends ServiceProvider
     public function register()
     {
         $this->runTrait('register');
+
+        $this->app->register(TenantProvider::class);
     }
 
     public function boot()
@@ -52,5 +54,13 @@ class TenancyProvider extends ServiceProvider
                 call_user_func([$this, $method]);
             }
         }
+    }
+
+    public function provides()
+    {
+        return [
+            Environment::class,
+            ResolvesTenants::class,
+        ];
     }
 }

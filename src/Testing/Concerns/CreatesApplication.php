@@ -79,8 +79,6 @@ trait CreatesApplication
 
     protected function bootTenancy()
     {
-        $this->app->register(TenancyProvider::class);
-
         foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
