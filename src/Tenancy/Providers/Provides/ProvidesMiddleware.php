@@ -30,7 +30,7 @@ trait ProvidesMiddleware
         $kernel = $this->app->make(Kernel::class);
 
         foreach ($this->middlewares as $key => $middleware) {
-            if (is_int($key) ||  (is_string($key) && config($key))) {
+            if (is_int($key) || (is_string($key) && config($key))) {
                 $kernel->prependMiddleware($middleware);
             }
         }

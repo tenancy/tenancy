@@ -25,8 +25,7 @@ class TenancyProvider extends ServiceProvider
         Provides\ProvidesConfig,
         Provides\ProvidesEloquent,
         Provides\ProvidesListeners,
-        Provides\ProvidesMiddleware,
-        Provides\ProvidesMigrations;
+        Provides\ProvidesMiddleware;
 
     public $singletons = [
         Environment::class => Environment::class,
