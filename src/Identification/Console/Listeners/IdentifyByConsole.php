@@ -14,6 +14,7 @@
 
 namespace Tenancy\Identification\Drivers\Console\Listeners;
 
+use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Events\Resolving;
@@ -22,6 +23,10 @@ class IdentifyByConsole
 {
     public function handle(Resolving $event): ?Tenant
     {
+        if (! app()->runningInConsole() || !app()->bound(InputInterface::class)) {
+            return;
+        }
+
         $models = $event->models->filterByContract(IdentifiesByConsole::class);
 
         if ($models->isEmpty()) {
