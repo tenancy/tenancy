@@ -24,7 +24,7 @@ class IdentifyByConsole
     public function handle(Resolving $event): ?Tenant
     {
         if (! app()->runningInConsole() || !app()->bound(InputInterface::class)) {
-            return;
+            return null;
         }
 
         $models = $event->models->filterByContract(IdentifiesByConsole::class);
