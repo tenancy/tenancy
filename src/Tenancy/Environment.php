@@ -14,11 +14,13 @@
 
 namespace Tenancy;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Connection;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Traits\Macroable;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Events\Switched;
 
 class Environment
 {
@@ -39,6 +41,8 @@ class Environment
     public function setTenant(Tenant $tenant = null)
     {
         $this->tenant = $tenant;
+
+        $this->event()->push(new Switched($tenant));
 
         return $this;
     }
@@ -94,5 +98,10 @@ class Environment
     protected function db(): DatabaseManager
     {
         return resolve('db');
+    }
+
+    protected function event(): Dispatcher
+    {
+        return resolve('event');
     }
 }
