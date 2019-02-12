@@ -102,6 +102,6 @@ class Environment
 
     protected function event(): Dispatcher
     {
-        return resolve('event');
+        return resolve('events');
     }
 }
