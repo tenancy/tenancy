@@ -18,5 +18,4 @@ use Tenancy\Testing\TestCase;
 
 class IdentifyInQueueTest extends TestCase
 {
-
 }
