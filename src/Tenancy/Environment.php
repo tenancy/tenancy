@@ -42,7 +42,7 @@ class Environment
     {
         $this->tenant = $tenant;
 
-        $this->event()->push(new Switched($tenant));
+        $this->event()->dispatch(new Switched($tenant));
 
         return $this;
     }
