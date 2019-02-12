@@ -44,6 +44,10 @@ class Environment
 
         $this->event()->dispatch(new Switched($tenant));
 
+        if (! $this->identified) {
+            $this->identified = true;
+        }
+
         return $this;
     }
 
