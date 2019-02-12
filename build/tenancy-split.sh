@@ -9,6 +9,7 @@ git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/tenancy
 git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
 git subsplit publish --heads="master" src/Identification/Environment:git@github.com:tenancy/identification-driver-environment.git
 git subsplit publish --heads="master" src/Identification/Http:git@github.com:tenancy/identification-driver-http.git
+git subsplit publish --heads="master" src/Identification/Queue:git@github.com:tenancy/identification-driver-queue.git
 
 # Database drivers
 git subsplit publish --heads="master" src/Database/Mysql:git@github.com:tenancy/db-driver-mysql.git
