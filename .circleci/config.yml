@@ -71,10 +71,7 @@ jobs:
               paths:
               - vendor/
         - run: ./vendor/bin/phpunit
-        - persist_to_workspace:
-              root: ./
-              paths:
-              - vendor
+
     style:
         docker:
             - image: php:7.2
