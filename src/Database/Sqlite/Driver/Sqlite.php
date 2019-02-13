@@ -15,6 +15,7 @@
 namespace Tenancy\Database\Drivers\Sqlite\Driver;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Sqlite implements ProvidesDatabase
@@ -28,6 +29,8 @@ class Sqlite implements ProvidesDatabase
         $config = config('db-driver-sqlite.preset', []);
 
         $config['database'] = $tenant->getTenantKey();
+
+        event(new Configuring($tenant, $config, $this));
 
         return $config;
     }

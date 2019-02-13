@@ -15,6 +15,7 @@
 namespace Tenancy\Database\Drivers\Mysql\Driver;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
@@ -29,6 +30,8 @@ class Mysql implements ProvidesDatabase
 
         $config['database'] = $config['username'] = $tenant->getTenantKey();
         $config['password'] = md5($tenant->getTenantKey() . config('app.key'));
+
+        event(new Configuring($tenant, $config, $this));
 
         return $config;
     }

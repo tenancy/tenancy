@@ -15,14 +15,14 @@
 namespace Tenancy\Database\Events\Drivers;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Configuring
 {
     /**
-     * @var string
+     * @var Tenant
      */
-    public $name;
-
+    private $tenant;
     /**
      * @var array
      */
@@ -32,9 +32,9 @@ class Configuring
      */
     public $provider;
 
-    public function __construct(string $name, array &$configuration, ProvidesDatabase $provider)
+    public function __construct(Tenant $tenant, array &$configuration, ProvidesDatabase $provider)
     {
-        $this->name = $name;
+        $this->tenant = $tenant;
         $this->configuration = &$configuration;
         $this->provider = $provider;
     }
