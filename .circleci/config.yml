@@ -85,6 +85,15 @@ jobs:
                 root: ./
                 paths:
                     - vendor
+    phpstan:
+        docker:
+        - image: php:7.2
+        working_directory: ~/repo
+        steps:
+        - checkout
+        - attach_workspace:
+              at: ./
+        - run: ./vendor/bin/phpstan analyse
     coverage:
         docker:
             - image: php:7.2
@@ -110,6 +119,12 @@ workflows:
                     - "php-7.1"
                     - "php-7.2"
                     - "php-7.3"
+            - phpstan:
+                  requires:
+                  - "php-7.1"
+                  - "php-7.2"
+                  - "php-7.3"
             - coverage:
                 requires:
                     - style
+                    - phpstan

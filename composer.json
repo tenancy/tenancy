@@ -12,7 +12,8 @@
         "laravel/laravel": "5.7.*",
         "phpunit/phpunit": "^7.0",
         "mockery/mockery": "^1.0",
-        "squizlabs/php_codesniffer": "^3.3"
+        "squizlabs/php_codesniffer": "^3.3",
+        "nunomaduro/larastan": "^0.3.15"
     },
     "autoload": {
         "psr-4": {
