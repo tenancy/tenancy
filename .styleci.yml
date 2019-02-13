@@ -1,0 +1,4 @@
+preset: psr-2
+
+enabled:
+    - declare_strict_types
