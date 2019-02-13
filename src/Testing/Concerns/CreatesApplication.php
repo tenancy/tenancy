@@ -49,7 +49,7 @@ trait CreatesApplication
         $app = null;
 
         if (getenv('CI_PROJECT_DIR')) {
-            $appPaths[] = realpath(getenv('CI_PROJECT_DIR').'/vendor/laravel/laravel');
+            $appPaths[] = realpath(getenv('CI_PROJECT_DIR') . '/vendor/laravel/laravel');
         }
 
         // inside vendor
