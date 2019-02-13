@@ -26,8 +26,11 @@
     },
     "extra": {
         "laravel": {
+            "providers": [
+                "Tenancy\\Providers\\TenancyProvider"
+            ],
             "aliases": {
-                "Tenancy": "Tenancy\\Facades\\Tenancy"
+                "Tenancy": "Tenancy\\Facades\\TenancyFacade"
             }
         }
     }
