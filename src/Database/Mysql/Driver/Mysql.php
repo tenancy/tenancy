@@ -20,13 +20,17 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
 {
-    public function configure(Tenant $tenant): array
+    public function configure(Tenant $tenant, $checkDirty = false): array
     {
         if ($name = config('db-driver-mysql.use-connection')) {
             return config("database.connections.$name");
         }
 
         $config = config('db-driver-mysql.preset', []);
+
+        if($checkDirty && $tenant->isDirty($tenant->getTenantKeyName())){
+            $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
+        }
 
         $config['database'] = $config['username'] = $tenant->getTenantKey();
         $config['password'] = md5($tenant->getTenantKey() . config('app.key'));
@@ -57,7 +61,14 @@ class Mysql implements ProvidesDatabase
      */
     public function update(Tenant $tenant): array
     {
-        return [];
+        $config = $this->configure($tenant, true);
+
+        if(!isset($config['oldUsername'])){
+            return null;
+        }
+        return [
+            'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
+        ];
     }
 
     /**
