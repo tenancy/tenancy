@@ -23,7 +23,7 @@ trait ProvidesEloquent
     {
         $this->app->resolving('db', function (DatabaseManager $manager) {
             if (config('tenancy.models-default-to-tenant-connection')) {
-                $manager->setDefaultConnection(config('tenancy.database.tenant-connection-name'));
+                $manager->setDefaultConnection(Environment::getTenantConnectionName());
             }
 
             if (config('tenancy.models-default-to-system-connection')) {
