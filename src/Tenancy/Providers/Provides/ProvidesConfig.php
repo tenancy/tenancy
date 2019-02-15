@@ -29,6 +29,14 @@ trait ProvidesConfig
             );
         }
 
-        $this->addPublishGroup('tenancy', array_keys($this->configs));
+        $this->addPublishGroup('tenancy', $this->formatConfigsForPublishGroup($this->configs));
+    }
+    protected function formatConfigsForPublishGroup(array $array)
+    {
+        $formattedArray = [];
+        foreach($array as $path => $key){
+            $formattedArray += [$key => config_path().'/'.$value.'.php'];
+        }
+        return $formattedArray;
     }
 }
