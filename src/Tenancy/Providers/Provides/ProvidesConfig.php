@@ -35,7 +35,7 @@ trait ProvidesConfig
     {
         $formattedArray = [];
         foreach($array as $path => $key){
-            $formattedArray += [$key => config_path().'/'.$value.'.php'];
+            $formattedArray += [$key => config_path($value.'.php')];
         }
         return $formattedArray;
     }
