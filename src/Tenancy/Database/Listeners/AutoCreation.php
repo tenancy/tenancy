@@ -20,7 +20,7 @@ class AutoCreation extends DatabaseMutation
 {
     public function handle(Created $created): ?array
     {
-        if ($this->driver && config('tenancy.db.auto-create')) {
+        if ($this->driver && config('tenancy.database.auto-create')) {
             return $this->driver->create($created->tenant);
         }
 
