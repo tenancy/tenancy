@@ -34,7 +34,7 @@ trait ProvidesConfig
     protected function formatConfigsForPublishGroup(array $array)
     {
         $formattedArray = [];
-        foreach($array as $path => $key) {
+        foreach ($array as $path => $key) {
             $formattedArray += [$path => config_path($key.'.php')];
         }
         return $formattedArray;
