@@ -64,7 +64,7 @@ class Mysql implements ProvidesDatabase
         $config = $this->configure($tenant, true);
 
         if(!isset($config['oldUsername'])){
-            return null;
+            return [];
         }
         return [
             'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
