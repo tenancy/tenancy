@@ -20,7 +20,7 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
 {
-    public function configure(Tenant $tenant, $checkDirty = false): array
+    public function configure(Tenant $tenant): array
     {
         if ($name = config('db-driver-mysql.use-connection')) {
             return config("database.connections.$name");
@@ -28,7 +28,7 @@ class Mysql implements ProvidesDatabase
 
         $config = config('db-driver-mysql.preset', []);
 
-        if($checkDirty && $tenant->isDirty($tenant->getTenantKeyName())){
+        if($tenant->isDirty($tenant->getTenantKeyName())){
             $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
         }
 
@@ -61,7 +61,7 @@ class Mysql implements ProvidesDatabase
      */
     public function update(Tenant $tenant): array
     {
-        $config = $this->configure($tenant, true);
+        $config = $this->configure($tenant);
 
         if(!isset($config['oldUsername'])){
             return [];
