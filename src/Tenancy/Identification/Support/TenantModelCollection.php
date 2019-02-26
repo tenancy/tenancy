@@ -15,6 +15,7 @@
 namespace Tenancy\Identification\Support;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 
 class TenantModelCollection extends Collection
 {
@@ -24,7 +25,7 @@ class TenantModelCollection extends Collection
      */
     public function filterByContract($contracts)
     {
-        $contracts = array_wrap($contracts);
+        $contracts = Arr::wrap($contracts);
 
         return $this->filter(function (string $item) use ($contracts) {
             $implements = class_implements($item);
