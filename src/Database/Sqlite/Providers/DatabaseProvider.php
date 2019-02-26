@@ -28,7 +28,7 @@ class DatabaseProvider extends EventServiceProvider
 
     public function register()
     {
-        $this->publishes([__DIR__ . '/../resources/config/db-driver-sqlite.php'], 'db-driver-sqlite');
+        $this->publishes([__DIR__ . '/../resources/config/db-driver-sqlite.php' => config_path('db-driver-sqlite.php')], "db-driver-sqlite");
 
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/db-driver-sqlite.php', 'db-driver-sqlite');
     }
