@@ -18,10 +18,10 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
-class TenantProvider extends ServiceProvider
+class TenantProvider extends ServiceProvider implements DeferrableProvider
 {
-    protected $defer = true;
 
     public function boot()
     {
