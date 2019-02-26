@@ -22,7 +22,6 @@ use Illuminate\Contracts\Support\DeferrableProvider;
 
 class TenantProvider extends ServiceProvider implements DeferrableProvider
 {
-
     public function boot()
     {
         $this->app->bind(Tenant::class, function (Application $app) {
