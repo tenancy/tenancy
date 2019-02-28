@@ -5,8 +5,7 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "5.8.*",
-        "psr/container": "^1.0.0",
-        "laravel/helpers": "^1.0"
+        "psr/container": "^1.0.0"
     },
     "autoload": {
         "psr-4": {
