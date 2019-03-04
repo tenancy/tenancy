@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-git subsplit init git@github.com:tenancy/framework.git
+git subsplit init git@github.com:tenancy/tenancy.git
 
 # Tenancy.
-git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/tenancy.git
+git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/framework.git
 
 # Identification drivers
 git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
