@@ -28,6 +28,10 @@ class Mysql implements ProvidesDatabase
 
         $config = config('db-driver-mysql.preset', []);
 
+        if($tenant->isDirty($tenant->getTenantKeyName())){
+            $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
+        }
+
         $config['database'] = $config['username'] = $tenant->getTenantKey();
         $config['password'] = md5($tenant->getTenantKey() . config('app.key'));
 
@@ -57,7 +61,14 @@ class Mysql implements ProvidesDatabase
      */
     public function update(Tenant $tenant): array
     {
-        return [];
+        $config = $this->configure($tenant);
+
+        if(!isset($config['oldUsername'])){
+            return [];
+        }
+        return [
+            'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
+        ];
     }
 
     /**
