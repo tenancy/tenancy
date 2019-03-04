@@ -28,7 +28,7 @@ class Mysql implements ProvidesDatabase
 
         $config = config('db-driver-mysql.preset', []);
 
-        if($tenant->isDirty($tenant->getTenantKeyName())){
+        if ($tenant->isDirty($tenant->getTenantKeyName())) {
             $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
         }
 
@@ -63,7 +63,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        if(!isset($config['oldUsername'])){
+        if (!isset($config['oldUsername'])) {
             return [];
         }
         return [
