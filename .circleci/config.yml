@@ -94,6 +94,17 @@ jobs:
         - attach_workspace:
               at: ./
         - run: ./vendor/bin/phpstan analyse
+
+    psalm:
+        docker:
+        - image: php:7.2
+        working_directory: ~/repo
+        steps:
+        - checkout
+        - attach_workspace:
+              at: ./
+        - run: ./vendor/bin/psalm --show-info=false
+
     coverage:
         docker:
             - image: php:7.2
