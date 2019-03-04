@@ -20,7 +20,7 @@ class AutoDeletion extends DatabaseMutation
 {
     public function handle(Deleted $deleted): ?array
     {
-        if ($this->driver && config('tenancy.db.auto-delete')) {
+        if ($this->driver && config('tenancy.database.auto-delete')) {
             return $this->driver->delete($deleted->tenant);
         }
 
