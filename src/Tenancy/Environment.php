@@ -54,9 +54,7 @@ class Environment
     public function getTenant(bool $refresh = false): ?Tenant
     {
         if (! $this->identified || $refresh) {
-            $this->setTenant(
-                app(ResolvesTenants::class)->__invoke()
-            );
+            $this->setTenant($this->resolver()->__invoke());
 
             $this->identified = true;
         }
@@ -107,5 +105,10 @@ class Environment
     protected function event(): Dispatcher
     {
         return resolve('events');
+    }
+
+    protected function resolver(): ResolvesTenants
+    {
+        return resolve(ResolvesTenants::class);
     }
 }

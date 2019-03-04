@@ -8,6 +8,20 @@ backing its development over at [OpenCollective](https://opencollective.com/tena
 [![CircleCI](https://circleci.com/gh/tenancy/framework.svg?style=svg)](https://circleci.com/gh/tenancy/framework)
 [![codecov](https://codecov.io/gh/tenancy/framework/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/framework)
 
+# installation
+
+Installation of the full package can be done using:
+
+```bash
+$ composer require tenancy/tenancy
+```
+
+In case you only want to use the bare necessities, use the framework:
+
+```bash
+$ composer require tenancy/framework
+```
+
 # development
 
 This repository is used for developing all tenancy packages.
@@ -15,7 +29,7 @@ This repository is used for developing all tenancy packages.
 Contributors need to use this repository for implementing code. All other repositories
 are READ-ONLY and overwritten on each subsplit push.
 
-# subsplitting
+## subsplitting
 
 Subsplitting is the ability to push code from subdirectories into their own repository.
 By maintaining one monolith for the framework we can easily build, test and deploy

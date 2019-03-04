@@ -21,7 +21,6 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Identification\\Drivers\\Environment\\Providers\\ConsoleProvider",
                 "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider"
             ]
         }

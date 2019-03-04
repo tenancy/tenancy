@@ -33,7 +33,7 @@ class TestCase extends Testing\TestCase
         // ..
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -41,7 +41,7 @@ class TestCase extends Testing\TestCase
         $this->afterSetUp();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->beforeTearDown();
         $this->tearDownTenancy();

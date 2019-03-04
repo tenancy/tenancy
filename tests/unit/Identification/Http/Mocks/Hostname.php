@@ -14,10 +14,11 @@
 
 namespace Tenancy\Tests\Identification\Drivers\Http\Mocks;
 
+use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
-use Tenancy\Identification\Drivers\Http\Models\Hostname as HostnameAbstract;
+use Tenancy\Identification\Contracts\Tenant;
 
-class Hostname extends HostnameAbstract
+class Hostname extends Model implements Tenant
 {
     use AllowsTenantIdentification;
 }
