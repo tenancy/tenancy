@@ -10,9 +10,7 @@ backing its development over at [OpenCollective](https://opencollective.com/tena
 
 # development
 
-This repository is used for developing all tenancy packages. In case you're looking for the
-related issues, check the [tenancy/tenancy](https://github.com/tenancy/tenancy) repository
-instead.
+This repository is used for developing all tenancy packages.
 
 Contributors need to use this repository for implementing code. All other repositories
 are READ-ONLY and overwritten on each subsplit push.
