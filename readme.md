@@ -5,8 +5,8 @@ in development. Feel free to show support by starring the project
 following progress via [twitter](https://twitter.com/laraveltenancy) and
 backing its development over at [OpenCollective](https://opencollective.com/tenancy).
 
-[![CircleCI](https://circleci.com/gh/tenancy/framework.svg?style=svg)](https://circleci.com/gh/tenancy/framework)
-[![codecov](https://codecov.io/gh/tenancy/framework/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/framework)
+[![CircleCI](https://circleci.com/gh/tenancy/tenancy.svg?style=svg)](https://circleci.com/gh/tenancy/tenancy)
+[![codecov](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
 
 # installation
 
