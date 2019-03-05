@@ -18,10 +18,14 @@ use Tenancy\Tenant\Events\Deleted;
 
 class AutoDeletion extends DatabaseMutation
 {
-    public function handle(Deleted $deleted): ?array
+    /**
+     * @param Deleted $event
+     * @return array|null
+     */
+    public function statements($event): ?array
     {
         if ($this->driver && config('tenancy.database.auto-delete')) {
-            return $this->driver->delete($deleted->tenant);
+            return $this->driver->delete($event->tenant);
         }
 
         return null;

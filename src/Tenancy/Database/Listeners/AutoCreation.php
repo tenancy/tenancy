@@ -18,10 +18,14 @@ use Tenancy\Tenant\Events\Created;
 
 class AutoCreation extends DatabaseMutation
 {
-    public function handle(Created $created): ?array
+    /**
+     * @param Created $event
+     * @return array|null
+     */
+    public function statements($event): ?array
     {
         if ($this->driver && config('tenancy.database.auto-create')) {
-            return $this->driver->create($created->tenant);
+            return $this->driver->create($event->tenant);
         }
 
         return null;

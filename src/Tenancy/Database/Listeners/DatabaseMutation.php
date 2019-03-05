@@ -36,12 +36,17 @@ abstract class DatabaseMutation
         $this->connection = $environment->getSystemConnection($tenant);
     }
 
-    protected function processRawStatements(array $statements = null)
+    public function handle($event)
     {
-        if ($statements === null) {
-            return;
-        }
+        $statements = $this->statements($event);
 
+        if ($statements) {
+            $this->processRawStatements($statements);
+        }
+    }
+
+    protected function processRawStatements(array $statements)
+    {
         $this->connection->beginTransaction();
 
         foreach ($statements as $statement) {
@@ -50,4 +55,6 @@ abstract class DatabaseMutation
 
         $this->connection->commit();
     }
+
+    abstract protected function statements($event): ?array;
 }
