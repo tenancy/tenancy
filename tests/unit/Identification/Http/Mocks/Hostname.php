@@ -15,10 +15,23 @@
 namespace Tenancy\Tests\Identification\Drivers\Http\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 
-class Hostname extends Model implements Tenant
+class Hostname extends Model implements Tenant, IdentifiesByHttp
 {
     use AllowsTenantIdentification;
+
+    /**
+     * Specify whether the tenant model is matching the request.
+     *
+     * @param Request $request
+     * @return Tenant
+     */
+    public function tenantIdentificationByHttp(Request $request): ?Tenant
+    {
+        return $this->newQuery()->where('fqdn', $request->getHost())->first();
+    }
 }

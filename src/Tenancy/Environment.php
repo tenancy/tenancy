@@ -55,6 +55,7 @@ class Environment
     {
         if (! $this->identified || $refresh) {
             $resolver = $this->resolver();
+
             $this->setTenant($resolver());
 
             $this->identified = true;

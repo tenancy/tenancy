@@ -35,7 +35,7 @@ class IdentifyByHttpTest extends TestCase
     protected function afterSetUp()
     {
         /** @var ResolvesTenants $resolver */
-        $resolver = $this->app->make(ResolvesTenants::class);
+        $resolver = resolve(ResolvesTenants::class);
         $resolver->addModel(Hostname::class);
 
         $this->createSystemTable('hostnames', function (Blueprint $table) {
