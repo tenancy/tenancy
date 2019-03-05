@@ -33,7 +33,7 @@ class IdentifyByEnvironmentTest extends TestCase
     protected function afterSetUp()
     {
         /** @var ResolvesTenants $resolver */
-        $resolver = $this->app->make(ResolvesTenants::class);
+        $resolver = resolve(ResolvesTenants::class);
         $resolver->addModel(Tenant::class);
 
         $this->tenant = factory(Tenant::class)->create();
@@ -48,7 +48,6 @@ class IdentifyByEnvironmentTest extends TestCase
 
         $this->assertTrue(putenv('TENANT_NAME=' . $this->tenant->name));
         $this->assertEquals($this->tenant->name, env('TENANT_NAME'));
-
         $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
 
         $this->assertTrue($this->environment->isIdentified());

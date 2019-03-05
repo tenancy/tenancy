@@ -14,20 +14,16 @@
 
 namespace Tenancy\Identification;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Traits\Macroable;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Support\TenantModelCollection;
 
 class TenantResolver implements ResolvesTenants
 {
-    use Macroable;
-
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
+    use DispatchesEvents,
+        Macroable;
 
     /**
      * The tenant models.
@@ -38,10 +34,9 @@ class TenantResolver implements ResolvesTenants
 
     protected $drivers = [];
 
-    public function __construct(Dispatcher $events)
+    public function __construct()
     {
         $this->models = new TenantModelCollection();
-        $this->events = $events;
 
         $this->configure();
     }
@@ -49,28 +44,28 @@ class TenantResolver implements ResolvesTenants
     public function __invoke(): ?Tenant
     {
         /** @var Tenant|null $tenant */
-        $tenant = $this->events->until(new Events\Resolving($models = $this->getModels()));
+        $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
 
         if (! $tenant) {
             $tenant = $this->resolveFromDrivers($models);
         }
 
         if ($tenant) {
-            $this->events->dispatch(new Events\Identified($tenant));
+            $this->events()->dispatch(new Events\Identified($tenant));
         }
 
         if (! $tenant) {
-            $this->events->dispatch(new Events\NothingIdentified($tenant));
+            $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }
 
-        $this->events->dispatch(new Events\Resolved($tenant));
+        $this->events()->dispatch(new Events\Resolved($tenant));
 
         return $tenant;
     }
 
     protected function configure()
     {
-        $this->events->dispatch(new Events\Configuring($this));
+        $this->events()->dispatch(new Events\Configuring($this));
     }
 
     public function addModel(string $class)

@@ -24,9 +24,9 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
 {
     public function boot()
     {
-        $this->app->bind(Tenant::class, function (Application $app) {
+        $this->app->bind(Tenant::class, function () {
             /** @var ResolvesTenants $resolver */
-            $resolver = $app->make(ResolvesTenants::class);
+            $resolver = resolve(ResolvesTenants::class);
 
             return $resolver();
         });

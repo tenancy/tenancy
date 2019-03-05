@@ -14,17 +14,17 @@
 
 namespace Tenancy;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Connection;
-use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Traits\Macroable;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Switched;
 
 class Environment
 {
-    use Macroable;
+    use Concerns\DispatchesEvents,
+        Concerns\ResolvesDatabase,
+        Concerns\ResolvesTenants,
+        Macroable;
 
     /**
      * @var Tenant|null
@@ -42,7 +42,7 @@ class Environment
     {
         $this->tenant = $tenant;
 
-        $this->event()->dispatch(new Switched($tenant));
+        $this->events()->dispatch(new Switched($tenant));
 
         if (! $this->identified) {
             $this->identified = true;
@@ -95,20 +95,5 @@ class Environment
     public static function getDefaultSystemConnectionName(): string
     {
         return config('tenancy.database.system-connection-name') ?? config('database.default');
-    }
-
-    protected function db(): DatabaseManager
-    {
-        return resolve('db');
-    }
-
-    protected function event(): Dispatcher
-    {
-        return resolve('events');
-    }
-
-    protected function resolver(): ResolvesTenants
-    {
-        return resolve(ResolvesTenants::class);
     }
 }
