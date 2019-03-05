@@ -31,12 +31,13 @@ trait ProvidesConfig
 
         $this->addPublishGroup('tenancy', $this->formatConfigsForPublishGroup($this->configs));
     }
+    
     protected function formatConfigsForPublishGroup(array $array)
     {
-        $formattedArray = [];
+        $formatted = [];
         foreach ($array as $path => $key) {
-            $formattedArray += [$path => config_path($key.'.php')];
+            $formatted += [$path => config_path($key . '.php')];
         }
-        return $formattedArray;
+        return $formatted;
     }
 }
