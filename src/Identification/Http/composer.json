@@ -4,7 +4,7 @@
     "keywords": ["identification", "tenancy", "http"],
     "license": "MIT",
     "require": {
-        "tenancy/tenancy": "*"
+        "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
