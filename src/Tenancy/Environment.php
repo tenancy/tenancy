@@ -54,7 +54,8 @@ class Environment
     public function getTenant(bool $refresh = false): ?Tenant
     {
         if (! $this->identified || $refresh) {
-            $this->setTenant($this->resolver()->__invoke());
+            $resolver = $this->resolver();
+            $this->setTenant($resolver());
 
             $this->identified = true;
         }

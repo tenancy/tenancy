@@ -40,3 +40,10 @@ need write access to the repositories and master branches for that.
 
 - install [subsplit](https://github.com/dflydev/git-subsplit)
 - run `bash build/tenancy-split.sh`
+
+## code
+
+Some guidelines:
+
+- Do not use any helper functions except for `app()` and `resolve()`.
+- Adhere to PSR-2 and leave further styling to StyleCI which auto applies on our codebase.

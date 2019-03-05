@@ -14,6 +14,9 @@
 
 namespace Tenancy\Tests\Identification\Drivers\Http;
 
+use Dotenv\Environment\Adapter\EnvConstAdapter;
+use Dotenv\Environment\Adapter\ServerConstAdapter;
+use Dotenv\Environment\DotenvFactory;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Environment\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
@@ -46,10 +49,18 @@ class IdentifyByEnvironmentTest extends TestCase
     {
         $this->assertFalse($this->environment->isIdentified());
 
-        $this->assertTrue(putenv('TENANT_NAME=' . $this->tenant->name));
-        $this->assertEquals($this->tenant->name, env('TENANT_NAME'));
+        $this->setEnv('TENANT_NAME', $this->tenant->name);
+
         $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
 
         $this->assertTrue($this->environment->isIdentified());
+    }
+
+    protected function setEnv($name, $value = null)
+    {
+        $env = (new DotenvFactory([new EnvConstAdapter, new ServerConstAdapter]))->create();
+        $env->set($name, $value);
+
+        $this->assertEquals($value, env($name));
     }
 }

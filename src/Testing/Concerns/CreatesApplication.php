@@ -84,15 +84,15 @@ trait CreatesApplication
         }
 
         /** @var Factory $factory */
-        $factory = $this->app->make(Factory::class);
+        $factory = resolve(Factory::class);
         $factory->load(__DIR__ . '/../Mocks/factories/');
 
         foreach ($this->additionalMocks as $mock) {
             $factory->load($mock);
         }
 
-        $this->environment = $this->app->make(Environment::class);
-        $this->events = $this->app->make(Dispatcher::class);
+        $this->environment = resolve(Environment::class);
+        $this->events = resolve(Dispatcher::class);
 
         config(['database.connections.tenant' => config('database.connections.' . config('database.default'), [])]);
     }
