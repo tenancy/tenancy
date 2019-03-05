@@ -4,7 +4,7 @@
     "keywords": ["database", "tenancy", "mysql", "mariadb"],
     "license": "MIT",
     "require": {
-        "tenancy/tenancy": "*"
+        "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {

@@ -1,5 +1,5 @@
 {
-    "name": "tenancy/framework",
+    "name": "tenancy/tenancy",
     "description": "Creating multi tenant saas from your Laravel app with ease",
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
@@ -34,7 +34,7 @@
         }
     },
     "replace": {
-        "tenancy/tenancy": "self.version",
+        "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
         "tenancy/database-driver-mysql": "self.version",
         "tenancy/database-driver-sqlite": "self.version",

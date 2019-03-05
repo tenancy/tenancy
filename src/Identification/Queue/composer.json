@@ -4,7 +4,7 @@
     "keywords": ["identification", "tenancy", "queue"],
     "license": "MIT",
     "require": {
-        "tenancy/tenancy": "*"
+        "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
