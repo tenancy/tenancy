@@ -14,7 +14,6 @@
 
 namespace Tenancy\Identification\Drivers\Console\Middleware;
 
-use Closure;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Input\InputInterface;

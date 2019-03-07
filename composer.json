@@ -57,7 +57,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Providers\\TenancyProvider"
+                "Tenancy\\Providers\\TenancyProvider",
+                "Tenancy\\Identification\\Drivers\\Console\\Providers\\IdentificationProvider",
+                "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider",
+                "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider"
             ],
             "aliases": {
                 "Tenancy": "Tenancy\\Facades\\TenancyFacade"
