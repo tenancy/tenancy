@@ -23,10 +23,7 @@ abstract class DriverProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->booted(function () {
-            /** @var ResolvesTenants $resolver */
-            $resolver = resolve(ResolvesTenants::class);
-
+        $this->app->resolving(ResolvesTenants::class, function (ResolvesTenants $resolver) {
             foreach ($this->drivers as $contract => $method) {
                 $resolver->registerDriver($contract, $method);
             }
