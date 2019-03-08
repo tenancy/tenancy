@@ -14,7 +14,9 @@
 
 namespace Tenancy\Identification\Drivers\Http\Providers;
 
+use Illuminate\Contracts\Http\Kernel;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
+use Tenancy\Identification\Drivers\Http\Middleware\EagerIdentification;
 use Tenancy\Identification\Support\DriverProvider;
 
 class IdentificationProvider extends DriverProvider
@@ -22,4 +24,17 @@ class IdentificationProvider extends DriverProvider
     protected $drivers = [
         IdentifiesByHttp::class => 'tenantIdentificationByHttp'
     ];
+
+    public function register()
+    {
+        $this->publishes([__DIR__ . '/../resources/config/identification-driver-http.php' => config_path('identification-driver-http.php')], ["identification-driver-http", "tenancy"]);
+
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/identification-driver-http.php', 'identification-driver-http');
+
+        $this->app->resolving(Kernel::class, function (Kernel $kernel) {
+            if (config('identification-driver-http.eager')) {
+                $kernel->prependMiddleware(EagerIdentification::class);
+            }
+        });
+    }
 }

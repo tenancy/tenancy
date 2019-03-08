@@ -12,24 +12,13 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Identification\Middleware;
+namespace Tenancy\Identification\Drivers\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Foundation\Application;
 use Tenancy\Environment;
 
 class EagerIdentification
 {
-    /**
-     * @var Application
-     */
-    protected $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
-
     /**
      * @param \Illuminate\Http\Request $request
      * @param Closure $next
@@ -38,7 +27,7 @@ class EagerIdentification
     public function handle($request, Closure $next)
     {
         /** @var Environment $tenancy */
-        $tenancy = $this->app->make(Environment::class);
+        $tenancy = resolve(Environment::class);
 
         if (! $tenancy->isIdentified()) {
             $tenancy->getTenant();
