@@ -14,12 +14,14 @@
 
 namespace Tenancy\Identification\Support;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 
-abstract class DriverProvider extends ServiceProvider
+abstract class DriverProvider extends EventServiceProvider
 {
     protected $drivers = [];
+
+    protected $configs = [];
 
     public function register()
     {
@@ -28,5 +30,14 @@ abstract class DriverProvider extends ServiceProvider
                 $resolver->registerDriver($contract, $method);
             }
         });
+
+        foreach ($this->configs as $config) {
+            $configPath = basename($config);
+            $configName = basename($config, '.php');
+
+            $this->publishes([$config => config_path($configPath)], [$configName, "tenancy"]);
+
+            $this->mergeConfigFrom($config, $configName);
+        }
     }
 }

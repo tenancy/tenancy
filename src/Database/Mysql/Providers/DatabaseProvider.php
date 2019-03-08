@@ -14,11 +14,11 @@
 
 namespace Tenancy\Database\Drivers\Mysql\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Tenancy\Database\Drivers\Mysql\Listeners\ConfiguresTenantConnection;
 use Tenancy\Database\Events\Resolving;
+use Tenancy\Identification\Support\DriverProvider;
 
-class DatabaseProvider extends EventServiceProvider
+class DatabaseProvider extends DriverProvider
 {
     protected $listen = [
         Resolving::class => [
@@ -26,10 +26,7 @@ class DatabaseProvider extends EventServiceProvider
         ]
     ];
 
-    public function register()
-    {
-        $this->publishes([__DIR__ . '/../resources/config/db-driver-mysql.php' => config_path('db-driver-mysql.php')], ["db-driver-mysql", "tenancy"]);
-
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/db-driver-mysql.php', 'db-driver-mysql');
-    }
+    protected $configs = [
+        __DIR__ . '/../resources/config/db-driver-mysql.php'
+    ];
 }

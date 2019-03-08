@@ -14,11 +14,11 @@
 
 namespace Tenancy\Database\Drivers\Sqlite\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantConnection;
 use Tenancy\Database\Events\Resolving;
+use Tenancy\Identification\Support\DriverProvider;
 
-class DatabaseProvider extends EventServiceProvider
+class DatabaseProvider extends DriverProvider
 {
     protected $listen = [
         Resolving::class => [
@@ -26,10 +26,7 @@ class DatabaseProvider extends EventServiceProvider
         ]
     ];
 
-    public function register()
-    {
-        $this->publishes([__DIR__ . '/../resources/config/db-driver-sqlite.php' => config_path('db-driver-sqlite.php')], ["db-driver-sqlite", "tenancy"]);
-
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/db-driver-sqlite.php', 'db-driver-sqlite');
-    }
+    protected $configs = [
+        __DIR__ . '/../resources/config/db-driver-sqlite.php'
+    ];
 }

@@ -25,12 +25,12 @@ class IdentificationProvider extends DriverProvider
         IdentifiesByHttp::class => 'tenantIdentificationByHttp'
     ];
 
+    protected $configs = [
+        __DIR__ . '/../resources/config/identification-driver-http.php'
+    ];
+
     public function register()
     {
-        $this->publishes([__DIR__ . '/../resources/config/identification-driver-http.php' => config_path('identification-driver-http.php')], ["identification-driver-http", "tenancy"]);
-
-        $this->mergeConfigFrom(__DIR__ . '/../resources/config/identification-driver-http.php', 'identification-driver-http');
-
         $this->app->resolving(Kernel::class, function (Kernel $kernel) {
             if (config('identification-driver-http.eager')) {
                 $kernel->prependMiddleware(EagerIdentification::class);
