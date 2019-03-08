@@ -40,7 +40,7 @@ class IdentifyByConsoleTest extends TestCase
         $this->tenant = factory(Tenant::class)->create();
 
         $this->app->make(Kernel::class)->command(
-            'identifies {--tenant}',
+            'identifies',
             function () {
             }
         );

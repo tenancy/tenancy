@@ -11,11 +11,10 @@
  * @see http://laravel-tenancy.com
  * @see https://github.com/tenancy
  */
-
-namespace Tenancy\Tests\Unit\Identification\Middleware;
+namespace Tenancy\Tests\Identification\Drivers\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Tenancy\Identification\Middleware\EagerIdentification;
+use Tenancy\Identification\Drivers\Http\Middleware\EagerIdentification;
 use Tenancy\Testing\TestCase;
 
 class EagerIdentificationTest extends TestCase
