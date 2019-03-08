@@ -36,6 +36,7 @@ class DatabaseResolver implements ResolvesConnections
 
     public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesDatabase
     {
+        /** @var ProvidesDatabase|null $provider */
         $provider = $this->events->until(new Events\Resolving($tenant, $connection));
 
         if ($provider) {
