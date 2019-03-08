@@ -46,7 +46,7 @@ class TenantResolver implements ResolvesTenants
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
 
-        if (! $tenant) {
+        if (! $tenant && count($this->drivers) > 0) {
             $tenant = $this->resolveFromDrivers($models);
         }
 
@@ -54,6 +54,10 @@ class TenantResolver implements ResolvesTenants
             $this->events()->dispatch(new Events\Identified($tenant));
         }
 
+        // Provide a debug log entry when no tenant was identified, possibly because no identification driver is active.
+        if (! $tenant && count($this->drivers) === 0) {
+            logger('No tenant was identified, a possible cause being that no identification drivers are available.');
+        }
         if (! $tenant) {
             $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }
