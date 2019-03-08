@@ -11,6 +11,7 @@
  * @see http://laravel-tenancy.com
  * @see https://github.com/tenancy
  */
+
 namespace Tenancy\Tests\Identification\Drivers\Http\Middleware;
 
 use Illuminate\Http\Request;
