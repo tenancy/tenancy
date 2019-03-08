@@ -50,4 +50,7 @@
 
         <InvalidStringClass errorLevel="info"/>
     </issueHandlers>
-<plugins><pluginClass class="Psalm\LaravelPlugin\Plugin"/></plugins></psalm>
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
+    </plugins>
+</psalm>
