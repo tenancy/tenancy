@@ -60,6 +60,7 @@
         "laravel": {
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
+                "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Filesystem\\Providers\\ServiceProvider",
                 "Tenancy\\Identification\\Drivers\\Console\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider",

@@ -34,7 +34,8 @@ class ConfiguresDisk
 
         if ($event->tenant) {
             $diskConfig = [];
-            $events->until(new ConfigureDisk($event, $diskConfig));
+
+            $events->dispatch(new ConfigureDisk($event, $diskConfig));
         }
 
         // Configure the tenant disk.

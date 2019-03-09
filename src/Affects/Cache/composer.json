@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/affects-cache",
+    "description": "The tenancy/tenancy cache mutations",
+    "keywords": ["affects", "tenancy", "cache"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Cache\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider"
+            ]
+        }
+    }
+}
