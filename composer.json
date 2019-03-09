@@ -20,6 +20,7 @@
     "autoload": {
         "psr-4": {
             "Tenancy\\": "src/Tenancy",
+            "Tenancy\\Affects\\": "src/Affects",
             "Tenancy\\Database\\Drivers\\": "src/Database",
             "Tenancy\\Identification\\Drivers\\": "src/Identification"
         }
