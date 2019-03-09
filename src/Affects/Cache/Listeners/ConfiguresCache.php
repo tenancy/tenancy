@@ -3,7 +3,6 @@
 namespace Tenancy\Affects\Cache\Listeners;
 
 use Illuminate\Cache\CacheManager;
-use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
@@ -13,8 +12,8 @@ class ConfiguresCache
 {
     public function handle(Resolved $event)
     {
-        /** @var Factory|CacheManager $cache */
-        $manager = resolve(Factory::class);
+        /** @var CacheManager $manager */
+        $manager = resolve(CacheManager::class);
         /** @var Repository $config */
         $config = resolve(Repository::class);
         /** @var Dispatcher $events */
