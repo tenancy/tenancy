@@ -22,7 +22,11 @@ class IdentificationProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app['queue']->createPayloadUsing(function () {
+        $this->app['queue']->createPayloadUsing(function (string $connection, string $queue = null, array $payload = []) {
+            if (isset($payload['tenant_id'], $payload['tenant_class'])) {
+                return [];
+            }
+
             /** @var Environment $environment */
             $environment = $this->app->make(Environment::class);
             $tenant = $environment->getTenant();
