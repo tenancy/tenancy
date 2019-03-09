@@ -29,6 +29,7 @@
         "psr-4": {
             "Tenancy\\Testing\\": "src/Testing",
             "Tenancy\\Tests\\": "tests/unit/Tenancy",
+            "Tenancy\\Tests\\Affects\\": "tests/unit/Affects",
             "Tenancy\\Tests\\Database\\Drivers\\": "tests/unit/Database",
             "Tenancy\\Tests\\Identification\\Drivers\\": "tests/unit/Identification"
         }
@@ -36,6 +37,7 @@
     "replace": {
         "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
+        "tenancy/affects-filesystem": "self.version",
         "tenancy/database-driver-mysql": "self.version",
         "tenancy/database-driver-sqlite": "self.version",
         "tenancy/identification-driver-console": "self.version",
@@ -58,6 +60,7 @@
         "laravel": {
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
+                "Tenancy\\Affects\\Filesystem\\Providers\\ServiceProvider",
                 "Tenancy\\Identification\\Drivers\\Console\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider"
