@@ -17,7 +17,6 @@ namespace Tenancy\Affects\Filesystem\Listeners;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Log\LogManager;
-use Psr\Log\LoggerInterface;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
 use Tenancy\Identification\Events\Resolved;
 
