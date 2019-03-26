@@ -19,6 +19,7 @@ use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Resolving;
+use Tenancy\Identification\Events\Switched;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
@@ -125,7 +126,17 @@ class TenancyTest extends TestCase
         /** @var Tenant $switch */
         $switch = factory(Tenant::class)->make();
 
+        $switchedEventFired = false;
+
+        $this->events->listen(Switched::class, function (Switched $event) use (&$switchedEventFired, $switch) {
+            $this->assertEquals($switch->getTenantKey(), $event->tenant->getTenantKey());
+
+            $switchedEventFired = true;
+        });
+
         Tenancy::setTenant($switch);
+
+        $this->assertTrue($switchedEventFired);
 
         /** @var Tenant $switched */
         $switched = Tenancy::getTenant();
