@@ -14,6 +14,7 @@
 
 namespace Tenancy\Tests\Facades;
 
+use Illuminate\Database\Connection;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
@@ -105,5 +106,31 @@ class TenancyTest extends TestCase
             config('tenancy.database.tenant-connection-name'),
             Tenancy::getTenantConnection()->getName()
         );
+    }
+
+    /**
+     * @test
+     * @covers \Tenancy\Environment::setTenant
+     */
+    public function can_switch_tenant()
+    {
+        $this->assertNull(Tenancy::getTenant());
+
+        $this->events->listen(Resolving::class, function (Resolving $event) {
+            return $this->tenant;
+        });
+
+        $this->assertEquals($this->tenant->getTenantKey(), Tenancy::getTenant(true)->getTenantKey());
+
+        /** @var Tenant $switch */
+        $switch = factory(Tenant::class)->make();
+
+        Tenancy::setTenant($switch);
+
+        /** @var Tenant $switched */
+        $switched = Tenancy::getTenant();
+
+        $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
+        $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());
     }
 }
