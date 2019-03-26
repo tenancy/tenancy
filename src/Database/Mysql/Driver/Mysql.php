@@ -33,7 +33,7 @@ class Mysql implements ProvidesDatabase
         }
 
         $config['database'] = $config['username'] = $tenant->getTenantKey();
-        $config['password'] = md5($tenant->getTenantKey() . config('app.key'));
+        $config['password'] = resolve(ProvidesDatabase::class)->generate($tenant);
 
         event(new Configuring($tenant, $config, $this));
 
