@@ -60,16 +60,6 @@ jobs:
             at: ./
         - run: ./vendor/bin/phpcs
 
-    psalm:
-        docker:
-        - image: php:7.2
-        working_directory: ~/repo
-        steps:
-        - checkout
-        - attach_workspace:
-              at: ./
-        - run: ./vendor/bin/psalm --show-info=false
-
     coverage:
         docker:
         - image: php:7.2
@@ -90,10 +80,6 @@ workflows:
             - "php-7.2"
             - "php-7.3"
             - phpcs:
-                requires:
-                - "php-7.2"
-                - "php-7.3"
-            - psalm:
                 requires:
                 - "php-7.2"
                 - "php-7.3"
