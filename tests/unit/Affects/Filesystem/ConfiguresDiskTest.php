@@ -76,7 +76,8 @@ class ConfiguresDiskTest extends TestCase
 
         try {
             $disk = $this->manager->disk('tenant');
-        } catch (\InvalidArgumentException $e) {}
+        } catch (\InvalidArgumentException $e) {
+        }
 
         Tenancy::setTenant($this->tenant);
 
