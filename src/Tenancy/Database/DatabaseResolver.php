@@ -18,7 +18,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Traits\Macroable;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Contracts\ResolvesConnections;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 
 class DatabaseResolver implements ResolvesConnections
@@ -42,8 +41,6 @@ class DatabaseResolver implements ResolvesConnections
 
         if ($provider) {
             $this->events->dispatch(new Events\Identified($tenant, $connection, $provider));
-
-            config(['database.connections.' . Tenancy::getTenantConnectionName() => $provider->configure($tenant)]);
         }
 
         $this->events->dispatch(new Events\Resolved($tenant, $connection, $provider));

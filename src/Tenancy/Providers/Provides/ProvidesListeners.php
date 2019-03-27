@@ -15,8 +15,9 @@
 namespace Tenancy\Providers\Provides;
 
 use Illuminate\Support\Facades\Event;
-use Tenancy\Tenant\Events as TenantEvents;
-use Tenancy\Database\Listeners as Database;
+use Tenancy\Database\Events as Database;
+use Tenancy\Tenant\Events as Tenant;
+use Tenancy\Database\Listeners as Listen;
 
 trait ProvidesListeners
 {
@@ -26,15 +27,18 @@ trait ProvidesListeners
      * @var array
      */
     protected $listen = [
-        TenantEvents\Created::class => [
-            Database\AutoCreation::class,
+        Tenant\Created::class => [
+            Listen\AutoCreation::class,
         ],
-        TenantEvents\Updated::class => [
-            Database\AutoUpdating::class,
+        Tenant\Updated::class => [
+            Listen\AutoUpdating::class,
         ],
-        TenantEvents\Deleted::class => [
-            Database\AutoDeleting::class,
+        Tenant\Deleted::class => [
+            Listen\AutoDeleting::class,
         ],
+        Database\Resolved::class => [
+            Listen\SetConnection::class
+        ]
     ];
 
     /**
