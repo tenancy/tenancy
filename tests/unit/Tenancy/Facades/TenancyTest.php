@@ -86,19 +86,6 @@ class TenancyTest extends TestCase
 
     /**
      * @test
-     * @covers \Tenancy\Environment::getSystemConnection
-     * @covers \Tenancy\Environment::getDefaultSystemConnectionName
-     */
-    public function can_retrieve_system_connection()
-    {
-        $this->assertEquals(
-            Environment::getDefaultSystemConnectionName(),
-            Tenancy::getSystemConnection()->getName()
-        );
-    }
-
-    /**
-     * @test
      * @covers \Tenancy\Environment::getTenantConnection
      */
     public function can_retrieve_tenant_connection()

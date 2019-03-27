@@ -32,23 +32,9 @@ return [
         'tenant-connection-name' => env('TENANCY_TENANT_CONNECTION_NAME', 'tenant'),
 
         /**
-         * By default we'll use the default connection defined in your database.php as a global database.
-         * There you can store tables that you like to share between your tenants. In case you wish
-         * to override this connection please specify.
-         *
-         * @info if set to null will use the default connection (mysql).
-         */
-        'system-connection-name' => env('TENANCY_SYSTEM_CONNECTION_NAME', null),
-
-        /**
          * Enabling this setting will force all Eloquent models to use the tenant connection by default.
          */
         'models-default-to-tenant-connection' => env('TENANCY_ELOQUENT_USES_TENANT_CONNECTION', false),
-
-        /**
-         * Enabling this setting will force all Eloquent models to use the system connection by default.
-         */
-        'models-default-to-system-connection' => env('TENANCY_ELOQUENT_USES_SYSTEM_CONNECTION', false),
 
         /**
          * Automatic tenant database handling.
