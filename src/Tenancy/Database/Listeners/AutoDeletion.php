@@ -14,18 +14,12 @@
 
 namespace Tenancy\Database\Listeners;
 
-use Tenancy\Tenant\Events\Deleted;
-
-class AutoDeletion
+class AutoDeletion extends DatabaseMutation
 {
-    /**
-     * @param Deleted $event
-     * @return array|null
-     */
-    public function statements($event): ?bool
+    public function handle($event): ?bool
     {
-        if ($this->driver && config('tenancy.database.auto-delete')) {
-            return $this->driver->delete($event->tenant);
+        if (config('tenancy.database.auto-delete') && $driver = $this->driver($event->tenant)) {
+            return $driver->delete($event->tenant);
         }
 
         return null;

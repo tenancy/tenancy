@@ -14,18 +14,12 @@
 
 namespace Tenancy\Database\Listeners;
 
-use Tenancy\Tenant\Events\Updated;
-
-class AutoUpdating
+class AutoUpdating extends DatabaseMutation
 {
-    /**
-     * @param Updated $event
-     * @return array|null
-     */
-    public function statements($event): ?bool
+    public function handle($event): ?bool
     {
-        if ($this->driver && config('tenancy.database.auto-update')) {
-            return $this->driver->update($event->tenant);
+        if (config('tenancy.database.auto-update') && $driver = $this->driver($event->tenant)) {
+            return $driver->update($event->tenant);
         }
 
         return null;
