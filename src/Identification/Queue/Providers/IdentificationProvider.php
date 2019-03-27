@@ -28,7 +28,7 @@ class IdentificationProvider extends ServiceProvider
             }
 
             /** @var Environment $environment */
-            $environment = $this->app->make(Environment::class);
+            $environment = resolve(Environment::class);
             $tenant = $environment->getTenant();
 
             return $tenant ? [
@@ -43,7 +43,7 @@ class IdentificationProvider extends ServiceProvider
 
             if (isset($payload['tenant_id'], $payload['tenant_class'])) {
                 /** @var Environment $environment */
-                $environment = $this->app->make(Environment::class);
+                $environment = resolve(Environment::class);
 
                 $tenant = $this->app->call([$payload['tenant_class'], $payload['tenant_id']]);
 
