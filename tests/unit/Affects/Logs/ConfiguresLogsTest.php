@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * (c) Daniël Klabbers <daniel@klabbers.email>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see http://laravel-tenancy.com
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Affects\Logs;
 
 use Psr\Log\LoggerInterface;
@@ -9,7 +21,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
-class ConfigureLogsTest extends TestCase
+class ConfiguresLogsTest extends TestCase
 {
     protected $additionalProviders = [ServiceProvider::class];
 
@@ -27,7 +39,9 @@ class ConfigureLogsTest extends TestCase
     {
         $this->tenant = $this->mockTenant();
         $this->file = '/tmp/log-' . $this->tenant->getTenantKey();
-        if (file_exists($this->file)) unlink($this->file);
+        if (file_exists($this->file)) {
+            unlink($this->file);
+        }
 
         $this->events->listen(ConfigureLogs::class, function (ConfigureLogs $event) {
             $event->config['driver'] = 'single';
