@@ -29,7 +29,7 @@ class IdentifyInQueueTest extends TestCase
      */
     public function queue_identifies_tenant()
     {
-        $tenant = factory(Tenant::class)->make();
+        $tenant = $this->mockTenant();
 
         $this->environment->setTenant($tenant);
 

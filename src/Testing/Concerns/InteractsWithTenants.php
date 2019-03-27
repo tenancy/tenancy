@@ -14,6 +14,26 @@
 
 namespace Tenancy\Testing\Concerns;
 
+use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Events\Resolving;
+use Tenancy\Testing\Mocks\Tenant as Mock;
+
 trait InteractsWithTenants
 {
+    protected function createMockTenant(array $attributes = [])
+    {
+        return factory(Mock::class)->create($attributes);
+    }
+
+    protected function mockTenant(array $attributes = []): Mock
+    {
+        return factory(Mock::class)->make($attributes);
+    }
+
+    protected function resolveTenant(Tenant $tenant = null)
+    {
+        $this->events->listen(Resolving::class, function (Resolving $event) use ($tenant) {
+            return $tenant;
+        });
+    }
 }

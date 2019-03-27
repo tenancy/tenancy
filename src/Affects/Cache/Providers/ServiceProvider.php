@@ -15,14 +15,9 @@
 namespace Tenancy\Affects\Cache\Providers;
 
 use Tenancy\Affects\Cache\Listeners\ConfiguresCache;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Support\DriverProvider;
 
 class ServiceProvider extends DriverProvider
 {
-    protected $listen = [
-        Resolved::class => [
-            ConfiguresCache::class
-        ]
-    ];
+    protected $affects = [ConfiguresCache::class];
 }

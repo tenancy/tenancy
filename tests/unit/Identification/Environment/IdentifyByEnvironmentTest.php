@@ -39,7 +39,7 @@ class IdentifyByEnvironmentTest extends TestCase
         $resolver = resolve(ResolvesTenants::class);
         $resolver->addModel(Tenant::class);
 
-        $this->tenant = factory(Tenant::class)->create();
+        $this->tenant = $this->createMockTenant();
     }
 
     /**

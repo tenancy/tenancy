@@ -18,13 +18,19 @@ use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
+use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
+use Tenancy\Identification\Events\Switched;
 
-class ConfiguresCache
+class ConfiguresCache implements TenantAffectsApp
 {
-    public function handle(Resolved $event)
+    /**
+     * @param Resolved|Switched $event
+     * @return bool|void
+     */
+    public function handle($event)
     {
-        /** @var CacheManager $manager */
+        /** @var CacheManager $manager¸ */
         $manager = resolve(CacheManager::class);
         /** @var Repository $config */
         $config = resolve(Repository::class);

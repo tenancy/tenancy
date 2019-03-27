@@ -58,6 +58,7 @@ class TenantResolver implements ResolvesTenants
         if (! $tenant && count($this->drivers) === 0) {
             logger('No tenant was identified, a possible cause being that no identification drivers are available.');
         }
+
         if (! $tenant) {
             $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }

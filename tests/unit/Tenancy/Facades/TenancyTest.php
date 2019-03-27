@@ -32,7 +32,7 @@ class TenancyTest extends TestCase
     {
         /** @var ResolvesTenants $resolver */
         $resolver = resolve(ResolvesTenants::class);
-        $this->tenant = factory(Tenant::class)->make();
+        $this->tenant = $this->mockTenant();
 
         $resolver->addModel(Tenant::class);
     }
@@ -55,9 +55,7 @@ class TenancyTest extends TestCase
      */
     public function setting_identified_ignores_auto_identification()
     {
-        $this->events->listen(Resolving::class, function (Resolving $event) {
-            return $this->tenant;
-        });
+        $this->resolveTenant($this->tenant);
 
         Tenancy::setIdentified(true);
 
@@ -76,9 +74,7 @@ class TenancyTest extends TestCase
     {
         $this->assertNull(Tenancy::getTenant());
 
-        $this->events->listen(Resolving::class, function (Resolving $event) {
-            return $this->tenant;
-        });
+        $this->resolveTenant($this->tenant);
 
         $this->assertNull(Tenancy::getTenant());
         $this->assertNotNull(Tenancy::getTenant(true));
@@ -104,14 +100,12 @@ class TenancyTest extends TestCase
     {
         $this->assertNull(Tenancy::getTenant());
 
-        $this->events->listen(Resolving::class, function (Resolving $event) {
-            return $this->tenant;
-        });
+        $this->resolveTenant($this->tenant);
 
         $this->assertEquals($this->tenant->getTenantKey(), Tenancy::getTenant(true)->getTenantKey());
 
         /** @var Tenant $switch */
-        $switch = factory(Tenant::class)->make();
+        $switch = $this->mockTenant();
 
         $switchedEventFired = false;
 

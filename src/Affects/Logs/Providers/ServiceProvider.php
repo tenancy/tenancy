@@ -15,14 +15,9 @@
 namespace Tenancy\Affects\Logs\Providers;
 
 use Tenancy\Affects\Filesystem\Listeners\ConfiguresLogs;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Support\DriverProvider;
 
 class ServiceProvider extends DriverProvider
 {
-    protected $listen = [
-        Resolved::class => [
-            ConfiguresLogs::class
-        ]
-    ];
+    protected $affects = [ConfiguresLogs::class];
 }

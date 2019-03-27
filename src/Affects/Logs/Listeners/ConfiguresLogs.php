@@ -18,11 +18,17 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Log\LogManager;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
+use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
+use Tenancy\Identification\Events\Switched;
 
-class ConfiguresLogs
+class ConfiguresLogs implements TenantAffectsApp
 {
-    public function handle(Resolved $event)
+    /**
+     * @param Resolved|Switched $event
+     * @return bool|void
+     */
+    public function handle($event)
     {
         /** @var LogManager $manager */
         $manager = resolve(LogManager::class);

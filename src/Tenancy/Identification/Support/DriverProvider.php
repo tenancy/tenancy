@@ -16,11 +16,31 @@ namespace Tenancy\Identification\Support;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Events\Resolved;
+use Tenancy\Identification\Events\Switched;
 
 abstract class DriverProvider extends EventServiceProvider
 {
+    /**
+     * Listeners that affect the app logic when a tenant
+     * is resolved or switched to.
+     *
+     * @var array
+     */
+    protected $affects = [];
+
+    /**
+     * Identification driver registered by the Service Provider.
+     *
+     * @var array
+     */
     protected $drivers = [];
 
+    /**
+     * Configuration files to publish.
+     *
+     * @var array
+     */
     protected $configs = [];
 
     public function register()
@@ -38,6 +58,12 @@ abstract class DriverProvider extends EventServiceProvider
             $this->publishes([$config => config_path($configPath)], [$configName, "tenancy"]);
 
             $this->mergeConfigFrom($config, $configName);
+        }
+
+        foreach ($this->affects as $affect) {
+            $this->app['events']->listen([
+                Resolved::class, Switched::class
+            ], $affect);
         }
     }
 }
