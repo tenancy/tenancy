@@ -14,7 +14,7 @@
 
 namespace Tenancy\Affects\Logs\Providers;
 
-use Tenancy\Affects\Filesystem\Listeners\ConfiguresLogs;
+use Tenancy\Affects\Logs\Listeners\ConfiguresLogs;
 use Tenancy\Identification\Support\DriverProvider;
 
 class ServiceProvider extends DriverProvider

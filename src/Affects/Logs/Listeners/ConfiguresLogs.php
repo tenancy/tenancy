@@ -12,11 +12,10 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Filesystem\Listeners;
+namespace Tenancy\Affects\Logs\Listeners;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Log\LogManager;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
@@ -30,8 +29,6 @@ class ConfiguresLogs implements TenantAffectsApp
      */
     public function handle($event)
     {
-        /** @var LogManager $manager */
-        $manager = resolve(LogManager::class);
         /** @var Repository $config */
         $config = resolve(Repository::class);
         /** @var Dispatcher $events */
@@ -43,9 +40,10 @@ class ConfiguresLogs implements TenantAffectsApp
             $events->dispatch(new ConfigureLogs($event, $logConfig));
         }
 
-        // Configure the tenant disk.
-        $config->set('logging.channels.tenant', $diskConfig ?? null);
+        // Configure the tenant log channel.
+        $config->set('logging.channels.tenant', $logConfig ?? null);
 
         // There is currently no way to unset a log channel :(
+        app()->forgetInstance('log');
     }
 }
