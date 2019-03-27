@@ -16,6 +16,8 @@ namespace Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tenancy\Database\Contracts\ProvidesPassword;
+use Tenancy\Database\Contracts\ResolvesConnections;
+use Tenancy\Database\DatabaseResolver;
 use Tenancy\Database\PasswordGenerator;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
@@ -32,6 +34,7 @@ class TenancyProvider extends ServiceProvider
         Environment::class => Environment::class,
         ResolvesTenants::class => TenantResolver::class,
         ProvidesPassword::class => PasswordGenerator::class,
+        ResolvesConnections::class => DatabaseResolver::class,
     ];
 
     public function register()
