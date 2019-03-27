@@ -100,9 +100,6 @@ jobs:
         - checkout
         - attach_workspace:
             at: ./
-        - restore_cache:
-            keys:
-              - composer-7.2-{{ checksum "composer.json" }}
         - run: pecl install xdebug
         - run: docker-php-ext-enable xdebug
         - run: ./vendor/bin/phpunit --coverage-clover=coverage.xml

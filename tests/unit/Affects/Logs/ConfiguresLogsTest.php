@@ -81,6 +81,6 @@ class ConfiguresLogsTest extends TestCase
         $logger->debug($entry = "key: {$this->tenant->getTenantKey()}");
 
         $this->assertFileExists($this->file);
-        $this->assertContains($entry, file_get_contents($this->file));
+        $this->assertStringContainsString($entry, file_get_contents($this->file));
     }
 }

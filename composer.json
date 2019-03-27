@@ -10,7 +10,7 @@
     "require-dev": {
         "fzaninotto/faker": "^1.7",
         "laravel/laravel": "5.8.*",
-        "phpunit/phpunit": "^7.0",
+        "phpunit/phpunit": "^8.0",
         "mockery/mockery": "^1.0",
         "squizlabs/php_codesniffer": "^3.3",
         "psalm/plugin-laravel": "^0.0.5",

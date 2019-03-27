@@ -50,10 +50,11 @@ class TenantResolverTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function fails_registering_invalid_model()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->resolver->addModel(User::class);
     }
 
