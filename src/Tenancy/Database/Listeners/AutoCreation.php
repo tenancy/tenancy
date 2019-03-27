@@ -16,13 +16,13 @@ namespace Tenancy\Database\Listeners;
 
 use Tenancy\Tenant\Events\Created;
 
-class AutoCreation extends DatabaseMutation
+class AutoCreation
 {
     /**
      * @param Created $event
      * @return array|null
      */
-    public function statements($event): ?array
+    public function handle($event): ?bool
     {
         if ($this->driver && config('tenancy.database.auto-create')) {
             return $this->driver->create($event->tenant);

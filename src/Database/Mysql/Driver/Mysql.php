@@ -14,6 +14,9 @@
 
 namespace Tenancy\Database\Drivers\Mysql\Driver;
 
+use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
@@ -40,48 +43,66 @@ class Mysql implements ProvidesDatabase
         return $config;
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function create(Tenant $tenant): array
+    public function create(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
-        return [
+        return $this->process([
             'user' => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant' => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'"
-        ];
+        ]);
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function update(Tenant $tenant): array
+    public function update(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
         if (!isset($config['oldUsername'])) {
-            return [];
+            return false;
         }
-        return [
+        return $this->process([
             'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
-        ];
+        ]);
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function delete(Tenant $tenant): array
+    public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
-        return [
+        return $this->process([
             'user' => "DROP USER `{$config['username']}`@'{$config['host']}'",
             'database' => "DROP DATABASE IF EXISTS `{$config['database']}`"
-        ];
+        ]);
+    }
+
+    protected function system(): ConnectionInterface
+    {
+        return DB::connection(config('db-driver-mysql.system-connection'));
+    }
+
+    protected function process(array $statements): bool
+    {
+        $success = false;
+
+        $this->system()->beginTransaction();
+
+        foreach ($statements as $statement) {
+            try {
+                $success = $this->system()->statement($statement);
+
+                if (! $success) {
+                    throw new QueryException($statement);
+                }
+            } catch (QueryException $e) {
+                report($e);
+
+                $this->system()->rollBack();
+            }
+        }
+
+        $this->system()->commit();
+
+        return $success;
     }
 }

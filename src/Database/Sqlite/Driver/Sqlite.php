@@ -35,24 +35,14 @@ class Sqlite implements ProvidesDatabase
         return $config;
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function create(Tenant $tenant): array
+    public function create(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
-        touch(database_path($config['database']));
-
-        return [];
+        return touch(database_path($config['database']));
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function update(Tenant $tenant): array
+    public function update(Tenant $tenant): bool
     {
         $original = $tenant->newInstance($tenant->getOriginal());
 
@@ -61,25 +51,19 @@ class Sqlite implements ProvidesDatabase
         $config = $this->configure($tenant);
 
         if ($previous['database'] !== $config['database']) {
-            rename(
+            return rename(
                 database_path($previous['database']),
                 database_path($config['database'])
             );
         }
 
-        return [];
+        return false;
     }
 
-    /**
-     * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
-     */
-    public function delete(Tenant $tenant): array
+    public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
-        unlink(database_path($config['database']));
-
-        return [];
+        return unlink(database_path($config['database']));
     }
 }

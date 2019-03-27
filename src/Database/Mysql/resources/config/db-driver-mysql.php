@@ -14,6 +14,13 @@
 
 return [
     /**
+     * The system connection is a database connection with
+     * an elevated user allowed to create, update and delete
+     * databases and database users. Leave null to use
+     * the default connection.
+     */
+    'system-connection' => null,
+    /**
      * If you want to re-use an existing connection,
      * specify its name here. Leave null to
      * instantiate a fully new connection.

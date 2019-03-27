@@ -26,19 +26,19 @@ interface ProvidesDatabase
 
     /**
      * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
+     * @return bool
      */
-    public function create(Tenant $tenant): array;
+    public function create(Tenant $tenant): bool;
 
     /**
      * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
+     * @return bool
      */
-    public function update(Tenant $tenant): array;
+    public function update(Tenant $tenant): bool;
 
     /**
      * @param Tenant $tenant
-     * @return string[] Array of SQL statements.
+     * @return bool
      */
-    public function delete(Tenant $tenant): array;
+    public function delete(Tenant $tenant): bool;
 }
