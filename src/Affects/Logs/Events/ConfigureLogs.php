@@ -15,21 +15,22 @@
 namespace Tenancy\Affects\Logs\Events;
 
 use Tenancy\Identification\Events\Resolved;
+use Tenancy\Identification\Events\Switched;
 
 class ConfigureLogs
 {
     /**
-     * @var Resolved
+     * @var Resolved|Switched
      */
-    public $resolved;
+    public $event;
     /**
      * @var array
      */
     public $config;
 
-    public function __construct(Resolved $resolved, array &$config = [])
+    public function __construct($event, array &$config = [])
     {
-        $this->resolved = $resolved;
-        $this->config = $config;
+        $this->event = $event;
+        $this->config = &$config;
     }
 }
