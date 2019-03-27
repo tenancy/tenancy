@@ -1,28 +1,6 @@
 version: 2
 
 jobs:
-    "php-7.1":
-        docker:
-        - image: php:7.1
-        working_directory: ~/repo
-        steps:
-        - checkout
-        - restore_cache:
-            keys:
-                - composer-7.1-{{ checksum "composer.json" }}
-        - run: apt-get -yqq update
-        - run: apt-get -yqq install git unzip zip libpq-dev mysql-client libpng-dev
-        - run: docker-php-ext-install pdo_pgsql pdo_mysql gd
-        - run: curl -sS https://getcomposer.org/installer | php
-        - run: chmod +x composer.phar
-        - run: mv composer.phar /usr/local/bin/composer
-        - run: composer config -g github-oauth.github.com $GITHUB_TOKEN
-        - run: composer install -n --prefer-dist --no-progress -o
-        - save_cache:
-            key: composer-7.1-{{ checksum "composer.json" }}
-            paths:
-                - vendor/
-        - run: ./vendor/bin/phpunit
     "php-7.2":
         docker:
         - image: php:7.2
@@ -109,21 +87,17 @@ workflows:
     version: 2
     test:
         jobs:
-            - "php-7.1"
             - "php-7.2"
             - "php-7.3"
             - phpcs:
                 requires:
-                - "php-7.1"
                 - "php-7.2"
                 - "php-7.3"
             - psalm:
                 requires:
-                - "php-7.1"
                 - "php-7.2"
                 - "php-7.3"
             - coverage:
                 requires:
-                - "php-7.1"
                 - "php-7.2"
                 - "php-7.3"
