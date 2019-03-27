@@ -85,17 +85,4 @@ class Environment
     {
         return config('tenancy.database.tenant-connection-name', 'tenant');
     }
-
-    public function getSystemConnection(Tenant $tenant = null): Connection
-    {
-        return $this->db()->connection(
-            optional($tenant ?? $this->getTenant())->getManagingSystemConnection() ??
-            static::getDefaultSystemConnectionName()
-        );
-    }
-
-    public static function getDefaultSystemConnectionName(): string
-    {
-        return config('tenancy.database.system-connection-name') ?? config('database.default');
-    }
 }
