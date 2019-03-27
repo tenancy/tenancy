@@ -55,7 +55,9 @@ class ConfiguresLogsTest extends TestCase
      */
     public function configuration_initially_empty()
     {
-        unlink($file = storage_path('/logs/laravel.log'));
+        if (file_exists($file = storage_path('/logs/laravel.log'))) {
+            unlink($file);
+        }
         /** @var LoggerInterface $logger ; emergency logger logs to laravel.log */
         $logger = logger()->driver('tenant');
 
