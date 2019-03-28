@@ -33,7 +33,6 @@ class IdentifyByConsoleTest extends TestCase
 
     protected function afterSetUp()
     {
-
         $this->app->make(Kernel::class)->command(
             'identifies',
             function () {
