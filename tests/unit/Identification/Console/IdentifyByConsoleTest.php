@@ -33,11 +33,6 @@ class IdentifyByConsoleTest extends TestCase
 
     protected function afterSetUp()
     {
-        /** @var ResolvesTenants $resolver */
-        $resolver = $this->app->make(ResolvesTenants::class);
-        $resolver->addModel(Tenant::class);
-
-        $this->tenant = $this->createMockTenant();
 
         $this->app->make(Kernel::class)->command(
             'identifies',
@@ -46,11 +41,21 @@ class IdentifyByConsoleTest extends TestCase
         );
     }
 
+    protected function registerAndCreateModel()
+    {
+        /** @var ResolvesTenants $resolver */
+        $resolver = $this->app->make(ResolvesTenants::class);
+        $resolver->addModel(Tenant::class);
+
+        $this->tenant = $this->createMockTenant();
+    }
+
     /**
      * @test
      */
     public function artisan_identifies_tenant()
     {
+        $this->registerAndCreateModel();
         $this->assertFalse($this->environment->isIdentified());
 
         $this->artisan('identifies', [
@@ -67,6 +72,7 @@ class IdentifyByConsoleTest extends TestCase
      */
     public function artisan_does_not_identify_multiple()
     {
+        $this->registerAndCreateModel();
         $this->assertFalse($this->environment->isIdentified());
 
         $this->artisan('identifies', [
@@ -77,5 +83,25 @@ class IdentifyByConsoleTest extends TestCase
         $this->assertNull(optional($this->environment->getTenant())->name);
 
         $this->assertTrue($this->environment->isIdentified());
+    }
+
+    /**
+     * @test
+     */
+    public function no_registered_models()
+    {
+        $this->assertFalse($this->environment->isIdentified());
+
+        $this->artisan('identifies');
+
+        $this->assertNull($this->environment->getTenant());
+    }
+
+    /**
+     * @test
+     */
+    public function return_null_without_interface()
+    {
+        $this->assertNull($this->environment->getTenant());
     }
 }
