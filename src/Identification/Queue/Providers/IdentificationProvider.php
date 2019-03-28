@@ -45,7 +45,8 @@ class IdentificationProvider extends ServiceProvider
                 /** @var Environment $environment */
                 $environment = resolve(Environment::class);
 
-                $tenant = $this->app->call([$payload['tenant_class'], $payload['tenant_id']]);
+                $tenant_class = app($payload['tenant_class']);
+                $tenant = $tenant_class->where($tenant_class->getTenantKeyName(), $payload['tenant_id'])->first();
 
                 $environment->setTenant($tenant);
             }
