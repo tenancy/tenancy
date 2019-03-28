@@ -21,7 +21,7 @@ trait ProvidesEloquent
 {
     protected function bootProvidesEloquent()
     {
-        if (config('tenancy.models-default-to-tenant-connection')) {
+        if (config('tenancy.database.models-default-to-tenant-connection')) {
             $this->app->resolving('db', function (DatabaseManager $manager) {
                 $manager->setDefaultConnection(Environment::getTenantConnectionName());
 
