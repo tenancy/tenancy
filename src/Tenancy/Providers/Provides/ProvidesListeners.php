@@ -34,7 +34,7 @@ trait ProvidesListeners
             Listen\AutoUpdating::class,
         ],
         Tenant\Deleted::class => [
-            Listen\AutoDeleting::class,
+            Listen\AutoDeletion::class,
         ],
         Database\Resolved::class => [
             Listen\SetConnection::class
