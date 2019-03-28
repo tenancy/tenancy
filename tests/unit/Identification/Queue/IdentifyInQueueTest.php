@@ -29,8 +29,7 @@ class IdentifyInQueueTest extends TestCase
      */
     public function queue_identifies_tenant()
     {
-        $tenant = $this->mockTenant();
-        $tenant->save();
+        $tenant = $this->createMockTenant();
 
         $this->environment->setTenant($tenant);
 
