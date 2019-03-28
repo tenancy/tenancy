@@ -14,11 +14,10 @@
 
 namespace Tenancy\Tests\Identification\Drivers\Queue;
 
-use Illuminate\Queue\Events\JobProcessed;
-use Illuminate\Support\Facades\Event;
-use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
-use Tenancy\Testing\Mocks\Tenant;
+use ReflectionException;
 use Tenancy\Testing\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 
 class IdentifyInQueueTest extends TestCase
 {
@@ -33,10 +32,7 @@ class IdentifyInQueueTest extends TestCase
 
         $this->environment->setTenant($tenant);
 
-        Event::listen(JobProcessed::class, function ($event) use ($tenant) {
-            $payload = json_decode($event->job->getRawBody(), true);
-            $this->assertEquals(get_class($tenant), $payload['tenant_class']);
-        });
+        $this->expectException(ReflectionException::class);
 
         dispatch(new Mocks\Job);
     }
