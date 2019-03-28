@@ -14,7 +14,7 @@
 
 namespace Tenancy\Database\Listeners;
 
-class AutoDeletion extends DatabaseMutation
+class AutoDeleting extends DatabaseMutation
 {
     public function handle($event): ?bool
     {
