@@ -39,7 +39,7 @@ class IdentificationProvider extends ServiceProvider
 
         $this->app['events']->listen(JobProcessing::class, function ($event) {
             /** @var array $payload */
-            $payload = $event->job->getRawBody();
+            $payload = $event->job->payload();
 
             if (isset($payload['tenant_id'], $payload['tenant_class'])) {
                 /** @var Environment $environment */
