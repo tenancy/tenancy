@@ -14,6 +14,7 @@
 
 namespace Tenancy\Identification\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Support\TenantModelCollection;
 
 interface ResolvesTenants
@@ -27,6 +28,16 @@ interface ResolvesTenants
      * @return $this
      */
     public function addModel(string $class);
+
+    /**
+     * Resolves a tenant model class based on identifier and an
+     * instance if the $key argument is provided.
+     *
+     * @param string $identifier
+     * @param mixed|null   $key
+     * @return string|Model|null
+     */
+    public function findModel(string $identifier, $key = null);
 
     /**
      * Loads all registered tenant models.

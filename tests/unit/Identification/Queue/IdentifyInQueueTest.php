@@ -16,13 +16,21 @@ namespace Tenancy\Tests\Identification\Drivers\Queue;
 
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Support\Facades\Event;
+use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
-use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class IdentifyInQueueTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
+
+    protected function afterSetUp()
+    {
+        /** @var ResolvesTenants $resolver */
+        $resolver = $this->app->make(ResolvesTenants::class);
+        $resolver->addModel(\Tenancy\Testing\Mocks\Tenant::class);
+    }
 
     /**
      * @test
@@ -35,9 +43,32 @@ class IdentifyInQueueTest extends TestCase
 
         Event::listen(JobProcessed::class, function ($event) use ($tenant) {
             $payload = json_decode($event->job->getRawBody(), true);
-            $this->assertEquals(get_class($tenant), $payload['tenant_class']);
+
+            $this->assertEquals($tenant->getTenantIdentifier(), $payload['tenant_identifier']);
+            $this->assertEquals($tenant->getTenantKey(), $payload['tenant_key']);
         });
 
         dispatch(new Mocks\Job);
+    }
+
+    /**
+     * @test
+     */
+    public function override_tenant()
+    {
+        $tenant = $this->createMockTenant();
+        $this->environment->setTenant($tenant);
+
+        $second = $this->createMockTenant();
+
+        Event::listen('mock.tenant.job', function ($event) use ($second) {
+            $this->assertEquals($second->getTenantIdentifier(), $event->getTenantIdentifier());
+            $this->assertEquals($second->getTenantKey(), $event->getTenantKey());
+        });
+
+        dispatch(new Mocks\Job(
+            $second->getTenantKey(),
+            $second->getTenantIdentifier()
+        ));
     }
 }

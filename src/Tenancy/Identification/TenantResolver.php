@@ -89,6 +89,21 @@ class TenantResolver implements ResolvesTenants
         return $this->models;
     }
 
+    public function findModel(string $identifier, $key = null)
+    {
+        $model = $this->getModels()->map(function (string $model) {
+            return (new $model);
+        })->first(function (Tenant $model) use ($identifier) {
+            return $model->getTenantIdentifier() === $identifier;
+        });
+
+        if ($key !== null && $model) {
+            return $model->where($model->getTenantKeyName(), $key)->first();
+        }
+
+        return $model;
+    }
+
     /**
      * Updates the tenant model collection.
      *

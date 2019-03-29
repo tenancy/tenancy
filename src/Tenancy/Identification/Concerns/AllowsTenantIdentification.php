@@ -53,16 +53,9 @@ trait AllowsTenantIdentification
      */
     public function getTenantIdentifier(): string
     {
-        return $this->getConnectionName() . '.' . $this->getTable();
-    }
+        $identifier = $this->getTable();
+        $connection = $this->getConnectionName() ?? config('database.default');
 
-    /**
-     * Allows overriding the system connection used for the tenant.
-     *
-     * @return null|string
-     */
-    public function getManagingSystemConnection(): ?string
-    {
-        return null;
+        return "$connection.$identifier";
     }
 }
