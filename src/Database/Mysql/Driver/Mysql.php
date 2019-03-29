@@ -18,6 +18,7 @@ use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
@@ -76,9 +77,15 @@ class Mysql implements ProvidesDatabase
         ]);
     }
 
-    protected function system(): ConnectionInterface
+    protected function system(Tenant $tenant): ConnectionInterface
     {
-        return DB::connection(config('db-driver-mysql.system-connection'));
+        $connection = config('db-driver-mysql.system-connection');
+
+        if (in_array(ManagesSystemConnection::class, class_implements($tenant))) {
+            $connection = $tenant->getManagingSystemConnection() ?? $connection;
+        }
+
+        return DB::connection($connection);
     }
 
     protected function process(array $statements): bool
