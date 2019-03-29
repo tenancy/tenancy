@@ -64,9 +64,12 @@
                 "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Filesystem\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Logs\\Providers\\ServiceProvider",
+                "Tenancy\\Affects\\Routes\\Providers\\ServiceProvider",
+                "Tenancy\\Affects\\Views\\Providers\\ServiceProvider",
                 "Tenancy\\Identification\\Drivers\\Console\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider",
-                "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider"
+                "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider",
+                "Tenancy\\Identification\\Drivers\\Queue\\Providers\\IdentificationProvider"
             ],
             "aliases": {
                 "Tenancy": "Tenancy\\Facades\\TenancyFacade"
