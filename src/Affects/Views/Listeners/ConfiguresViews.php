@@ -16,7 +16,7 @@ namespace Tenancy\Affects\Views\Listeners;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
-use Tenancy\Affects\Routes\Events\ConfigureViews;
+use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
