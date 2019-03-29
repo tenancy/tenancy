@@ -14,6 +14,7 @@
 
 namespace Tenancy\Affects\Routes\Events;
 
+use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
 use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
@@ -33,5 +34,31 @@ class ConfigureRoutes
     {
         $this->event = $event;
         $this->router = $router;
+    }
+
+    /**
+     * Flush all tenant routes for this request.
+     *
+     * @return $this
+     */
+    public function flush()
+    {
+        $this->router->setRoutes(new RouteCollection());
+
+        return $this;
+    }
+
+    /**
+     * Adds routes from a routes.php file to the current request.
+     *
+     * @param array  $attributes
+     * @param string $path
+     * @return $this
+     */
+    public function fromFile(array $attributes, string $path)
+    {
+        $this->router->group($attributes, $path);
+
+        return $this;
     }
 }
