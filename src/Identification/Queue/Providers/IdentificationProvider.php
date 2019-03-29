@@ -25,44 +25,45 @@ class IdentificationProvider extends ServiceProvider
 {
     public function register()
     {
-        /** @var QueueManager $queue */
-        $queue = $this->app['queue'];
+        $this->app->extend('queue', function (QueueManager $queue) {
+            $queue->createPayloadUsing(function (string $connection, string $queue = null, array $payload = []) {
+                if (isset($payload['tenant_key'], $payload['tenant_identifier'])) {
+                    return [];
+                }
 
-        $queue->createPayloadUsing(function (string $connection, string $queue = null, array $payload = []) {
-            if (isset($payload['tenant_key'], $payload['tenant_identifier'])) {
-                return [];
-            }
-
-            /** @var Environment $environment */
-            $environment = resolve(Environment::class);
-            $tenant = $environment->getTenant();
-
-            return $tenant ? [
-                'tenant_key' => $tenant->getTenantKey(),
-                'tenant_identifier' => $tenant->getTenantIdentifier()
-            ] : [];
-        });
-
-        $queue->before(function (JobProcessing $event) {
-            /** @var array $payload */
-            $payload = $event->job->payload();
-            if ($command = Arr::get($payload, 'data.command')) {
-                $command = unserialize($command);
-            }
-
-            $key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
-            $identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
-
-            if ($key && $identifier) {
                 /** @var Environment $environment */
                 $environment = resolve(Environment::class);
-                /** @var ResolvesTenants $resolver */
-                $resolver = resolve(ResolvesTenants::class);
+                $tenant = $environment->getTenant();
 
-                $tenant = $resolver->findModel($identifier, $key);
+                return $tenant ? [
+                    'tenant_key' => $tenant->getTenantKey(),
+                    'tenant_identifier' => $tenant->getTenantIdentifier()
+                ] : [];
+            });
 
-                $environment->setTenant($tenant);
-            }
+            $queue->before(function (JobProcessing $event) {
+                /** @var array $payload */
+                $payload = $event->job->payload();
+                if ($command = Arr::get($payload, 'data.command')) {
+                    $command = unserialize($command);
+                }
+
+                $key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
+                $identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
+
+                if ($key && $identifier) {
+                    /** @var Environment $environment */
+                    $environment = resolve(Environment::class);
+                    /** @var ResolvesTenants $resolver */
+                    $resolver = resolve(ResolvesTenants::class);
+
+                    $tenant = $resolver->findModel($identifier, $key);
+
+                    $environment->setTenant($tenant);
+                }
+            });
+
+            return $queue;
         });
     }
 }
