@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/affects-routes",
+    "description": "The tenancy/tenancy routes mutations",
+    "keywords": ["affects", "tenancy", "routes"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Logs\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Routes\\Providers\\ServiceProvider"
+            ]
+        }
+    }
+}
