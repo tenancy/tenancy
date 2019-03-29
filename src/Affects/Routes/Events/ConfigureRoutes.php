@@ -28,7 +28,7 @@ class ConfigureRoutes
     /**
      * @var Router
      */
-    private $router;
+    public $router;
 
     public function __construct($event, Router $router)
     {

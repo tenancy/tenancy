@@ -1,14 +1,14 @@
 {
-    "name": "tenancy/affects-routes",
-    "description": "The tenancy/tenancy routes mutations",
-    "keywords": ["affects", "tenancy", "routes"],
+    "name": "tenancy/affects-views",
+    "description": "The tenancy/tenancy views mutations",
+    "keywords": ["affects", "tenancy", "views"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Affects\\Routes\\": ""
+            "Tenancy\\Affects\\Views\\": ""
         }
     },
     "authors": [
@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Routes\\Providers\\ServiceProvider"
+                "Tenancy\\Affects\\Views\\Providers\\ServiceProvider"
             ]
         }
     }

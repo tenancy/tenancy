@@ -12,16 +12,16 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Routes\Listeners;
+namespace Tenancy\Affects\Views\Listeners;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Routes\Events\ConfigureViews;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
-class ConfiguresRoutes implements TenantAffectsApp
+class ConfiguresViews implements TenantAffectsApp
 {
     /**
      * @param Resolved|Switched $event
@@ -29,13 +29,13 @@ class ConfiguresRoutes implements TenantAffectsApp
      */
     public function handle($event)
     {
-        /** @var Router $router */
-        $router = resolve(Router::class);
+        /** @var Factory $view */
+        $view = resolve(Factory::class);
         /** @var Dispatcher $events */
         $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
-            $events->dispatch(new ConfigureViews($event, $router));
+            $events->dispatch(new ConfigureViews($event, $view));
         }
     }
 }

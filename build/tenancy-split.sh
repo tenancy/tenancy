@@ -10,6 +10,7 @@ git subsplit publish --heads="master" src/Affects/Cache:git@github.com:tenancy/a
 git subsplit publish --heads="master" src/Affects/Filesystem:git@github.com:tenancy/affects-filesystem.git
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
 git subsplit publish --heads="master" src/Affects/Routes:git@github.com:tenancy/affects-routes.git
+git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/affects-views.git
 
 # Identification drivers
 git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
