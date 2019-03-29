@@ -16,7 +16,7 @@ namespace Tenancy\Affects\Routes\Listeners;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
-use Tenancy\Affects\Routes\Events\ConfigureViews;
+use Tenancy\Affects\Routes\Events\ConfigureRoutes;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
@@ -35,7 +35,7 @@ class ConfiguresRoutes implements TenantAffectsApp
         $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
-            $events->dispatch(new ConfigureViews($event, $router));
+            $events->dispatch(new ConfigureRoutes($event, $router));
         }
     }
 }
