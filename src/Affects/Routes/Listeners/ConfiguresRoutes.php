@@ -37,5 +37,8 @@ class ConfiguresRoutes implements TenantAffectsApp
         if ($event->tenant) {
             $events->dispatch(new ConfigureRoutes($event, $router));
         }
+
+        $router->getRoutes()->refreshNameLookups();
+        $router->getRoutes()->refreshActionLookups();
     }
 }

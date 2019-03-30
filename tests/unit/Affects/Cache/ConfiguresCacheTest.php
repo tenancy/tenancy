@@ -18,7 +18,6 @@ use Illuminate\Cache\CacheManager;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
 use Tenancy\Affects\Cache\Providers\ServiceProvider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Identification\Events\Resolving;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
