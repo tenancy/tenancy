@@ -14,6 +14,7 @@
 
 namespace Tenancy\Affects\Config\Events;
 
+use Illuminate\Contracts\Config\Repository;
 use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
@@ -23,11 +24,18 @@ class ConfigureConfig
      * @var Resolved|Switched
      */
     public $event;
+    /**
+     * @var Repository
+     */
     public $config;
 
-    public function __construct($event, $config)
+    public function __construct($event, Repository $config)
     {
         $this->event = $event;
         $this->config = $config;
+    }
+
+    public function __call($name, $arguments){
+        return call_user_func_array([$this->config, $name], $arguments);
     }
 }
