@@ -25,9 +25,9 @@ class ConfigureConfig
     public $event;
     public $config;
 
-    public function __construct($event, &$config)
+    public function __construct($event, $config)
     {
         $this->event = $event;
-        $this->config = &$config;
+        $this->config = $config;
     }
 }
