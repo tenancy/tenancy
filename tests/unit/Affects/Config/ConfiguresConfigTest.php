@@ -16,6 +16,7 @@ namespace Tenancy\Tests\Affects\Config;
 
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
 use Illuminate\Contracts\Config\Repository;
 use Tenancy\Affects\Config\Events\ConfigureConfig;
 use Tenancy\Affects\Config\Providers\ServiceProvider;
@@ -32,18 +33,6 @@ class ConfiguresConfigTest extends TestCase
     protected function afterSetUp()
     {
         $this->tenant = $this->mockTenant();
-    }
-
-    /**
-     * @test
-     */
-    public function is_instance_of_repository()
-    {
-        $this->events->listen(ConfigureConfig::class, function (ConfigureConfig $event) {
-            $this->assertInstanceOf(Repository::class, $event->config);
-        });
-
-        Tenancy::setTenant($this->tenant);
     }
 
     /**
