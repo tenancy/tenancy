@@ -32,6 +32,11 @@ class ConfiguresConfigTest extends TestCase
      */
     protected $tenant;
 
+    protected function afterSetUp()
+    {
+        $this->tenant = $this->mockTenant();
+    }
+
     /**
      * @test
      */
@@ -41,7 +46,6 @@ class ConfiguresConfigTest extends TestCase
             $this->assertInstanceOf(Repository::class, $event->config);
         });
 
-        $this->tenant = $this->mockTenant();
         Tenancy::setTenant($this->tenant);
     }
 
@@ -56,7 +60,6 @@ class ConfiguresConfigTest extends TestCase
             $event->config->set('test', true);
         });
 
-        $this->tenant = $this->mockTenant();
         Tenancy::setTenant($this->tenant);
 
         $this->assertTrue(config('test'));
@@ -73,7 +76,6 @@ class ConfiguresConfigTest extends TestCase
             $event->set('test', true);
         });
 
-        $this->tenant = $this->mockTenant();
         Tenancy::setTenant($this->tenant);
 
         $this->assertTrue(config('test'));
