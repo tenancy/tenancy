@@ -17,7 +17,6 @@ namespace Tenancy\Tests\Affects\Config;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 use Tenancy\Testing\Mocks\Tenant;
-use Illuminate\Contracts\Config\Repository;
 use Tenancy\Affects\Config\Events\ConfigureConfig;
 use Tenancy\Affects\Config\Providers\ServiceProvider;
 
