@@ -50,15 +50,32 @@ class ConfiguresConfigTest extends TestCase
      */
     public function can_set_config()
     {
-        $this->assertNull(config('cool.test'));
+        $this->assertNull(config('test'));
 
         Event::listen(ConfigureConfig::class, function (ConfigureConfig $event) {
-            $event->config->set('cool.test', true);
+            $event->config->set('test', true);
         });
 
         $this->tenant = $this->mockTenant();
         Tenancy::setTenant($this->tenant);
 
-        $this->assertTrue(config('cool.test'));
+        $this->assertTrue(config('test'));
+    }
+
+    /**
+     * @test
+     */
+    public function can_use_direct_call()
+    {
+        $this->assertNull(config('test'));
+
+        Event::listen(ConfigureConfig::class, function (ConfigureConfig $event) {
+            $event->set('test', true);
+        });
+
+        $this->tenant = $this->mockTenant();
+        Tenancy::setTenant($this->tenant);
+
+        $this->assertTrue(config('test'));
     }
 }
