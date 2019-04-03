@@ -16,10 +16,7 @@ namespace Tenancy\Tests\Affects\Config;
 
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Contracts\Config\Repository;
-use Tenancy\Identification\Events\Resolving;
 use Tenancy\Affects\Config\Events\ConfigureConfig;
 use Tenancy\Affects\Config\Providers\ServiceProvider;
 
@@ -42,7 +39,7 @@ class ConfiguresConfigTest extends TestCase
      */
     public function is_instance_of_repository()
     {
-        Event::listen(ConfigureConfig::class, function (ConfigureConfig $event) {
+        $this->events->listen(ConfigureConfig::class, function (ConfigureConfig $event) {
             $this->assertInstanceOf(Repository::class, $event->config);
         });
 
@@ -56,7 +53,7 @@ class ConfiguresConfigTest extends TestCase
     {
         $this->assertNull(config('test'));
 
-        Event::listen(ConfigureConfig::class, function (ConfigureConfig $event) {
+        $this->events->listen(ConfigureConfig::class, function (ConfigureConfig $event) {
             $event->config->set('test', true);
         });
 
@@ -72,7 +69,7 @@ class ConfiguresConfigTest extends TestCase
     {
         $this->assertNull(config('test'));
 
-        Event::listen(ConfigureConfig::class, function (ConfigureConfig $event) {
+        $this->events->listen(ConfigureConfig::class, function (ConfigureConfig $event) {
             $event->set('test', true);
         });
 
