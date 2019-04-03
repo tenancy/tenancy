@@ -1,3 +1,4 @@
 .phpunit.result.cache
+.subsplit
 composer.lock
 vendor/
