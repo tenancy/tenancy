@@ -7,11 +7,11 @@ git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/framewo
 
 # Affects
 git subsplit publish --heads="master" src/Affects/Cache:git@github.com:tenancy/affects-cache.git
+git subsplit publish --heads="master" src/Affects/Config:git@github.com:tenancy/affects-config.git
 git subsplit publish --heads="master" src/Affects/Filesystem:git@github.com:tenancy/affects-filesystem.git
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
 git subsplit publish --heads="master" src/Affects/Routes:git@github.com:tenancy/affects-routes.git
 git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/affects-views.git
-git subsplit publish --heads="master" src/Affects/Config:git@github.com:tenancy/affects-config.git
 
 # Identification drivers
 git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
