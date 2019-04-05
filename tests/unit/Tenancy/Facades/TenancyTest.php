@@ -22,6 +22,8 @@ use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
+use InvalidArgumentException;
 
 class TenancyTest extends TestCase
 {
@@ -86,10 +88,8 @@ class TenancyTest extends TestCase
      */
     public function can_retrieve_tenant_connection()
     {
-        $this->assertEquals(
-            config('tenancy.database.tenant-connection-name'),
-            Tenancy::getTenantConnection()->getName()
-        );
+        $this->expectException(InvalidArgumentException::class);
+        Tenancy::getTenantConnection()->getName();
     }
 
     /**
@@ -124,5 +124,24 @@ class TenancyTest extends TestCase
 
         $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
         $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());
+    }
+
+    /**
+     * @test
+     */
+    public function switch_tenant_sets_connection()
+    {
+        $this->assertNull(config('database.connections.'. Tenancy::getTenantConnectionName()));
+
+        Tenancy::setTenant($this->tenant);
+
+        $this->assertEquals(
+            config('database.connections.' . Tenancy::getTenantConnectionName() . '.tenant-key'),
+            $this->tenant->getTenantKey()
+        );
+        $this->assertEquals(
+            config('database.connections.' . Tenancy::getTenantConnectionName() . '.tenant-identifier'),
+            $this->tenant->getTenantIdentifier()
+        );
     }
 }
