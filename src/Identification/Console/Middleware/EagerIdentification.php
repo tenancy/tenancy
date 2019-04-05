@@ -18,6 +18,7 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Environment;
+use Tenancy\Identification\Contracts\ResolvesTenants;
 
 class EagerIdentification
 {
