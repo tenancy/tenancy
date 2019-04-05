@@ -40,7 +40,7 @@ class EagerIdentification
             $this->app->instance(InputInterface::class, $event->input);
             $tenancy->getTenant();
 
-            if($event->input->hasParameterOption('--tenant') && $event->input->hasParameterOption('--tenant-identifier')){
+            if ($event->input->hasParameterOption('--tenant') && $event->input->hasParameterOption('--tenant-identifier')) {
                 $tenant_key = $event->input->getParameterOption('--tenant');
                 $tenant_identifier = $event->input->getParameterOption('--tenant-identifier');
 
