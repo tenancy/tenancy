@@ -18,7 +18,7 @@ use Tenancy\Identification\Contracts\ResolvesTenants as Resolver;
 
 trait ResolvesTenants
 {
-    protected function resolver(): Resolver
+    protected function tenantResolver(): Resolver
     {
         return resolve(Resolver::class);
     }
