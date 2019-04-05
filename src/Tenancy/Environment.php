@@ -24,6 +24,7 @@ class Environment
     use Concerns\DispatchesEvents,
         Concerns\ResolvesDatabase,
         Concerns\ResolvesTenants,
+        Concerns\ResolvesConnections,
         Macroable;
 
     /**
@@ -43,6 +44,11 @@ class Environment
         $this->tenant = $tenant;
 
         $this->events()->dispatch(new Switched($tenant));
+
+        if($tenant){
+            $resolver = $this->databaseResolver();
+            $resolver($tenant);
+        }
 
         if (! $this->identified) {
             $this->identified = true;
