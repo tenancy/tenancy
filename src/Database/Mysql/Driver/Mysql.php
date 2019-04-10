@@ -21,6 +21,7 @@ use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Database\Contracts\ProvidesPassword;
 
 class Mysql implements ProvidesDatabase
 {
@@ -37,7 +38,7 @@ class Mysql implements ProvidesDatabase
         }
 
         $config['database'] = $config['username'] = $tenant->getTenantKey();
-        $config['password'] = resolve(ProvidesDatabase::class)->generate($tenant);
+        $config['password'] = resolve(ProvidesPassword::class)->generate($tenant);
 
         event(new Configuring($tenant, $config, $this));
 
@@ -48,7 +49,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        return $this->process([
+        return $this->process($tenant, [
             'user' => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant' => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'"
@@ -62,7 +63,7 @@ class Mysql implements ProvidesDatabase
         if (!isset($config['oldUsername'])) {
             return false;
         }
-        return $this->process([
+        return $this->process($tenant, [
             'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
         ]);
     }
@@ -71,7 +72,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        return $this->process([
+        return $this->process($tenant, [
             'user' => "DROP USER `{$config['username']}`@'{$config['host']}'",
             'database' => "DROP DATABASE IF EXISTS `{$config['database']}`"
         ]);
@@ -88,15 +89,15 @@ class Mysql implements ProvidesDatabase
         return DB::connection($connection);
     }
 
-    protected function process(array $statements): bool
+    protected function process(Tenant $tenant, array $statements): bool
     {
         $success = false;
 
-        $this->system()->beginTransaction();
+        $this->system($tenant)->beginTransaction();
 
         foreach ($statements as $statement) {
             try {
-                $success = $this->system()->statement($statement);
+                $success = $this->system($tenant)->statement($statement);
 
                 if (! $success) {
                     throw new QueryException($statement);
@@ -104,11 +105,11 @@ class Mysql implements ProvidesDatabase
             } catch (QueryException $e) {
                 report($e);
 
-                $this->system()->rollBack();
+                $this->system($tenant)->rollBack();
             }
         }
 
-        $this->system()->commit();
+        $this->system($tenant)->commit();
 
         return $success;
     }
