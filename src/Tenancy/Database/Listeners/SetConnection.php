@@ -26,7 +26,7 @@ class SetConnection
         $connection = $event->connection ?? Tenancy::getTenantConnectionName();
         $existingConfig = config('database.connections.' . $connection);
 
-        if ($event->provider) {
+        if ($event->tenant && $event->provider) {
             $configuration = $event->provider->configure($event->tenant);
 
             $configuration['tenant-key'] = optional($event->tenant)->getTenantKey();
@@ -37,7 +37,8 @@ class SetConnection
             config(['database.connections.' . $connection  => null]);
         }
 
-        if (! $event->provider
+        if (! $event->tenant
+            || ! $event->provider
             || Arr::get($existingConfig, 'tenant-key') !== $configuration['tenant-key']
             || Arr::get($existingConfig, 'tenant-identifier') !== $configuration['tenant-identifier']) {
             resolve(DatabaseManager::class)->purge($connection);

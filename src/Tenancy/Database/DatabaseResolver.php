@@ -19,6 +19,8 @@ use Illuminate\Support\Traits\Macroable;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Contracts\ResolvesConnections;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Events\Resolved;
+use Tenancy\Identification\Events\Switched;
 
 class DatabaseResolver implements ResolvesConnections
 {
@@ -32,6 +34,13 @@ class DatabaseResolver implements ResolvesConnections
     public function __construct(Dispatcher $events)
     {
         $this->events = $events;
+    }
+
+    public function subscribe(Dispatcher $events)
+    {
+        $events->listen([Resolved::class, Switched::class], function ($event) {
+            $this($event->tenant);
+        });
     }
 
     public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesDatabase
