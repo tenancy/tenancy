@@ -12,13 +12,13 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Mock\Driver;
+namespace Tenancy\Tests\Database\Mocks;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
-class Mock implements ProvidesDatabase
+class NullDriver implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
@@ -33,21 +33,21 @@ class Mock implements ProvidesDatabase
 
     public function create(Tenant $tenant): bool
     {
-        $config = $this->configure($tenant);
+        $this->configure($tenant);
 
         return true;
     }
 
     public function update(Tenant $tenant): bool
     {
-        $config = $this->configure($tenant);
+        $this->configure($tenant);
 
         return true;
     }
 
     public function delete(Tenant $tenant): bool
     {
-        $config = $this->configure($tenant);
+        $this->configure($tenant);
 
         return false;
     }

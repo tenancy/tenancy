@@ -14,16 +14,15 @@
 
 namespace Tenancy\Tests\Facades;
 
-use Illuminate\Database\Connection;
+use Tenancy\Database\Events\Resolving;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
 use InvalidArgumentException;
+use Tenancy\Tests\Database\Mocks\NullDriver;
 
 class TenancyTest extends TestCase
 {
@@ -32,6 +31,12 @@ class TenancyTest extends TestCase
 
     protected function afterSetUp()
     {
+        $this->events->forget(Resolving::class);
+
+        $this->events->listen(Resolving::class, function (Resolving $event) {
+            return new NullDriver;
+        });
+
         /** @var ResolvesTenants $resolver */
         $resolver = resolve(ResolvesTenants::class);
         $this->tenant = $this->mockTenant();

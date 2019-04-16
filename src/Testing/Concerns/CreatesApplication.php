@@ -26,7 +26,6 @@ trait CreatesApplication
     protected $additionalProviders = [];
     protected $additionalMocks = [];
     protected $tenantModels = [];
-    protected $databaseProvider = DatabaseProvider::class;
 
     /**
      * @var Environment
@@ -85,8 +84,6 @@ trait CreatesApplication
             $this->app->register($provider);
         }
 
-        $this->registerDatabaseProvider();
-
         /** @var Factory $factory */
         $factory = resolve(Factory::class);
         $factory->load(__DIR__ . '/../Mocks/factories/');
@@ -118,10 +115,5 @@ trait CreatesApplication
 
             file_put_contents("$base/config/app.php", sprintf('<?php return %s;', var_export($config, true)));
         }
-    }
-
-    protected function registerDatabaseProvider()
-    {
-        $this->app->register($this->databaseProvider);
     }
 }
