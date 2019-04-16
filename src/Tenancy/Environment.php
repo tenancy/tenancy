@@ -45,8 +45,10 @@ class Environment
 
         $this->events()->dispatch(new Switched($tenant));
 
-        $resolver = $this->databaseResolver();
-        $resolver($tenant);
+        if ($tenant) {
+            $resolver = $this->databaseResolver();
+            $resolver($tenant);
+        }
 
         if (! $this->identified) {
             $this->identified = true;
