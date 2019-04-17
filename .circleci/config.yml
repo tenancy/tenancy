@@ -81,7 +81,7 @@ jobs:
             - checkout
             - run: git clone git@github.com:dflydev/git-subsplit.git ~/subsplit
             - run: cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
-            - run: ./build/tenancy-split.sh
+            - run: ./root/repo/build/tenancy-split.sh
 
 workflows:
     version: 2
