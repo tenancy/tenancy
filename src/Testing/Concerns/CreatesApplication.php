@@ -19,7 +19,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Factory;
 use Tenancy\Environment;
 use Tenancy\Providers\TenancyProvider;
-use Tenancy\Database\Drivers\Mock\Providers\DatabaseProvider;
 
 trait CreatesApplication
 {
