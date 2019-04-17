@@ -79,8 +79,8 @@ jobs:
         working_directory: ~/repo
         steps:
             - checkout
-            - git clone git@github.com:dflydev/git-subsplit.git ~/subsplit && bash ~/subsplit/install.sh
-            - bash build/tenancy-split.sh
+            - run: git clone git@github.com:dflydev/git-subsplit.git ~/subsplit && bash ~/subsplit/install.sh
+            - run: bash build/tenancy-split.sh
 
 workflows:
     version: 2
