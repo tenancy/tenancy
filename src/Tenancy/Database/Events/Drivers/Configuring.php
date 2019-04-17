@@ -22,7 +22,7 @@ class Configuring
     /**
      * @var Tenant
      */
-    private $tenant;
+    public $tenant;
     /**
      * @var array
      */
