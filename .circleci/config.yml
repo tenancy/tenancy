@@ -108,4 +108,3 @@ workflows:
                       branches:
                           only:
                               - master
-                              - dk/split-from-ci
