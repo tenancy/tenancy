@@ -14,11 +14,11 @@
 
 namespace Tenancy\Concerns;
 
-use Tenancy\Identification\Contracts\ResolvesTenants as Resolver;
+use Tenancy\Database\Contracts\ResolvesConnections as Resolver;
 
-trait ResolvesTenants
+trait ResolvesConnections
 {
-    protected function tenantResolver(): Resolver
+    protected function databaseResolver(): Resolver
     {
         return resolve(Resolver::class);
     }

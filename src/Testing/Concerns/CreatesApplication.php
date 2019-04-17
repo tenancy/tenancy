@@ -93,8 +93,6 @@ trait CreatesApplication
 
         $this->environment = resolve(Environment::class);
         $this->events = resolve(Dispatcher::class);
-
-        config(['database.connections.tenant' => config('database.connections.' . config('database.default'), [])]);
     }
 
     protected function tearDownTenancy()

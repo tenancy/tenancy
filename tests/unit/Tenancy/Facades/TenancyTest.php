@@ -14,14 +14,15 @@
 
 namespace Tenancy\Tests\Facades;
 
-use Illuminate\Database\Connection;
+use Tenancy\Database\Events\Resolving;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use InvalidArgumentException;
+use Tenancy\Tests\Database\Mocks\NullDriver;
 
 class TenancyTest extends TestCase
 {
@@ -30,6 +31,12 @@ class TenancyTest extends TestCase
 
     protected function afterSetUp()
     {
+        $this->events->forget(Resolving::class);
+
+        $this->events->listen(Resolving::class, function (Resolving $event) {
+            return new NullDriver;
+        });
+
         /** @var ResolvesTenants $resolver */
         $resolver = resolve(ResolvesTenants::class);
         $this->tenant = $this->mockTenant();
@@ -86,10 +93,8 @@ class TenancyTest extends TestCase
      */
     public function can_retrieve_tenant_connection()
     {
-        $this->assertEquals(
-            config('tenancy.database.tenant-connection-name'),
-            Tenancy::getTenantConnection()->getName()
-        );
+        $this->expectException(InvalidArgumentException::class);
+        Tenancy::getTenantConnection()->getName();
     }
 
     /**
@@ -124,5 +129,24 @@ class TenancyTest extends TestCase
 
         $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
         $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());
+    }
+
+    /**
+     * @test
+     */
+    public function switch_tenant_sets_connection()
+    {
+        $this->assertNull(config('database.connections.'. Tenancy::getTenantConnectionName()));
+
+        Tenancy::setTenant($this->tenant);
+
+        $this->assertEquals(
+            config('database.connections.' . Tenancy::getTenantConnectionName() . '.tenant-key'),
+            $this->tenant->getTenantKey()
+        );
+        $this->assertEquals(
+            config('database.connections.' . Tenancy::getTenantConnectionName() . '.tenant-identifier'),
+            $this->tenant->getTenantIdentifier()
+        );
     }
 }
