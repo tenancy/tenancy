@@ -81,7 +81,7 @@ jobs:
             - checkout
             - run: apt-get -yqq update
             - run: apt-get -yqq install git
-            - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
+            - run: mkdir ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
             - run: git clone git@github.com:dflydev/git-subsplit.git ~/subsplit
             - run: cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
             - run: bash build/tenancy-split.sh
