@@ -96,3 +96,11 @@ workflows:
                   requires:
                       - "php-7.2"
                       - "php-7.3"
+            - subsplit:
+                  requires:
+                      - phpcs
+                      - coverage
+                  filters:
+                      branches:
+                          only:
+                              - master
