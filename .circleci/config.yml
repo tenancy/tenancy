@@ -75,13 +75,15 @@ jobs:
 
     subsplit:
         docker:
-            - image: alpine/git:latest
+            - image: php:7.2
         working_directory: ~/repo
         steps:
             - checkout
+            - run: apt-get -yqq update
+            - run: apt-get -yqq install git
             - run: git clone git@github.com:dflydev/git-subsplit.git ~/subsplit
             - run: cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
-            - run: sh build/tenancy-split.sh
+            - run: bash build/tenancy-split.sh
 
 workflows:
     version: 2
