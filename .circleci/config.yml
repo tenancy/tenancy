@@ -75,7 +75,7 @@ jobs:
 
     subsplit:
         docker:
-            - image: php:7.2
+            - image: alpine/git:latest
         working_directory: ~/repo
         steps:
             - checkout
