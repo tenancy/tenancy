@@ -31,7 +31,7 @@ return [
      * If you want to allow tenants db-user to connect to
      * database from other host than database is located at,
      * specify this host here. Leaving null will use database
-     * location host from config.
+     * host from config.
      */
     'tenant-dbuser-allowed-host' => null,
 
