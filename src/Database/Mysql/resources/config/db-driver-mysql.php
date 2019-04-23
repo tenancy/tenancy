@@ -27,6 +27,14 @@ return [
      */
     'use-connection' => null,
 
+    /**
+     * If you want to allow tenants db-user to connect to
+     * database from other host than database is located at,
+     * specify this host here. Leaving null will use database
+     * location host from config.
+     */
+    'tenant-dbuser-allowed-host' => null,
+
     'preset' => [
         'driver' => 'mysql',
         'host' => env('DB_HOST', '127.0.0.1'),

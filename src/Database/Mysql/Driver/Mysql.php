@@ -39,6 +39,7 @@ class Mysql implements ProvidesDatabase
 
         $config['database'] = $config['username'] = $tenant->getTenantKey();
         $config['password'] = resolve(ProvidesPassword::class)->generate($tenant);
+        $config['allowedhost'] = config('db-driver-mysql.tenant-dbuser-allowed-host', $config['host']);
 
         event(new Configuring($tenant, $config, $this));
 
@@ -50,9 +51,9 @@ class Mysql implements ProvidesDatabase
         $config = $this->configure($tenant);
 
         return $this->process($tenant, [
-            'user' => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
+            'user' => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['allowedhost']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
-            'grant' => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'"
+            'grant' => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['allowedhost']}'"
         ]);
     }
 
@@ -64,7 +65,7 @@ class Mysql implements ProvidesDatabase
             return false;
         }
         return $this->process($tenant, [
-            'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
+            'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['allowedhost']}' TO `{$config['username']}`@'{$config['allowedhost']}'",
         ]);
     }
 
@@ -73,7 +74,7 @@ class Mysql implements ProvidesDatabase
         $config = $this->configure($tenant);
 
         return $this->process($tenant, [
-            'user' => "DROP USER `{$config['username']}`@'{$config['host']}'",
+            'user' => "DROP USER `{$config['username']}`@'{$config['allowedhost']}'",
             'database' => "DROP DATABASE IF EXISTS `{$config['database']}`"
         ]);
     }
