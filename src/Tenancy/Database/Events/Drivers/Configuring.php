@@ -15,6 +15,7 @@
 namespace Tenancy\Database\Events\Drivers;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Database\Contracts\ProvidesPassword;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Configuring
@@ -34,8 +35,30 @@ class Configuring
 
     public function __construct(Tenant $tenant, array &$configuration, ProvidesDatabase $provider)
     {
+        $configuration = $this->defaults($tenant, $configuration);
+
         $this->tenant = $tenant;
         $this->configuration = &$configuration;
         $this->provider = $provider;
+    }
+
+    public function useConnection(string $connection)
+    {
+        $this->configuration = config("database.connections.$connection");
+
+        return $this;
+    }
+
+    protected function defaults(Tenant $tenant, array &$configuration): array
+    {
+        if ($tenant->isDirty($tenant->getTenantKeyName())) {
+            $configuration['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
+        }
+
+        $configuration['username'] = $configuration['username'] ?? $tenant->getTenantKey();
+        $configuration['database'] = $configuration['database'] ?? $configuration['username'];
+        $configuration['password'] = $configuration['password'] ?? resolve(ProvidesPassword::class)->generate($tenant);
+
+        return $configuration;
     }
 }

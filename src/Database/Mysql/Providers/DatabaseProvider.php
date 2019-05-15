@@ -25,8 +25,4 @@ class DatabaseProvider extends DriverProvider
             ConfiguresTenantConnection::class
         ]
     ];
-
-    protected $configs = [
-        __DIR__ . '/../resources/config/db-driver-mysql.php'
-    ];
 }

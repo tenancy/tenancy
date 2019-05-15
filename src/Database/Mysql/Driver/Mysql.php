@@ -17,28 +17,31 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use PDO;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Database\Contracts\ProvidesPassword;
 
 class Mysql implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('db-driver-mysql.use-connection')) {
-            return config("database.connections.$name");
-        }
-
-        $config = config('db-driver-mysql.preset', []);
-
-        if ($tenant->isDirty($tenant->getTenantKeyName())) {
-            $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
-        }
-
-        $config['database'] = $config['username'] = $tenant->getTenantKey();
-        $config['password'] = resolve(ProvidesPassword::class)->generate($tenant);
+        $config = [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ];
 
         event(new Configuring($tenant, $config, $this));
 
