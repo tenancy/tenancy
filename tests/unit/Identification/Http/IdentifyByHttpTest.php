@@ -19,7 +19,6 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
-use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
 
 class IdentifyByHttpTest extends TestCase
 {
