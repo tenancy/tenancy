@@ -53,7 +53,7 @@ abstract class DriverProvider extends EventServiceProvider
         });
 
         foreach ($this->configs as $config) {
-            $configPath = 'tenancy\\'. basename($config);
+            $configPath = basename($config);
             $configName = basename($config, '.php');
 
             $this->publishes([$config => config_path('tenancy\\' . $configPath)], [$configName, "tenancy"]);
