@@ -52,7 +52,7 @@ class IdentifyByHttpTest extends TestCase
      */
     public function request_identifies_hostname()
     {
-        $this->assertTrue(config('identification-driver-http.eager'), 'Eager http identification is not enabled.');
+        $this->assertTrue(config('tenancy.identification-driver-http.eager'), 'Eager http identification is not enabled.');
         $this->assertFalse($this->environment->isIdentified());
 
         $this->get("http://" . $this->hostname->fqdn);

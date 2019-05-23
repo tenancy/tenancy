@@ -34,7 +34,7 @@ class IdentificationProvider extends DriverProvider
         parent::register();
 
         $this->app->extend(Kernel::class, function (Kernel $kernel) {
-            if (config('identification-driver-http.eager')) {
+            if (config('tenancy.identification-driver-http.eager')) {
                 $kernel->prependMiddleware(EagerIdentification::class);
             }
 
