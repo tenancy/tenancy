@@ -35,7 +35,7 @@ class PasswordGeneratorTest extends TestCase
      */
     public function test_password_generator_output()
     {
-        config(['tenancy.tenancy.key' => "YYTzkkfJaiSt+rwvCUq8rsdYWy5/fhasqjpHl8SyUJw="]);
+        config(['tenancy.key' => "YYTzkkfJaiSt+rwvCUq8rsdYWy5/fhasqjpHl8SyUJw="]);
 
         $this->tenant = $this->createMockTenant([
             'id' => 641641641,

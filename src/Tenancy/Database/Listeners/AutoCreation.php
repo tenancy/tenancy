@@ -18,7 +18,7 @@ class AutoCreation extends DatabaseMutation
 {
     public function handle($event): ?bool
     {
-        if (config('tenancy.tenancy.database.auto-create') && $driver = $this->driver($event->tenant)) {
+        if (config('tenancy.database.auto-create') && $driver = $this->driver($event->tenant)) {
             return $driver->create($event->tenant);
         }
 

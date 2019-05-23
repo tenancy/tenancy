@@ -25,7 +25,7 @@ trait ProvidesConfig
         foreach ($this->configs as $path => $key) {
             $this->mergeConfigFrom(
                 $path,
-                'tenancy.' . $key
+                $key
             );
         }
 
@@ -36,7 +36,7 @@ trait ProvidesConfig
     {
         $formatted = [];
         foreach ($array as $path => $key) {
-            $formatted += [$path => config_path('tenancy\\' . $key . '.php')];
+            $formatted += [$path => config_path($key . '.php')];
         }
         return $formatted;
     }
