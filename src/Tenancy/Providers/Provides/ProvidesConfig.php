@@ -25,7 +25,7 @@ trait ProvidesConfig
         foreach ($this->configs as $path => $key) {
             $this->mergeConfigFrom(
                 $path,
-                $key
+                'tenancy.' . $key
             );
         }
 

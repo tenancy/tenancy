@@ -58,7 +58,7 @@ abstract class DriverProvider extends EventServiceProvider
 
             $this->publishes([$config => config_path('tenancy\\' . $configPath)], [$configName, "tenancy"]);
 
-            $this->mergeConfigFrom($config, $configName);
+            $this->mergeConfigFrom($config, 'tenancy.' . $configName);
         }
 
         foreach ($this->affects as $affect) {
