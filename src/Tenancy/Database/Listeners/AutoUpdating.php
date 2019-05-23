@@ -18,7 +18,7 @@ class AutoUpdating extends DatabaseMutation
 {
     public function handle($event): ?bool
     {
-        if (config('tenancy.database.auto-update') && $driver = $this->driver($event->tenant)) {
+        if (config('tenancy.tenancy.database.auto-update') && $driver = $this->driver($event->tenant)) {
             return $driver->update($event->tenant);
         }
 

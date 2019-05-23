@@ -18,7 +18,7 @@ class AutoDeletion extends DatabaseMutation
 {
     public function handle($event): ?bool
     {
-        if (config('tenancy.database.auto-delete') && $driver = $this->driver($event->tenant)) {
+        if (config('tenancy.tenancy.database.auto-delete') && $driver = $this->driver($event->tenant)) {
             return $driver->delete($event->tenant);
         }
 

@@ -83,6 +83,6 @@ class Environment
 
     public static function getTenantConnectionName(): string
     {
-        return config('tenancy.database.tenant-connection-name', 'tenant');
+        return config('tenancy.tenancy.database.tenant-connection-name', 'tenant');
     }
 }

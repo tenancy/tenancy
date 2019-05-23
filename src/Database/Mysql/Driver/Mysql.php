@@ -27,11 +27,11 @@ class Mysql implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('db-driver-mysql.use-connection')) {
-            return config("database.connections.$name");
+        if ($name = config('tenancy.db-driver-mysql.use-connection')) {
+            return config("tenancy.database.connections.$name");
         }
 
-        $config = config('db-driver-mysql.preset', []);
+        $config = config('tenancy.db-driver-mysql.preset', []);
 
         if ($tenant->isDirty($tenant->getTenantKeyName())) {
             $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
@@ -80,7 +80,7 @@ class Mysql implements ProvidesDatabase
 
     protected function system(Tenant $tenant): ConnectionInterface
     {
-        $connection = config('db-driver-mysql.system-connection');
+        $connection = config('tenancy.db-driver-mysql.system-connection');
 
         if (in_array(ManagesSystemConnection::class, class_implements($tenant))) {
             $connection = $tenant->getManagingSystemConnection() ?? $connection;

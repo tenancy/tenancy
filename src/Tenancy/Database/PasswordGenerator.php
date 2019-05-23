@@ -29,7 +29,7 @@ class PasswordGenerator implements ProvidesPassword
             '%s-%s-%s',
             $tenant->getTenantIdentifier(),
             $tenant->getTenantKey(),
-            config('tenancy.key') ?? config('app.key')
+            config('tenancy.tenancy.key') ?? config('app.key')
         ));
     }
 }
