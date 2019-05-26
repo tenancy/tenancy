@@ -52,6 +52,17 @@ class Configuring
         return $this;
     }
 
+    public function useConfig(string $path)
+    {
+        if (! file_exists($path)) {
+            throw new \InvalidArgumentException("Cannot set up tenant connection configuration, file $path does not exist.");
+        }
+
+        $this->configuration = include $path;
+
+        return $this;
+    }
+
     protected function defaults(Tenant $tenant, array &$configuration): array
     {
         if ($tenant->isDirty($tenant->getTenantKeyName())) {
