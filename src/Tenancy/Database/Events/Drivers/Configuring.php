@@ -14,6 +14,7 @@
 
 namespace Tenancy\Database\Events\Drivers;
 
+use InvalidArgumentException;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Contracts\ProvidesPassword;
 use Tenancy\Identification\Contracts\Tenant;
@@ -55,7 +56,7 @@ class Configuring
     public function useConfig(string $path)
     {
         if (! file_exists($path)) {
-            throw new \InvalidArgumentException("Cannot set up tenant connection configuration, file $path does not exist.");
+            throw new InvalidArgumentException("Cannot set up tenant connection configuration, file $path does not exist.");
         }
 
         $this->configuration = include $path;
