@@ -19,7 +19,6 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
-use Tenancy\Tests\Identification\Drivers\Http\Mocks\Tenant;
 
 class IdentifyByHttpTest extends TestCase
 {
@@ -52,7 +51,7 @@ class IdentifyByHttpTest extends TestCase
      */
     public function request_identifies_hostname()
     {
-        $this->assertTrue(config('identification-driver-http.eager'), 'Eager http identification is not enabled.');
+        $this->assertTrue(config('tenancy.identification-driver-http.eager'), 'Eager http identification is not enabled.');
         $this->assertFalse($this->environment->isIdentified());
 
         $this->get("http://" . $this->hostname->fqdn);

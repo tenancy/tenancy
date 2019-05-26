@@ -14,14 +14,9 @@
 
 namespace Tenancy\Tests\Database;
 
-use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Database\Events\Resolving;
-use Illuminate\Database\ConnectionInterface;
 use Tenancy\Database\Contracts\ProvidesPassword;
-use Tenancy\Database\Contracts\ResolvesConnections;
 
 class PasswordGeneratorTest extends TestCase
 {

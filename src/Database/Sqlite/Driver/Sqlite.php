@@ -22,11 +22,11 @@ class Sqlite implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('db-driver-sqlite.use-connection')) {
+        if ($name = config('tenancy.db-driver-sqlite.use-connection')) {
             return config("database.connections.$name");
         }
 
-        $config = config('db-driver-sqlite.preset', []);
+        $config = config('tenancy.db-driver-sqlite.preset', []);
 
         $config['database'] = $tenant->getTenantKey();
 
