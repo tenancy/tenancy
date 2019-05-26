@@ -21,24 +21,12 @@ use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Database\Contracts\ProvidesPassword;
 
 class Mysql implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('tenancy.db-driver-mysql.use-connection')) {
-            return config("tenancy.database.connections.$name");
-        }
-
-        $config = config('tenancy.db-driver-mysql.preset', []);
-
-        if ($tenant->isDirty($tenant->getTenantKeyName())) {
-            $config['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
-        }
-
-        $config['database'] = $config['username'] = $tenant->getTenantKey();
-        $config['password'] = resolve(ProvidesPassword::class)->generate($tenant);
+        $config = [];
 
         event(new Configuring($tenant, $config, $this));
 
