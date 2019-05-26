@@ -24,7 +24,7 @@ class Configuring
     /**
      * @var Tenant
      */
-    private $tenant;
+    public $tenant;
     /**
      * @var array
      */
@@ -43,7 +43,7 @@ class Configuring
         $this->provider = $provider;
     }
 
-    public function useConnection(string $connection = 'mysql', array $override = [])
+    public function useConnection(string $connection, array $override = [])
     {
         $this->configuration = array_merge(
             config("database.connections.$connection"),

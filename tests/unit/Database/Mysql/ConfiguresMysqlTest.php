@@ -33,4 +33,31 @@ class ConfiguresMysqlTest extends TestCase
             config('database.connections.tenant')
         );
     }
+
+    /**
+     * @test
+     */
+    public function mimicks_connection()
+    {
+        $this->resolveTenant($tenant = $this->mockTenant());
+
+        $config = config('database.connections.mysql');
+        $config['database'] = $tenant->getTenantKey();
+
+        $this->events->listen(Configuring::class, function (Configuring $event) use ($config) {
+            $event->useConnection('mysql', [
+                'database' => $event->tenant->getTenantKey()
+            ]);
+        });
+
+        Tenancy::getTenant();
+
+        $config['tenant-key'] = $tenant->getTenantKey();
+        $config['tenant-identifier'] = $tenant->getTenantIdentifier();
+
+        $this->assertEquals(
+            $config,
+            config('database.connections.tenant')
+        );
+    }
 }
