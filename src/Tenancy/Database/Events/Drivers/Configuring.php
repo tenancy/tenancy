@@ -42,9 +42,12 @@ class Configuring
         $this->provider = $provider;
     }
 
-    public function useConnection(string $connection)
+    public function useConnection(string $connection = 'mysql', array $override = [])
     {
-        $this->configuration = config("database.connections.$connection");
+        $this->configuration = array_merge(
+            config("database.connections.$connection"),
+            $override
+        );
 
         return $this;
     }
