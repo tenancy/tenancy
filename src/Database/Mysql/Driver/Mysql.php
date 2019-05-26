@@ -17,7 +17,6 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
-use PDO;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Database\Events\Drivers\Configuring;
@@ -27,6 +26,8 @@ class Mysql implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
+        $config = [];
+
         event(new Configuring($tenant, $config, $this));
 
         return $config;
