@@ -18,16 +18,11 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresViews implements TenantAffectsApp
 {
-    /**
-     * @param Resolved|Switched $event
-     * @return bool|void
-     */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var Factory $view */
         $view = resolve(Factory::class);
@@ -37,5 +32,7 @@ class ConfiguresViews implements TenantAffectsApp
         if ($event->tenant) {
             $events->dispatch(new ConfigureViews($event, $view));
         }
+
+        return null;
     }
 }

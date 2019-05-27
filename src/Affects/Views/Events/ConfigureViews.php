@@ -15,13 +15,12 @@
 namespace Tenancy\Affects\Views\Events;
 
 use Illuminate\Contracts\View\Factory;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureViews
 {
     /**
-     * @var Resolved|Switched
+     * @var Switched
      */
     public $event;
     /**
@@ -29,7 +28,7 @@ class ConfigureViews
      */
     public $view;
 
-    public function __construct($event, Factory $view)
+    public function __construct(Switched $event, Factory $view)
     {
         $this->event = $event;
         $this->view = $view;

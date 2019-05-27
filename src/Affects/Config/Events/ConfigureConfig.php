@@ -15,13 +15,12 @@
 namespace Tenancy\Affects\Config\Events;
 
 use Illuminate\Contracts\Config\Repository;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureConfig
 {
     /**
-     * @var Resolved|Switched
+     * @var Switched
      */
     public $event;
     /**
@@ -29,7 +28,7 @@ class ConfigureConfig
      */
     public $config;
 
-    public function __construct($event, Repository $config)
+    public function __construct(Switched $event, Repository $config)
     {
         $this->event = $event;
         $this->config = $config;

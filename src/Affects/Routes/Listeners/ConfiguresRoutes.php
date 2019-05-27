@@ -18,16 +18,11 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresRoutes implements TenantAffectsApp
 {
-    /**
-     * @param Resolved|Switched $event
-     * @return bool|void
-     */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var Router $router */
         $router = resolve(Router::class);
@@ -40,5 +35,7 @@ class ConfiguresRoutes implements TenantAffectsApp
 
         $router->getRoutes()->refreshNameLookups();
         $router->getRoutes()->refreshActionLookups();
+
+        return null;
     }
 }
