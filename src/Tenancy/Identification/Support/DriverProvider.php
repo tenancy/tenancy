@@ -17,7 +17,6 @@ namespace Tenancy\Identification\Support;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 abstract class DriverProvider extends EventServiceProvider
