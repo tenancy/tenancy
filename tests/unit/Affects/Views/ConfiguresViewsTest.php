@@ -71,4 +71,28 @@ class ConfiguresViewsTest extends TestCase
 
         $this->assertTrue($views->exists('test'));
     }
+
+    /**
+     * @test
+     */
+    public function does_not_override()
+    {
+        /** @var Factory $views */
+        $views = $this->app->make(Factory::class);
+        $this->assertTrue($views->exists('welcome'));
+
+        $original = $views->getFinder()->find('welcome');
+
+        $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
+            $event->addPath(__DIR__ . '/views/');
+        });
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
+
+        $this->assertEquals(
+            $original,
+            $views->getFinder()->find('welcome')
+        );
+    }
 }
