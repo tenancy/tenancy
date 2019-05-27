@@ -56,7 +56,7 @@ class ConfiguresMysqlTest extends TestCase
         $config = config('database.connections.mysql');
         $config['database'] = $tenant->getTenantKey();
 
-        $this->events->listen(Configuring::class, function (Configuring $event) use ($config) {
+        $this->events->listen(Configuring::class, function (Configuring $event) {
             $event->useConnection('mysql', [
                 'database' => $event->tenant->getTenantKey()
             ]);
