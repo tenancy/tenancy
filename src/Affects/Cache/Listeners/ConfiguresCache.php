@@ -19,16 +19,15 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresCache implements TenantAffectsApp
 {
     /**
-     * @param Resolved|Switched $event
+     * @param Switched $event
      * @return bool|void
      */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var CacheManager $manager¸ */
         $manager = resolve(CacheManager::class);
@@ -47,5 +46,7 @@ class ConfiguresCache implements TenantAffectsApp
 
         // Force reload of tenant cache driver upon next request.
         $manager->forgetDriver('tenant');
+
+        return null;
     }
 }

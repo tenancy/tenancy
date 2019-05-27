@@ -16,13 +16,12 @@ namespace Tenancy\Affects\Routes\Events;
 
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureRoutes
 {
     /**
-     * @var Resolved|Switched
+     * @var Switched
      */
     public $event;
     /**
@@ -30,7 +29,7 @@ class ConfigureRoutes
      */
     public $router;
 
-    public function __construct($event, Router $router)
+    public function __construct(Switched $event, Router $router)
     {
         $this->event = $event;
         $this->router = $router;

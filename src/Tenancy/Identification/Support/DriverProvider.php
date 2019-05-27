@@ -62,9 +62,7 @@ abstract class DriverProvider extends EventServiceProvider
         }
 
         foreach ($this->affects as $affect) {
-            Event::listen([
-                Resolved::class, Switched::class
-            ], $affect);
+            Event::listen(Switched::class, $affect);
         }
     }
 }

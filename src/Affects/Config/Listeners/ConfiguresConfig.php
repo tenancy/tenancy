@@ -15,7 +15,6 @@
 namespace Tenancy\Affects\Config\Listeners;
 
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -23,11 +22,7 @@ use Tenancy\Affects\Config\Events\ConfigureConfig;
 
 class ConfiguresConfig implements TenantAffectsApp
 {
-    /**
-     * @param Resolved|Switched $event
-     * @return bool|void
-     */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var Repository $config */
         $config = resolve(Repository::class);
@@ -37,5 +32,7 @@ class ConfiguresConfig implements TenantAffectsApp
         if ($event->tenant) {
             $events->dispatch(new ConfigureConfig($event, $config));
         }
+
+        return null;
     }
 }

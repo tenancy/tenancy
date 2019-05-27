@@ -20,16 +20,11 @@ use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Filesystem\FilesystemManager;
 use Tenancy\Affects\Filesystem\Events\ConfigureDisk;
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresDisk implements TenantAffectsApp
 {
-    /**
-     * @param Resolved|Switched $event
-     * @return bool|void
-     */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var Factory|FilesystemManager $manager */
         $manager = resolve(Factory::class);
@@ -49,5 +44,7 @@ class ConfiguresDisk implements TenantAffectsApp
 
         // This demands a reload of the disk.
         $manager->forgetDisk('tenant');
+
+        return null;
     }
 }

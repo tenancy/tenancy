@@ -14,13 +14,12 @@
 
 namespace Tenancy\Affects\Cache\Events;
 
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureCache
 {
     /**
-     * @var Resolved|Switched
+     * @var Switched
      */
     public $event;
     /**
@@ -28,7 +27,7 @@ class ConfigureCache
      */
     public $config;
 
-    public function __construct($event, array &$config = [])
+    public function __construct(Switched $event, array &$config = [])
     {
         $this->event = $event;
         $this->config = &$config;

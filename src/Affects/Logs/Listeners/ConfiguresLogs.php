@@ -18,16 +18,11 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
 use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Resolved;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresLogs implements TenantAffectsApp
 {
-    /**
-     * @param Resolved|Switched $event
-     * @return bool|void
-     */
-    public function handle($event)
+    public function handle(Switched $event): ?bool
     {
         /** @var Repository $config */
         $config = resolve(Repository::class);
@@ -45,5 +40,7 @@ class ConfiguresLogs implements TenantAffectsApp
 
         // There is currently no way to unset a log channel :(
         app()->forgetInstance('log');
+
+        return null;
     }
 }
