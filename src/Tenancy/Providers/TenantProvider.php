@@ -16,7 +16,7 @@ namespace Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Environment;
 use Tenancy\Identification\Contracts\Tenant;
 
 class TenantProvider extends ServiceProvider implements DeferrableProvider
@@ -24,10 +24,10 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
     public function boot()
     {
         $this->app->bind(Tenant::class, function () {
-            /** @var ResolvesTenants $resolver */
-            $resolver = resolve(ResolvesTenants::class);
+            /** @var Environment $env */
+            $env = resolve(Environment::class);
 
-            return $resolver();
+            return $env->getTenant();
         });
     }
 
