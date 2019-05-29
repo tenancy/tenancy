@@ -16,8 +16,8 @@ namespace Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Tenancy\Environment;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Environment;
 
 class TenantProvider extends ServiceProvider implements DeferrableProvider
 {
