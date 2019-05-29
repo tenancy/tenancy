@@ -13,10 +13,8 @@ coverage:
     changes: no
 
   ignore:
-    - "src/Testing/**/*"
-    - "src/Testing/*"
     - "src/Testing/Concerns/*"
-    
+
 parsers:
   gcov:
     branch_detection:
