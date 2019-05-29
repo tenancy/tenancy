@@ -43,6 +43,9 @@ class AutoListenerTest extends TestCase
         $this->register_db_driver();
 
         $this->assertTrue($this->events->dispatch(new Created($tenant))[0]);
+
+        config(['tenancy.database.auto-create' => false]);
+        $this->assertNull($this->events->dispatch(new Created($tenant))[0]);
     }
 
     /**
@@ -57,6 +60,9 @@ class AutoListenerTest extends TestCase
         $this->register_db_driver();
 
         $this->assertTrue($this->events->dispatch(new Updated($tenant))[0]);
+
+        config(['tenancy.database.auto-update' => false]);
+        $this->assertNull($this->events->dispatch(new Updated($tenant))[0]);
     }
 
     /**
@@ -71,6 +77,9 @@ class AutoListenerTest extends TestCase
         $this->register_db_driver();
 
         $this->assertTrue($this->events->dispatch(new Deleted($tenant))[0]);
+
+        config(['tenancy.database.auto-delete' => false]);
+        $this->assertNull($this->events->dispatch(new Deleted($tenant))[0]);
     }
 
 
