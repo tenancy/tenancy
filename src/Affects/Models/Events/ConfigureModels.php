@@ -26,11 +26,6 @@ class ConfigureModels
      * @var Switched
      */
     public $event;
-    /**
-     * Container bound (global) connection resolver
-     * @var ConnectionResolverInterface
-     */
-    public $db;
 
     /**
      * Tenant connection resolver
@@ -38,10 +33,9 @@ class ConfigureModels
      */
     public static $resolver;
 
-    public function __construct(Switched $event, ConnectionResolverInterface $db)
+    public function __construct(Switched $event)
     {
         $this->event = $event;
-        $this->db = $db;
     }
 
     /**
@@ -68,14 +62,16 @@ class ConfigureModels
 
     protected function getResolver(bool $reset = true): ConnectionResolverInterface
     {
+        $db = resolve('db');
+
         if ($reset && ! $this->event->tenant) {
-            return $this->db;
+            return $db;
         }
 
         if (static::$resolver) {
             return static::$resolver;
         }
 
-        return static::$resolver = new ConnectionResolver(Environment::getTenantConnectionName(), $this->db);
+        return new ConnectionResolver(Environment::getTenantConnectionName(), $db);
     }
 }

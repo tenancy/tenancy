@@ -24,12 +24,10 @@ class ConfiguresModels implements TenantAffectsApp
 {
     public function handle(Switched $event): ?bool
     {
-        /** @var ConnectionResolverInterface $db */
-        $db = resolve('db');
         /** @var Dispatcher $events */
         $events = resolve(Dispatcher::class);
 
-        $events->dispatch(new ConfigureModels($event, $db));
+        $events->dispatch(new ConfigureModels($event));
 
         return null;
     }

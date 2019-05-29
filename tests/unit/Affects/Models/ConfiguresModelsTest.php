@@ -14,9 +14,10 @@
 
 namespace Tenancy\Tests\Affects\Models;
 
+use Illuminate\Database\DatabaseManager;
+use Tenancy\Affects\Models\Database\ConnectionResolver;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Providers\ServiceProvider;
-use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
@@ -40,6 +41,8 @@ class ConfiguresModelsTest extends TestCase
         $this->resolveTenant($this->mockTenant());
         Tenancy::getTenant();
 
+        $this->assertEquals(ConnectionResolver::class, get_class(Tenant::getConnectionResolver()));
+
         $this->expectExceptionMessage('Database [tenant] not configured.');
         (new Tenant())->getConnection();
     }
@@ -59,6 +62,8 @@ class ConfiguresModelsTest extends TestCase
 
         Tenancy::setTenant(null);
 
+        $this->assertEquals(DatabaseManager::class, get_class(Tenant::getConnectionResolver()));
+
         (new Tenant())->getConnection();
     }
 
@@ -77,7 +82,9 @@ class ConfiguresModelsTest extends TestCase
         $this->resolveTenant();
         Tenancy::getTenant(true);
 
-        $this->expectExceptionMessage('Database [tenant] not configured.');
+        $this->assertEquals(ConnectionResolver::class, get_class(Tenant::getConnectionResolver()));
+
+        $this->expectExceptionMessage("Database [tenant] not configured.");
         (new Tenant())->getConnection();
     }
 }
