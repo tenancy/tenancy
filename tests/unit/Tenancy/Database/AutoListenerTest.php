@@ -81,6 +81,4 @@ class AutoListenerTest extends TestCase
         config(['tenancy.database.auto-delete' => false]);
         $this->assertNull($this->events->dispatch(new Deleted($tenant))[0]);
     }
-
-
 }
