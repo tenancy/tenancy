@@ -14,9 +14,10 @@
 
 namespace Tenancy\Affects\Migrations\Providers;
 
+use Tenancy\Affects\Migrations\Hooks\MigratesHook;
 use Tenancy\Identification\Support\DriverProvider;
 
 class ServiceProvider extends DriverProvider
 {
-    protected $hooks = [ConfiguresModels::class];
+    protected $hooks = [MigratesHook::class];
 }

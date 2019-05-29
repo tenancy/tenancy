@@ -16,46 +16,43 @@ namespace Tenancy\Affects\Migrations\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
 use Tenancy\Affects\Migrations\Events\ConfigureTenantMigrations;
-use Tenancy\Lifecycle\Hook;
-use Tenancy\Tenant\Events\Created;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Tenant\Events\Updated;
+use Tenancy\Tenant\Events\Event;
 
-class MigratesHook extends Hook
+class MigratesHook extends ConfigurableHook
 {
-    protected function migrations($event): ?Migrator
+    /**
+     * @var Migrator
+     */
+    public $migrator;
+
+    public $connection;
+
+    public $action;
+
+    public function __construct(Migrator $migrator)
     {
-        $paths = $options = [];
-        $options['method'] = $event instanceof Deleted ? 'reset' : 'run';
-
-        event(new ConfigureTenantMigrations($event, $paths, $options));
-
-        $method = $options['method'];
-
-        if (! $method) {
-            return null;
-        }
-
-        /** @var Migrator $migrator */
-        $migrator = resolve(Migrator::class);
-
-        $migrator->resolveConnection();
-
-        return $migrator->{$method}($paths, $method === 'reset' ? $options['pretend'] ?? false : $options);
+        $this->migrator = $migrator;
+        $this->connection = Tenancy::getTenantConnectionName();
     }
 
-    public function created(Created $event): void
+    public function for(Event $event)
     {
-        return $this->migrations($event);
+        $this->action = $event instanceof Deleted ? 'reset' : 'run';
+
+        parent::for($event);
+
+        event(new ConfigureTenantMigrations($event, $this));
+
+        return $this;
     }
 
-    public function updated(Updated $event): void
+    public function fire(): void
     {
-        return $this->migrations($event);
-    }
+        $this->migrator->setConnection($this->connection);
 
-    public function deleted(Deleted $event): void
-    {
-        return $this->migrations($event);
+        call_user_func([$this->migrator, $this->action], $this->migrator->paths());
     }
 }

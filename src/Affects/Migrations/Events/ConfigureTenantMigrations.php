@@ -14,47 +14,30 @@
 
 namespace Tenancy\Affects\Migrations\Events;
 
-use Illuminate\Database\ConnectionResolverInterface;
-use InvalidArgumentException;
-use Tenancy\Affects\Models\Database\ConnectionResolver;
-use Tenancy\Environment;
-use Tenancy\Identification\Events\Switched;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Tenant\Events\Updated;
+use Tenancy\Affects\Migrations\Hooks\MigratesHook;
+use Tenancy\Tenant\Events\Event;
 
 class ConfigureTenantMigrations
 {
     /**
-     * @var Created|Updated|Deleted
+     * @var Event
      */
     public $event;
-    /**
-     * @var array
-     */
-    public $paths;
-    /**
-     * @var array
-     */
-    public $options;
 
-    public function __construct($event, array &$paths = [], array &$options = [])
+    /**
+     * @var MigratesHook
+     */
+    public $hook;
+
+    public function __construct(Event $event, MigratesHook $hook)
     {
         $this->event = $event;
-        $this->paths = &$paths;
-        $this->options = &$options;
+        $this->hook = $hook;
     }
 
-    /**
-     * @param string|array $paths
-     * @return $this
-     */
-    public function addPaths($paths)
+    public function path(string $path)
     {
-        $this->paths = array_merge(
-            $this->paths,
-            (array) $paths
-        );
+        $this->hook->migrator->path($path);
 
         return $this;
     }
