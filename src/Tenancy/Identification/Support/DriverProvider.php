@@ -18,6 +18,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Switched;
+use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Tenant\Events as Lifecycle;
 
 abstract class DriverProvider extends EventServiceProvider
@@ -73,10 +74,10 @@ abstract class DriverProvider extends EventServiceProvider
             Event::listen(Switched::class, $affect);
         }
 
-        foreach ($this->hooks as $hook) {
-            Event::listen(Lifecycle\Created::class, [$hook, 'created']);
-            Event::listen(Lifecycle\Updated::class, [$hook, 'updated']);
-            Event::listen(Lifecycle\Deleted::class, [$hook, 'deleted']);
-        }
+        $this->app->resolving(ResolvesHooks::class, function (ResolvesHooks $resolver) {
+            foreach ($this->hooks as $hook) {
+                $resolver->addHook($hook);
+            }
+        });
     }
 }

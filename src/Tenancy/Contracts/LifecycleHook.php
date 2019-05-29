@@ -14,13 +14,19 @@
 
 namespace Tenancy\Contracts;
 
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Tenant\Events\Updated;
+use Tenancy\Tenant\Events\Event;
 
-interface TenantLifecycle
+interface LifecycleHook
 {
-    public function created(Created $event): void;
-    public function updated(Updated $event): void;
-    public function deleted(Deleted $event): void;
+    public function for(Event $event);
+
+    public function fires(): bool;
+
+    public function queued(): bool;
+
+    public function priority(): int;
+
+    public function fire(): void;
+
+    public function queue(): ?string;
 }

@@ -14,17 +14,6 @@
 
 namespace Tenancy\Tenant\Events;
 
-use Tenancy\Identification\Contracts\Tenant;
-
-class Updated
+class Updated extends Event
 {
-    /**
-     * @var Tenant
-     */
-    public $tenant;
-
-    public function __construct(Tenant $tenant)
-    {
-        $this->tenant = $tenant;
-    }
 }

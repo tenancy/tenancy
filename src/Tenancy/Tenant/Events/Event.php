@@ -12,16 +12,19 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Listeners;
+namespace Tenancy\Tenant\Events;
 
-class AutoUpdating extends DatabaseMutation
+use Tenancy\Identification\Contracts\Tenant;
+
+class Event
 {
-    public function handle($event): ?bool
-    {
-        if (config('tenancy.database.auto-update') && $driver = $this->driver($event->tenant)) {
-            return $driver->update($event->tenant);
-        }
+    /**
+     * @var Tenant
+     */
+    public $tenant;
 
-        return null;
+    public function __construct(Tenant $tenant)
+    {
+        $this->tenant = $tenant;
     }
 }

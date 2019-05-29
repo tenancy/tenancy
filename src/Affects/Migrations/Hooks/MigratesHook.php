@@ -14,35 +14,34 @@
 
 namespace Tenancy\Affects\Migrations\Hooks;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Migrations\Migrator;
 use Tenancy\Affects\Migrations\Events\ConfigureTenantMigrations;
-use Tenancy\Contracts\TenantLifecycle;
+use Tenancy\Lifecycle\Hook;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
 
-class MigratesTenant implements TenantLifecycle
+class MigratesHook extends Hook
 {
-    protected function migrations($event): Migrator
+    protected function migrations($event): ?Migrator
     {
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
-
         $paths = $options = [];
+        $options['method'] = $event instanceof Deleted ? 'reset' : 'run';
 
-        $events->dispatch(new ConfigureTenantMigrations($event, $paths, $options));
+        event(new ConfigureTenantMigrations($event, $paths, $options));
+
+        $method = $options['method'];
+
+        if (! $method) {
+            return null;
+        }
 
         /** @var Migrator $migrator */
         $migrator = resolve(Migrator::class);
 
         $migrator->resolveConnection();
 
-        if ($event instanceof Deleted) {
-            return $migrator->reset($paths, $options['pretend'] ?? false);
-        }
-
-        return $migrator->run($paths, $options);
+        return $migrator->{$method}($paths, $method === 'reset' ? $options['pretend'] ?? false : $options);
     }
 
     public function created(Created $event): void

@@ -17,6 +17,7 @@ namespace Tenancy\Providers\Provides;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Database\Contracts\ResolvesConnections;
 use Tenancy\Database\Events as Database;
+use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Database\Listeners as Listen;
 
@@ -29,13 +30,13 @@ trait ProvidesListeners
      */
     protected $listen = [
         Tenant\Created::class => [
-            Listen\AutoCreation::class,
+            ResolvesHooks::class,
         ],
         Tenant\Updated::class => [
-            Listen\AutoUpdating::class,
+            ResolvesHooks::class,
         ],
         Tenant\Deleted::class => [
-            Listen\AutoDeletion::class,
+            ResolvesHooks::class,
         ],
         Database\Resolved::class => [
             Listen\SetConnection::class

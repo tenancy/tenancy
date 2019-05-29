@@ -45,9 +45,16 @@ class ConfigureTenantMigrations
         $this->options = &$options;
     }
 
-    public function addPath(string $path)
+    /**
+     * @param string|array $paths
+     * @return $this
+     */
+    public function addPaths($paths)
     {
-        $this->paths[] = $path;
+        $this->paths = array_merge(
+            $this->paths,
+            (array) $paths
+        );
 
         return $this;
     }
