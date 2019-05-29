@@ -57,8 +57,6 @@ class Environment
             $resolver = $this->tenantResolver();
 
             $this->setTenant($resolver());
-
-            $this->identified = true;
         }
 
         return $this->tenant;

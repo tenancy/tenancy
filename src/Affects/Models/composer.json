@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/affects-models",
+    "description": "The tenancy/tenancy routes eloquent models",
+    "keywords": ["affects", "tenancy", "models"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Models\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Models\\Providers\\ServiceProvider"
+            ]
+        }
+    }
+}
