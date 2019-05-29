@@ -23,6 +23,11 @@ class TestCase extends Testing\TestCase
         Concerns\MocksApplicationServices,
         Testing\RefreshDatabase;
 
+    protected function beforeBoot()
+    {
+        // ..
+    }
+
     protected function afterSetUp()
     {
         // ..
@@ -37,6 +42,7 @@ class TestCase extends Testing\TestCase
     {
         parent::setUp();
 
+        $this->beforeBoot();
         $this->bootTenancy();
         $this->afterSetUp();
     }

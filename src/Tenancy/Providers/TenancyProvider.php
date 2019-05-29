@@ -27,7 +27,6 @@ class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesBindings,
         Provides\ProvidesConfig,
-        Provides\ProvidesEloquent,
         Provides\ProvidesListeners;
 
     public $singletons = [

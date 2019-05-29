@@ -32,11 +32,6 @@ return [
         'tenant-connection-name' => env('TENANCY_TENANT_CONNECTION_NAME', 'tenant'),
 
         /**
-         * Enabling this setting will force all Eloquent models to use the tenant connection by default.
-         */
-        'models-default-to-tenant-connection' => env('TENANCY_ELOQUENT_USES_TENANT_CONNECTION', false),
-
-        /**
          * Automatic tenant database handling.
          */
 

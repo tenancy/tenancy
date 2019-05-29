@@ -17,6 +17,7 @@ namespace Tenancy\Testing\Concerns;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Factory;
+use RuntimeException;
 use Tenancy\Environment;
 use Tenancy\Providers\TenancyProvider;
 
@@ -69,7 +70,7 @@ trait CreatesApplication
         }
 
         if (! $app) {
-            throw new \RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
+            throw new RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
         }
 
         $app->make(Kernel::class)->bootstrap();
