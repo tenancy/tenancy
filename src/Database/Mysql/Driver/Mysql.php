@@ -68,7 +68,7 @@ class Mysql implements ProvidesDatabase
 
     protected function system(Tenant $tenant): ConnectionInterface
     {
-        $connection = config('tenancy.db-driver-mysql.system-connection');
+        $connection = null;
 
         if (in_array(ManagesSystemConnection::class, class_implements($tenant))) {
             $connection = $tenant->getManagingSystemConnection() ?? $connection;
