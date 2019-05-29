@@ -40,6 +40,7 @@ class SqliteDriverTest extends TestCase
     }
 
     protected function getTenantConnection(){
+        Tenancy::getTenant();
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }
 
@@ -62,7 +63,6 @@ class SqliteDriverTest extends TestCase
     public function runs_create()
     {
         $this->events->dispatch(new Created($this->tenant));
-        Tenancy::getTenant();
 
         $this->assertInstanceOf(
             \PDO::class,
@@ -81,8 +81,6 @@ class SqliteDriverTest extends TestCase
         $this->tenant->id = 1997;
         $this->events->dispatch(new Updated($this->tenant));
 
-        Tenancy::getTenant();
-
         $this->assertInstanceOf(
             \PDO::class,
             $this->getTenantConnection()->getPdo()
@@ -92,14 +90,23 @@ class SqliteDriverTest extends TestCase
     /**
      * @test
      */
+    public function prevent_same_update()
+    {
+        $this->events->dispatch(new Updated($this->tenant));
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->getTenantConnection()->getPdo();
+    }
+
+    /**
+     * @test
+     */
     public function runs_delete()
     {
         $this->events->dispatch(new Created($this->tenant));
-
         $this->events->dispatch(new Deleted($this->tenant));
 
         $this->expectException(\InvalidArgumentException::class);
-        Tenancy::getTenant();
         $this->getTenantConnection()->getPdo();
     }
 }
