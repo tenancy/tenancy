@@ -39,7 +39,8 @@ class SqliteDriverTest extends TestCase
         $this->resolveTenant($this->tenant);
     }
 
-    protected function getTenantConnection(){
+    protected function getTenantConnection()
+    {
         Tenancy::getTenant();
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }
