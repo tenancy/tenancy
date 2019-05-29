@@ -11,22 +11,12 @@ use Tenancy\Tenant\Events\Updated;
 
 class DatabaseMutation extends Hook
 {
-    /**
-     * @var ResolvesConnections
-     */
-    private $resolver;
-
     protected $mapping = [
         Created::class => 'create',
         Updated::class => 'update',
         Deleted::class => 'delete'
     ];
-
-    public function __construct(ResolvesConnections $resolver)
-    {
-        $this->resolver = $resolver;
-    }
-
+    
     public function fires(): bool
     {
         return Arr::has($this->mapping, get_class($this->event));
@@ -34,7 +24,8 @@ class DatabaseMutation extends Hook
 
     public function fire(): void
     {
-        $resolver = $this->resolver;
+        /** @var ResolvesConnections $resolver */
+        $resolver = resolve(ResolvesConnections::class);
 
         $driver = $resolver($this->event->tenant);
 
