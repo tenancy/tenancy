@@ -23,7 +23,8 @@ class TenantProviderTest extends TestCase
     /**
      * @test
      */
-    public function error_on_wrong_object(){
+    public function error_on_wrong_object()
+    {
         $tenant = new \stdClass();
 
         $this->expectException(\TypeError::class);
