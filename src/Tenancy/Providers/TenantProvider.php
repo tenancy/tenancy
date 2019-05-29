@@ -24,10 +24,10 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
     public function boot()
     {
         $this->app->bind(Tenant::class, function () {
-            /** @var Environment $environment */
-            $environment = resolve(Environment::class);
+            /** @var Environment $env */
+            $env = resolve(Environment::class);
 
-            return $environment->getTenant();
+            return $env->getTenant();
         });
     }
 
