@@ -20,6 +20,13 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class TenantProviderTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function provider_resolves_null()
+    {
+        $this->assertNull(resolve(Tenant::class));
+    }
 
     /**
      * @test
