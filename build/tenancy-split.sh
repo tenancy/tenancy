@@ -10,6 +10,7 @@ git subsplit publish --heads="master" src/Affects/Cache:git@github.com:tenancy/a
 git subsplit publish --heads="master" src/Affects/Config:git@github.com:tenancy/affects-config.git
 git subsplit publish --heads="master" src/Affects/Filesystem:git@github.com:tenancy/affects-filesystem.git
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
+git subsplit publish --heads="master" src/Affects/Models:git@github.com:tenancy/affects-models.git
 git subsplit publish --heads="master" src/Affects/Routes:git@github.com:tenancy/affects-routes.git
 git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/affects-views.git
 
