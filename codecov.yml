@@ -13,7 +13,7 @@ coverage:
     changes: no
 
   ignore:
-    - "src/Testing/Concerns/*"
+    - "src/Testing/**/*"
 
 parsers:
   gcov:
