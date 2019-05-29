@@ -1,14 +1,14 @@
 {
-    "name": "tenancy/affects-models",
-    "description": "The tenancy/tenancy eloquent models mutations",
-    "keywords": ["affects", "tenancy", "models"],
+    "name": "tenancy/affects-migrations",
+    "description": "The tenancy/tenancy migrations mutations",
+    "keywords": ["affects", "tenancy", "migrations"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Affects\\Models\\": ""
+            "Tenancy\\Affects\\Migrations\\": ""
         }
     },
     "authors": [
@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Models\\Providers\\ServiceProvider"
+                "Tenancy\\Affects\\Migrations\\Providers\\ServiceProvider"
             ]
         }
     }
