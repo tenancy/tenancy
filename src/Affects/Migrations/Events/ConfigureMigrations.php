@@ -17,7 +17,7 @@ namespace Tenancy\Affects\Migrations\Events;
 use Tenancy\Affects\Migrations\Hooks\MigratesHook;
 use Tenancy\Tenant\Events\Event;
 
-class ConfigureTenantMigrations
+class ConfigureMigrations
 {
     /**
      * @var Event

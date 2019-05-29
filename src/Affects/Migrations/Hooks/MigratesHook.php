@@ -15,7 +15,7 @@
 namespace Tenancy\Affects\Migrations\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
-use Tenancy\Affects\Migrations\Events\ConfigureTenantMigrations;
+use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
@@ -44,7 +44,7 @@ class MigratesHook extends ConfigurableHook
 
         parent::for($event);
 
-        event(new ConfigureTenantMigrations($event, $this));
+        event(new ConfigureMigrations($event, $this));
 
         return $this;
     }
