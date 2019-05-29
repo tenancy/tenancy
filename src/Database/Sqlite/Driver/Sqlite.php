@@ -28,7 +28,7 @@ class Sqlite implements ProvidesDatabase
 
         $config = config('tenancy.db-driver-sqlite.preset', []);
 
-        $config['database'] = $tenant->getTenantKey();
+        $config['database'] = database_path($tenant->getTenantKey());
 
         event(new Configuring($tenant, $config, $this));
 
@@ -39,7 +39,7 @@ class Sqlite implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        return touch(database_path($config['database']));
+        return touch($config['database']);
     }
 
     public function update(Tenant $tenant): bool
@@ -52,8 +52,8 @@ class Sqlite implements ProvidesDatabase
 
         if ($previous['database'] !== $config['database']) {
             return rename(
-                database_path($previous['database']),
-                database_path($config['database'])
+                $previous['database'],
+                $config['database']
             );
         }
 
@@ -64,6 +64,6 @@ class Sqlite implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        return unlink(database_path($config['database']));
+        return unlink($config['database']);
     }
 }
