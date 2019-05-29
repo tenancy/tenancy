@@ -23,7 +23,35 @@ class TenantProviderTest extends TestCase
     /**
      * @test
      */
-    public function provider_resolves_null()
+    public function error_on_wrong_object(){
+        $tenant = new \stdClass();
+
+        $this->expectException(\TypeError::class);
+
+        Tenancy::setTenant($tenant);
+    }
+
+    /**
+     * @test
+     */
+    public function prefers_identified_tenant()
+    {
+        $tenant = $this->mockTenant();
+        $newTenant = $this->mockTenant();
+
+        $this->resolveTenant($newTenant);
+        Tenancy::setTenant($tenant);
+
+        $this->assertEquals(
+            $tenant,
+            resolve(Tenant::class)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function resolves_null()
     {
         $this->assertNull(resolve(Tenant::class));
     }
@@ -31,7 +59,7 @@ class TenantProviderTest extends TestCase
     /**
      * @test
      */
-    public function provider_resolves_tenant()
+    public function resolves_tenant()
     {
         $tenant = $this->mockTenant();
 
