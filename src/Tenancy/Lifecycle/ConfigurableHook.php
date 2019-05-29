@@ -25,6 +25,8 @@ abstract class ConfigurableHook extends Hook
 
     public $priority = 0;
 
+    public $fires = true;
+
     public function queued(): bool
     {
         return $this->queue !== false;
@@ -38,5 +40,10 @@ abstract class ConfigurableHook extends Hook
     public function priority(): int
     {
         return $this->priority;
+    }
+
+    public function fires(): bool
+    {
+        return $this->fires;
     }
 }

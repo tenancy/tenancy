@@ -41,4 +41,11 @@ class ConfigureMigrations
 
         return $this;
     }
+
+    public function disable()
+    {
+        $this->hook->fires = false;
+
+        return $this;
+    }
 }
