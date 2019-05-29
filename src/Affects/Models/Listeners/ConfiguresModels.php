@@ -15,7 +15,6 @@
 namespace Tenancy\Affects\Models\Listeners;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\ConnectionResolverInterface;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
