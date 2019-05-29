@@ -12,6 +12,11 @@ coverage:
     patch: yes
     changes: no
 
+  ignore:
+    - "src/Testing/**/*"
+    - "src/Testing/*"
+    - "src/Testing/Concerns/*"
+    
 parsers:
   gcov:
     branch_detection:
@@ -25,5 +30,3 @@ comment:
   behavior: default
   require_changes: no
 
-ignore:
-  - "src/Testing/**/*"
