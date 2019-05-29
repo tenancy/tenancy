@@ -72,6 +72,4 @@ class AutoListenerTest extends TestCase
 
         $this->assertTrue($this->events->dispatch(new Deleted($tenant))[0]);
     }
-
-
 }
