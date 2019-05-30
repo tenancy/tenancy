@@ -14,7 +14,9 @@
 
 namespace Tenancy\Tests\Database;
 
+use PDO;
 use Tenancy\Facades\Tenancy;
+use InvalidArgumentException;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
@@ -42,6 +44,7 @@ class SqliteDriverTest extends TestCase
     protected function getTenantConnection()
     {
         Tenancy::getTenant();
+
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }
 
@@ -54,7 +57,7 @@ class SqliteDriverTest extends TestCase
 
         $this->assertInstanceOf(
             Connection::class,
-            resolve(DatabaseManager::class)->connection(Tenancy::getTenantConnectionName())
+            $this->getTenantConnection()
         );
     }
 
@@ -66,9 +69,10 @@ class SqliteDriverTest extends TestCase
         $this->events->dispatch(new Created($this->tenant));
 
         $this->assertInstanceOf(
-            \PDO::class,
+            PDO::class,
             $this->getTenantConnection()->getPdo()
         );
+
         $this->db->purge(Tenancy::getTenantConnectionName());
     }
 
@@ -83,9 +87,14 @@ class SqliteDriverTest extends TestCase
         $this->events->dispatch(new Updated($this->tenant));
 
         $this->assertInstanceOf(
-            \PDO::class,
+            PDO::class,
             $this->getTenantConnection()->getPdo()
         );
+
+        $this->db->purge(Tenancy::getTenantConnectionName());
+
+        // Not an actual test, but delete the updated tenant for cleaning purposes
+        $this->events->dispatch(new Deleted($this->tenant));
     }
 
     /**
@@ -95,7 +104,7 @@ class SqliteDriverTest extends TestCase
     {
         $this->events->dispatch(new Updated($this->tenant));
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->getTenantConnection()->getPdo();
     }
 
@@ -107,7 +116,7 @@ class SqliteDriverTest extends TestCase
         $this->events->dispatch(new Created($this->tenant));
         $this->events->dispatch(new Deleted($this->tenant));
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->getTenantConnection()->getPdo();
     }
 }
