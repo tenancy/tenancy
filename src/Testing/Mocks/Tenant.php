@@ -29,5 +29,4 @@ class Tenant extends Model implements Contract
     protected $table = 'users';
 
     use AllowsTenantIdentification;
-
 }
