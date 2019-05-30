@@ -32,9 +32,9 @@ class MigratesHook extends ConfigurableHook
 
     public $action;
 
-    public function __construct(Migrator $migrator)
+    public function __construct()
     {
-        $this->migrator = $migrator;
+        $this->migrator = app('migrator');
         $this->connection = Tenancy::getTenantConnectionName();
     }
 
@@ -53,6 +53,9 @@ class MigratesHook extends ConfigurableHook
     {
         $this->migrator->setConnection($this->connection);
 
+        if(!$this->migrator->repositoryExists()){
+            $this->migrator->getRepository()->createRepository();
+        }
         call_user_func([$this->migrator, $this->action], $this->migrator->paths());
     }
 }

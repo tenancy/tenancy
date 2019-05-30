@@ -50,6 +50,6 @@ class DatabaseMutation extends Hook
 
     public function priority(): int
     {
-        return -100;
+        return 0;
     }
 }

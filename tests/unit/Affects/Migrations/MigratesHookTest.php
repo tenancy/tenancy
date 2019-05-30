@@ -14,15 +14,17 @@
 
 namespace Tenancy\Tests\Affects\Migrations;
 
-use Illuminate\Support\Facades\DB;
-use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
-use Tenancy\Affects\Migrations\Providers\ServiceProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
+use Illuminate\Support\Facades\DB;
+use Tenancy\Tenant\Events\Created;
+use Tenancy\Affects\Migrations\Providers\ServiceProvider;
+use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
+use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
 
 class MigratesHookTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [ServiceProvider::class, DatabaseProvider::class];
 
     /**
      * @test
@@ -34,10 +36,15 @@ class MigratesHookTest extends TestCase
         });
 
         $this->resolveTenant($tenant = $this->createMockTenant());
+
+        $this->events->dispatch(new Created($tenant));
+
         Tenancy::getTenant();
 
-        DB::connection(Tenancy::getTenantConnectionName())
-            ->table('mocks')
-            ->get();
+        $this->assertTrue(
+            DB::connection(Tenancy::getTenantConnectionName())
+            ->getSchemaBuilder()
+            ->hasTable('mocks')
+        );
     }
 }
