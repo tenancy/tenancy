@@ -30,7 +30,4 @@ class Tenant extends Model implements Contract
 
     use AllowsTenantIdentification;
 
-    protected $fillable = [
-        'id'
-    ];
 }

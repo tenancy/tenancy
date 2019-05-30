@@ -35,9 +35,12 @@ class SqliteDriverTest extends TestCase
     protected function afterSetUp()
     {
         $this->db = resolve(DatabaseManager::class);
+
         $this->tenant = $this->createMockTenant([
             'id' => 1803,
         ]);
+        $this->tenant->unguard();
+
         $this->resolveTenant($this->tenant);
     }
 
