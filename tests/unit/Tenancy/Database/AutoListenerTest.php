@@ -22,7 +22,7 @@ use Tenancy\Tenant\Events\Deleted;
 
 class AutoListenerTest extends TestCase
 {
-    protected function register_db_driver()
+    protected function registerDatabaseDriver()
     {
         $this->events->forget(Resolving::class);
 
@@ -40,7 +40,7 @@ class AutoListenerTest extends TestCase
 
         $this->assertNull($this->events->dispatch(new Created($tenant))[0]);
 
-        $this->register_db_driver();
+        $this->registerDatabaseDriver();
 
         $this->assertTrue($this->events->dispatch(new Created($tenant))[0]);
 
@@ -57,7 +57,7 @@ class AutoListenerTest extends TestCase
 
         $this->assertNull($this->events->dispatch(new Updated($tenant))[0]);
 
-        $this->register_db_driver();
+        $this->registerDatabaseDriver();
 
         $this->assertTrue($this->events->dispatch(new Updated($tenant))[0]);
 
@@ -74,7 +74,7 @@ class AutoListenerTest extends TestCase
 
         $this->assertNull($this->events->dispatch(new Deleted($tenant))[0]);
 
-        $this->register_db_driver();
+        $this->registerDatabaseDriver();
 
         $this->assertTrue($this->events->dispatch(new Deleted($tenant))[0]);
 
