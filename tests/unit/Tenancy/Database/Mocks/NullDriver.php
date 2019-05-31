@@ -49,6 +49,6 @@ class NullDriver implements ProvidesDatabase
     {
         $this->configure($tenant);
 
-        return false;
+        return true;
     }
 }
