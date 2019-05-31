@@ -47,9 +47,4 @@ class DatabaseMutation extends Hook
             $driver->{$action}($this->event->tenant);
         }
     }
-
-    public function priority(): int
-    {
-        return 0;
-    }
 }
