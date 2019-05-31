@@ -21,6 +21,8 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Database\Events\Drivers\Configuring;
+use InvalidArgumentException;
 
 class DatabaseResolverTest extends TestCase
 {
@@ -57,5 +59,19 @@ class DatabaseResolverTest extends TestCase
 
         $this->assertEquals(Tenancy::getTenantConnectionName(), $connection->getConfig('name'));
         $this->assertEquals($this->tenant->getTenantKey(), $connection->getConfig('tenant-key'));
+    }
+
+    /**
+     * @test
+     */
+    public function error_on_wrong_file()
+    {
+        $this->events->listen(Configuring::class, function (Configuring $event) {
+            $event->useConfig('arlon.php');
+        });
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->events->dispatch(new Created($this->tenant));
     }
 }
