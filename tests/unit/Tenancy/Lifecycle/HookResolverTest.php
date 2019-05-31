@@ -21,7 +21,6 @@ use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
 
 class HookResolverTest extends TestCase
 {
-
     /**
      * @test
      */
