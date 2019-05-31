@@ -14,6 +14,6 @@
 
 namespace Tenancy\Tests\Lifecycle\Mocks;
 
-class InvalidHook{
-
+class InvalidHook
+{
 }
