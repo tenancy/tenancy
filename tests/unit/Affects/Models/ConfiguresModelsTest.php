@@ -140,6 +140,5 @@ class ConfiguresModelsTest extends TestCase
         $this->assertIsArray(
             $resolver->supportedDrivers()
         );
-
     }
 }
