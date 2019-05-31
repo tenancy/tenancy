@@ -62,7 +62,6 @@ class DatabaseResolverTest extends TestCase
     }
 
 
-
     /**
      * @test
      */
