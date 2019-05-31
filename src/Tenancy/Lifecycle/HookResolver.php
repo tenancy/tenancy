@@ -37,6 +37,22 @@ class HookResolver implements ResolvesHooks
         return $this;
     }
 
+    public function getHooks(): array
+    {
+        return $this->hooks;
+    }
+
+    public function setHooks(array $hooks)
+    {
+        $this->hooks = [];
+
+        array_walk($hooks, function ($hook) {
+            $this->addHook($hook);
+        });
+
+        return $this;
+    }
+
     public function handle(Event $event)
     {
         $hooks = collect($this->hooks)

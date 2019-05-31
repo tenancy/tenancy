@@ -44,6 +44,8 @@ class HookResolverTest extends TestCase
         /** @var ResolvesHooks $resolver */
         $resolver = resolve(ResolvesHooks::class);
 
+        $resolver->setHooks([]);
+
         $hookLow = new ConfiguredHook();
         $hookLow->priority = -100;
         $resolver->addHook($hookLow);

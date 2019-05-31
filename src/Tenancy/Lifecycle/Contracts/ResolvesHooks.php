@@ -21,4 +21,8 @@ interface ResolvesHooks
     public function addHook($hook);
 
     public function handle(Event $event);
+
+    public function getHooks(): array;
+
+    public function setHooks(array $hooks);
 }

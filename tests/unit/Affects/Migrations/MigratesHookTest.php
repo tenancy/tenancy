@@ -26,14 +26,17 @@ use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
 class MigratesHookTest extends TestCase
 {
     protected $additionalProviders = [ServiceProvider::class, DatabaseProvider::class];
+    /**
+     * @var \Tenancy\Testing\Mocks\Tenant
+     */
+    protected $tenant;
 
     public function afterSetUp()
     {
-        $this->tenant = $this->mockTenant([
+        $this->resolveTenant($this->tenant = $this->mockTenant([
             'id' => 3607
-        ]);
+        ]));
 
-        $this->resolveTenant($this->tenant);
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             $event->path(__DIR__ . '/database/');
         });
@@ -50,8 +53,8 @@ class MigratesHookTest extends TestCase
 
         $this->assertTrue(
             DB::connection(Tenancy::getTenantConnectionName())
-            ->getSchemaBuilder()
-            ->hasTable('mocks')
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
         );
 
         DB::disconnect(Tenancy::getTenantConnectionName());
@@ -64,8 +67,8 @@ class MigratesHookTest extends TestCase
     {
         $this->assertTrue(
             DB::connection(Tenancy::getTenantConnectionName())
-            ->getSchemaBuilder()
-            ->hasTable('mocks')
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
         );
 
         // Disable auto delete as it would delete the DB before we can rollback
@@ -76,8 +79,8 @@ class MigratesHookTest extends TestCase
 
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())
-            ->getSchemaBuilder()
-            ->hasTable('mocks')
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
         );
     }
 }
