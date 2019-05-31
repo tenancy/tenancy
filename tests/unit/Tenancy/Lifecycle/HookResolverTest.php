@@ -64,4 +64,27 @@ class HookResolverTest extends TestCase
 
         $resolver->handle(new Created($this->mockTenant()));
     }
+
+    /**
+     * @test
+     */
+    public function sets_hooks(){
+        /** @var ResolvesHooks $resolver */
+        $resolver = resolve(ResolvesHooks::class);
+
+        $resolver->setHooks([]);
+        $this->assertEquals(
+            [],
+            $resolver->getHooks()
+        );
+
+        $resolver->setHooks([
+            ConfiguredHook::class
+        ]);
+
+        $this->assertEquals(
+            [ConfiguredHook::class],
+            $resolver->getHooks()
+        );
+    }
 }

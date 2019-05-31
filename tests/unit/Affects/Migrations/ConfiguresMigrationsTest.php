@@ -18,12 +18,10 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Tenant\Events\Created;
-use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Affects\Migrations\Hooks\MigratesHook;
 use Tenancy\Affects\Migrations\Providers\ServiceProvider;
 use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
 use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
+use InvalidArgumentException;
 
 class ConfiguresMigrationsTest extends TestCase
 {
@@ -60,5 +58,19 @@ class ConfiguresMigrationsTest extends TestCase
                 ->getSchemaBuilder()
                 ->hasTable('mocks')
         );
+    }
+
+    /**
+     * @test
+     */
+    public function can_set_priority()
+    {
+        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
+            $event->priority(-1000);
+        });
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->events->dispatch(new Created($this->tenant));
     }
 }
