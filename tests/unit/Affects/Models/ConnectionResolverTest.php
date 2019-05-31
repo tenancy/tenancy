@@ -60,6 +60,5 @@ class ConnectionResolverTest extends TestCase
         $this->assertIsArray(
             $resolver->supportedDrivers()
         );
-
     }
 }
