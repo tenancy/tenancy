@@ -61,7 +61,6 @@ class DatabaseResolverTest extends TestCase
         $this->assertEquals($this->tenant->getTenantKey(), $connection->getConfig('tenant-key'));
     }
 
-
     /**
      * @test
      */
