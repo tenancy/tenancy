@@ -103,4 +103,43 @@ class ConfiguresModelsTest extends TestCase
         $this->resolveTenant($this->mockTenant());
         Tenancy::getTenant();
     }
+
+    /**
+     * @test
+     */
+    public function sets_default_connection()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->onTenant([Tenant::class], false);
+        });
+
+        $this->resolveTenant($this->mockTenant());
+        Tenancy::getTenant();
+
+        (new Tenant())->getConnectionResolver()->setDefaultConnection("tenant2");
+        $this->assertEquals(
+            "tenant2",
+            (new Tenant())->getConnectionResolver()->getDefaultConnection()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function mirrors_db_calls()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->onTenant([Tenant::class], false);
+        });
+
+        $this->resolveTenant($this->mockTenant());
+        Tenancy::getTenant();
+
+
+        $resolver = (new Tenant())->getConnectionResolver();
+        $this->assertIsArray(
+            $resolver->supportedDrivers()
+        );
+
+    }
 }
