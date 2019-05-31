@@ -15,8 +15,11 @@
  namespace Tenancy\Tests\Lifecycle;
 
 use InvalidArgumentException;
+use Tenancy\Lifecycle\Events\Resolved;
+use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
+use Tenancy\Tests\Lifecycle\Mocks\ConfiguredHook;
 use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
 
 class HookResolverTest extends TestCase
@@ -28,7 +31,35 @@ class HookResolverTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
+        /** @var ResolvesHooks $resolver */
         $resolver = resolve(ResolvesHooks::class);
         $resolver->addHook(InvalidHook::class);
+    }
+
+    /**
+     * @test
+     */
+    public function prioritizes()
+    {
+        /** @var ResolvesHooks $resolver */
+        $resolver = resolve(ResolvesHooks::class);
+
+        $hookLow = new ConfiguredHook();
+        $hookLow->priority = -100;
+        $resolver->addHook($hookLow);
+
+        $hookHigh = new ConfiguredHook();
+        $hookHigh->priority = 100;
+        $resolver->addHook($hookHigh);
+
+        $this->events->listen(Resolved::class, function (Resolved $event) use ($hookLow, $hookHigh) {
+            $low = $event->hooks->first();
+            $high = $event->hooks->last();
+
+            $this->assertEquals($hookLow, $low);
+            $this->assertEquals($hookHigh, $high);
+        });
+
+        $resolver->handle(new Created($this->mockTenant()));
     }
 }

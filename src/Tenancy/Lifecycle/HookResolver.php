@@ -17,13 +17,15 @@ namespace Tenancy\Lifecycle;
 use InvalidArgumentException;
 use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
+use Tenancy\Lifecycle\Events\Fired;
+use Tenancy\Lifecycle\Events\Resolved;
 use Tenancy\Tenant\Events\Event;
 
 class HookResolver implements ResolvesHooks
 {
     protected $hooks = [];
 
-    public function addHook(string $hook)
+    public function addHook($hook)
     {
         if (! in_array(LifecycleHook::class, class_implements($hook))) {
             throw new InvalidArgumentException("$hook has to implement " . LifecycleHook::class);
@@ -36,27 +38,32 @@ class HookResolver implements ResolvesHooks
 
     public function handle(Event $event)
     {
-        collect($this->hooks)
-            ->map(function (string $hook) use ($event) {
+        $hooks = collect($this->hooks)
+            ->map(function ($hook) use ($event) {
                 /** @var LifecycleHook $hook */
-                $hook = resolve($hook);
+                $hook = is_string($hook) ? resolve($hook) : $hook;
 
                 return $hook->for($event);
             })
-            ->sortByDesc(function (LifecycleHook $hook) {
+            ->sortBy(function (LifecycleHook $hook) {
                 return $hook->priority();
             })
             ->filter(function (LifecycleHook $hook) {
                 return $hook->fires();
-            })
-            ->each(function (LifecycleHook $hook) {
-                if ($hook->queued()) {
-                    dispatch(function () use ($hook) {
-                        $hook->fire();
-                    })->onQueue($hook->queue());
-                } else {
-                    $hook->fire();
-                }
             });
+
+        event(new Resolved($event, $hooks));
+
+        $hooks->each(function (LifecycleHook $hook) {
+            if ($hook->queued()) {
+                dispatch(function () use ($hook) {
+                    $hook->fire();
+                })->onQueue($hook->queue());
+            } else {
+                $hook->fire();
+            }
+        });
+
+        event(new Fired($event, $hooks));
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -12,13 +12,14 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Lifecycle\Contracts;
+namespace Tenancy\Tests\Lifecycle\Mocks;
 
-use Tenancy\Tenant\Events\Event;
+use Tenancy\Lifecycle\ConfigurableHook;
 
-interface ResolvesHooks
+class ConfiguredHook extends ConfigurableHook
 {
-    public function addHook($hook);
-
-    public function handle(Event $event);
+    public function fire(): void
+    {
+        // TODO: Implement fire() method.
+    }
 }
