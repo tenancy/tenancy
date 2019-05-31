@@ -21,6 +21,7 @@ use Tenancy\Affects\Models\Providers\ServiceProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use InvalidArgumentException;
 
 class ConfiguresModelsTest extends TestCase
 {
@@ -86,5 +87,20 @@ class ConfiguresModelsTest extends TestCase
 
         $this->expectExceptionMessage("Database [tenant] not configured.");
         (new Tenant())->getConnection();
+    }
+
+    /**
+     * @test
+     */
+    public function throws_error_on_invalid()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->onTenant([Model::class], false);
+        });
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->resolveTenant($this->mockTenant());
+        Tenancy::getTenant();
     }
 }
