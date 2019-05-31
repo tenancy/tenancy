@@ -37,16 +37,6 @@ trait AllowsTenantIdentification
     }
 
     /**
-     * The value type of the key.
-     *
-     * @return string
-     */
-    public function getTenantKeyType(): string
-    {
-        return $this->getKeyType();
-    }
-
-    /**
      * A unique identifier, eg class or table to distinguish this tenant Model.
      *
      * @return string
