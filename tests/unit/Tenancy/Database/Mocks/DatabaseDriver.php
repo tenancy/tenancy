@@ -16,6 +16,7 @@ namespace Tenancy\Tests\Database\Mocks;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Database\Events\Drivers\Configuring;
 
 class DatabaseDriver implements ProvidesDatabase
 {
@@ -26,11 +27,15 @@ class DatabaseDriver implements ProvidesDatabase
      */
     public function configure(Tenant $tenant): array
     {
-        return [
+        $config = [
             'driver' => 'sqlite',
             'database' => database_path("database-{$tenant->getTenantKey()}.sqlite"),
             'tenant-key' => $tenant->getTenantKey()
         ];
+
+        event(new Configuring($tenant, $config, $this));
+
+        return $config;
     }
 
     /**
