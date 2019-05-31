@@ -39,7 +39,6 @@ class MigratesHookTest extends TestCase
         });
 
         $this->events->dispatch(new Created($this->tenant));
-
     }
 
     /**
