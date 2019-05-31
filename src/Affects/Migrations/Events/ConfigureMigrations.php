@@ -48,4 +48,11 @@ class ConfigureMigrations
 
         return $this;
     }
+
+    public function priority(int $priority = -50)
+    {
+        $this->hook->priority = $priority;
+
+        return $this;
+    }
 }

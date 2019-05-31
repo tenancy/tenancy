@@ -23,12 +23,19 @@ use Tenancy\Tenant\Events\Updated;
 
 class DatabaseMutation extends Hook
 {
+    const PRIORITY = -100;
+
     protected $mapping = [
         Created::class => 'create',
         Updated::class => 'update',
         Deleted::class => 'delete'
     ];
-    
+
+    public function priority(): int
+    {
+        return static::PRIORITY;
+    }
+
     public function fires(): bool
     {
         return Arr::has($this->mapping, get_class($this->event));

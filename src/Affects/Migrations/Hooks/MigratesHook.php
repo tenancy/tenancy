@@ -32,9 +32,11 @@ class MigratesHook extends ConfigurableHook
 
     public $action;
 
+    public $priority = -50;
+
     public function __construct()
     {
-        $this->migrator = app('migrator');
+        $this->migrator = resolve('migrator');
         $this->connection = Tenancy::getTenantConnectionName();
     }
 
