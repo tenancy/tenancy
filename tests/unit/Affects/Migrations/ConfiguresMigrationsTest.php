@@ -42,7 +42,6 @@ class ConfiguresMigrationsTest extends TestCase
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             $event->path(__DIR__ . '/database/');
         });
-
     }
 
     /**
@@ -50,7 +49,7 @@ class ConfiguresMigrationsTest extends TestCase
      */
     public function can_disable()
     {
-        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event){
+        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             $event->disable();
         });
 
