@@ -14,23 +14,23 @@
 
 namespace Tenancy\Affects\Routes\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresRoutes implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     public function handle(Switched $event): ?bool
     {
         /** @var Router $router */
         $router = resolve(Router::class);
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
-            $events->dispatch(new ConfigureRoutes($event, $router));
+            $this->events()->dispatch(new ConfigureRoutes($event, $router));
         }
 
         $router->getRoutes()->refreshNameLookups();

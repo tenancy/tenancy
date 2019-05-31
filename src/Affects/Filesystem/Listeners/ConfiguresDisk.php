@@ -15,28 +15,28 @@
 namespace Tenancy\Affects\Filesystem\Listeners;
 
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Filesystem\FilesystemManager;
 use Tenancy\Affects\Filesystem\Events\ConfigureDisk;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresDisk implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     public function handle(Switched $event): ?bool
     {
         /** @var Factory|FilesystemManager $manager */
         $manager = resolve(Factory::class);
         /** @var Repository $config */
         $config = resolve(Repository::class);
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
             $diskConfig = [];
 
-            $events->dispatch(new ConfigureDisk($event, $diskConfig));
+            $this->events()->dispatch(new ConfigureDisk($event, $diskConfig));
         }
 
         // Configure the tenant disk.

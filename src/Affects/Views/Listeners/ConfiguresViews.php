@@ -14,23 +14,23 @@
 
 namespace Tenancy\Affects\Views\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresViews implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     public function handle(Switched $event): ?bool
     {
         /** @var Factory $view */
         $view = resolve(Factory::class);
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
-            $events->dispatch(new ConfigureViews($event, $view));
+            $this->events()->dispatch(new ConfigureViews($event, $view));
         }
 
         return null;

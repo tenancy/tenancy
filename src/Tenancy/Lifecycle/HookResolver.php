@@ -19,6 +19,7 @@ use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\Events\Fired;
 use Tenancy\Lifecycle\Events\Resolved;
+use Tenancy\Lifecycle\Events\Resolving;
 use Tenancy\Tenant\Events\Event;
 
 class HookResolver implements ResolvesHooks
@@ -43,7 +44,11 @@ class HookResolver implements ResolvesHooks
                 /** @var LifecycleHook $hook */
                 $hook = is_string($hook) ? resolve($hook) : $hook;
 
-                return $hook->for($event);
+                $hook = $hook->for($event);
+
+                event(new Resolving($event, $hook));
+
+                return $hook;
             })
             ->sortBy(function (LifecycleHook $hook) {
                 return $hook->priority();

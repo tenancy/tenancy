@@ -15,24 +15,24 @@
 namespace Tenancy\Affects\Logs\Listeners;
 
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresLogs implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     public function handle(Switched $event): ?bool
     {
         /** @var Repository $config */
         $config = resolve(Repository::class);
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
             $logConfig = [];
 
-            $events->dispatch(new ConfigureLogs($event, $logConfig));
+            $this->events()->dispatch(new ConfigureLogs($event, $logConfig));
         }
 
         // Configure the tenant log channel.
