@@ -68,7 +68,8 @@ class HookResolverTest extends TestCase
     /**
      * @test
      */
-    public function sets_hooks(){
+    public function sets_hooks()
+    {
         /** @var ResolvesHooks $resolver */
         $resolver = resolve(ResolvesHooks::class);
 
