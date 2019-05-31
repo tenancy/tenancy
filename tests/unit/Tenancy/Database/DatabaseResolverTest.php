@@ -75,6 +75,5 @@ class DatabaseResolverTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $this->events->dispatch(new Created($this->tenant));
-
     }
 }
