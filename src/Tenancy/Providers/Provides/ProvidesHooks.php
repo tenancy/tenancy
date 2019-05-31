@@ -26,12 +26,11 @@ trait ProvidesHooks
     protected function bootProvidesHooks()
     {
         if (count($this->hooks)) {
-            /** @var ResolvesHooks $resolver */
-            $resolver = $this->app->make(ResolvesHooks::class);
-
-            foreach ($this->hooks as $hook) {
-                $resolver->addHook($hook);
-            }
+            $this->app->resolving(ResolvesHooks::class, function (ResolvesHooks $resolver) {
+                foreach ($this->hooks as $hook) {
+                    $resolver->addHook($hook);
+                }
+            });
         }
     }
 }
