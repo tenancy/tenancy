@@ -21,6 +21,8 @@ use Tenancy\Testing\TestCase;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Tests\Lifecycle\Mocks\ConfiguredHook;
 use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Queue\CallQueuedClosure;
 
 class HookResolverTest extends TestCase
 {
@@ -87,5 +89,28 @@ class HookResolverTest extends TestCase
             [ConfiguredHook::class],
             $resolver->getHooks()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function can_queue()
+    {
+        Queue::fake();
+
+        /** @var ResolvesHooks $resolver */
+        $resolver = resolve(ResolvesHooks::class);
+
+        $resolver->setHooks([]);
+
+        $hook = new ConfiguredHook();
+        $hook->queue = "test";
+        $resolver->addHook($hook);
+
+        $resolver->handle(new Created($this->mockTenant()));
+
+        Queue::assertPushed(CallQueuedClosure::class, function ($job){
+            return true;
+        });
     }
 }
