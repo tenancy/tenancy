@@ -23,6 +23,7 @@ use Tenancy\Tests\Lifecycle\Mocks\ConfiguredHook;
 use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Queue\CallQueuedClosure;
+use Tenancy\Tests\Lifecycle\Mocks\DefaultHook;
 
 class HookResolverTest extends TestCase
 {
@@ -112,5 +113,25 @@ class HookResolverTest extends TestCase
         Queue::assertPushed(CallQueuedClosure::class, function ($job){
             return true;
         });
+    }
+
+    /**
+     * @test
+     */
+    public function default_hook_after_own()
+    {
+        /** @var ResolvesHooks $resolver */
+        $resolver = resolve(ResolvesHooks::class);
+
+        $hook = new DefaultHook();
+        $resolver->addHook($hook);
+
+        $this->events->listen(Resolved::class, function (Resolved $event) use ($hook) {
+            $lasthook = $event->hooks->last();
+
+            $this->assertEquals($lasthook, $hook);
+        });
+
+        $resolver->handle(new Created($this->mockTenant()));
     }
 }
