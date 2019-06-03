@@ -15,9 +15,9 @@
 namespace Tenancy\Affects\Routes\Providers;
 
 use Tenancy\Affects\Routes\Listeners\ConfiguresRoutes;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresRoutes::class];
 }

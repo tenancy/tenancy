@@ -16,13 +16,15 @@ namespace Tenancy\Affects\Cache\Listeners;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresCache implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     /**
      * @param Switched $event
      * @return bool|void
@@ -33,13 +35,11 @@ class ConfiguresCache implements TenantAffectsApp
         $manager = resolve(CacheManager::class);
         /** @var Repository $config */
         $config = resolve(Repository::class);
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
 
         if ($event->tenant) {
             $cacheConfig = [];
 
-            $events->dispatch(new ConfigureCache($event, $cacheConfig));
+            $this->events()->dispatch(new ConfigureCache($event, $cacheConfig));
         }
 
         $config->set('cache.stores.tenant', $cacheConfig ?? null);

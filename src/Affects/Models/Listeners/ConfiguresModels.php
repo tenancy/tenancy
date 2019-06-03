@@ -14,19 +14,18 @@
 
 namespace Tenancy\Affects\Models\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Affects\Models\Events\ConfigureModels;
+use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Contracts\TenantAffectsApp;
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresModels implements TenantAffectsApp
 {
+    use DispatchesEvents;
+
     public function handle(Switched $event): ?bool
     {
-        /** @var Dispatcher $events */
-        $events = resolve(Dispatcher::class);
-
-        $events->dispatch(new ConfigureModels($event));
+        $this->events()->dispatch(new ConfigureModels($event));
 
         return null;
     }

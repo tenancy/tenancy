@@ -1,6 +1,6 @@
 {
     "name": "tenancy/affects-models",
-    "description": "The tenancy/tenancy routes eloquent models",
+    "description": "The tenancy/tenancy eloquent models mutations",
     "keywords": ["affects", "tenancy", "models"],
     "license": "MIT",
     "require": {

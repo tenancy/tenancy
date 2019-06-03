@@ -22,15 +22,19 @@ use Tenancy\Database\PasswordGenerator;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\TenantResolver;
+use Tenancy\Lifecycle\Contracts\ResolvesHooks;
+use Tenancy\Lifecycle\HookResolver;
 
 class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesBindings,
         Provides\ProvidesConfig,
-        Provides\ProvidesListeners;
+        Provides\ProvidesListeners,
+        Provides\ProvidesHooks;
 
     public $singletons = [
         Environment::class => Environment::class,
+        ResolvesHooks::class => HookResolver::class,
         ResolvesTenants::class => TenantResolver::class,
         ProvidesPassword::class => PasswordGenerator::class,
         ResolvesConnections::class => DatabaseResolver::class,

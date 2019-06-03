@@ -14,10 +14,10 @@
 
 namespace Tenancy\Affects\Config\Providers;
 
-use Tenancy\Identification\Support\DriverProvider;
 use Tenancy\Affects\Config\Listeners\ConfiguresConfig;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresConfig::class];
 }

@@ -12,16 +12,17 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Listeners;
+namespace Tenancy\Lifecycle\Contracts;
 
-class AutoCreation extends DatabaseMutation
+use Tenancy\Tenant\Events\Event;
+
+interface ResolvesHooks
 {
-    public function handle($event): ?bool
-    {
-        if (config('tenancy.database.auto-create') && $driver = $this->driver($event->tenant)) {
-            return $driver->create($event->tenant);
-        }
+    public function addHook($hook);
 
-        return null;
-    }
+    public function handle(Event $event);
+
+    public function getHooks(): array;
+
+    public function setHooks(array $hooks);
 }

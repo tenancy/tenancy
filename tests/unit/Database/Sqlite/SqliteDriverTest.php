@@ -23,11 +23,11 @@ use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
 use Illuminate\Database\Connection;
 use Illuminate\Database\DatabaseManager;
-use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
+use Tenancy\Database\Drivers\Sqlite\Providers\ServiceProvider;
 
 class SqliteDriverTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class];
+    protected $additionalProviders = [ServiceProvider::class];
 
     protected $db;
     protected $tenant;

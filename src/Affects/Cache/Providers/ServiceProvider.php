@@ -15,9 +15,9 @@
 namespace Tenancy\Affects\Cache\Providers;
 
 use Tenancy\Affects\Cache\Listeners\ConfiguresCache;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresCache::class];
 }

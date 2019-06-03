@@ -18,16 +18,18 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Switched;
+use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 
 abstract class DriverProvider extends EventServiceProvider
 {
+
     /**
-     * Listeners that affect the app logic when a tenant
-     * is resolved or switched to.
+     * Lifecycle event hooks. Hooks that run specific logic
+     * during Tenant creation, updates or deletion.
      *
      * @var array
      */
-    protected $affects = [];
+    protected $hooks = [];
 
     /**
      * Identification driver registered by the Service Provider.
@@ -63,5 +65,11 @@ abstract class DriverProvider extends EventServiceProvider
         foreach ($this->affects as $affect) {
             Event::listen(Switched::class, $affect);
         }
+
+        $this->app->resolving(ResolvesHooks::class, function (ResolvesHooks $resolver) {
+            foreach ($this->hooks as $hook) {
+                $resolver->addHook($hook);
+            }
+        });
     }
 }
