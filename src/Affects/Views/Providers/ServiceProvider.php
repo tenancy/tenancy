@@ -15,9 +15,9 @@
 namespace Tenancy\Affects\Views\Providers;
 
 use Tenancy\Affects\Views\Listeners\ConfiguresViews;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresViews::class];
 }

@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\DB;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Affects\Migrations\Hooks\MigratesHook;
-use Tenancy\Affects\Migrations\Providers\ServiceProvider;
-use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migrations\Hooks\MigratesHook;
+use Tenancy\Hooks\Migrations\Providers\ServiceProvider;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
 
 class ConfiguresMigrationsTest extends TestCase

@@ -15,16 +15,11 @@
 namespace Tenancy\Database\Drivers\Sqlite\Providers;
 
 use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantConnection;
-use Tenancy\Database\Events\Resolving;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\DatabaseProvider as Provider;
 
-class DatabaseProvider extends DriverProvider
+class DatabaseProvider extends Provider
 {
-    protected $listen = [
-        Resolving::class => [
-            ConfiguresTenantConnection::class
-        ]
-    ];
+    protected $listener = ConfiguresTenantConnection::class;
 
     protected $configs = [
         __DIR__ . '/../resources/config/db-driver-sqlite.php'

@@ -17,7 +17,7 @@ namespace Tenancy\Identification\Drivers\Http\Providers;
 use Illuminate\Contracts\Http\Kernel;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Middleware\EagerIdentification;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\DriverProvider;
 
 class IdentificationProvider extends DriverProvider
 {

@@ -15,9 +15,9 @@
 namespace Tenancy\Affects\Logs\Providers;
 
 use Tenancy\Affects\Logs\Listeners\ConfiguresLogs;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresLogs::class];
 }

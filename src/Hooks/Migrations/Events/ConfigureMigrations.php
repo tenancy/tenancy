@@ -12,9 +12,9 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Migrations\Events;
+namespace Tenancy\Hooks\Migrations\Events;
 
-use Tenancy\Affects\Migrations\Hooks\MigratesHook;
+use Tenancy\Hooks\Migrations\Hooks\MigratesHook;
 use Tenancy\Tenant\Events\Event;
 
 class ConfigureMigrations
