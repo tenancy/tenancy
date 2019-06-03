@@ -18,5 +18,4 @@ use Tenancy\Affects\Models\Database\ConnectionResolver;
 
 class ExtraResolver extends ConnectionResolver
 {
-
 }
