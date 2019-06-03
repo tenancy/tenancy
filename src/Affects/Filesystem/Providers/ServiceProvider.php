@@ -15,9 +15,9 @@
 namespace Tenancy\Affects\Filesystem\Providers;
 
 use Tenancy\Affects\Filesystem\Listeners\ConfiguresDisk;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Support\AffectsProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends AffectsProvider
 {
     protected $affects = [ConfiguresDisk::class];
 }

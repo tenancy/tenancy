@@ -12,12 +12,12 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Migrations\Providers;
+namespace Tenancy\Hooks\Migrations\Providers;
 
-use Tenancy\Affects\Migrations\Hooks\MigratesHook;
-use Tenancy\Identification\Support\DriverProvider;
+use Tenancy\Hooks\Migrations\Hooks\MigratesHook;
+use Tenancy\Support\HooksProvider;
 
-class ServiceProvider extends DriverProvider
+class ServiceProvider extends HooksProvider
 {
     protected $hooks = [MigratesHook::class];
 }

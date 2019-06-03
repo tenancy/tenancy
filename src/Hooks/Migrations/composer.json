@@ -1,5 +1,5 @@
 {
-    "name": "tenancy/affects-migrations",
+    "name": "tenancy/hooks-migrations",
     "description": "The tenancy/tenancy migrations mutations",
     "keywords": ["affects", "tenancy", "migrations"],
     "license": "MIT",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Affects\\Migrations\\": ""
+            "Tenancy\\Hooks\\Migrations\\": ""
         }
     },
     "authors": [

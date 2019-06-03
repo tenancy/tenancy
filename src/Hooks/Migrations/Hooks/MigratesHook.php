@@ -12,10 +12,10 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Migrations\Hooks;
+namespace Tenancy\Hooks\Migrations\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
-use Tenancy\Affects\Migrations\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;

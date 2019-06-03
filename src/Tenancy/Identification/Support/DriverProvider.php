@@ -19,17 +19,9 @@ use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Tenant\Events as Lifecycle;
 
 abstract class DriverProvider extends EventServiceProvider
 {
-    /**
-     * Listeners that affect the app logic when a tenant
-     * is resolved or switched to.
-     *
-     * @var array
-     */
-    protected $affects = [];
 
     /**
      * Lifecycle event hooks. Hooks that run specific logic
