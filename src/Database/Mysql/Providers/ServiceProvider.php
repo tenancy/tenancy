@@ -12,16 +12,12 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Sqlite\Providers;
+namespace Tenancy\Database\Drivers\Mysql\Providers;
 
-use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantConnection;
-use Tenancy\Support\DatabaseProvider as Provider;
+use Tenancy\Database\Drivers\Mysql\Listeners\ConfiguresTenantConnection;
+use Tenancy\Support\DatabaseProvider;
 
-class DatabaseProvider extends Provider
+class ServiceProvider extends DatabaseProvider
 {
     protected $listener = ConfiguresTenantConnection::class;
-
-    protected $configs = [
-        __DIR__ . '/../resources/config/db-driver-sqlite.php'
-    ];
 }

@@ -23,11 +23,11 @@ use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Hooks\Migrations\Hooks\MigratesHook;
 use Tenancy\Hooks\Migrations\Providers\ServiceProvider;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
-use Tenancy\Database\Drivers\Sqlite\Providers\DatabaseProvider;
+use Tenancy\Database\Drivers\Sqlite\Providers\ServiceProvider;
 
 class ConfiguresMigrationsTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class, DatabaseProvider::class];
+    protected $additionalProviders = [ServiceProvider::class, ServiceProvider::class];
     /**
      * @var \Tenancy\Testing\Mocks\Tenant
      */

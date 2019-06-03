@@ -14,14 +14,14 @@
 
 namespace Tenancy\Tests\Database;
 
-use Tenancy\Database\Drivers\Mysql\Providers\DatabaseProvider;
+use Tenancy\Database\Drivers\Mysql\Providers\ServiceProvider;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresMysqlTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class];
+    protected $additionalProviders = [ServiceProvider::class];
 
     /**
      * @test
