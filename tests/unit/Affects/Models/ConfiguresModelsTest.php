@@ -22,6 +22,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 use InvalidArgumentException;
+use Tenancy\Tests\Affects\Models\Mocks\ExtraResolver;
 
 class ConfiguresModelsTest extends TestCase
 {
@@ -102,5 +103,27 @@ class ConfiguresModelsTest extends TestCase
 
         $this->resolveTenant($this->mockTenant());
         Tenancy::getTenant();
+    }
+
+    /**
+     * @test
+     */
+    public function allows_resolver_overriding()
+    {
+        $resolver = new ExtraResolver(Tenancy::getTenantConnectionName(), resolve(DatabaseManager::class));
+
+        ConfigureModels::$resolver = $resolver;
+
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) use ($resolver) {
+            $event->onTenant([Tenant::class]);
+        });
+
+        // This should not trigger an Exception, because it is using the default app connection.
+        (new Tenant())->getConnection();
+
+        $this->resolveTenant($this->mockTenant());
+        Tenancy::getTenant();
+
+        $this->assertEquals(get_class($resolver), get_class(Tenant::getConnectionResolver()));
     }
 }
