@@ -110,7 +110,7 @@ class HookResolverTest extends TestCase
 
         $resolver->handle(new Created($this->mockTenant()));
 
-        Queue::assertPushed(CallQueuedClosure::class, function ($job){
+        Queue::assertPushed(CallQueuedClosure::class, function ($job) {
             return true;
         });
     }
