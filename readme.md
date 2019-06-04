@@ -1,49 +1,44 @@
-![tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=50&v=4)
+# ![tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=25&v=4) Laravel Tenancy
 
-This is the successor of [hyn/multi-tenant](https://github.com/hyn/multi-tenant). It is still
-in development. Feel free to show support by starring the project
+Enabling awesome Software as a Service with the Laravel framework.
+
+This is the successor of [hyn/multi-tenant](https://github.com/hyn/multi-tenant). 
+Feel free to show support by starring the project
 following progress via [twitter](https://twitter.com/laraveltenancy) and
 backing its development over at [OpenCollective](https://opencollective.com/tenancy).
 
 [![CircleCI](https://circleci.com/gh/tenancy/tenancy.svg?style=svg)](https://circleci.com/gh/tenancy/tenancy)
 [![codecov](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
 
+> Before you start, we highly recommend you to read the extensive [online documentation](https://laravel-tenancy.com/docs/tenancy/1.x).
+
 # installation
 
-Installation of the full package can be done using:
+To give this package a spin, install all components at once:
 
 ```bash
 $ composer require tenancy/tenancy
 ```
 
-In case you only want to use the bare necessities, use the framework:
+Otherwise make sure to selectively install the components you need and at least the framework:
 
 ```bash
 $ composer require tenancy/framework
 ```
 
-# development
+After that you'll need to decide on and configure:
+
+- [database drivers](https://laravel-tenancy.com/docs/tenancy/1.x/database-drivers)
+- [identification drivers](https://laravel-tenancy.com/docs/tenancy/1.x/identification-drivers)
+- [affects](https://laravel-tenancy.com/docs/tenancy/1.x/affects)
+- [hooks](https://laravel-tenancy.com/docs/tenancy/1.x/hooks)
+
+# contributions
 
 This repository is used for developing all tenancy packages.
 
 Contributors need to use this repository for implementing code. All other repositories
 are READ-ONLY and overwritten on each subsplit push.
 
-## subsplitting
-
-Subsplitting is the ability to push code from subdirectories into their own repository.
-By maintaining one monolith for the framework we can easily build, test and deploy
-features and refactorings.
-
-> The actual subsplitting process is reserved to package maintainers, as you'd
-need write access to the repositories and master branches for that.
-
-- install [subsplit](https://github.com/dflydev/git-subsplit)
-- run `bash build/tenancy-split.sh`
-
-## code
-
-Some guidelines:
-
-- Do not use any helper functions except for `app()` and `resolve()`.
-- Adhere to PSR-2 and leave further styling to StyleCI which auto applies on our codebase.
+Please read our [Governance documentation](https://laravel-tenancy.com/docs/governance/tenancy) in
+case you'd like to get involved.
