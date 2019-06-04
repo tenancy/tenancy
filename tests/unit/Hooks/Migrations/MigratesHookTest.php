@@ -15,31 +15,27 @@
 namespace Tenancy\Tests\Affects\Migrations;
 
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Hooks\Migrations\Providers\ServiceProvider;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Database\Drivers\Sqlite\Providers\ServiceProvider as DatabaseProvider;
 
 class MigratesHookTest extends TestCase
 {
     protected $additionalProviders = [DatabaseProvider::class, ServiceProvider::class];
     /**
-     * @var \Tenancy\Testing\Mocks\Tenant
+     * @var Tenant
      */
     protected $tenant;
 
     public function afterSetUp()
     {
-        $this->resolveTenant($this->tenant = $this->mockTenant([
-            'id' => 3607
-        ]));
+        $this->resolveTenant($this->tenant = $this->mockTenant());
 
-        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
-            $event->path(__DIR__ . '/database/');
-        });
+        $this->migrateTenant(__DIR__ . '/database/');
 
         $this->events->dispatch(new Created($this->tenant));
     }
@@ -75,7 +71,7 @@ class MigratesHookTest extends TestCase
         config(['tenancy.database.auto-delete' => false]);
         $this->events->dispatch(new Deleted($this->tenant));
 
-        Tenancy::getTenant();
+//        Tenancy::getTenant();
 
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())

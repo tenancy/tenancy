@@ -21,7 +21,8 @@ class TestCase extends Testing\TestCase
     use Concerns\CreatesApplication,
         Concerns\InteractsWithTenants,
         Concerns\MocksApplicationServices,
-        Testing\RefreshDatabase;
+        Testing\RefreshDatabase,
+        Concerns\LifecycleHooks;
 
     protected function beforeBoot()
     {
