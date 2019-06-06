@@ -70,7 +70,7 @@ class Mysql implements ProvidesDatabase
     {
         $connection = null;
 
-        if (in_array(ManagesSystemConnection::class, class_implements($tenant))) {
+        if (in_array(ManagesSystemConnection::class, class_uses($tenant))) {
             $connection = $tenant->getManagingSystemConnection() ?? $connection;
         }
 
