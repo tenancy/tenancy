@@ -71,7 +71,7 @@
                 "Tenancy\\Affects\\Config\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Filesystem\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Logs\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Migrations\\Providers\\ServiceProvider",
+                "Tenancy\\Hooks\\Migrations\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Models\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Routes\\Providers\\ServiceProvider",
                 "Tenancy\\Affects\\Views\\Providers\\ServiceProvider",
