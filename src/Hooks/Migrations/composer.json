@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Migrations\\Providers\\ServiceProvider"
+                "Tenancy\\Hooks\\Migrations\\Providers\\ServiceProvider"
             ]
         }
     }
