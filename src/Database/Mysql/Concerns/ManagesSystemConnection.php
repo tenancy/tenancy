@@ -14,12 +14,12 @@
 
 namespace Tenancy\Database\Drivers\Mysql\Concerns;
 
-trait ManagesSystemConnection
+interface ManagesSystemConnection
 {
     /**
      * Allows overriding the system connection used for the tenant.
      *
      * @return null|string
      */
-    abstract public function getManagingSystemConnection(): ?string;
+    public function getManagingSystemConnection(): ?string;
 }
