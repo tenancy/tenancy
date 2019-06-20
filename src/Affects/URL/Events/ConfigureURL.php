@@ -34,7 +34,7 @@ class ConfigureURL
         $this->url = $url;
     }
 
-    public function changeUrlTo(string $url)
+    public function changeRoot(string $url)
     {
         return $this->url->forceRootUrl($url);
     }
