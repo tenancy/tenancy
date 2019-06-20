@@ -12,6 +12,7 @@ git subsplit publish --heads="master" src/Affects/Filesystem:git@github.com:tena
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
 git subsplit publish --heads="master" src/Affects/Models:git@github.com:tenancy/affects-models.git
 git subsplit publish --heads="master" src/Affects/Routes:git@github.com:tenancy/affects-routes.git
+git subsplit publish --heads="master" src/Affects/URL:git@github.com:tenancy/affects-url.git
 git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/affects-views.git
 
 # Lifecycle Hooks
