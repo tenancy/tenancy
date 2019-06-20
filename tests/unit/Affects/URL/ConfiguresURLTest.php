@@ -41,7 +41,7 @@ class ConfiguresURLTest extends TestCase
     public function can_set_url()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeUrlTo('tenant.test');
+            $event->changeRoot('tenant.test');
         });
 
         Tenancy::setTenant($this->tenant);
