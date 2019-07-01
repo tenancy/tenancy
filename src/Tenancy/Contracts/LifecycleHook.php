@@ -14,19 +14,11 @@
 
 namespace Tenancy\Contracts;
 
-use Tenancy\Tenant\Events\Event;
+use Tenancy\Pipeline\Contracts\Step;
 
-interface LifecycleHook
+interface LifecycleHook extends Step
 {
-    public function for(Event $event);
-
-    public function fires(): bool;
-
     public function queued(): bool;
-
-    public function priority(): int;
-
-    public function fire(): void;
 
     public function queue(): ?string;
 }

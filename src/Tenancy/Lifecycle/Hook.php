@@ -15,39 +15,20 @@
 namespace Tenancy\Lifecycle;
 
 use Tenancy\Contracts\LifecycleHook;
-use Tenancy\Tenant\Events\Event;
+use Tenancy\Pipeline\Step;
 
-abstract class Hook implements LifecycleHook
+abstract class Hook extends Step implements LifecycleHook
 {
-    /**
-     * @var Event
-     */
-    protected $event;
-
-    public function for(Event $event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    public function fires(): bool
-    {
-        return true;
-    }
+    public $queued = true;
+    public $queue = null;
 
     public function queued(): bool
     {
-        return true;
-    }
-
-    public function priority(): int
-    {
-        return 0;
+        return $this->queued;
     }
 
     public function queue(): ?string
     {
-        return null;
+        return $this->queue;
     }
 }

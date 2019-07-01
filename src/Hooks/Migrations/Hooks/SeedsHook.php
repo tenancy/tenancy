@@ -37,7 +37,7 @@ class SeedsHook extends ConfigurableHook
         $this->connection = Tenancy::getTenantConnectionName();
     }
 
-    public function for(Event $event)
+    public function for($event)
     {
         $this->action = $event instanceof Deleted ? 'reset' : 'run';
 

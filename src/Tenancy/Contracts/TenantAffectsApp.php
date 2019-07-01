@@ -14,9 +14,8 @@
 
 namespace Tenancy\Contracts;
 
-use Tenancy\Identification\Events\Switched;
+use Tenancy\Pipeline\Contracts\Step;
 
-interface TenantAffectsApp
+interface TenantAffectsApp extends Step
 {
-    public function handle(Switched $event): ?bool;
 }

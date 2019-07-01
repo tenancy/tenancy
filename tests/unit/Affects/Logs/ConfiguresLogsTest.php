@@ -16,14 +16,14 @@ namespace Tenancy\Tests\Affects\Logs;
 
 use Psr\Log\LoggerInterface;
 use Tenancy\Affects\Logs\Events\ConfigureLogs;
-use Tenancy\Affects\Logs\Providers\ServiceProvider;
+use Tenancy\Affects\Logs\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresLogsTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @var Tenant

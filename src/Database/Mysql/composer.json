@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Database\\Drivers\\Mysql\\Providers\\ServiceProvider"
+                "Tenancy\\Database\\Drivers\\Mysql\\Provider"
             ]
         }
     }

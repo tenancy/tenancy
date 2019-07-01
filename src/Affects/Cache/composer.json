@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider"
+                "Tenancy\\Affects\\Cache\\Provider"
             ]
         }
     }

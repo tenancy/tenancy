@@ -14,9 +14,8 @@
 
 namespace Tenancy\Support;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Tenancy\Identification\Events\Switched;
+use Tenancy\Affects\Contracts\ResolvesAffects;
 
 abstract class AffectsProvider extends ServiceProvider
 {
@@ -30,8 +29,10 @@ abstract class AffectsProvider extends ServiceProvider
 
     public function register()
     {
-        foreach ($this->affects as $affect) {
-            Event::listen(Switched::class, $affect);
-        }
+        $this->app->resolving(ResolvesAffects::class, function (ResolvesAffects $resolver) {
+            foreach ($this->affects as $affect) {
+                $resolver->addAffect($affect);
+            }
+        });
     }
 }

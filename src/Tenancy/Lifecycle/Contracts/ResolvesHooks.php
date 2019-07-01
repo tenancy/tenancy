@@ -14,13 +14,11 @@
 
 namespace Tenancy\Lifecycle\Contracts;
 
-use Tenancy\Tenant\Events\Event;
-
 interface ResolvesHooks
 {
     public function addHook($hook);
 
-    public function handle(Event $event);
+    public function handle($event, callable $fire = null);
 
     public function getHooks(): array;
 

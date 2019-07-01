@@ -15,6 +15,8 @@
 namespace Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Tenancy\Affects\AffectResolver;
+use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Database\Contracts\ProvidesPassword;
 use Tenancy\Database\Contracts\ResolvesConnections;
 use Tenancy\Database\DatabaseResolver;
@@ -35,6 +37,7 @@ class TenancyProvider extends ServiceProvider
     public $singletons = [
         Environment::class => Environment::class,
         ResolvesHooks::class => HookResolver::class,
+        ResolvesAffects::class => AffectResolver::class,
         ResolvesTenants::class => TenantResolver::class,
         ProvidesPassword::class => PasswordGenerator::class,
         ResolvesConnections::class => DatabaseResolver::class,

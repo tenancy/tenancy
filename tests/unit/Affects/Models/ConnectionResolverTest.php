@@ -15,14 +15,14 @@
 namespace Tenancy\Tests\Affects\Models;
 
 use Tenancy\Affects\Models\Events\ConfigureModels;
-use Tenancy\Affects\Models\Providers\ServiceProvider;
+use Tenancy\Affects\Models\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConnectionResolverTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @test

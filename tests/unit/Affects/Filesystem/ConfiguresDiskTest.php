@@ -17,14 +17,14 @@ namespace Tenancy\Tests\Affects\Filesystem;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Filesystem\FilesystemManager;
 use Tenancy\Affects\Filesystem\Events\ConfigureDisk;
-use Tenancy\Affects\Filesystem\Providers\ServiceProvider;
+use Tenancy\Affects\Filesystem\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresDiskTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @var FilesystemManager|Factory

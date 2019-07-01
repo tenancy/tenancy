@@ -15,18 +15,16 @@
 namespace Tenancy\Tests\Affects\Migrations;
 
 use Illuminate\Support\Facades\DB;
-use MockSeeder;
-use Tenancy\Database\Drivers\Sqlite\Providers\ServiceProvider as DatabaseProvider;
+use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
-use Tenancy\Hooks\Migrations\Providers\ServiceProvider;
+use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class SeedsHookTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class, ServiceProvider::class];
+    protected $additionalProviders = [DatabaseProvider::class, Provider::class];
     /**
      * @var Tenant
      */
