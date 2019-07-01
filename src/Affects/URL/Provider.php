@@ -12,12 +12,11 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\URL\Providers;
+namespace Tenancy\Affects\URL;
 
 use Tenancy\Support\AffectsProvider;
-use Tenancy\Affects\URL\Listeners\ConfiguresURL;
 
-class ServiceProvider extends AffectsProvider
+class Provider extends AffectsProvider
 {
     protected $affects = [ConfiguresURL::class];
 }

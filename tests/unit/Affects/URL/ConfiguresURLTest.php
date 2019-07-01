@@ -19,11 +19,11 @@ use Tenancy\Testing\TestCase;
 use Tenancy\Testing\Mocks\Tenant;
 use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URL\Events\ConfigureURL;
-use Tenancy\Affects\URL\Providers\ServiceProvider;
+use Tenancy\Affects\URL\Provider;
 
 class ConfiguresURLTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @var Tenant

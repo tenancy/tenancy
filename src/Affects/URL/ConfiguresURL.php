@@ -12,27 +12,23 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\URL\Listeners;
+namespace Tenancy\Affects\URL;
 
+use Tenancy\Affects\Affect;
 use Tenancy\Concerns\DispatchesEvents;
-use Tenancy\Contracts\TenantAffectsApp;
-use Tenancy\Identification\Events\Switched;
-use Tenancy\Affects\URL\Events\ConfigureURL;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
-class ConfiguresURL implements TenantAffectsApp
+class ConfiguresURL extends Affect
 {
     use DispatchesEvents;
 
-    public function handle(Switched $event): ?bool
+    public function fire(): void
     {
         /** @var UrlGenerator $url */
         $url = resolve(UrlGenerator::class);
 
-        if ($event->tenant) {
-            $this->events()->dispatch(new ConfigureURL($event, $url));
+        if ($this->event->tenant) {
+            $this->events()->dispatch(new Events\ConfigureURL($this->event, $url));
         }
-
-        return null;
     }
 }
