@@ -14,14 +14,12 @@
 
 namespace Tenancy\Hooks\Migrations;
 
-use Tenancy\Hooks\Migrations\Hooks\MigratesHook;
-use Tenancy\Hooks\Migrations\Hooks\SeedsHook;
 use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
     protected $hooks = [
-        MigratesHook::class,
-        SeedsHook::class
+        Hooks\MigratesHook::class,
+        Hooks\SeedsHook::class
     ];
 }
