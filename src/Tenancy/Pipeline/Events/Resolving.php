@@ -26,4 +26,18 @@ class Resolving extends Event
 
         return $this;
     }
+
+    public function replace(Step $with)
+    {
+        $this->step = $with;
+
+        return $this;
+    }
+
+    public function remove()
+    {
+        $this->step = null;
+
+        return $this;
+    }
 }

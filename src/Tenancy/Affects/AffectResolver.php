@@ -16,15 +16,15 @@ namespace Tenancy\Affects;
 
 use InvalidArgumentException;
 use Tenancy\Affects\Contracts\ResolvesAffects;
-use Tenancy\Contracts\TenantAffectsApp;
+use Tenancy\Contracts\AffectsApp;
 use Tenancy\Pipeline\Pipeline;
 
 class AffectResolver extends Pipeline implements ResolvesAffects
 {
     public function addAffect($affect)
     {
-        if (! in_array(TenantAffectsApp::class, class_implements($affect))) {
-            throw new InvalidArgumentException("$affect has to implement " . TenantAffectsApp::class);
+        if (! in_array(AffectsApp::class, class_implements($affect))) {
+            throw new InvalidArgumentException("$affect has to implement " . AffectsApp::class);
         }
 
         $this->steps->add($affect);

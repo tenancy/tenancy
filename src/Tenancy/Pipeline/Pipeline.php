@@ -44,23 +44,14 @@ class Pipeline
 
     public function handle($event, callable $fire = null)
     {
-        $steps = $this->steps
-            ->map(function ($step) use ($event) {
-                /** @var Step $hook */
-                $step = is_string($step) ? resolve($step) : $step;
+        $steps = $this->steps;
 
-                $step = $step->for($event);
+        event((new Events\Processing($event, $this))->steps($steps));
 
-                event((new Events\Resolving($event, $this))->step($step));
-
-                return $step;
-            })
-            ->sortBy(function (Step $step) {
-                return $step->priority();
-            })
-            ->filter(function (Step $step) {
-                return $step->fires();
-            });
+        $steps = $steps
+            ->resolve($event, $this)
+            ->prioritized()
+            ->fires();
 
         event((new Events\Resolved($event, $this))->steps($steps));
 

@@ -12,16 +12,23 @@
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects;
+namespace Tenancy\Pipeline\Events;
 
-use Tenancy\Contracts\AffectsApp;
-use Tenancy\Identification\Events\Switched;
-use Tenancy\Pipeline\Step;
+use Tenancy\Pipeline\Steps;
 
-abstract class Affect extends Step implements AffectsApp
+class Processing extends Event
 {
-    public function fires(): bool
+    public $steps;
+
+    public function steps(Steps &$steps)
     {
-        return $this->event instanceof Switched;
+        $this->steps = &$steps;
+
+        return $this;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return $this->steps->{$name}($arguments);
     }
 }

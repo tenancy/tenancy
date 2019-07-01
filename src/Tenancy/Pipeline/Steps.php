@@ -19,12 +19,32 @@ use Tenancy\Pipeline\Contracts\Step;
 
 class Steps extends Collection
 {
-
-    /**
-     * @param Step|int $previous ; priority or Step to append Step after.
-     * @param Step $step
-     */
-    public function after($previous, Step $step)
+    public function resolve($event, Pipeline $pipeline)
     {
+        return $this->map(function ($step) use ($event, $pipeline) {
+            /** @var Step $hook */
+            $step = is_string($step) ? resolve($step) : $step;
+
+            $step = $step->for($event);
+
+            event((new Events\Resolving($event, $pipeline))->step($step));
+
+            return $step;
+        })
+        ->filter();
+    }
+
+    public function prioritized()
+    {
+        return $this->sortBy(function (Step $step) {
+            return $step->priority();
+        });
+    }
+
+    public function fires()
+    {
+        return $this->filter(function (Step $step) {
+            return $step->fires();
+        });
     }
 }

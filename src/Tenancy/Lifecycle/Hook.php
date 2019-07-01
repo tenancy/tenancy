@@ -16,6 +16,7 @@ namespace Tenancy\Lifecycle;
 
 use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Pipeline\Step;
+use Tenancy\Tenant\Events\Event;
 
 abstract class Hook extends Step implements LifecycleHook
 {
@@ -30,5 +31,10 @@ abstract class Hook extends Step implements LifecycleHook
     public function queue(): ?string
     {
         return $this->queue;
+    }
+
+    public function fires(): bool
+    {
+        return $this->event instanceof Event && parent::fires();
     }
 }

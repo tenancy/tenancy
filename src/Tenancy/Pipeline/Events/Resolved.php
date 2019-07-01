@@ -20,10 +20,15 @@ class Resolved extends Event
 {
     public $steps;
 
-    public function steps(Steps $steps)
+    public function steps(Steps &$steps)
     {
-        $this->steps = $steps;
+        $this->steps = &$steps;
 
         return $this;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return $this->steps->{$name}($arguments);
     }
 }
