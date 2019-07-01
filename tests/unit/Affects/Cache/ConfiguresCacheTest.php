@@ -16,14 +16,14 @@ namespace Tenancy\Tests\Affects\Cache;
 
 use Illuminate\Cache\CacheManager;
 use Tenancy\Affects\Cache\Events\ConfigureCache;
-use Tenancy\Affects\Cache\Providers\ServiceProvider;
+use Tenancy\Affects\Cache\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresCacheTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @var Tenant

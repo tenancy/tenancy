@@ -16,14 +16,14 @@ namespace Tenancy\Tests\Affects\Views;
 
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
-use Tenancy\Affects\Views\Providers\ServiceProvider;
+use Tenancy\Affects\Views\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresViewsTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
     /**
      * @var Tenant
      */

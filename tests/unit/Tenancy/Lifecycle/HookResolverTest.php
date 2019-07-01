@@ -15,7 +15,8 @@
  namespace Tenancy\Tests\Lifecycle;
 
 use InvalidArgumentException;
-use Tenancy\Lifecycle\Events\Resolved;
+use Tenancy\Lifecycle\HookResolver;
+use Tenancy\Pipeline\Events\Resolved;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
@@ -58,11 +59,8 @@ class HookResolverTest extends TestCase
         $resolver->addHook($hookHigh);
 
         $this->events->listen(Resolved::class, function (Resolved $event) use ($hookLow, $hookHigh) {
-            $low = $event->hooks->first();
-            $high = $event->hooks->last();
-
-            $this->assertEquals($hookLow, $low);
-            $this->assertEquals($hookHigh, $high);
+            $this->assertEquals($hookLow, $event->steps->first());
+            $this->assertEquals($hookHigh, $event->steps->last());
         });
 
         $resolver->handle(new Created($this->mockTenant()));
@@ -123,13 +121,12 @@ class HookResolverTest extends TestCase
         /** @var ResolvesHooks $resolver */
         $resolver = resolve(ResolvesHooks::class);
 
-        $hook = new DefaultHook();
-        $resolver->addHook($hook);
+        $resolver->addHook($hook = new DefaultHook());
 
         $this->events->listen(Resolved::class, function (Resolved $event) use ($hook) {
-            $lasthook = $event->hooks->last();
-
-            $this->assertEquals($lasthook, $hook);
+            if ($event->isForPipeline(HookResolver::class)) {
+                $this->assertEquals($hook, $event->steps->last());
+            }
         });
 
         $resolver->handle(new Created($this->mockTenant()));

@@ -16,14 +16,14 @@ namespace Tenancy\Tests\Affects\Routes;
 
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
-use Tenancy\Affects\Routes\Providers\ServiceProvider;
+use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
 class ConfiguresRoutesTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
     /**
      * @var Tenant
      */

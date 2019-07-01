@@ -19,7 +19,6 @@ use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Tenant\Events\Event;
 
 class MigratesHook extends ConfigurableHook
 {
@@ -40,7 +39,7 @@ class MigratesHook extends ConfigurableHook
         $this->connection = Tenancy::getTenantConnectionName();
     }
 
-    public function for(Event $event)
+    public function for($event)
     {
         $this->action = $event instanceof Deleted ? 'reset' : 'run';
 

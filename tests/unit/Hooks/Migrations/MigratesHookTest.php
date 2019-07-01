@@ -20,12 +20,12 @@ use Tenancy\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Hooks\Migrations\Providers\ServiceProvider;
-use Tenancy\Database\Drivers\Sqlite\Providers\ServiceProvider as DatabaseProvider;
+use Tenancy\Hooks\Migrations\Provider;
+use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 
 class MigratesHookTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class, ServiceProvider::class];
+    protected $additionalProviders = [DatabaseProvider::class, Provider::class];
     /**
      * @var Tenant
      */

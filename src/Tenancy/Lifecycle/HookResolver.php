@@ -17,74 +17,45 @@ namespace Tenancy\Lifecycle;
 use InvalidArgumentException;
 use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Lifecycle\Events\Fired;
-use Tenancy\Lifecycle\Events\Resolved;
-use Tenancy\Lifecycle\Events\Resolving;
-use Tenancy\Tenant\Events\Event;
+use Tenancy\Pipeline\Pipeline;
 
-class HookResolver implements ResolvesHooks
+class HookResolver extends Pipeline implements ResolvesHooks
 {
-    protected $hooks = [];
-
     public function addHook($hook)
     {
         if (! in_array(LifecycleHook::class, class_implements($hook))) {
             throw new InvalidArgumentException("$hook has to implement " . LifecycleHook::class);
         }
 
-        $this->hooks[] = $hook;
+        $this->steps->add($hook);
 
         return $this;
     }
 
     public function getHooks(): array
     {
-        return $this->hooks;
+        return $this->getSteps()->toArray();
     }
 
     public function setHooks(array $hooks)
     {
-        $this->hooks = [];
-
-        array_walk($hooks, function ($hook) {
-            $this->addHook($hook);
-        });
+        $this->setSteps($hooks);
 
         return $this;
     }
 
-    public function handle(Event $event)
+    public function handle($event, callable $fire = null)
     {
-        $hooks = collect($this->hooks)
-            ->map(function ($hook) use ($event) {
-                /** @var LifecycleHook $hook */
-                $hook = is_string($hook) ? resolve($hook) : $hook;
-
-                $hook = $hook->for($event);
-
-                event(new Resolving($event, $hook));
-
-                return $hook;
-            })
-            ->sortBy(function (LifecycleHook $hook) {
-                return $hook->priority();
-            })
-            ->filter(function (LifecycleHook $hook) {
-                return $hook->fires();
-            });
-
-        event(new Resolved($event, $hooks));
-
-        $hooks->each(function (LifecycleHook $hook) {
-            if ($hook->queued()) {
-                dispatch(function () use ($hook) {
+        parent::handle($event, function ($hooks) {
+            $hooks->each(function (LifecycleHook $hook) {
+                if ($hook->queued()) {
+                    dispatch(function () use ($hook) {
+                        $hook->fire();
+                    })->onQueue($hook->queue());
+                } else {
                     $hook->fire();
-                })->onQueue($hook->queue());
-            } else {
-                $hook->fire();
-            }
+                }
+            });
         });
-
-        event(new Fired($event, $hooks));
     }
 }

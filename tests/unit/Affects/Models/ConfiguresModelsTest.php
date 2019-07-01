@@ -17,7 +17,7 @@ namespace Tenancy\Tests\Affects\Models;
 use Illuminate\Database\DatabaseManager;
 use Tenancy\Affects\Models\Database\ConnectionResolver;
 use Tenancy\Affects\Models\Events\ConfigureModels;
-use Tenancy\Affects\Models\Providers\ServiceProvider;
+use Tenancy\Affects\Models\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
@@ -26,7 +26,7 @@ use Tenancy\Tests\Affects\Models\Mocks\ExtraResolver;
 
 class ConfiguresModelsTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @test

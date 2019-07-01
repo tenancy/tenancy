@@ -18,11 +18,11 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Affects\Config\Events\ConfigureConfig;
-use Tenancy\Affects\Config\Providers\ServiceProvider;
+use Tenancy\Affects\Config\Provider;
 
 class ConfiguresConfigTest extends TestCase
 {
-    protected $additionalProviders = [ServiceProvider::class];
+    protected $additionalProviders = [Provider::class];
 
     /**
      * @var Tenant
