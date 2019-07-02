@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -19,7 +21,6 @@ use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment
 
 class Tenant extends \Tenancy\Testing\Mocks\Tenant implements IdentifiesByEnvironment
 {
-
     /**
      * Specify whether the tenant model is matching the request.
      *

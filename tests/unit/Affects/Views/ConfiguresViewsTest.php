@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -44,7 +46,7 @@ class ConfiguresViewsTest extends TestCase
         $this->assertFalse($views->exists('tenant::test'));
 
         $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addNamespace(__DIR__ . '/views/');
+            $event->addNamespace(__DIR__.'/views/');
         });
 
         $this->resolveTenant($this->tenant);
@@ -63,7 +65,7 @@ class ConfiguresViewsTest extends TestCase
         $this->assertFalse($views->exists('test'));
 
         $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addPath(__DIR__ . '/views/', true);
+            $event->addPath(__DIR__.'/views/', true);
         });
 
         $this->resolveTenant($this->tenant);
@@ -84,7 +86,7 @@ class ConfiguresViewsTest extends TestCase
         $original = $views->getFinder()->find('welcome');
 
         $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addPath(__DIR__ . '/views/');
+            $event->addPath(__DIR__.'/views/');
         });
 
         $this->resolveTenant($this->tenant);

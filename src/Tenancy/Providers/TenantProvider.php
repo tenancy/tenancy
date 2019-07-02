@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,10 +16,10 @@
 
 namespace Tenancy\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Tenancy\Identification\Contracts\Tenant;
+use Illuminate\Support\ServiceProvider;
 use Tenancy\Environment;
+use Tenancy\Identification\Contracts\Tenant;
 
 class TenantProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -34,7 +36,7 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return [
-             Tenant::class
+             Tenant::class,
          ];
     }
 }

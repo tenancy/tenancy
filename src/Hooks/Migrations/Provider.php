@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -20,6 +22,6 @@ class Provider extends HooksProvider
 {
     protected $hooks = [
         Hooks\MigratesHook::class,
-        Hooks\SeedsHook::class
+        Hooks\SeedsHook::class,
     ];
 }

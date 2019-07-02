@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -24,7 +26,7 @@ class SetConnection
     public function handle(Resolved $event)
     {
         $connection = $event->connection ?? Tenancy::getTenantConnectionName();
-        $existingConfig = config('database.connections.' . $connection);
+        $existingConfig = config('database.connections.'.$connection);
 
         if ($event->tenant && $event->provider) {
             $configuration = $event->provider->configure($event->tenant);
@@ -32,13 +34,13 @@ class SetConnection
             $configuration['tenant-key'] = optional($event->tenant)->getTenantKey();
             $configuration['tenant-identifier'] = optional($event->tenant)->getTenantIdentifier();
 
-            config(['database.connections.' . $connection  => $configuration]);
+            config(['database.connections.'.$connection  => $configuration]);
         } else {
-            config(['database.connections.' . $connection  => null]);
+            config(['database.connections.'.$connection  => null]);
         }
 
-        if (! $event->tenant
-            || ! $event->provider
+        if (!$event->tenant
+            || !$event->provider
             || Arr::get($existingConfig, 'tenant-key') !== $configuration['tenant-key']
             || Arr::get($existingConfig, 'tenant-identifier') !== $configuration['tenant-identifier']) {
             resolve(DatabaseManager::class)->purge($connection);

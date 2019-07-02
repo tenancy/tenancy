@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -15,14 +17,14 @@
 namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\ConnectionInterface;
+use InvalidArgumentException;
 use Tenancy\Database\Contracts\ResolvesConnections;
+use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Database\Events\Resolving;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Database\Events\Drivers\Configuring;
-use InvalidArgumentException;
 
 class DatabaseResolverTest extends TestCase
 {
@@ -40,7 +42,7 @@ class DatabaseResolverTest extends TestCase
         $this->events->forget(Resolving::class);
 
         $this->events->listen(Resolving::class, function (Resolving $event) {
-            return new Mocks\DatabaseDriver;
+            return new Mocks\DatabaseDriver();
         });
         $this->resolveTenant($this->tenant = $this->mockTenant());
     }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -15,13 +17,13 @@
 namespace Tenancy\Tests\Affects\Models;
 
 use Illuminate\Database\DatabaseManager;
+use InvalidArgumentException;
 use Tenancy\Affects\Models\Database\ConnectionResolver;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use InvalidArgumentException;
 use Tenancy\Tests\Affects\Models\Mocks\ExtraResolver;
 
 class ConfiguresModelsTest extends TestCase
@@ -86,7 +88,7 @@ class ConfiguresModelsTest extends TestCase
 
         $this->assertEquals(ConnectionResolver::class, get_class(Tenant::getConnectionResolver()));
 
-        $this->expectExceptionMessage("Database [tenant] not configured.");
+        $this->expectExceptionMessage('Database [tenant] not configured.');
         (new Tenant())->getConnection();
     }
 

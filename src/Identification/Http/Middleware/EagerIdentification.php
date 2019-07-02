@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -21,7 +23,8 @@ class EagerIdentification
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param Closure $next
+     * @param Closure                  $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -29,7 +32,7 @@ class EagerIdentification
         /** @var Environment $tenancy */
         $tenancy = resolve(Environment::class);
 
-        if (! $tenancy->isIdentified()) {
+        if (!$tenancy->isIdentified()) {
             $tenancy->getTenant();
         }
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,16 +16,16 @@
 
 namespace Tenancy\Tests\Database;
 
-use PDO;
-use Tenancy\Facades\Tenancy;
+use Illuminate\Database\Connection;
+use Illuminate\Database\DatabaseManager;
 use InvalidArgumentException;
-use Tenancy\Testing\TestCase;
+use PDO;
+use Tenancy\Database\Drivers\Sqlite\Provider;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
-use Illuminate\Database\Connection;
-use Illuminate\Database\DatabaseManager;
-use Tenancy\Database\Drivers\Sqlite\Provider;
+use Tenancy\Testing\TestCase;
 
 class SqliteDriverTest extends TestCase
 {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -15,7 +17,7 @@
 return [
     'identification' => [
 
-        /**
+        /*
          * Whether to initiate tenant identification early.
          *
          * @info This will set up a middleware with high priority to
@@ -26,12 +28,12 @@ return [
         'eager' => env('TENANCY_EAGER_IDENTIFICATION', true),
     ],
     'database' => [
-        /**
+        /*
          * The name of the tenant connection, tenancy will create this connection during runtime.
          */
         'tenant-connection-name' => env('TENANCY_TENANT_CONNECTION_NAME', 'tenant'),
 
-        /**
+        /*
          * Automatic tenant database handling.
          */
 
@@ -40,5 +42,5 @@ return [
         'auto-update' => env('TENANCY_DATABASE_AUTO_UPDATE', true),
 
         'auto-delete' => env('TENANCY_DATABASE_AUTO_DELETE', true),
-    ]
+    ],
 ];

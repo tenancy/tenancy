@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -26,13 +28,13 @@ class IdentificationProvider extends EventServiceProvider
 {
     protected $listen = [
         ArtisanStarting::class => [
-            GlobalTenantAwareness::class
+            GlobalTenantAwareness::class,
         ],
         CommandStarting::class => [
-            EagerIdentification::class
+            EagerIdentification::class,
         ],
         Resolving::class => [
-            IdentifyByConsole::class
-        ]
+            IdentifyByConsole::class,
+        ],
     ];
 }

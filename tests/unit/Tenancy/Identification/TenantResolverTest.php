@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -32,7 +34,7 @@ class TenantResolverTest extends TestCase
     protected function afterSetUp()
     {
         $this->resolver = $this->app->make(ResolvesTenants::class);
-        $this->tenant   = $this->mockTenant();
+        $this->tenant = $this->mockTenant();
     }
 
     /**

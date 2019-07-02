@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -36,7 +38,7 @@ class EagerIdentification
         /** @var Environment $tenancy */
         $tenancy = $this->app->make(Environment::class);
 
-        if (! $tenancy->isIdentified()) {
+        if (!$tenancy->isIdentified()) {
             $this->app->instance(InputInterface::class, $event->input);
             $tenancy->getTenant();
         }

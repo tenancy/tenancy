@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -15,7 +17,6 @@
 namespace Tenancy\Pipeline;
 
 use Tenancy\Pipeline\Contracts\Step;
-use Tenancy\Pipeline\Events\Fired;
 
 class Pipeline
 {
@@ -33,9 +34,10 @@ class Pipeline
 
     /**
      * @param array|Step[] $steps
+     *
      * @return Pipeline
      */
-    public function setSteps(array $steps): Pipeline
+    public function setSteps(array $steps): self
     {
         $this->steps = new Steps($steps);
 
@@ -67,7 +69,6 @@ class Pipeline
 
         return $steps;
     }
-
 
     public function __call($name, $arguments)
     {

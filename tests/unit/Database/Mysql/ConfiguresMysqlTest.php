@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -29,13 +31,13 @@ class ConfiguresMysqlTest extends TestCase
     public function reads_config_file()
     {
         $this->events->listen(Configuring::class, function (Configuring $event) {
-            $event->useConfig(__DIR__ . '/database.php');
+            $event->useConfig(__DIR__.'/database.php');
         });
 
         $this->resolveTenant($tenant = $this->mockTenant());
         Tenancy::getTenant();
 
-        $config = include __DIR__ . '/database.php';
+        $config = include __DIR__.'/database.php';
 
         $config['tenant-key'] = $tenant->getTenantKey();
         $config['tenant-identifier'] = $tenant->getTenantIdentifier();
@@ -58,7 +60,7 @@ class ConfiguresMysqlTest extends TestCase
 
         $this->events->listen(Configuring::class, function (Configuring $event) {
             $event->useConnection('mysql', [
-                'database' => $event->tenant->getTenantKey()
+                'database' => $event->tenant->getTenantKey(),
             ]);
         });
 

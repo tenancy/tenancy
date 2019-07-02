@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -27,9 +29,9 @@ use Tenancy\Tests\Identification\Drivers\Environment\Mocks\Tenant;
 */
 $factory->define(Tenant::class, function (Faker $faker) {
     return [
-        'name' => $faker->slug,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'name'           => $faker->slug,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
     ];
 });

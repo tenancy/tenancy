@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,8 +25,8 @@ class AffectResolver extends Pipeline implements ResolvesAffects
 {
     public function addAffect($affect)
     {
-        if (! in_array(AffectsApp::class, class_implements($affect))) {
-            throw new InvalidArgumentException("$affect has to implement " . AffectsApp::class);
+        if (!in_array(AffectsApp::class, class_implements($affect))) {
+            throw new InvalidArgumentException("$affect has to implement ".AffectsApp::class);
         }
 
         $this->steps->add($affect);

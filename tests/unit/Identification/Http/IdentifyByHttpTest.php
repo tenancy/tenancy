@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,7 +25,7 @@ use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
 class IdentifyByHttpTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
-    protected $additionalMocks = [__DIR__ . '/Mocks/factories/'];
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
 
     /** @var User */
     protected $user;
@@ -54,7 +56,7 @@ class IdentifyByHttpTest extends TestCase
         $this->assertTrue(config('tenancy.identification-driver-http.eager'), 'Eager http identification is not enabled.');
         $this->assertFalse($this->environment->isIdentified());
 
-        $this->get("http://" . $this->hostname->fqdn);
+        $this->get('http://'.$this->hostname->fqdn);
 
         $this->assertTrue($this->environment->isIdentified());
 

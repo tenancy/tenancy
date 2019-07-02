@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,7 +25,7 @@ use Tenancy\Tests\Identification\Drivers\Console\Mocks\Tenant;
 class IdentifyByConsoleTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
-    protected $additionalMocks = [__DIR__ . '/Mocks/factories/'];
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
 
     /** @var User */
     protected $user;
@@ -58,7 +60,7 @@ class IdentifyByConsoleTest extends TestCase
         $this->assertFalse($this->environment->isIdentified());
 
         $this->artisan('identifies', [
-            '--tenant' => $this->tenant->name
+            '--tenant' => $this->tenant->name,
         ]);
 
         $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
@@ -76,7 +78,7 @@ class IdentifyByConsoleTest extends TestCase
 
         $this->artisan('identifies', [
             '--tenant' => $this->tenant->name,
-            '--tenant' => 'foo'
+            '--tenant' => 'foo',
         ]);
 
         $this->assertNull(optional($this->environment->getTenant())->name);

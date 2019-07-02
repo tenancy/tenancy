@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -39,6 +41,7 @@ class ConfigureViews
      *
      * @param string $path
      * @param string $namespace
+     *
      * @return $this
      */
     public function addNamespace(string $path, string $namespace = 'tenant')
@@ -53,6 +56,7 @@ class ConfigureViews
      *
      * @param string $path
      * @param bool   $replace ; replace the existing global view directories.
+     *
      * @return $this
      */
     public function addPath(string $path, bool $replace = false)

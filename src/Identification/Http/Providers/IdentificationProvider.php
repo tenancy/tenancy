@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -22,11 +24,11 @@ use Tenancy\Support\DriverProvider;
 class IdentificationProvider extends DriverProvider
 {
     protected $drivers = [
-        IdentifiesByHttp::class => 'tenantIdentificationByHttp'
+        IdentifiesByHttp::class => 'tenantIdentificationByHttp',
     ];
 
     protected $configs = [
-        __DIR__ . '/../resources/config/identification-driver-http.php'
+        __DIR__.'/../resources/config/identification-driver-http.php',
     ];
 
     public function register()

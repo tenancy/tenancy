@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -22,7 +24,6 @@ use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 
 abstract class DriverProvider extends EventServiceProvider
 {
-
     /**
      * Lifecycle event hooks. Hooks that run specific logic
      * during Tenant creation, updates or deletion.
@@ -57,9 +58,9 @@ abstract class DriverProvider extends EventServiceProvider
             $configPath = basename($config);
             $configName = basename($config, '.php');
 
-            $this->publishes([$config => config_path('tenancy' . DIRECTORY_SEPARATOR . $configPath)], [$configName, "tenancy"]);
+            $this->publishes([$config => config_path('tenancy'.DIRECTORY_SEPARATOR.$configPath)], [$configName, 'tenancy']);
 
-            $this->mergeConfigFrom($config, 'tenancy.' . $configName);
+            $this->mergeConfigFrom($config, 'tenancy.'.$configName);
         }
 
         foreach ($this->affects as $affect) {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -38,7 +40,7 @@ class Job implements ShouldQueue
     public function handle()
     {
         event('mock.tenant.job', [
-            'tenant' => Tenancy::getTenant()
+            'tenant' => Tenancy::getTenant(),
         ]);
     }
 }

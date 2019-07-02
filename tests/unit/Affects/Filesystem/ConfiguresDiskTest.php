@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -42,7 +44,7 @@ class ConfiguresDiskTest extends TestCase
 
         $this->events->listen(ConfigureDisk::class, function (ConfigureDisk $event) {
             $event->config['driver'] = 'local';
-            $event->config['root'] = '/tmp/t-filesystem-' . $event->event->tenant->getTenantKey();
+            $event->config['root'] = '/tmp/t-filesystem-'.$event->event->tenant->getTenantKey();
         });
 
         $this->tenant = $this->mockTenant();

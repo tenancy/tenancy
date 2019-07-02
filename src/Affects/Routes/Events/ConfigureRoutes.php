@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -52,6 +54,7 @@ class ConfigureRoutes
      *
      * @param array  $attributes
      * @param string $path
+     *
      * @return $this
      */
     public function fromFile(array $attributes, string $path)

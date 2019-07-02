@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -22,6 +24,6 @@ class Provider extends DatabaseProvider
     protected $listener = ConfiguresTenantConnection::class;
 
     protected $configs = [
-        __DIR__ . '/resources/config/db-driver-sqlite.php'
+        __DIR__.'/resources/config/db-driver-sqlite.php',
     ];
 }

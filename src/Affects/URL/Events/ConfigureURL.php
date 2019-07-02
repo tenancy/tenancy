@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,8 +16,8 @@
 
 namespace Tenancy\Affects\URL\Events;
 
-use Tenancy\Identification\Events\Switched;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Tenancy\Identification\Events\Switched;
 
 class ConfigureURL
 {

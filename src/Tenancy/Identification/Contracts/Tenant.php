@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -22,7 +24,6 @@ interface Tenant
      * @return string
      */
     public function getTenantKeyName(): string;
-
 
     /**
      * The actual value of the key for the tenant Model.

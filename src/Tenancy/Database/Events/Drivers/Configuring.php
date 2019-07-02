@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -55,7 +57,7 @@ class Configuring
 
     public function useConfig(string $path)
     {
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             throw new InvalidArgumentException("Cannot set up tenant connection configuration, file $path does not exist.");
         }
 

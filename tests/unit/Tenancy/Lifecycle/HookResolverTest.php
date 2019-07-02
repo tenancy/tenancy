@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -12,19 +14,19 @@
  * @see https://github.com/tenancy
  */
 
- namespace Tenancy\Tests\Lifecycle;
+namespace Tenancy\Tests\Lifecycle;
 
+use Illuminate\Queue\CallQueuedClosure;
+use Illuminate\Support\Facades\Queue;
 use InvalidArgumentException;
+use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
 use Tenancy\Pipeline\Events\Resolved;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
-use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Tests\Lifecycle\Mocks\ConfiguredHook;
-use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Queue\CallQueuedClosure;
 use Tenancy\Tests\Lifecycle\Mocks\DefaultHook;
+use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
 
 class HookResolverTest extends TestCase
 {
@@ -81,7 +83,7 @@ class HookResolverTest extends TestCase
         );
 
         $resolver->setHooks([
-            ConfiguredHook::class
+            ConfiguredHook::class,
         ]);
 
         $this->assertEquals(
@@ -103,7 +105,7 @@ class HookResolverTest extends TestCase
         $resolver->setHooks([]);
 
         $hook = new ConfiguredHook();
-        $hook->queue = "test";
+        $hook->queue = 'test';
         $resolver->addHook($hook);
 
         $resolver->handle(new Created($this->mockTenant()));

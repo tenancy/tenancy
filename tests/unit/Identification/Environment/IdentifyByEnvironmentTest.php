@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -25,7 +27,7 @@ use Tenancy\Tests\Identification\Drivers\Environment\Mocks\Tenant;
 class IdentifyByEnvironmentTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
-    protected $additionalMocks = [__DIR__ . '/Mocks/factories/'];
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
 
     /** @var User */
     protected $user;
@@ -58,7 +60,7 @@ class IdentifyByEnvironmentTest extends TestCase
 
     protected function setEnv($name, $value = null)
     {
-        $env = (new DotenvFactory([new EnvConstAdapter, new ServerConstAdapter]))->create();
+        $env = (new DotenvFactory([new EnvConstAdapter(), new ServerConstAdapter()]))->create();
         $env->set($name, $value);
 
         $this->assertEquals($value, env($name));

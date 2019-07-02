@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,9 +16,9 @@
 
 namespace Tenancy\Tests\Database;
 
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Database\Contracts\ProvidesPassword;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class PasswordGeneratorTest extends TestCase
 {
@@ -30,7 +32,7 @@ class PasswordGeneratorTest extends TestCase
      */
     public function test_password_generator_output()
     {
-        config(['tenancy.key' => "YYTzkkfJaiSt+rwvCUq8rsdYWy5/fhasqjpHl8SyUJw="]);
+        config(['tenancy.key' => 'YYTzkkfJaiSt+rwvCUq8rsdYWy5/fhasqjpHl8SyUJw=']);
 
         $this->tenant = $this->createMockTenant([
             'id' => 641641641,

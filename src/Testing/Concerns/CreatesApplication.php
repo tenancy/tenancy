@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -50,13 +52,13 @@ trait CreatesApplication
         $app = null;
 
         if (getenv('CI_PROJECT_DIR')) {
-            $appPaths[] = realpath(getenv('CI_PROJECT_DIR') . '/vendor/laravel/laravel');
+            $appPaths[] = realpath(getenv('CI_PROJECT_DIR').'/vendor/laravel/laravel');
         }
 
         // inside vendor
-        $appPaths[] = realpath(__DIR__ . '/../../framework/');
+        $appPaths[] = realpath(__DIR__.'/../../framework/');
         // as a framework
-        $appPaths[] = realpath(__DIR__ . '/../../../vendor/laravel/laravel');
+        $appPaths[] = realpath(__DIR__.'/../../../vendor/laravel/laravel');
 
         foreach ($appPaths as $path) {
             $bootstrap = "$path/bootstrap/app.php";
@@ -69,7 +71,7 @@ trait CreatesApplication
             }
         }
 
-        if (! $app) {
+        if (!$app) {
             throw new RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
         }
 
@@ -86,7 +88,7 @@ trait CreatesApplication
 
         /** @var Factory $factory */
         $factory = resolve(Factory::class);
-        $factory->load(__DIR__ . '/../Mocks/factories/');
+        $factory->load(__DIR__.'/../Mocks/factories/');
 
         foreach ($this->additionalMocks as $mock) {
             $factory->load($mock);

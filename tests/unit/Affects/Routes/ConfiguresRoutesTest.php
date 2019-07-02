@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -58,7 +60,7 @@ class ConfiguresRoutesTest extends TestCase
     public function reads_routes_file()
     {
         $this->events->listen(ConfigureRoutes::class, function (ConfigureRoutes $event) {
-            $event->fromFile([], __DIR__ . '/routes.php');
+            $event->fromFile([], __DIR__.'/routes.php');
         });
 
         $this->resolveTenant($this->tenant);

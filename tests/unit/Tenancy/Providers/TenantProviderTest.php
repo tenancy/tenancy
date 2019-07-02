@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -15,8 +17,8 @@
 namespace Tenancy\Tests\Unit\Providers;
 
 use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Testing\TestCase;
 
 class TenantProviderTest extends TestCase
 {

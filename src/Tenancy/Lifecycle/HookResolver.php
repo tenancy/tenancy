@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,8 +25,8 @@ class HookResolver extends Pipeline implements ResolvesHooks
 {
     public function addHook($hook)
     {
-        if (! in_array(LifecycleHook::class, class_implements($hook))) {
-            throw new InvalidArgumentException("$hook has to implement " . LifecycleHook::class);
+        if (!in_array(LifecycleHook::class, class_implements($hook))) {
+            throw new InvalidArgumentException("$hook has to implement ".LifecycleHook::class);
         }
 
         $this->steps->add($hook);

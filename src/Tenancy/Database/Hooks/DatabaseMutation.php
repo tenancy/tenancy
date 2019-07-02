@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -28,7 +30,7 @@ class DatabaseMutation extends Hook
     protected $mapping = [
         Created::class => 'create',
         Updated::class => 'update',
-        Deleted::class => 'delete'
+        Deleted::class => 'delete',
     ];
 
     public function priority(): int

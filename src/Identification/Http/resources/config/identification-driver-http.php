@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,7 +16,7 @@
 
 return [
 
-    /**
+    /*
      * Whether to initiate tenant identification early.
      *
      * @info This will set up a middleware with high priority to

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -21,6 +23,7 @@ class PasswordGenerator implements ProvidesPassword
 {
     /**
      * @param Tenant $tenant
+     *
      * @return string
      */
     public function generate(Tenant $tenant): string

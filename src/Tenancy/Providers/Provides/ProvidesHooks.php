@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -20,7 +22,7 @@ use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 trait ProvidesHooks
 {
     protected $hooks = [
-        DatabaseMutation::class
+        DatabaseMutation::class,
     ];
 
     protected function bootProvidesHooks()

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,14 +16,14 @@
 
 namespace Tenancy\Tests\Affects\Migrations;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
+use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Hooks\Migrations\Provider;
-use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class MigratesHookTest extends TestCase
 {
@@ -35,7 +37,7 @@ class MigratesHookTest extends TestCase
     {
         $this->resolveTenant($this->tenant = $this->mockTenant());
 
-        $this->migrateTenant(__DIR__ . '/database/');
+        $this->migrateTenant(__DIR__.'/database/');
 
         $this->events->dispatch(new Created($this->tenant));
     }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,9 +16,9 @@
 
 namespace Tenancy\Affects\URL;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Tenancy\Affects\Affect;
 use Tenancy\Concerns\DispatchesEvents;
-use Illuminate\Contracts\Routing\UrlGenerator;
 
 class ConfiguresURL extends Affect
 {

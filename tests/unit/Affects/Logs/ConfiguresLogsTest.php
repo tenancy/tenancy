@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -38,7 +40,7 @@ class ConfiguresLogsTest extends TestCase
     protected function afterSetUp()
     {
         $this->tenant = $this->mockTenant();
-        $this->file = '/tmp/log-' . $this->tenant->getTenantKey();
+        $this->file = '/tmp/log-'.$this->tenant->getTenantKey();
         if (file_exists($this->file)) {
             unlink($this->file);
         }
@@ -46,7 +48,7 @@ class ConfiguresLogsTest extends TestCase
         $this->events->listen(ConfigureLogs::class, function (ConfigureLogs $event) {
             $event->config['driver'] = 'single';
             $event->config['level'] = 'debug';
-            $event->config['path'] = '/tmp/log-' . $event->event->tenant->getTenantKey();
+            $event->config['path'] = '/tmp/log-'.$event->event->tenant->getTenantKey();
         });
     }
 

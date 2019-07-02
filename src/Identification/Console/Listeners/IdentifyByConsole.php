@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,7 +25,7 @@ class IdentifyByConsole
 {
     public function handle(Resolving $event): ?Tenant
     {
-        if (! app()->runningInConsole() || !app()->bound(InputInterface::class)) {
+        if (!app()->runningInConsole() || !app()->bound(InputInterface::class)) {
             return null;
         }
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -13,7 +15,7 @@
  */
 
 return [
-    /**
+    /*
      * If you want to re-use an existing connection,
      * specify its name here. Leave null to
      * instantiate a fully new connection.
@@ -21,8 +23,8 @@ return [
     'use-connection' => null,
 
     'preset' => [
-        'driver' => 'sqlite',
+        'driver'   => 'sqlite',
         'database' => env('DB_DATABASE', database_path('database.sqlite')),
-        'prefix' => '',
-    ]
+        'prefix'   => '',
+    ],
 ];

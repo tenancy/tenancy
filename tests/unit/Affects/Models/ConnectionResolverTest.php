@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -36,9 +38,9 @@ class ConnectionResolverTest extends TestCase
         $this->resolveTenant($this->mockTenant());
         Tenancy::getTenant();
 
-        (new Tenant())->getConnectionResolver()->setDefaultConnection("tenant2");
+        (new Tenant())->getConnectionResolver()->setDefaultConnection('tenant2');
         $this->assertEquals(
-            "tenant2",
+            'tenant2',
             (new Tenant())->getConnectionResolver()->getDefaultConnection()
         );
     }
@@ -54,7 +56,6 @@ class ConnectionResolverTest extends TestCase
 
         $this->resolveTenant($this->mockTenant());
         Tenancy::getTenant();
-
 
         $resolver = (new Tenant())->getConnectionResolver();
         $this->assertIsArray(

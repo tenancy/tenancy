@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -42,7 +44,7 @@ class ConfiguresCacheTest extends TestCase
 
         $this->events->listen(ConfigureCache::class, function (ConfigureCache $event) {
             $event->config['driver'] = 'file';
-            $event->config['path'] = '/tmp/' . $event->event->tenant->getTenantKey();
+            $event->config['path'] = '/tmp/'.$event->event->tenant->getTenantKey();
         });
     }
 

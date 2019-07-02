@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,12 +16,12 @@
 
 namespace Tenancy\Tests\Affects\URL;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
 use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URL\Events\ConfigureURL;
 use Tenancy\Affects\URL\Provider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class ConfiguresURLTest extends TestCase
 {

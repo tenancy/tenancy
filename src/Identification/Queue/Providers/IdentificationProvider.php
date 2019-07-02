@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -36,8 +38,8 @@ class IdentificationProvider extends ServiceProvider
                 $tenant = $environment->getTenant();
 
                 return $tenant ? [
-                    'tenant_key' => $tenant->getTenantKey(),
-                    'tenant_identifier' => $tenant->getTenantIdentifier()
+                    'tenant_key'        => $tenant->getTenantKey(),
+                    'tenant_identifier' => $tenant->getTenantIdentifier(),
                 ] : [];
             });
 

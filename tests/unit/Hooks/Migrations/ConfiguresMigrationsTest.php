@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,14 +16,14 @@
 
 namespace Tenancy\Tests\Affects\Migrations;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Hooks\Migrations\Provider;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
-use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 use InvalidArgumentException;
+use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migrations\Provider;
+use Tenancy\Tenant\Events\Created;
+use Tenancy\Testing\TestCase;
 
 class ConfiguresMigrationsTest extends TestCase
 {
@@ -34,11 +36,11 @@ class ConfiguresMigrationsTest extends TestCase
     public function afterSetUp()
     {
         $this->resolveTenant($this->tenant = $this->mockTenant([
-            'id' => 3607
+            'id' => 3607,
         ]));
 
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
-            $event->path(__DIR__ . '/database/');
+            $event->path(__DIR__.'/database/');
         });
     }
 

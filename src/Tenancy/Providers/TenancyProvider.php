@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -35,11 +37,11 @@ class TenancyProvider extends ServiceProvider
         Provides\ProvidesHooks;
 
     public $singletons = [
-        Environment::class => Environment::class,
-        ResolvesHooks::class => HookResolver::class,
-        ResolvesAffects::class => AffectResolver::class,
-        ResolvesTenants::class => TenantResolver::class,
-        ProvidesPassword::class => PasswordGenerator::class,
+        Environment::class         => Environment::class,
+        ResolvesHooks::class       => HookResolver::class,
+        ResolvesAffects::class     => AffectResolver::class,
+        ResolvesTenants::class     => TenantResolver::class,
+        ProvidesPassword::class    => PasswordGenerator::class,
         ResolvesConnections::class => DatabaseResolver::class,
     ];
 
@@ -60,7 +62,7 @@ class TenancyProvider extends ServiceProvider
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = $runtime . class_basename($trait))) {
+            if (method_exists($class, $method = $runtime.class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
         }

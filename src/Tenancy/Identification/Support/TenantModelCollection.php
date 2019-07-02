@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,13 +16,14 @@
 
 namespace Tenancy\Identification\Support;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class TenantModelCollection extends Collection
 {
     /**
      * @param string|array $contracts
+     *
      * @return static
      */
     public function filterByContract($contracts)

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -29,7 +31,7 @@ class EagerIdentificationTest extends TestCase
 
         $middleware = new EagerIdentification($this->app);
 
-        $middleware->handle(new Request, function () {
+        $middleware->handle(new Request(), function () {
         });
 
         $this->assertTrue($this->environment->isIdentified());

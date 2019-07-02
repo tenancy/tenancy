@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -14,11 +16,11 @@
 
 namespace Tenancy\Tests\Affects\Config;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Affects\Config\Events\ConfigureConfig;
 use Tenancy\Affects\Config\Provider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
 class ConfiguresConfigTest extends TestCase
 {

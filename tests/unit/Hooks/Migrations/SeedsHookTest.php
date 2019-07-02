@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -34,8 +36,8 @@ class SeedsHookTest extends TestCase
     {
         $this->resolveTenant($this->tenant = $this->mockTenant());
 
-        $this->migrateTenant(__DIR__ . '/database/');
-        $this->seedTenant(__DIR__ . '/seeds/MockSeeder.php');
+        $this->migrateTenant(__DIR__.'/database/');
+        $this->seedTenant(__DIR__.'/seeds/MockSeeder.php');
 
         $this->events->dispatch(new Created($this->tenant));
     }

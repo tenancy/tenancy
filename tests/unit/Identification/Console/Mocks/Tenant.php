@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -24,6 +26,7 @@ class Tenant extends \Tenancy\Testing\Mocks\Tenant implements IdentifiesByConsol
      * Specify whether the tenant model is matching the request.
      *
      * @param InputInterface $input
+     *
      * @return null|Contract
      */
     public function tenantIdentificationByConsole(InputInterface $input): ?Contract

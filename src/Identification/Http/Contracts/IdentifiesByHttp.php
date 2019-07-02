@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
@@ -23,6 +25,7 @@ interface IdentifiesByHttp
      * Specify whether the tenant model is matching the request.
      *
      * @param Request $request
+     *
      * @return Tenant
      */
     public function tenantIdentificationByHttp(Request $request): ?Tenant;
