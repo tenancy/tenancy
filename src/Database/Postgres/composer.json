@@ -16,6 +16,10 @@
             "name": "Daniël Klabbers",
             "email": "daniel@klabbers.email",
             "homepage": "http://luceos.com"
+        },
+        {
+            "name": "Patrick McCarren",
+            "email": "patrick@cumulative.io"
         }
     ],
     "extra": {
