@@ -42,7 +42,7 @@ class Postgres implements ProvidesDatabase
         return $this->process($tenant, [
             'user'     => ['CREATE USER ? WITH ENCRYPTED PASSWORD ?', [$config['username'], $config['password']]],
             'database' => ['CREATE DATABASE ?', [$config['database']]],
-            'grant'    => ['GRANT ALL PRIVILEGES ON DATABASE ? TO ?', [$config['database'], $config['username']]]
+            'grant'    => ['GRANT ALL PRIVILEGES ON DATABASE ? TO ?', [$config['database'], $config['username']]],
         ]);
     }
 
@@ -88,7 +88,7 @@ class Postgres implements ProvidesDatabase
 
         foreach ($statements as $statement) {
             try {
-                if (! is_array($statement)) {
+                if (!is_array($statement)) {
                     $statement = [$statement, []];
                 }
 
