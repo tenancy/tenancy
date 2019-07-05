@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/db-driver-postgres",
+    "description": "The tenancy/tenancy database driver for postgres",
+    "keywords": ["database", "tenancy", "postgres", "pgsql"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Database\\Drivers\\Postgres\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Database\\Drivers\\Postgres\\Provider"
+            ]
+        }
+    }
+}
