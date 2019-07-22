@@ -33,11 +33,19 @@ class MigratesHookTest extends TestCase
      */
     protected $tenant;
 
+
+    /**
+     * @var string
+     */
+    protected $defaultConnection;
+
     public function afterSetUp()
     {
         $this->resolveTenant($this->tenant = $this->mockTenant());
 
         $this->migrateTenant(__DIR__.'/database/');
+
+        $this->defaultConnection = DB::getDefaultConnection();
 
         $this->events->dispatch(new Created($this->tenant));
     }
@@ -73,12 +81,21 @@ class MigratesHookTest extends TestCase
         config(['tenancy.database.auto-delete' => false]);
         $this->events->dispatch(new Deleted($this->tenant));
 
-//        Tenancy::getTenant();
-
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())
                 ->getSchemaBuilder()
                 ->hasTable('mocks')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function restores_default_connection()
+    {
+        $this->assertEquals(
+            $this->defaultConnection,
+            DB::getDefaultConnection()
         );
     }
 }
