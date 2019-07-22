@@ -54,11 +54,16 @@ class MigratesHook extends ConfigurableHook
 
     public function fire(): void
     {
+        $db = resolve('db');
+        $default = $db->getDefaultConnection();
+
         $this->migrator->setConnection($this->connection);
 
         if (!$this->migrator->repositoryExists()) {
             $this->migrator->getRepository()->createRepository();
         }
         call_user_func([$this->migrator, $this->action], $this->migrator->paths());
+
+        $db->setDefaultConnection($default);
     }
 }
