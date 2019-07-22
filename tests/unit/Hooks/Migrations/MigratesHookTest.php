@@ -33,7 +33,6 @@ class MigratesHookTest extends TestCase
      */
     protected $tenant;
 
-
     /**
      * @var string
      */
