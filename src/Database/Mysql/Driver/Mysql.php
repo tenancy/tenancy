@@ -91,7 +91,7 @@ class Mysql implements ProvidesDatabase
                 $success = $this->system($tenant)->statement($statement);
 
                 if (!$success) {
-                    throw new QueryException($statement);
+                    throw new QueryException($statement, [], null);
                 }
             } catch (QueryException $e) {
                 report($e);
