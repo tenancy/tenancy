@@ -32,12 +32,19 @@ class SeedsHookTest extends TestCase
      */
     protected $tenant;
 
+    /**
+     * @var string
+     */
+    protected $defaultConnection;
+
     public function afterSetUp()
     {
         $this->resolveTenant($this->tenant = $this->mockTenant());
 
         $this->migrateTenant(__DIR__.'/database/');
         $this->seedTenant(__DIR__.'/seeds/MockSeeder.php');
+
+        $this->defaultConnection = DB::getDefaultConnection();
 
         $this->events->dispatch(new Created($this->tenant));
     }
@@ -56,5 +63,16 @@ class SeedsHookTest extends TestCase
         );
 
         DB::disconnect(Tenancy::getTenantConnectionName());
+    }
+
+    /**
+     * @test
+     */
+    public function restores_default_connection()
+    {
+        $this->assertEquals(
+            $this->defaultConnection,
+            DB::getDefaultConnection()
+        );
     }
 }
