@@ -56,11 +56,11 @@ class ConfiguresSqliteTest extends TestCase
         $this->resolveTenant($tenant = $this->mockTenant());
 
         $config = config('database.connections.sqlite');
-        $config['database'] = $tenant->getTenantKey() . '.sqlite';
+        $config['database'] = $tenant->getTenantKey().'.sqlite';
 
         $this->events->listen(Configuring::class, function (Configuring $event) {
             $event->useConnection('sqlite', [
-                'database' => $event->tenant->getTenantKey() . '.sqlite',
+                'database' => $event->tenant->getTenantKey().'.sqlite',
             ]);
         });
 

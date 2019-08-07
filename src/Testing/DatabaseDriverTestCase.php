@@ -16,20 +16,17 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing;
 
-use PDO;
-use PDOException;
-use Tenancy\Tenant\Events;
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\QueryException;
+use PDO;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
-use Illuminate\Database\QueryException;
+use Tenancy\Tenant\Events;
+use Tenancy\Testing\Mocks\Tenant;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
-
     protected $db;
 
     protected $tenant;
@@ -63,15 +60,17 @@ abstract class DatabaseDriverTestCase extends TestCase
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }
 
-    protected function cleanDatabases(TenantContract $tenant = null){
+    protected function cleanDatabases(TenantContract $tenant = null)
+    {
         $this->db->purge(Tenancy::getTenantConnectionName());
-        if($tenant == null){
+        if ($tenant == null) {
             $tenant = $this->tenant;
         }
         $this->events->dispatch(new Events\Deleted($tenant));
     }
 
-    protected function registerModel(){
+    protected function registerModel()
+    {
         /** @var ResolvesTenants $resolver */
         $resolver = $this->app->make(ResolvesTenants::class);
         $resolver->addModel($this->tenantModel);

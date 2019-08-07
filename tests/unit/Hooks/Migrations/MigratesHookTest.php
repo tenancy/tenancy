@@ -18,13 +18,13 @@ namespace Tenancy\Tests\Hooks\Migrations;
 
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
+use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Database\Events\Drivers\Configuring;
 
 class MigratesHookTest extends TestCase
 {
@@ -47,9 +47,9 @@ class MigratesHookTest extends TestCase
 
         $this->defaultConnection = DB::getDefaultConnection();
 
-        $this->events->listen(Configuring::class, function (Configuring $event){
-            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', [
-                'database' => database_path($event->tenant->getTenantKey() . '.sqlite')
+        $this->events->listen(Configuring::class, function (Configuring $event) {
+            $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
+                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
         });
 

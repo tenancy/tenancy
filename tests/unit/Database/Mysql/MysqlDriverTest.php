@@ -17,13 +17,13 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database\Mysql;
 
 use PDOException;
-use Tenancy\Testing\DatabaseDriverTestCase;
 use Tenancy\Database\Drivers\Mysql\Provider;
-use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Testing\DatabaseDriverTestCase;
+use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 
-class MysqlDriverTest extends DatabaseDriverTestCase{
-
+class MysqlDriverTest extends DatabaseDriverTestCase
+{
     protected $additionalProviders = [Provider::class];
 
     protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
@@ -35,8 +35,8 @@ class MysqlDriverTest extends DatabaseDriverTestCase{
     protected function registerDatabaseListener()
     {
         config(['database.connections.mysql' => include __DIR__.'/database.php']);
-        $this->events->listen(Configuring::class, function (Configuring $event){
-            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', $event->configuration);
+        $this->events->listen(Configuring::class, function (Configuring $event) {
+            $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', $event->configuration);
         });
     }
 }
