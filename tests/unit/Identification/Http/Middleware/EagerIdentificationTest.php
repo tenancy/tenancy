@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Http\Middleware;
+namespace Tenancy\Tests\Identification\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Tenancy\Identification\Drivers\Http\Middleware\EagerIdentification;

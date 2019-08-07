@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Http;
+namespace Tenancy\Tests\Identification\Http;
 
 use Dotenv\Environment\Adapter\EnvConstAdapter;
 use Dotenv\Environment\Adapter\ServerConstAdapter;
@@ -22,7 +22,7 @@ use Dotenv\Environment\DotenvFactory;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Environment\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Drivers\Environment\Mocks\Tenant;
+use Tenancy\Tests\Identification\Environment\Mocks\Tenant;
 
 class IdentifyByEnvironmentTest extends TestCase
 {

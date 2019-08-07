@@ -30,9 +30,9 @@
             "Tenancy\\Testing\\": "src/Testing",
             "Tenancy\\Tests\\": "tests/unit/Tenancy",
             "Tenancy\\Tests\\Affects\\": "tests/unit/Affects",
-            "Tenancy\\Tests\\Database\\Drivers\\": "tests/unit/Database",
+            "Tenancy\\Tests\\Database\\": "tests/unit/Database",
             "Tenancy\\Tests\\Hooks\\": "tests/unit/Hooks",
-            "Tenancy\\Tests\\Identification\\Drivers\\": "tests/unit/Identification"
+            "Tenancy\\Tests\\Identification\\": "tests/unit/Identification"
         }
     },
     "replace": {

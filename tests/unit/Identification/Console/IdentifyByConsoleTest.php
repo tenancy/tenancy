@@ -14,13 +14,13 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Console;
+namespace Tenancy\Tests\Identification\Console;
 
 use Illuminate\Contracts\Console\Kernel;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Drivers\Console\Mocks\Tenant;
+use Tenancy\Tests\Identification\Console\Mocks\Tenant;
 
 class IdentifyByConsoleTest extends TestCase
 {
