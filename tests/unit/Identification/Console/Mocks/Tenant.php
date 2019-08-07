@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Console\Mocks;
+namespace Tenancy\Tests\Identification\Console\Mocks;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Identification\Contracts\Tenant as Contract;

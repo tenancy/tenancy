@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Database;
+namespace Tenancy\Tests\Database\Sqlite;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\DatabaseManager;

@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Queue;
+namespace Tenancy\Tests\Identification\Queue;
 
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Support\Facades\Event;

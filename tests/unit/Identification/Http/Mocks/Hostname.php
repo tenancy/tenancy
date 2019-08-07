@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Http\Mocks;
+namespace Tenancy\Tests\Identification\Http\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

@@ -14,13 +14,13 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Http;
+namespace Tenancy\Tests\Identification\Http;
 
 use Illuminate\Database\Schema\Blueprint;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
+use Tenancy\Tests\Identification\Http\Mocks\Hostname;
 
 class IdentifyByHttpTest extends TestCase
 {

@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Identification\Drivers\Http\Mocks\Hostname;
+use Tenancy\Tests\Identification\Http\Mocks\Hostname;
 
 /*
 |--------------------------------------------------------------------------
