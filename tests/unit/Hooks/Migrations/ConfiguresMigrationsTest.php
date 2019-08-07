@@ -24,6 +24,7 @@ use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
+use Tenancy\Database\Events\Drivers\Configuring;
 
 class ConfiguresMigrationsTest extends TestCase
 {
@@ -41,6 +42,12 @@ class ConfiguresMigrationsTest extends TestCase
 
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             $event->path(__DIR__.'/database/');
+        });
+
+        $this->events->listen(Configuring::class, function (Configuring $event){
+            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', [
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite')
+            ]);
         });
     }
 

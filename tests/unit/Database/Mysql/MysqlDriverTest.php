@@ -14,22 +14,29 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Database\Sqlite;
+namespace Tenancy\Tests\Database\Mysql;
 
+use PDOException;
 use Tenancy\Testing\DatabaseDriverTestCase;
-use Tenancy\Database\Drivers\Sqlite\Provider;
+use Tenancy\Database\Drivers\Mysql\Provider;
+use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 use Tenancy\Database\Events\Drivers\Configuring;
 
-class SqliteDriverTest extends DatabaseDriverTestCase{
+class MysqlDriverTest extends DatabaseDriverTestCase{
 
     protected $additionalProviders = [Provider::class];
 
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
+
+    protected $tenantModel = Tenant::class;
+
+    protected $exception = PDOException::class;
+
     protected function registerDatabaseListener()
     {
+        config(['database.connections.mysql' => include __DIR__.'/database.php']);
         $this->events->listen(Configuring::class, function (Configuring $event){
-            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', [
-                'database' => database_path($event->tenant->getTenantKey() . '.sqlite')
-            ]);
+            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', $event->configuration);
         });
     }
 }

@@ -56,6 +56,9 @@ class Mysql implements ProvidesDatabase
 
         return $this->process($tenant, [
             'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
+            'password' => "ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'",
+            'database' => "CREATE DATABASE `{$config['database']}`",
+            'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
         ]);
     }
 

@@ -24,13 +24,7 @@ class Sqlite implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('tenancy.db-driver-sqlite.use-connection')) {
-            return config("database.connections.$name");
-        }
-
-        $config = config('tenancy.db-driver-sqlite.preset', []);
-
-        $config['database'] = database_path($tenant->getTenantKey());
+        $config = [];
 
         event(new Configuring($tenant, $config, $this));
 

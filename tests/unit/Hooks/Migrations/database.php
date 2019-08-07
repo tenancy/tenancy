@@ -14,12 +14,10 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Sqlite;
-
-use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantConnection;
-use Tenancy\Support\DatabaseProvider;
-
-class Provider extends DatabaseProvider
-{
-    protected $listener = ConfiguresTenantConnection::class;
-}
+return [
+    'driver' => 'sqlite',
+    'url' => env('DATABASE_URL'),
+    'database' => env('DB_DATABASE', database_path('database.sqlite')),
+    'prefix' => '',
+    'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+];

@@ -23,6 +23,7 @@ use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Database\Events\Drivers\Configuring;
 
 class SeedsHookTest extends TestCase
 {
@@ -45,6 +46,12 @@ class SeedsHookTest extends TestCase
         $this->seedTenant(__DIR__.'/seeds/MockSeeder.php');
 
         $this->defaultConnection = DB::getDefaultConnection();
+
+        $this->events->listen(Configuring::class, function (Configuring $event){
+            $event->useConfig(__DIR__. DIRECTORY_SEPARATOR . 'database.php', [
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite')
+            ]);
+        });
 
         $this->events->dispatch(new Created($this->tenant));
     }
