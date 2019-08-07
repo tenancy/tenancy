@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Migrations;
+namespace Tenancy\Tests\Hooks\Migrations;
 
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
