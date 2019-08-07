@@ -63,9 +63,11 @@ abstract class DatabaseDriverTestCase extends TestCase
     protected function cleanDatabases(TenantContract $tenant = null)
     {
         $this->db->purge(Tenancy::getTenantConnectionName());
+
         if ($tenant == null) {
             $tenant = $this->tenant;
         }
+
         $this->events->dispatch(new Events\Deleted($tenant));
     }
 
@@ -131,6 +133,14 @@ abstract class DatabaseDriverTestCase extends TestCase
     public function runs_delete()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
+
+        $this->assertInstanceOf(
+            PDO::class,
+            $this->getTenantConnection()->getPdo()
+        );
+
+        $this->db->purge(Tenancy::getTenantConnectionName());
+
         $this->events->dispatch(new Events\Deleted($this->tenant));
 
         $this->expectException($this->exception);
