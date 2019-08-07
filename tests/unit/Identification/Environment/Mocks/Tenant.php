@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Identification\Drivers\Environment\Mocks;
+namespace Tenancy\Tests\Identification\Environment\Mocks;
 
 use Tenancy\Identification\Contracts\Tenant as Contract;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;

@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Identification\Drivers\Environment\Mocks\Tenant;
+use Tenancy\Tests\Identification\Environment\Mocks\Tenant;
 
 /*
 |--------------------------------------------------------------------------

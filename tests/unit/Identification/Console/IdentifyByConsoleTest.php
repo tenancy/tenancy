@@ -20,7 +20,7 @@ use Illuminate\Contracts\Console\Kernel;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Drivers\Console\Mocks\Tenant;
+use Tenancy\Tests\Identification\Console\Mocks\Tenant;
 
 class IdentifyByConsoleTest extends TestCase
 {
