@@ -5,10 +5,10 @@ Hi,
 My name is Daniël Klabbers, also known as @luceos, I am the owner
 of project Tenancy. This document guarantees the survival of the Tenancy project by
 transferring ownership to a valid successor in case I am no longer able to fulfil my
-obligations in maintaining this package.
+obligations in maintaining this package due to unforeseen circumstances (eg death).
 
-Ownership is transferred to the candidate appointed by his peers of the following
-list or last active candidate on the project:
+Ownership is transferred to the candidate appointed by his peers
+or last active candidate on the project of the following list:
 
 - Arlon Antonius (NLD), @arlonantonius
 - Eric Fletcher (USA), @fletch3555
@@ -16,7 +16,7 @@ list or last active candidate on the project:
 
 In order to transfer ownership the following requirements have to be met:
 
-1. Inactivity of the current Owner for at least three months, based on:
+1. Inactivity of the Owner for at least three months, based on:
   - GitHub activity.
   - Chat activity.
   - Forum activity.
