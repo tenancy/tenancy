@@ -36,7 +36,9 @@ class MysqlDriverTest extends DatabaseDriverTestCase
     {
         config(['database.connections.mysql' => include __DIR__.'/database.php']);
         $this->events->listen(Configuring::class, function (Configuring $event) {
-            $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', $event->configuration);
+            $event->useConfig(
+                __DIR__.DIRECTORY_SEPARATOR.'database.php',
+                array_merge($event->configuration, ['allowedHost' => '%']));
         });
     }
 }

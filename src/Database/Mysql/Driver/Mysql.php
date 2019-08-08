@@ -39,6 +39,10 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
+        if (isset($config['allowedHost'])) {
+            $config['host'] = $config['allowedHost'];
+        }
+
         return $this->process($tenant, [
             'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
@@ -54,6 +58,10 @@ class Mysql implements ProvidesDatabase
             return false;
         }
 
+        if (isset($config['allowedHost'])) {
+            $config['host'] = $config['allowedHost'];
+        }
+
         return $this->process($tenant, [
             'user'     => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
             'password' => "ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'",
@@ -65,6 +73,10 @@ class Mysql implements ProvidesDatabase
     public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        if (isset($config['allowedHost'])) {
+            $config['host'] = $config['allowedHost'];
+        }
 
         return $this->process($tenant, [
             'user'     => "DROP USER `{$config['username']}`@'{$config['host']}'",
