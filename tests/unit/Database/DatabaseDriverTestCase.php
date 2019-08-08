@@ -139,13 +139,14 @@ abstract class DatabaseDriverTestCase extends TestCase
 
         $this->events->dispatch(new Events\Created($this->tenant));
 
-        Tenancy::getTenant();
-
         $this->assertTrue(
-            $this->db->connection(Tenancy::getTenantConnectionName())
+            $this->getTenantConnection()
                 ->getSchemaBuilder()
                 ->hasTable('mocks')
         );
+
+        $this->getTenantConnection()->insert('insert into mocks (id) values (?)', [1]);
+        $mocks = $this->getTenantConnection()->select('select * from mocks');
 
         $this->db->disconnect(Tenancy::getTenantConnectionName());
 
@@ -155,9 +156,14 @@ abstract class DatabaseDriverTestCase extends TestCase
         Tenancy::getTenant();
 
         $this->assertTrue(
-            $this->db->connection(Tenancy::getTenantConnectionName())
+            $this->getTenantConnection()
                 ->getSchemaBuilder()
                 ->hasTable('mocks')
+        );
+
+        $this->assertEquals(
+            $mocks,
+            $this->getTenantConnection()->select('select * from mocks')
         );
     }
 
