@@ -62,12 +62,34 @@ class Mysql implements ProvidesDatabase
             $config['host'] = $config['allowedHost'];
         }
 
-        return $this->process($tenant, [
+        $tempTenant = $tenant;
+        $tempTenant->{$tempTenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
+        $originalTenant = Tenancy::getTenant();
+
+        Tenancy::setTenant($tempTenant);
+        $connection = Tenancy::getTenantConnection();
+        $tables = $connection->select('SHOW TABLES');
+
+        $tableStatements = [];
+        foreach($tables as $table){
+            foreach($table as $key => $value){
+                $tableStatements['table'.$value] = "RENAME TABLE `{$config['oldUsername']}`.{$value} TO `{$config['database']}`.{$value}";
+            }
+        }
+
+        // Add database drop statement as last statement
+        $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
+
+        $statements = array_merge([
             'user'     => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
             'password' => "ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
-        ]);
+        ], $tableStatements);
+
+        Tenancy::setTenant($originalTenant);
+
+        return $this->process($tenant, $statements);
     }
 
     public function delete(Tenant $tenant): bool
