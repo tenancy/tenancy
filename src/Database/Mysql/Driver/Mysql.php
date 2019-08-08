@@ -16,14 +16,14 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Mysql\Driver;
 
-use Tenancy\Facades\Tenancy;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\ConnectionInterface;
-use Tenancy\Identification\Contracts\Tenant;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
+use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
 {
