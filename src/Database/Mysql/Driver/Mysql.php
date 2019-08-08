@@ -70,6 +70,7 @@ class Mysql implements ProvidesDatabase
         Tenancy::setTenant($tempTenant);
         $connection = Tenancy::getTenantConnection();
         $tables = $connection->select('SHOW TABLES');
+        Tenancy::setTenant($originalTenant);
 
         $tableStatements = [];
         foreach ($tables as $table) {
@@ -77,7 +78,6 @@ class Mysql implements ProvidesDatabase
                 $tableStatements['table'.$value] = "RENAME TABLE `{$config['oldUsername']}`.{$value} TO `{$config['database']}`.{$value}";
             }
         }
-
         // Add database drop statement as last statement
         $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
@@ -87,8 +87,6 @@ class Mysql implements ProvidesDatabase
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
         ], $tableStatements);
-
-        Tenancy::setTenant($originalTenant);
 
         return $this->process($tenant, $statements);
     }
