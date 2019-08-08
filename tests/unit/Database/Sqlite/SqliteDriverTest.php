@@ -18,7 +18,7 @@ namespace Tenancy\Tests\Database\Sqlite;
 
 use Tenancy\Database\Drivers\Sqlite\Provider;
 use Tenancy\Database\Events\Drivers\Configuring;
-use Tenancy\Testing\DatabaseDriverTestCase;
+use Tenancy\Tests\Database\DatabaseDriverTestCase;
 
 class SqliteDriverTest extends DatabaseDriverTestCase
 {

@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Testing;
+namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\QueryException;
