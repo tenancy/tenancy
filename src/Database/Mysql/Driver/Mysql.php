@@ -72,8 +72,8 @@ class Mysql implements ProvidesDatabase
         $tables = $connection->select('SHOW TABLES');
 
         $tableStatements = [];
-        foreach($tables as $table){
-            foreach($table as $key => $value){
+        foreach ($tables as $table) {
+            foreach ($table as $key => $value) {
                 $tableStatements['table'.$value] = "RENAME TABLE `{$config['oldUsername']}`.{$value} TO `{$config['database']}`.{$value}";
             }
         }
