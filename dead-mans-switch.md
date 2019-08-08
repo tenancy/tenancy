@@ -33,4 +33,5 @@ and appoint at least two new Candidates.
 Hereby signed and committed as a legally binding agreement,
 
 Daniël Klabbers
-NIJMEGEN (NLD), August 8th, 2019
+
+_NIJMEGEN (NLD), August 8th, 2019_
