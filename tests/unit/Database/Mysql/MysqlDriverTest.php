@@ -18,9 +18,9 @@ namespace Tenancy\Tests\Database\Mysql;
 
 use PDOException;
 use Tenancy\Database\Drivers\Mysql\Provider;
-use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Tests\Database\DatabaseDriverTestCase;
+use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 
 class MysqlDriverTest extends DatabaseDriverTestCase
 {
