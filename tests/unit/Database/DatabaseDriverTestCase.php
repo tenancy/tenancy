@@ -16,15 +16,16 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Database;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\QueryException;
 use PDO;
+use Tenancy\Tenant\Events;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Hooks\Migrations\Provider;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\DatabaseManager;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
-use Tenancy\Tenant\Events;
-use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Testing\TestCase;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
@@ -126,6 +127,38 @@ abstract class DatabaseDriverTestCase extends TestCase
         );
 
         $this->cleanDatabases();
+    }
+
+    /**
+     * @test
+     */
+    public function runs_update_moves_tables()
+    {
+        $this->app->register(Provider::class);
+        $this->migrateTenant(__DIR__. DIRECTORY_SEPARATOR . 'migrations');
+
+        $this->events->dispatch(new Events\Created($this->tenant));
+
+        Tenancy::getTenant();
+
+        $this->assertTrue(
+            $this->db->connection(Tenancy::getTenantConnectionName())
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
+        );
+
+        $this->db->disconnect(Tenancy::getTenantConnectionName());
+
+        $this->tenant->id = 1997;
+        $this->events->dispatch(new Events\Updated($this->tenant));
+
+        Tenancy::getTenant();
+
+        $this->assertTrue(
+            $this->db->connection(Tenancy::getTenantConnectionName())
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
+        );
     }
 
     /**
