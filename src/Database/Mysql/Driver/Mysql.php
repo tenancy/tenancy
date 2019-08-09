@@ -89,14 +89,12 @@ class Mysql implements ProvidesDatabase
         foreach ($statements as $statement) {
             try {
                 $success = $this->system($tenant)->statement($statement);
-
-                if (!$success) {
-                    throw new QueryException($statement, [], null);
-                }
             } catch (QueryException $e) {
-                report($e);
-
                 $this->system($tenant)->rollBack();
+            } finally {
+                if (!$success) {
+                    throw $e;
+                }
             }
         }
 
