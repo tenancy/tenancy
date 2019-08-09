@@ -69,14 +69,13 @@ class Mysql implements ProvidesDatabase
 
         Tenancy::setTenant($tempTenant);
         $connection = Tenancy::getTenantConnection();
-        $tables = $connection->select('SHOW TABLES');
+        $tables = $connection->getDoctrineSchemaManager()->listTableNames();
+
         Tenancy::setTenant($originalTenant);
 
         $tableStatements = [];
         foreach ($tables as $table) {
-            foreach ($table as $key => $value) {
-                $tableStatements['table'.$value] = "RENAME TABLE `{$config['oldUsername']}`.{$value} TO `{$config['database']}`.{$value}";
-            }
+            $tableStatements['table'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
         }
         // Add database drop statement as last statement
         $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
