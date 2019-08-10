@@ -26,7 +26,7 @@ class MysqlDriverTest extends DatabaseDriverTestCase
 {
     protected $additionalProviders = [Provider::class];
 
-    protected $additionalMocks = [__DIR__.'/Mocks/factories/'];
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/', __DIR__.'/../Mocks/factories'];
 
     protected $tenantModel = Tenant::class;
 

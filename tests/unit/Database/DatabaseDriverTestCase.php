@@ -16,16 +16,17 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Database;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\QueryException;
 use PDO;
+use Tenancy\Tenant\Events;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\TestCase;
+use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Hooks\Migrations\Provider;
+use Tenancy\Tests\Database\Mocks\Mock;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\DatabaseManager;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
-use Tenancy\Tenant\Events;
-use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Testing\TestCase;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
@@ -36,6 +37,8 @@ abstract class DatabaseDriverTestCase extends TestCase
     protected $tenantModel = Tenant::class;
 
     protected $exception = QueryException::class;
+
+    protected $additionalMocks = [__DIR__.'/Mocks/factories'];
 
     protected function afterSetUp()
     {
@@ -145,8 +148,8 @@ abstract class DatabaseDriverTestCase extends TestCase
                 ->hasTable('mocks')
         );
 
-        $this->getTenantConnection()->insert('insert into mocks (id) values (?)', [1]);
-        $mocks = $this->getTenantConnection()->select('select * from mocks');
+        factory(Mock::class, 10)->create();
+        $mocks = Mock::all();
 
         $this->db->disconnect(Tenancy::getTenantConnectionName());
 
@@ -163,7 +166,7 @@ abstract class DatabaseDriverTestCase extends TestCase
 
         $this->assertEquals(
             $mocks,
-            $this->getTenantConnection()->select('select * from mocks')
+            Mock::all()
         );
     }
 
