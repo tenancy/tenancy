@@ -16,17 +16,17 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Database;
 
-use PDO;
-use Tenancy\Tenant\Events;
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Hooks\Migrations\Provider;
-use Tenancy\Tests\Database\Mocks\Mock;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\QueryException;
+use PDO;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
+use Tenancy\Tenant\Events;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
+use Tenancy\Tests\Database\Mocks\Mock;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
