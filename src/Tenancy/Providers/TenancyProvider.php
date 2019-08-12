@@ -33,8 +33,7 @@ class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesBindings,
         Provides\ProvidesConfig,
-        Provides\ProvidesListeners,
-        Provides\ProvidesHooks;
+        Provides\ProvidesListeners;
 
     public $singletons = [
         Environment::class         => Environment::class,

@@ -24,10 +24,11 @@ use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
+use Tenancy\Hooks\Database\Provider as DatabaseMutationProvider;
 
 class ConfiguresMigrationsTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class, Provider::class];
+    protected $additionalProviders = [DatabaseProvider::class, Provider::class, DatabaseMutationProvider::class];
     /**
      * @var \Tenancy\Testing\Mocks\Tenant
      */

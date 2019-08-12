@@ -20,10 +20,11 @@ use Tenancy\Database\Drivers\Mysql\Provider;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 
 class ConfiguresMysqlTest extends TestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected $additionalProviders = [Provider::class, DatabaseProvider::class];
 
     /**
      * @test

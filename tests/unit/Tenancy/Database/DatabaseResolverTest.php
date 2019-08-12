@@ -25,9 +25,12 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Hooks\Database\Provider;
 
 class DatabaseResolverTest extends TestCase
 {
+    protected $additionalProviders = [Provider::class];
+
     /**
      * @var ResolvesConnections
      */

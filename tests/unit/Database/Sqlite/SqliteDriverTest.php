@@ -26,10 +26,11 @@ use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
 use Tenancy\Testing\TestCase;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 
 class SqliteDriverTest extends TestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected $additionalProviders = [Provider::class, DatabaseProvider::class];
 
     protected $db;
     protected $tenant;
