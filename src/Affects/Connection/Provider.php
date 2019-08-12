@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
+use Illuminate\Database\DatabaseManager;
 use Tenancy\Support\AffectsProvider;
 use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Environment;
 
 class Provider extends AffectsProvider
 {
@@ -29,4 +31,14 @@ class Provider extends AffectsProvider
     public $singletons = [
         ResolvesConnections::class => ConnectionResolver::class,
     ];
+
+    public function boot(){
+        Environment::macro('getTenantConnectionName', function(){
+            return config('tenancy.database.tenant-connection-name', 'tenant');
+        });
+
+        Environment::macro('getTenantConnection', function(){
+            return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());;
+        });
+    }
 }
