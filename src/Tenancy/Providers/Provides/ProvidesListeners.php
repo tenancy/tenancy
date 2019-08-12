@@ -42,9 +42,6 @@ trait ProvidesListeners
         Tenant\Deleted::class => [
             ResolvesHooks::class,
         ],
-        Database\Resolved::class => [
-            Listen\SetConnection::class,
-        ],
         Switched::class => [
             ResolvesAffects::class,
         ],

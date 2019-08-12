@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
-use Illuminate\Database\DatabaseManager;
+use Tenancy\Environment;
 use Tenancy\Support\AffectsProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Database\DatabaseManager;
+use Tenancy\Database\Events as Database;
 use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
-use Tenancy\Environment;
 
 class Provider extends AffectsProvider
 {
@@ -32,6 +34,17 @@ class Provider extends AffectsProvider
         ResolvesConnections::class => ConnectionResolver::class,
     ];
 
+    /**
+     * The event handler mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [
+        Database\Resolved::class => [
+            Listeners\SetConnection::class,
+        ],
+    ];
+
     public function boot(){
         Environment::macro('getTenantConnectionName', function(){
             return config('tenancy.database.tenant-connection-name', 'tenant');
@@ -40,5 +53,27 @@ class Provider extends AffectsProvider
         Environment::macro('getTenantConnection', function(){
             return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());;
         });
+
+        $this->ProvidesListeners();
+    }
+
+    protected function runTrait(string $runtime)
+    {
+        $class = static::class;
+
+        foreach (class_uses_recursive($class) as $trait) {
+            if (method_exists($class, $method = $runtime.class_basename($trait))) {
+                call_user_func([$this, $method]);
+            }
+        }
+    }
+
+    public function ProvidesListeners()
+    {
+        foreach ($this->listen as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                Event::listen($event, $listener);
+            }
+        }
     }
 }
