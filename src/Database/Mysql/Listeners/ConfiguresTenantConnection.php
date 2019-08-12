@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Mysql\Listeners;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Driver\Mysql;
 use Tenancy\Database\Events\Resolving;
 

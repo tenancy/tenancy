@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Database\Contracts;
 
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 
 interface ResolvesConnections
 {

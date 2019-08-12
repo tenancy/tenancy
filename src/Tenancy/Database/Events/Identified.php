@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Events;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Identified

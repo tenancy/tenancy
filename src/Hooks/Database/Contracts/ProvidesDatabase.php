@@ -14,19 +14,12 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Contracts;
+namespace Tenancy\Hooks\Database\Contracts;
 
 use Tenancy\Identification\Contracts\Tenant;
 
 interface ProvidesDatabase
 {
-    /**
-     * @param Tenant $tenant
-     *
-     * @return array
-     */
-    public function configure(Tenant $tenant): array;
-
     /**
      * @param Tenant $tenant
      *

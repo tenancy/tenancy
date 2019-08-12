@@ -18,7 +18,7 @@ namespace Tenancy\Database;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Traits\Macroable;
-use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Contracts\ResolvesConnections;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Switched;
