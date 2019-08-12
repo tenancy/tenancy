@@ -18,12 +18,9 @@ namespace Tenancy\Providers\Provides;
 
 use Tenancy\Tenant\Events as Tenant;
 use Illuminate\Support\Facades\Event;
-use Tenancy\Database\Events as Database;
-use Tenancy\Database\Listeners as Listen;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 
 trait ProvidesListeners
 {
@@ -62,8 +59,6 @@ trait ProvidesListeners
                 Event::listen($event, $listener);
             }
         }
-
-        $this->subscribe[] = resolve(ResolvesConnections::class);
 
         foreach ($this->subscribe as $subscriber) {
             Event::subscribe($subscriber);
