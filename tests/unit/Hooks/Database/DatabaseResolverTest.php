@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Database;
+namespace Tenancy\Tests\Hooks\Database;
 
 use Illuminate\Database\ConnectionInterface;
 use InvalidArgumentException;
