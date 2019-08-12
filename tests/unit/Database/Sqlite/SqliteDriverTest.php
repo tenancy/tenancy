@@ -22,11 +22,11 @@ use InvalidArgumentException;
 use PDO;
 use Tenancy\Database\Drivers\Sqlite\Provider;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
 use Tenancy\Testing\TestCase;
-use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 
 class SqliteDriverTest extends TestCase
 {

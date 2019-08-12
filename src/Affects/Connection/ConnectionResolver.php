@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
-use Tenancy\Database\Events;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Illuminate\Support\Traits\Macroable;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Database\Events;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Identification\Contracts\Tenant;
 
 class ConnectionResolver implements ResolvesConnections
 {

@@ -17,11 +17,11 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Database\Hooks;
 
 use Illuminate\Support\Arr;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Lifecycle\Hook;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 
 class DatabaseMutation extends Hook
 {

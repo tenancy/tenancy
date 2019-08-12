@@ -22,10 +22,10 @@ use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Database\Events\Resolving;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Hooks\Database\Provider;
 
 class DatabaseResolverTest extends TestCase
 {

@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Affects\Connection;
 
 use Tenancy\Affects\Affect;
-use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Concerns\DispatchesEvents;
 
 class ConfiguresConnection extends Affect
 {

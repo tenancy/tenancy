@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider as DatabaseMutationProvider;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
-use Tenancy\Hooks\Database\Provider as DatabaseMutationProvider;
 
 class ConfiguresMigrationsTest extends TestCase
 {

@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Database\Events\Drivers;
 
 use InvalidArgumentException;
-use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Contracts\ProvidesPassword;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Configuring

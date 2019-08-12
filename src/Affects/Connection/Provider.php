@@ -16,13 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
-use Tenancy\Environment;
-use Tenancy\Support\AffectsProvider;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Database\DatabaseManager;
-use Tenancy\Database\Events as Database;
-use Tenancy\Providers\Provides\ProvidesBindings;
+use Illuminate\Support\Facades\Event;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Database\Events as Database;
+use Tenancy\Environment;
+use Tenancy\Providers\Provides\ProvidesBindings;
+use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
@@ -45,13 +45,14 @@ class Provider extends AffectsProvider
         ],
     ];
 
-    public function boot(){
-        Environment::macro('getTenantConnectionName', function(){
+    public function boot()
+    {
+        Environment::macro('getTenantConnectionName', function () {
             return config('tenancy.database.tenant-connection-name', 'tenant');
         });
 
-        Environment::macro('getTenantConnection', function(){
-            return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());;
+        Environment::macro('getTenantConnection', function () {
+            return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());
         });
 
         $this->ProvidesListeners();

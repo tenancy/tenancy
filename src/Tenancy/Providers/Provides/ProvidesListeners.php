@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Providers\Provides;
 
-use Tenancy\Tenant\Events as Tenant;
 use Illuminate\Support\Facades\Event;
-use Tenancy\Identification\Events\Switched;
 use Tenancy\Affects\Contracts\ResolvesAffects;
+use Tenancy\Identification\Events\Switched;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
+use Tenancy\Tenant\Events as Tenant;
 
 trait ProvidesListeners
 {

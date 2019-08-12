@@ -19,12 +19,12 @@ namespace Tenancy\Tests\Hooks\Migrations;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider as DatabaseMutationProvider;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Hooks\Database\Provider as DatabaseMutationProvider;
 
 class MigratesHookTest extends TestCase
 {

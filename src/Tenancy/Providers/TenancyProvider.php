@@ -18,6 +18,7 @@ namespace Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Tenancy\Affects\AffectResolver;
+use Tenancy\Affects\Connection\Provider;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Database\Contracts\ProvidesPassword;
 use Tenancy\Database\PasswordGenerator;
@@ -26,7 +27,6 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\TenantResolver;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
-use Tenancy\Affects\Connection\Provider;
 
 class TenancyProvider extends ServiceProvider
 {
@@ -39,7 +39,7 @@ class TenancyProvider extends ServiceProvider
         ResolvesHooks::class       => HookResolver::class,
         ResolvesAffects::class     => AffectResolver::class,
         ResolvesTenants::class     => TenantResolver::class,
-        ProvidesPassword::class    => PasswordGenerator::class
+        ProvidesPassword::class    => PasswordGenerator::class,
     ];
 
     public function register()

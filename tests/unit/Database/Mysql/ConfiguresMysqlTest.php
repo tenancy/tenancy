@@ -19,8 +19,8 @@ namespace Tenancy\Tests\Database\Mysql;
 use Tenancy\Database\Drivers\Mysql\Provider;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
+use Tenancy\Testing\TestCase;
 
 class ConfiguresMysqlTest extends TestCase
 {
