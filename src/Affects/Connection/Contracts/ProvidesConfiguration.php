@@ -14,12 +14,16 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Contracts;
+namespace Tenancy\Affects\Connection\Contracts;
 
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 
-interface ResolvesConnections
+interface ProvidesConfiguration
 {
-    public function __invoke(Tenant $tenant): ?ProvidesDatabase;
+    /**
+     * @param Tenant $tenant
+     *
+     * @return array
+     */
+    public function configure(Tenant $tenant): array;
 }

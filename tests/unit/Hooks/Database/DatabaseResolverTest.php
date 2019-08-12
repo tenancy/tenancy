@@ -18,7 +18,7 @@ namespace Tenancy\Tests\Hooks\Database;
 
 use Illuminate\Database\ConnectionInterface;
 use InvalidArgumentException;
-use Tenancy\Database\Contracts\ResolvesConnections;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Database\Events\Resolving;
 use Tenancy\Facades\Tenancy;

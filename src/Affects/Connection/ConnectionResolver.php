@@ -14,16 +14,16 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database;
+namespace Tenancy\Affects\Connection;
 
-use Illuminate\Contracts\Events\Dispatcher;
+use Tenancy\Database\Events;
 use Illuminate\Support\Traits\Macroable;
-use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Contracts\ResolvesConnections;
+use Illuminate\Contracts\Events\Dispatcher;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Identification\Events\Switched;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 
-class DatabaseResolver implements ResolvesConnections
+class ConnectionResolver implements ResolvesConnections
 {
     use Macroable;
 
