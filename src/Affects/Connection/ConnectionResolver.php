@@ -37,13 +37,6 @@ class ConnectionResolver implements ResolvesConnections
         $this->events = $events;
     }
 
-    public function subscribe(Dispatcher $events)
-    {
-        $events->listen(Switched::class, function ($event) {
-            $this($event->tenant);
-        });
-    }
-
     public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesDatabase
     {
         /** @var ProvidesDatabase|null $provider */
