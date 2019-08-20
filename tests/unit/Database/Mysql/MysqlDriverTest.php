@@ -44,10 +44,7 @@ class MysqlDriverTest extends DatabaseDriverTestCase
                 $event->configuration);
         });
         $this->events->listen([Creating::class, Updating::class, Deleting::class], function ($event) {
-            $event->useConfig(
-                __DIR__.DIRECTORY_SEPARATOR.'database.php',
-                array_merge($event->configuration, ['host' => '%'])
-            );
+            $event->configuration['host'] = '%';
         });
     }
 }
