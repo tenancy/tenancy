@@ -21,7 +21,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Database\Events\Drivers as Events;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
@@ -30,7 +31,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = [];
 
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
@@ -38,6 +39,8 @@ class Mysql implements ProvidesDatabase
     public function create(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Creating($tenant, $config, $this));
 
         return $this->process($tenant, [
             'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
@@ -50,18 +53,45 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
+        event(new Events\Updating($tenant, $config, $this));
+
         if (!isset($config['oldUsername'])) {
             return false;
         }
 
-        return $this->process($tenant, [
-            'user' => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
-        ]);
+        $tempTenant = $tenant;
+        $tempTenant->{$tempTenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
+        $originalTenant = Tenancy::getTenant();
+
+        Tenancy::setTenant($tempTenant);
+        $connection = Tenancy::getTenantConnection();
+        $tables = $connection->getDoctrineSchemaManager()->listTableNames();
+
+        Tenancy::setTenant($originalTenant);
+
+        $tableStatements = [];
+        foreach ($tables as $table) {
+            $tableStatements['table'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
+        }
+
+        $statements = array_merge([
+            'user'     => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
+            'password' => "ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'",
+            'database' => "CREATE DATABASE `{$config['database']}`",
+            'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
+        ], $tableStatements);
+
+        // Add database drop statement as last statement
+        $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
+
+        return $this->process($tenant, $statements);
     }
 
     public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Deleting($tenant, $config, $this));
 
         return $this->process($tenant, [
             'user'     => "DROP USER `{$config['username']}`@'{$config['host']}'",

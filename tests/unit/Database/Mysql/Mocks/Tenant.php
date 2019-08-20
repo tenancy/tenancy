@@ -14,17 +14,15 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-return [
-    /*
-     * If you want to re-use an existing connection,
-     * specify its name here. Leave null to
-     * instantiate a fully new connection.
-     */
-    'use-connection' => null,
+namespace Tenancy\Tests\Database\Mysql\Mocks;
 
-    'preset' => [
-        'driver'   => 'sqlite',
-        'database' => env('DB_DATABASE', database_path('database.sqlite')),
-        'prefix'   => '',
-    ],
-];
+use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
+use Tenancy\Testing\Mocks;
+
+class Tenant extends Mocks\Tenant implements ManagesSystemConnection
+{
+    public function getManagingSystemConnection(): ?string
+    {
+        return 'mysql';
+    }
+}

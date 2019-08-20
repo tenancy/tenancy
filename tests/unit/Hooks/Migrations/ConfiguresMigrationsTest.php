@@ -19,6 +19,7 @@ namespace Tenancy\Tests\Hooks\Migrations;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
+use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider;
@@ -41,6 +42,12 @@ class ConfiguresMigrationsTest extends TestCase
 
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             $event->path(__DIR__.'/database/');
+        });
+
+        $this->events->listen(Configuring::class, function (Configuring $event) {
+            $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
+                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+            ]);
         });
     }
 
