@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Database\Drivers\Sqlite\Driver;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Sqlite implements ProvidesDatabase
@@ -26,7 +26,7 @@ class Sqlite implements ProvidesDatabase
     {
         $config = [];
 
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
@@ -34,6 +34,8 @@ class Sqlite implements ProvidesDatabase
     public function create(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Creating($tenant, $config, $this));
 
         return touch($config['database']);
     }
@@ -45,6 +47,8 @@ class Sqlite implements ProvidesDatabase
         $previous = $this->configure($original);
 
         $config = $this->configure($tenant);
+
+        event(new Events\Updating($tenant, $config, $this));
 
         if ($previous['database'] !== $config['database']) {
             return rename(
@@ -59,6 +63,8 @@ class Sqlite implements ProvidesDatabase
     public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Deleting($tenant, $config, $this));
 
         return unlink($config['database']);
     }

@@ -21,7 +21,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Database\Events\Drivers as Events;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 
@@ -31,7 +31,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = [];
 
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
@@ -40,9 +40,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        if (isset($config['allowedHost'])) {
-            $config['host'] = $config['allowedHost'];
-        }
+        event(new Events\Creating($tenant, $config, $this));
 
         return $this->process($tenant, [
             'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
@@ -55,12 +53,10 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
+        event(new Events\Updating($tenant, $config, $this));
+
         if (!isset($config['oldUsername'])) {
             return false;
-        }
-
-        if (isset($config['allowedHost'])) {
-            $config['host'] = $config['allowedHost'];
         }
 
         $tempTenant = $tenant;
@@ -95,9 +91,7 @@ class Mysql implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        if (isset($config['allowedHost'])) {
-            $config['host'] = $config['allowedHost'];
-        }
+        event(new Events\Deleting($tenant, $config, $this));
 
         return $this->process($tenant, [
             'user'     => "DROP USER `{$config['username']}`@'{$config['host']}'",
