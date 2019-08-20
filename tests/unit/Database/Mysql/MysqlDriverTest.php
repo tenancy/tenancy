@@ -21,6 +21,9 @@ use Tenancy\Database\Drivers\Mysql\Provider;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Tests\Database\DatabaseDriverTestCase;
 use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
+use Tenancy\Database\Events\Drivers\Creating;
+use Tenancy\Database\Events\Drivers\Deleting;
+use Tenancy\Database\Events\Drivers\Updating;
 
 class MysqlDriverTest extends DatabaseDriverTestCase
 {
@@ -38,7 +41,13 @@ class MysqlDriverTest extends DatabaseDriverTestCase
         $this->events->listen(Configuring::class, function (Configuring $event) {
             $event->useConfig(
                 __DIR__.DIRECTORY_SEPARATOR.'database.php',
-                array_merge($event->configuration, ['allowedHost' => '%']));
+                $event->configuration);
+        });
+        $this->events->listen([Creating::class, Updating::class, Deleting::class], function (Configuring $event) {
+            $event->useConfig(
+                __DIR__.DIRECTORY_SEPARATOR.'database.php',
+                array_merge($event->configuration, ['host' => '%'])
+            );
         });
     }
 }
