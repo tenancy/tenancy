@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Providers\Provides;
 
 use Illuminate\Support\Facades\Event;
+
 trait ProvidesListeners
 {
     public function bootProvidesListeners()
