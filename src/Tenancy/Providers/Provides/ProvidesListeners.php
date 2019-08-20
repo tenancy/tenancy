@@ -17,47 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Providers\Provides;
 
 use Illuminate\Support\Facades\Event;
-use Tenancy\Affects\Contracts\ResolvesAffects;
-use Tenancy\Database\Contracts\ResolvesConnections;
-use Tenancy\Database\Events as Database;
-use Tenancy\Database\Listeners as Listen;
-use Tenancy\Identification\Events\Switched;
-use Tenancy\Lifecycle\Contracts\ResolvesHooks;
-use Tenancy\Tenant\Events as Tenant;
-
 trait ProvidesListeners
 {
-    /**
-     * The event handler mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        Tenant\Created::class => [
-            ResolvesHooks::class,
-        ],
-        Tenant\Updated::class => [
-            ResolvesHooks::class,
-        ],
-        Tenant\Deleted::class => [
-            ResolvesHooks::class,
-        ],
-        Database\Resolved::class => [
-            Listen\SetConnection::class,
-        ],
-        Switched::class => [
-            ResolvesAffects::class,
-        ],
-    ];
-
-    /**
-     * The subscriber classes to register.
-     *
-     * @var array
-     */
-    protected $subscribe = [
-    ];
-
     public function bootProvidesListeners()
     {
         foreach ($this->listen as $event => $listeners) {
@@ -65,8 +26,6 @@ trait ProvidesListeners
                 Event::listen($event, $listener);
             }
         }
-
-        $this->subscribe[] = resolve(ResolvesConnections::class);
 
         foreach ($this->subscribe as $subscriber) {
             Event::subscribe($subscriber);

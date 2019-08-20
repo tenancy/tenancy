@@ -28,6 +28,11 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\TenantResolver;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
+use Tenancy\Database\Hooks\DatabaseMutation;
+use Tenancy\Database\Events as Database;
+use Tenancy\Database\Listeners as Listen;
+use Tenancy\Identification\Events\Switched;
+use Tenancy\Tenant\Events as Tenant;
 
 class TenancyProvider extends ServiceProvider
 {
@@ -36,6 +41,10 @@ class TenancyProvider extends ServiceProvider
         Provides\ProvidesListeners,
         Provides\ProvidesHooks;
 
+    protected $configs = [
+        __DIR__.'/../resources/config/tenancy.php' => 'tenancy',
+    ];
+
     public $singletons = [
         Environment::class         => Environment::class,
         ResolvesHooks::class       => HookResolver::class,
@@ -43,6 +52,31 @@ class TenancyProvider extends ServiceProvider
         ResolvesTenants::class     => TenantResolver::class,
         ProvidesPassword::class    => PasswordGenerator::class,
         ResolvesConnections::class => DatabaseResolver::class,
+    ];
+
+    protected $hooks = [
+        DatabaseMutation::class,
+    ];
+
+    protected $listen = [
+        Tenant\Created::class => [
+            ResolvesHooks::class,
+        ],
+        Tenant\Updated::class => [
+            ResolvesHooks::class,
+        ],
+        Tenant\Deleted::class => [
+            ResolvesHooks::class,
+        ],
+        Database\Resolved::class => [
+            Listen\SetConnection::class,
+        ],
+        Switched::class => [
+            ResolvesAffects::class,
+        ],
+    ];
+
+    protected $subscribe = [
     ];
 
     public function register()
@@ -54,6 +88,8 @@ class TenancyProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->subscribe[] = resolve(ResolvesConnections::class);
+
         $this->runTrait('boot');
     }
 
