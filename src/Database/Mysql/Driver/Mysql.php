@@ -77,8 +77,6 @@ class Mysql implements ProvidesDatabase
         foreach ($tables as $table) {
             $tableStatements['table'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
         }
-        // Add database drop statement as last statement
-        $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
         $statements = array_merge([
             'user'     => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
@@ -86,6 +84,9 @@ class Mysql implements ProvidesDatabase
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
         ], $tableStatements);
+
+        // Add database drop statement as last statement
+        $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
         return $this->process($tenant, $statements);
     }
