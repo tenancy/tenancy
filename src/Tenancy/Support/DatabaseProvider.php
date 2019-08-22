@@ -18,7 +18,6 @@ namespace Tenancy\Support;
 
 use Illuminate\Support\Facades\Event;
 use Tenancy\Database\Events\Resolving;
-use Tenancy\Support\Provider;
 
 abstract class DatabaseProvider extends Provider
 {

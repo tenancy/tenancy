@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Support;
 
-use Tenancy\Support\Provider;
 use Tenancy\Providers\Provides\ProvidesAffects;
 
 abstract class AffectsProvider extends Provider

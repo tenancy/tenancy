@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Support;
 
-use Tenancy\Support\Provider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 
 abstract class DriverProvider extends Provider

@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Support;
 
 use Tenancy\Providers\Provides\ProvidesHooks;
-use Tenancy\Support\Provider;
 
 abstract class HooksProvider extends Provider
 {
