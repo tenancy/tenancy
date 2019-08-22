@@ -16,25 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Support;
 
-use Illuminate\Support\ServiceProvider;
-use Tenancy\Affects\Contracts\ResolvesAffects;
+use Tenancy\Providers\Provides\ProvidesAffects;
 
-abstract class AffectsProvider extends ServiceProvider
+abstract class AffectsProvider extends Provider
 {
-    /**
-     * Listeners that affect the app logic when a tenant
-     * is resolved or switched to.
-     *
-     * @var array
-     */
-    protected $affects = [];
-
-    public function register()
-    {
-        $this->app->resolving(ResolvesAffects::class, function (ResolvesAffects $resolver) {
-            foreach ($this->affects as $affect) {
-                $resolver->addAffect($affect);
-            }
-        });
-    }
+    use ProvidesAffects;
 }

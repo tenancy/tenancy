@@ -16,20 +16,18 @@ declare(strict_types=1);
 
 namespace Tenancy\Providers\Provides;
 
-use Illuminate\Support\Facades\Event;
+use Tenancy\Affects\Contracts\ResolvesAffects;
 
-trait ProvidesListeners
+trait ProvidesAffects
 {
-    public function bootProvidesListeners()
+    protected function bootProvidesAffects()
     {
-        foreach ($this->listen as $event => $listeners) {
-            foreach ($listeners as $listener) {
-                Event::listen($event, $listener);
-            }
-        }
-
-        foreach ($this->subscribe as $subscriber) {
-            Event::subscribe($subscriber);
+        if (count($this->affects)) {
+            $this->app->resolving(ResolvesAffects::class, function (ResolvesAffects $resolver) {
+                foreach ($this->affects as $affect) {
+                    $resolver->addAffect($affect);
+                }
+            });
         }
     }
 }

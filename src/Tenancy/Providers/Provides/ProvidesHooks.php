@@ -16,15 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Providers\Provides;
 
-use Tenancy\Database\Hooks\DatabaseMutation;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 
 trait ProvidesHooks
 {
-    protected $hooks = [
-        DatabaseMutation::class,
-    ];
-
     protected function bootProvidesHooks()
     {
         if (count($this->hooks)) {
