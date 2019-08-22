@@ -17,10 +17,10 @@ declare(strict_types=1);
 namespace Tenancy\Support;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
 use Tenancy\Database\Events\Resolving;
+use Tenancy\Support\Provider;
 
-abstract class DatabaseProvider extends ServiceProvider
+abstract class DatabaseProvider extends Provider
 {
     use Concerns\PublishesConfigs;
 
@@ -33,6 +33,7 @@ abstract class DatabaseProvider extends ServiceProvider
 
     public function register()
     {
+        parent::register();
         if ($this->listener) {
             Event::listen(Resolving::class, $this->listener);
         }

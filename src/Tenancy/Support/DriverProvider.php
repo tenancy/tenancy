@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Support;
 
-use Illuminate\Support\ServiceProvider;
+use Tenancy\Support\Provider;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 
-abstract class DriverProvider extends ServiceProvider
+abstract class DriverProvider extends Provider
 {
     use Concerns\PublishesConfigs;
     /**
@@ -31,6 +31,7 @@ abstract class DriverProvider extends ServiceProvider
 
     public function register()
     {
+        parent::register();
         $this->app->resolving(ResolvesTenants::class, function (ResolvesTenants $resolver) {
             foreach ($this->drivers as $contract => $method) {
                 $resolver->registerDriver($contract, $method);

@@ -16,31 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Support;
 
-use Illuminate\Support\ServiceProvider;
+use Tenancy\Support\Provider;
 use Tenancy\Providers\Provides\ProvidesAffects;
 
-abstract class AffectsProvider extends ServiceProvider
+abstract class AffectsProvider extends Provider
 {
     use ProvidesAffects;
-
-    public function register()
-    {
-        $this->runTrait('register');
-    }
-
-    public function boot()
-    {
-        $this->runTrait('boot');
-    }
-
-    protected function runTrait(string $runtime)
-    {
-        $class = static::class;
-
-        foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = $runtime.class_basename($trait))) {
-                call_user_func([$this, $method]);
-            }
-        }
-    }
 }
