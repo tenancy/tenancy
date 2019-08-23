@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Listeners;
+namespace Tenancy\Affects\Connection\Listeners;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Arr;

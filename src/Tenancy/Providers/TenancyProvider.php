@@ -24,7 +24,7 @@ use Tenancy\Database\Contracts\ResolvesConnections;
 use Tenancy\Database\DatabaseResolver;
 use Tenancy\Database\Events as Database;
 use Tenancy\Hooks\Database\Hooks\DatabaseMutation;
-use Tenancy\Database\Listeners as Listen;
+use Tenancy\Affects\Connection\Listeners as Listen;
 use Tenancy\Database\PasswordGenerator;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
