@@ -25,7 +25,7 @@ class HookResolverTest extends TestCase
     /**
      * @test
      */
-    public function validates_affectss()
+    public function validates_affects()
     {
         $this->expectException(InvalidArgumentException::class);
 
