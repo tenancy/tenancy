@@ -16,9 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing\Concerns;
 
+use Closure;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Testing\Mocks\Tenant as Mock;
+use Tenancy\Hooks\Database\Events as Database;
+use Tenancy\Affects\Connection\Events as Connection;
 
 trait InteractsWithTenants
 {
@@ -37,5 +40,17 @@ trait InteractsWithTenants
         $this->events->listen(Resolving::class, function (Resolving $event) use ($tenant) {
             return $tenant;
         });
+    }
+
+    protected function resolveDatabase(Closure $callback){
+        $this->events->listen(Database\Resolving::class, $callback);
+    }
+
+    protected function configureConnection(Closure $callback){
+        $this->events->listen(Connection\Drivers\Configuring::class, $callback);
+    }
+
+    protected function configureDatabase(Closure $callback){
+        $this->events->listen(Database\Drivers\Configuring::class, $callback);
     }
 }
