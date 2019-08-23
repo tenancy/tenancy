@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Sqlite\Listeners;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Sqlite\Driver\Sqlite;
-use Tenancy\Database\Events\Resolving;
+use Tenancy\Hooks\Database\Events\Resolving;
 
 class ConfiguresTenantDatabase
 {

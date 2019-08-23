@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Facades;
 
 use InvalidArgumentException;
-use Tenancy\Database\Events\Resolving;
+use Tenancy\Hooks\Database\Events\Resolving;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;

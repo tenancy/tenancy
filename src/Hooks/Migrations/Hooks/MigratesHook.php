@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Migrations\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Lifecycle\ConfigurableHook;
@@ -35,10 +36,13 @@ class MigratesHook extends ConfigurableHook
 
     public $priority = -50;
 
+    public $resolver;
+
     public function __construct()
     {
         $this->migrator = resolve('migrator');
         $this->connection = Tenancy::getTenantConnectionName();
+        $this->resolver = resolve(ResolvesConnections::class);
     }
 
     public function for($event)
@@ -57,6 +61,7 @@ class MigratesHook extends ConfigurableHook
         $db = resolve('db');
         $default = $db->getDefaultConnection();
 
+        $this->resolver->__invoke($this->event->tenant, $this->connection);
         $this->migrator->setConnection($this->connection);
 
         if (!$this->migrator->repositoryExists()) {
@@ -64,6 +69,7 @@ class MigratesHook extends ConfigurableHook
         }
         call_user_func([$this->migrator, $this->action], $this->migrator->paths());
 
+        $this->resolver->__invoke(null, $this->connection);
         $db->setDefaultConnection($default);
     }
 }

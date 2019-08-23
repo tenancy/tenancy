@@ -14,22 +14,16 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Sqlite\Listeners;
+namespace Tenancy\Tests\Hooks\Database\Mocks;
 
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Affects\Connection\Events\Resolving;
 use Tenancy\Affects\Connection\Events\Drivers\Configuring;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
 use Tenancy\Concerns\DispatchesEvents;
 
-class ConfiguresTenantConnection implements ProvidesConfiguration
+class ConnectionListener implements ProvidesConfiguration
 {
     use DispatchesEvents;
-
-    public function handle(Resolving $resolving): ?ProvidesConfiguration
-    {
-        return $this;
-    }
 
     public function configure(Tenant $tenant): array{
         $config = [];

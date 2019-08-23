@@ -42,6 +42,10 @@ trait InteractsWithTenants
         });
     }
 
+    protected function resolveConnection(Closure $callback){
+        $this->events->listen(Connection\Resolving::class, $callback);
+    }
+
     protected function resolveDatabase(Closure $callback){
         $this->events->listen(Database\Resolving::class, $callback);
     }

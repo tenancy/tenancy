@@ -47,11 +47,14 @@ class MigratesHookTest extends TestCase
 
         $this->defaultConnection = DB::getDefaultConnection();
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
-        });
+        };
+
+        $this->configureConnection($callback);
+        $this->configureDatabase($callback);
 
         $this->events->dispatch(new Created($this->tenant));
     }
@@ -77,6 +80,7 @@ class MigratesHookTest extends TestCase
      */
     public function resets()
     {
+        Tenancy::getTenant();
         $this->assertTrue(
             DB::connection(Tenancy::getTenantConnectionName())
                 ->getSchemaBuilder()
@@ -86,6 +90,7 @@ class MigratesHookTest extends TestCase
         // Disable auto delete as it would delete the DB before we can rollback
         config(['tenancy.database.auto-delete' => false]);
         $this->events->dispatch(new Deleted($this->tenant));
+        Tenancy::setTenant($this->tenant);
 
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())

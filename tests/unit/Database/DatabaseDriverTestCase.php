@@ -69,11 +69,11 @@ abstract class DatabaseDriverTestCase extends TestCase
     {
         $this->db->purge(Tenancy::getTenantConnectionName());
 
-        if ($tenant == null) {
+        if ($tenant === null) {
             $tenant = $this->tenant;
         }
 
-        $this->events->dispatch(new Events\Deleted($tenant));
+        // $this->events->dispatch(new Events\Deleted($tenant));
     }
 
     protected function registerModel()
@@ -156,7 +156,7 @@ abstract class DatabaseDriverTestCase extends TestCase
         $this->tenant->id = 1997;
         $this->events->dispatch(new Events\Updated($this->tenant));
 
-        Tenancy::getTenant();
+        Tenancy::setTenant($this->tenant);
 
         $this->assertTrue(
             $this->getTenantConnection()

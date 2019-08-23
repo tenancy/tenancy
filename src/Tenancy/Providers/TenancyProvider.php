@@ -20,11 +20,6 @@ use Illuminate\Support\ServiceProvider;
 use Tenancy\Affects\AffectResolver;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Database\Contracts\ProvidesPassword;
-use Tenancy\Database\Contracts\ResolvesConnections;
-use Tenancy\Database\DatabaseResolver;
-use Tenancy\Database\Events as Database;
-use Tenancy\Hooks\Database\Hooks\DatabaseMutation;
-use Tenancy\Affects\Connection\Listeners as Listen;
 use Tenancy\Database\PasswordGenerator;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
@@ -51,11 +46,9 @@ class TenancyProvider extends ServiceProvider
         ResolvesAffects::class     => AffectResolver::class,
         ResolvesTenants::class     => TenantResolver::class,
         ProvidesPassword::class    => PasswordGenerator::class,
-        ResolvesConnections::class => DatabaseResolver::class,
     ];
 
     protected $hooks = [
-        DatabaseMutation::class,
     ];
 
     protected $listen = [
@@ -67,9 +60,6 @@ class TenancyProvider extends ServiceProvider
         ],
         Tenant\Deleted::class => [
             ResolvesHooks::class,
-        ],
-        Database\Resolved::class => [
-            Listen\SetConnection::class,
         ],
         Switched::class => [
             ResolvesAffects::class,
@@ -84,12 +74,12 @@ class TenancyProvider extends ServiceProvider
         $this->runTrait('register');
 
         $this->app->register(TenantProvider::class);
+        $this->app->register(\Tenancy\Affects\Connection\Provider::class);
+        $this->app->register(\Tenancy\Hooks\Database\Provider::class);
     }
 
     public function boot()
     {
-        $this->subscribe[] = resolve(ResolvesConnections::class);
-
         $this->runTrait('boot');
     }
 

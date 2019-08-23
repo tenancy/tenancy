@@ -30,9 +30,11 @@ class ConfiguresMysqlTest extends TestCase
      */
     public function reads_config_file()
     {
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConfig(__DIR__.'/database.php');
-        });
+        };
+
+        $this->configureConnection($callback);
 
         $this->resolveTenant($tenant = $this->mockTenant());
         Tenancy::getTenant();
@@ -58,11 +60,12 @@ class ConfiguresMysqlTest extends TestCase
         $config = config('database.connections.mysql');
         $config['database'] = $tenant->getTenantKey();
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConnection('mysql', [
                 'database' => $event->tenant->getTenantKey(),
             ]);
-        });
+        };
+        $this->configureConnection($callback);
 
         Tenancy::getTenant();
 

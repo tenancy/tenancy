@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Database\Hooks;
 
 use Illuminate\Support\Arr;
-use Tenancy\Database\Contracts\ResolvesConnections;
+use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
 use Tenancy\Lifecycle\Hook;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
@@ -45,8 +45,8 @@ class DatabaseMutation extends Hook
 
     public function fire(): void
     {
-        /** @var ResolvesConnections $resolver */
-        $resolver = resolve(ResolvesConnections::class);
+        /** @var ResolvesDatabases $resolver */
+        $resolver = resolve(ResolvesDatabases::class);
 
         $driver = $resolver($this->event->tenant);
 

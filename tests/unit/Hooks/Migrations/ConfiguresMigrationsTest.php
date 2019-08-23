@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Hooks\Migrations;
 
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
+use PDOException;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
@@ -25,6 +26,7 @@ use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
+use Tenancy\Tenant\Events;
 
 class ConfiguresMigrationsTest extends TestCase
 {
@@ -44,11 +46,13 @@ class ConfiguresMigrationsTest extends TestCase
             $event->path(__DIR__.'/database/');
         });
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
-        });
+        };
+        $this->configureDatabase($callback);
+        $this->configureConnection($callback);
     }
 
     /**
@@ -62,11 +66,16 @@ class ConfiguresMigrationsTest extends TestCase
 
         $this->events->dispatch(new Created($this->tenant));
 
+        Tenancy::getTenant();
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())
                 ->getSchemaBuilder()
                 ->hasTable('mocks')
         );
+
+        // Clean DB After
+        DB::purge(Tenancy::getTenantConnectionName());
+        $this->events->dispatch(new Events\Deleted($this->tenant));
     }
 
     /**
@@ -78,7 +87,7 @@ class ConfiguresMigrationsTest extends TestCase
             $event->priority(-1000);
         });
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(PDOException::class);
 
         $this->events->dispatch(new Created($this->tenant));
     }

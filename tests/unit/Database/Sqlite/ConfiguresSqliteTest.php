@@ -30,7 +30,7 @@ class ConfiguresSqliteTest extends TestCase
      */
     public function reads_config_file()
     {
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $this->configureConnection(function ($event) {
             $event->useConfig(__DIR__.'/database.php');
         });
 
@@ -58,7 +58,7 @@ class ConfiguresSqliteTest extends TestCase
         $config = config('database.connections.sqlite');
         $config['database'] = $tenant->getTenantKey().'.sqlite';
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $this->configureConnection(function ($event) {
             $event->useConnection('sqlite', [
                 'database' => $event->tenant->getTenantKey().'.sqlite',
             ]);

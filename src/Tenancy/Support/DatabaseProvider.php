@@ -17,7 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Support;
 
 use Illuminate\Support\Facades\Event;
-use Tenancy\Database\Events\Resolving;
+use Tenancy\Hooks\Database\Events as Database;
+use Tenancy\Affects\Connection\Events as Connection;
 
 abstract class DatabaseProvider extends Provider
 {
@@ -34,7 +35,10 @@ abstract class DatabaseProvider extends Provider
     {
         parent::register();
         if ($this->listener) {
-            Event::listen(Resolving::class, $this->listener);
+            Event::listen(Database\Resolving::class, $this->listener);
+        }
+        if ($this->connectionListener) {
+            Event::listen(Connection\Resolving::class, $this->connectionListener);
         }
 
         $this->publishConfigs();

@@ -47,11 +47,13 @@ class SeedsHookTest extends TestCase
 
         $this->defaultConnection = DB::getDefaultConnection();
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
-        });
+        };
+        $this->configureDatabase($callback);
+        $this->configureConnection($callback);
 
         $this->events->dispatch(new Created($this->tenant));
     }

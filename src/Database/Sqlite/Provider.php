@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Sqlite;
 
+use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantConnection;
 use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantDatabase;
 use Tenancy\Support\DatabaseProvider;
 
 class Provider extends DatabaseProvider
 {
     protected $listener = ConfiguresTenantDatabase::class;
+    protected $connectionListener = ConfiguresTenantConnection::class;
 }

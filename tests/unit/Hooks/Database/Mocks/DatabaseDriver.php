@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database\Mocks;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
 class DatabaseDriver implements ProvidesDatabase
