@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Hooks;
+namespace Tenancy\Hooks\Database\Hooks;
 
 use Illuminate\Support\Arr;
 use Tenancy\Database\Contracts\ResolvesConnections;
