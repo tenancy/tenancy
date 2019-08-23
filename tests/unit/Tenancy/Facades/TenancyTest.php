@@ -91,16 +91,6 @@ class TenancyTest extends TestCase
 
     /**
      * @test
-     * @covers \Tenancy\Environment::getTenantConnection
-     */
-    public function can_retrieve_tenant_connection()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        Tenancy::getTenantConnection()->getName();
-    }
-
-    /**
-     * @test
      * @covers \Tenancy\Environment::setTenant
      */
     public function can_switch_tenant()
@@ -131,24 +121,5 @@ class TenancyTest extends TestCase
 
         $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
         $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());
-    }
-
-    /**
-     * @test
-     */
-    public function switch_tenant_sets_connection()
-    {
-        $this->assertNull(config('database.connections.'.Tenancy::getTenantConnectionName()));
-
-        Tenancy::setTenant($this->tenant);
-
-        $this->assertEquals(
-            config('database.connections.'.Tenancy::getTenantConnectionName().'.tenant-key'),
-            $this->tenant->getTenantKey()
-        );
-        $this->assertEquals(
-            config('database.connections.'.Tenancy::getTenantConnectionName().'.tenant-identifier'),
-            $this->tenant->getTenantIdentifier()
-        );
     }
 }
