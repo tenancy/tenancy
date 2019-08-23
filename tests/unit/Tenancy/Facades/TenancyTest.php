@@ -24,7 +24,7 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Database\Mocks\NullDriver;
+use Tenancy\Tests\Hooks\Database\Mocks\NullDriver;
 
 class TenancyTest extends TestCase
 {

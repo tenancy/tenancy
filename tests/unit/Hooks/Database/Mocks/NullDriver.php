@@ -14,59 +14,43 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Database\Mocks;
+namespace Tenancy\Tests\Hooks\Database\Mocks;
 
 use Tenancy\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Identification\Contracts\Tenant;
 
-class DatabaseDriver implements ProvidesDatabase
+class NullDriver implements ProvidesDatabase
 {
-    /**
-     * @param Tenant $tenant
-     *
-     * @return array
-     */
     public function configure(Tenant $tenant): array
     {
-        $config = [
-            'driver'     => 'sqlite',
-            'database'   => database_path("database-{$tenant->getTenantKey()}.sqlite"),
-            'tenant-key' => $tenant->getTenantKey(),
-        ];
+        $config = [];
+
+        $config['database'] = $tenant->getTenantKey();
 
         event(new Configuring($tenant, $config, $this));
 
         return $config;
     }
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function create(Tenant $tenant): bool
     {
+        $this->configure($tenant);
+
         return true;
     }
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function update(Tenant $tenant): bool
     {
+        $this->configure($tenant);
+
         return true;
     }
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function delete(Tenant $tenant): bool
     {
+        $this->configure($tenant);
+
         return true;
     }
 }
