@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy;
 
-use Illuminate\Database\Connection;
 use Illuminate\Support\Traits\Macroable;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Switched;
@@ -24,7 +23,6 @@ use Tenancy\Identification\Events\Switched;
 class Environment
 {
     use Concerns\DispatchesEvents,
-        Concerns\ResolvesDatabase,
         Concerns\ResolvesTenants,
         Macroable;
 
