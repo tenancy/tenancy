@@ -19,14 +19,21 @@ namespace Tenancy\Affects\Connection;
 use Tenancy\Support\AffectsProvider;
 use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Providers\Provides\ProvidesListeners;
 
 class Provider extends AffectsProvider
 {
-    use ProvidesBindings;
+    use ProvidesBindings, ProvidesListeners;
 
     protected $affects = [ConfiguresConnection::class];
 
     public $singletons = [
         ResolvesConnections::class => ConnectionResolver::class
+    ];
+
+    public $listen = [
+        Events\Resolved::class => [
+            Listeners\SetConnection::class
+        ],
     ];
 }
