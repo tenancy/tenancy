@@ -24,6 +24,7 @@ class Resolving
      * @var Tenant|null
      */
     public $tenant;
+
     /**
      * @var string|null
      */

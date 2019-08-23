@@ -25,6 +25,7 @@ class ConfigureViews
      * @var Switched
      */
     public $event;
+
     /**
      * @var Factory|\Illuminate\View\Factory
      */

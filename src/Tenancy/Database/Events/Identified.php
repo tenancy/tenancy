@@ -25,10 +25,12 @@ class Identified
      * @var Tenant|null
      */
     public $tenant;
+
     /**
      * @var ProvidesDatabase
      */
     public $provider;
+
     /**
      * @var string|null
      */

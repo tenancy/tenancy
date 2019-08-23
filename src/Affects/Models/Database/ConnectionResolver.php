@@ -24,6 +24,7 @@ class ConnectionResolver implements ConnectionResolverInterface
      * @var string
      */
     private $connection;
+
     /**
      * @var ConnectionResolverInterface
      */

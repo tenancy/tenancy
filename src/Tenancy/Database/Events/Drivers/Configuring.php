@@ -27,10 +27,12 @@ class Configuring
      * @var Tenant
      */
     public $tenant;
+
     /**
      * @var array
      */
     public $configuration;
+
     /**
      * @var ProvidesDatabase
      */
