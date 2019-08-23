@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database;
 
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
-use Tenancy\Identification\Contracts\Tenant;
+use Illuminate\Support\Traits\Macroable;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
+use Tenancy\Identification\Contracts\Tenant;
 
 class DatabaseResolver implements ResolvesDatabases
 {

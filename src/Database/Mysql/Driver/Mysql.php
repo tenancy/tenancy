@@ -19,10 +19,10 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
-use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
-use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase

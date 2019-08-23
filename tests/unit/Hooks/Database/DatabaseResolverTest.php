@@ -18,9 +18,9 @@ namespace Tenancy\Tests\Hooks\Database;
 
 use Illuminate\Database\ConnectionInterface;
 use InvalidArgumentException;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Hooks\Database\Events\Resolving;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
@@ -39,10 +39,10 @@ class DatabaseResolverTest extends TestCase
         $this->resolveDatabase(function (Resolving $event) {
             return new Mocks\DatabaseDriver();
         });
-        $this->resolveConnection(function ($event){
+        $this->resolveConnection(function ($event) {
             return new Mocks\ConnectionListener();
         });
-        $this->configureConnection(function ($event){
+        $this->configureConnection(function ($event) {
             $event->configuration = [
                 'driver'     => 'sqlite',
                 'database'   => database_path("database-{$event->tenant->getTenantKey()}.sqlite"),
@@ -59,7 +59,7 @@ class DatabaseResolverTest extends TestCase
     {
         $this->events->dispatch(new Created($this->tenant));
 
-        /** @var ConnectionInterface $connection */
+        /* @var ConnectionInterface $connection */
         Tenancy::setTenant($this->tenant);
         $connection = Tenancy::getTenantConnection();
 

@@ -18,7 +18,6 @@ namespace Tenancy\Tests\Hooks\Migrations;
 
 use Illuminate\Support\Facades\DB;
 use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
-use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Provider;
 use Tenancy\Tenant\Events\Created;

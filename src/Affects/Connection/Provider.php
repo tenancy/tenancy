@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
-use Tenancy\Support\AffectsProvider;
-use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Providers\Provides\ProvidesListeners;
+use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
@@ -28,12 +28,12 @@ class Provider extends AffectsProvider
     protected $affects = [ConfiguresConnection::class];
 
     public $singletons = [
-        ResolvesConnections::class => ConnectionResolver::class
+        ResolvesConnections::class => ConnectionResolver::class,
     ];
 
     public $listen = [
         Events\Resolved::class => [
-            Listeners\SetConnection::class
+            Listeners\SetConnection::class,
         ],
     ];
 }

@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection;
 
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Illuminate\Support\Traits\Macroable;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Identification\Contracts\Tenant;
 
 class ConnectionResolver implements ResolvesConnections
 {

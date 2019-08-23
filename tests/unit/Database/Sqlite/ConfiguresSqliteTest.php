@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database\Sqlite;
 
 use Tenancy\Database\Drivers\Sqlite\Provider;
-use Tenancy\Database\Events\Drivers\Configuring;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 

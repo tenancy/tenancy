@@ -18,11 +18,11 @@ namespace Tenancy\Hooks\Migrations\Hooks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 
 class SeedsHook extends ConfigurableHook
 {

@@ -17,11 +17,11 @@ declare(strict_types=1);
 namespace Tenancy\Testing\Concerns;
 
 use Closure;
+use Tenancy\Affects\Connection\Events as Connection;
+use Tenancy\Hooks\Database\Events as Database;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Testing\Mocks\Tenant as Mock;
-use Tenancy\Hooks\Database\Events as Database;
-use Tenancy\Affects\Connection\Events as Connection;
 
 trait InteractsWithTenants
 {
@@ -42,19 +42,23 @@ trait InteractsWithTenants
         });
     }
 
-    protected function resolveConnection(Closure $callback){
+    protected function resolveConnection(Closure $callback)
+    {
         $this->events->listen(Connection\Resolving::class, $callback);
     }
 
-    protected function resolveDatabase(Closure $callback){
+    protected function resolveDatabase(Closure $callback)
+    {
         $this->events->listen(Database\Resolving::class, $callback);
     }
 
-    protected function configureConnection(Closure $callback){
+    protected function configureConnection(Closure $callback)
+    {
         $this->events->listen(Connection\Drivers\Configuring::class, $callback);
     }
 
-    protected function configureDatabase(Closure $callback){
+    protected function configureDatabase(Closure $callback)
+    {
         $this->events->listen(Database\Drivers\Configuring::class, $callback);
     }
 }

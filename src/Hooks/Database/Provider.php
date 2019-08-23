@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database;
 
-use Tenancy\Support\HooksProvider;
-use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
+use Tenancy\Providers\Provides\ProvidesBindings;
+use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
@@ -29,6 +29,6 @@ class Provider extends HooksProvider
     ];
 
     public $singletons = [
-        ResolvesDatabases::class => DatabaseResolver::class
+        ResolvesDatabases::class => DatabaseResolver::class,
     ];
 }

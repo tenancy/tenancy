@@ -16,16 +16,17 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database\Mocks;
 
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Affects\Connection\Events\Drivers\Configuring;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Affects\Connection\Events\Drivers\Configuring;
 use Tenancy\Concerns\DispatchesEvents;
+use Tenancy\Identification\Contracts\Tenant;
 
 class ConnectionListener implements ProvidesConfiguration
 {
     use DispatchesEvents;
 
-    public function configure(Tenant $tenant): array{
+    public function configure(Tenant $tenant): array
+    {
         $config = [];
 
         $this->events()->dispatch(new Configuring($tenant, $config, $this));

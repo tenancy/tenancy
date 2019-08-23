@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Sqlite\Listeners;
 
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Affects\Connection\Events\Resolving;
-use Tenancy\Affects\Connection\Events\Drivers\Configuring;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Affects\Connection\Events\Drivers\Configuring;
+use Tenancy\Affects\Connection\Events\Resolving;
 use Tenancy\Concerns\DispatchesEvents;
+use Tenancy\Identification\Contracts\Tenant;
 
 class ConfiguresTenantConnection implements ProvidesConfiguration
 {
@@ -31,7 +31,8 @@ class ConfiguresTenantConnection implements ProvidesConfiguration
         return $this;
     }
 
-    public function configure(Tenant $tenant): array{
+    public function configure(Tenant $tenant): array
+    {
         $config = [];
 
         $this->events()->dispatch(new Configuring($tenant, $config, $this));

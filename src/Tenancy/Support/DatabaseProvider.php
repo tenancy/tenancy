@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Support;
 
 use Illuminate\Support\Facades\Event;
-use Tenancy\Hooks\Database\Events as Database;
 use Tenancy\Affects\Connection\Events as Connection;
+use Tenancy\Hooks\Database\Events as Database;
 
 abstract class DatabaseProvider extends Provider
 {
