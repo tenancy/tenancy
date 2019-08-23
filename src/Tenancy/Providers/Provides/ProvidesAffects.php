@@ -22,12 +22,10 @@ trait ProvidesAffects
 {
     protected function bootProvidesAffects()
     {
-        if (count($this->affects)) {
-            $this->app->resolving(ResolvesAffects::class, function (ResolvesAffects $resolver) {
-                foreach ($this->affects as $affect) {
-                    $resolver->addAffect($affect);
-                }
-            });
-        }
+        $this->app->resolving(ResolvesAffects::class, function (ResolvesAffects $resolver) {
+            foreach ($this->affects as $affect) {
+                $resolver->addAffect($affect);
+            }
+        });
     }
 }

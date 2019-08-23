@@ -54,9 +54,6 @@ class TenancyProvider extends ServiceProvider
         ],
     ];
 
-    protected $subscribe = [
-    ];
-
     public function register()
     {
         $this->runTrait('register');
