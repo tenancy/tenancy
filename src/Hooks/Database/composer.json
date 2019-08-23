@@ -1,7 +1,7 @@
 {
     "name": "tenancy/hooks-database",
     "description": "The tenancy/tenancy database mutations",
-    "keywords": ["affects", "tenancy", "database"],
+    "keywords": ["hooks", "tenancy", "database"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"
