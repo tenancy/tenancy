@@ -14,9 +14,12 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-return [
-    /*
-     * The name of the tenant connection, tenancy will create this connection during runtime.
-     */
-    'tenant-connection-name' => env('TENANCY_TENANT_CONNECTION_NAME', 'tenant'),
-];
+namespace Tenancy\Affects\Connection\Support\Traits;
+
+use Tenancy\Environment;
+
+trait OnTenant{
+    public function getConnectionName(){
+        return Environment::getTenantConnectionName();
+    }
+}
