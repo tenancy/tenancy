@@ -26,7 +26,9 @@ use Tenancy\Providers\TenancyProvider;
 trait CreatesApplication
 {
     protected $additionalProviders = [];
+
     protected $additionalMocks = [];
+
     protected $tenantModels = [];
 
     /**

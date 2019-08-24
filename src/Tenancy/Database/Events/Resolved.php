@@ -25,10 +25,12 @@ class Resolved
      * @var Tenant|null
      */
     public $tenant;
+
     /**
      * @var ProvidesDatabase|null
      */
     public $provider;
+
     /**
      * @var string|null
      */

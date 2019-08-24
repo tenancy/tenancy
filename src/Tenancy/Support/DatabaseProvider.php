@@ -33,6 +33,7 @@ abstract class DatabaseProvider extends Provider
     public function register()
     {
         parent::register();
+
         if ($this->listener) {
             Event::listen(Resolving::class, $this->listener);
         }

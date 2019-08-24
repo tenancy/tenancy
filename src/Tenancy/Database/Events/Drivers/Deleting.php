@@ -25,10 +25,12 @@ class Deleting
      * @var Tenant
      */
     public $tenant;
+
     /**
      * @var array
      */
     public $configuration;
+
     /**
      * @var ProvidesDatabase
      */

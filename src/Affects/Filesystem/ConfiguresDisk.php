@@ -30,6 +30,7 @@ class ConfiguresDisk extends Affect
     {
         /** @var Factory|FilesystemManager $manager */
         $manager = resolve(Factory::class);
+
         /** @var Repository $config */
         $config = resolve(Repository::class);
 

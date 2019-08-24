@@ -25,10 +25,12 @@ class Creating
      * @var Tenant
      */
     public $tenant;
+
     /**
      * @var array
      */
     public $configuration;
+
     /**
      * @var ProvidesDatabase
      */
