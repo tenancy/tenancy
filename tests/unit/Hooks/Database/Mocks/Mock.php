@@ -14,12 +14,12 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Sqlite;
+namespace Tenancy\Tests\Hooks\Database\Mocks;
 
-use Tenancy\Hooks\Database\Support\DatabaseProvider;
-use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantDatabase;
+use Illuminate\Database\Eloquent\Model;
+use Tenancy\Affects\Connection\Support\Traits\OnTenant;
 
-class Provider extends DatabaseProvider
+class Mock extends Model
 {
-    protected $listener = ConfiguresTenantDatabase::class;
+    use OnTenant;
 }

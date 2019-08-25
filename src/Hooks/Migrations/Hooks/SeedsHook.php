@@ -22,6 +22,7 @@ use Tenancy\Tenant\Events\Deleted;
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 
 class SeedsHook extends ConfigurableHook
 {

@@ -14,12 +14,15 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Database\Drivers\Sqlite;
+namespace Tenancy\Hooks\Migrations\Support;
 
-use Tenancy\Hooks\Database\Support\DatabaseProvider;
-use Tenancy\Database\Drivers\Sqlite\Listeners\ConfiguresTenantDatabase;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 
-class Provider extends DatabaseProvider
-{
-    protected $listener = ConfiguresTenantDatabase::class;
+trait InteractsWithMigrations{
+
+    protected function registerMigrationsPath(string $path){
+        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) use ($path) {
+            $event->path($path);
+        });
+    }
 }
