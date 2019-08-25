@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Migrations\Support;
 
+use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 
 trait InteractsWithMigrations{
@@ -23,6 +24,14 @@ trait InteractsWithMigrations{
     protected function registerMigrationsPath(string $path){
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) use ($path) {
             $event->path($path);
+        });
+    }
+
+    protected function registerSeederFile(string $path){
+        $this->events->listen(ConfigureSeeds::class, function (ConfigureSeeds $event) use ($path) {
+            require_once $path;
+            $seeder = basename($path, '.php');
+            $event->seed($seeder);
         });
     }
 }

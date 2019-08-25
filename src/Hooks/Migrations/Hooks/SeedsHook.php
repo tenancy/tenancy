@@ -74,7 +74,7 @@ class SeedsHook extends ConfigurableHook
             $seed();
         }
 
-        $this->resolve->__invoke(null, $this->connection);
+        $this->resolver->__invoke(null, $this->connection);
         $db->setDefaultConnection($default);
 
         Model::reguard();
