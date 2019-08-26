@@ -39,7 +39,7 @@ class Identified
     public function __construct(Tenant $tenant = null, string $connection = null, ProvidesDatabase &$provider)
     {
         $this->tenant = $tenant;
-        $this->provider = &$provider;
         $this->connection = $connection;
+        $this->provider = &$provider;
     }
 }
