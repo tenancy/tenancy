@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Event;
 use Tenancy\Hooks\Database\Events;
 use Tenancy\Support\Provider;
 
-class DatabaseProvider extends Provider
+abstract class DatabaseProvider extends Provider
 {
     public function register()
     {
