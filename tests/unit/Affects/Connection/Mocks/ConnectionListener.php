@@ -16,20 +16,23 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Connection\Mocks;
 
+use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Affects\Connection\Events\Drivers\Configuring;
+use Tenancy\Affects\Connection\Events\Resolving;
 use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Affects\Connection\Events\Resolving;
-use Tenancy\Affects\Connection\Events\Drivers\Configuring;
-use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
 
-class ConnectionListener implements ProvidesConfiguration{
+class ConnectionListener implements ProvidesConfiguration
+{
     use DispatchesEvents;
 
-    public function handle(Resolving $event){
+    public function handle(Resolving $event)
+    {
         return $this;
     }
 
-    public function configure(Tenant $tenant): array{
+    public function configure(Tenant $tenant): array
+    {
         $config = [];
 
         $this->events()->dispatch(new Configuring($tenant, $config, $this));

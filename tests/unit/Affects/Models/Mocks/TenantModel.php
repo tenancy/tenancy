@@ -18,6 +18,6 @@ namespace Tenancy\Tests\Affects\Models\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TenantModel extends Model{
-
+class TenantModel extends Model
+{
 }

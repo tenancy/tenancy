@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Mysql;
 
-use Tenancy\Hooks\Database\Support\DatabaseProvider;
 use Tenancy\Database\Drivers\Mysql\Listeners\ConfiguresTenantDatabase;
+use Tenancy\Hooks\Database\Support\DatabaseProvider;
 
 class Provider extends DatabaseProvider
 {

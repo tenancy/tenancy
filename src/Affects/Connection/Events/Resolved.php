@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection\Events;
 
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Resolved
 {

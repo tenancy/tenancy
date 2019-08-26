@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Migrations\Hooks;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Lifecycle\ConfigurableHook;
 use Illuminate\Database\Migrations\Migrator;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
+use Tenancy\Lifecycle\ConfigurableHook;
+use Tenancy\Tenant\Events\Deleted;
 
 class MigratesHook extends ConfigurableHook
 {

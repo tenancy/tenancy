@@ -22,7 +22,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
-class RegisterFunctionsTest extends TestCase
+class RegistersFunctionsTest extends TestCase
 {
     protected $additionalProviders = [Provider::class];
 
@@ -39,7 +39,8 @@ class RegisterFunctionsTest extends TestCase
     /**
      * @test
      */
-    public function registers_get_tenant_connection_name(){
+    public function registers_get_tenant_connection_name()
+    {
         $this->assertEquals(
             'tenant',
             Environment::getTenantConnectionName()
@@ -49,7 +50,8 @@ class RegisterFunctionsTest extends TestCase
     /**
      * @test
      */
-    public function get_tenant_connection_name_prefers_config(){
+    public function get_tenant_connection_name_prefers_config()
+    {
         config(['tenancy.connection.tenant-connection-name' => 'tenant2']);
 
         $this->assertEquals(
@@ -61,7 +63,8 @@ class RegisterFunctionsTest extends TestCase
     /**
      * @test
      */
-    public function registers_get_tenant_connection(){
+    public function registers_get_tenant_connection()
+    {
         $this->expectException(\InvalidArgumentException::class);
         Environment::getTenantConnection();
     }

@@ -17,23 +17,23 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database;
 
 use Closure;
-use PDO;
-use Tenancy\Tenant\Events;
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\DatabaseManager;
-use Tenancy\Tests\Hooks\Database\Mocks\Mock;
-use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
-use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
-use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
+use Illuminate\Database\QueryException;
+use PDO;
 use Tenancy\Affects\Connection\Provider as ConnectionProvider;
 use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
+use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
+use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
+use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
+use Tenancy\Tenant\Events;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
+use Tenancy\Tests\Hooks\Database\Mocks\Mock;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
@@ -69,7 +69,7 @@ abstract class DatabaseDriverTestCase extends TestCase
 
         $this->registerDatabaseListener();
 
-        $this->resolveConnection(function(){
+        $this->resolveConnection(function () {
             return new ConnectionListener();
         });
     }
@@ -101,7 +101,8 @@ abstract class DatabaseDriverTestCase extends TestCase
         $resolver->addModel($this->tenantModel);
     }
 
-    protected function configureBoth(Closure $callback){
+    protected function configureBoth(Closure $callback)
+    {
         $this->configureDatabase($callback);
         $this->configureConnection($callback);
     }

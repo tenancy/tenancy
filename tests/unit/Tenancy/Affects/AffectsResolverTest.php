@@ -17,10 +17,10 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects;
 
 use InvalidArgumentException;
-use Tenancy\Testing\TestCase;
 use Tenancy\Affects\Contracts\ResolvesAffects;
+use Tenancy\Testing\TestCase;
 
-class HookResolverTest extends TestCase
+class AffectsResolverTest extends TestCase
 {
     /**
      * @test

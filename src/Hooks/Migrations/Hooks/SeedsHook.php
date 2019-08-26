@@ -16,13 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Migrations\Hooks;
 
-use Tenancy\Facades\Tenancy;
-use Illuminate\Database\Seeder;
-use Tenancy\Tenant\Events\Deleted;
 use Illuminate\Database\Eloquent\Model;
-use Tenancy\Lifecycle\ConfigurableHook;
-use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
+use Illuminate\Database\Seeder;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
+use Tenancy\Lifecycle\ConfigurableHook;
+use Tenancy\Tenant\Events\Deleted;
 
 class SeedsHook extends ConfigurableHook
 {

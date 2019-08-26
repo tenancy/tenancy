@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database\Support;
 
-use Tenancy\Support\Provider;
-use Tenancy\Hooks\Database\Events;
 use Illuminate\Support\Facades\Event;
+use Tenancy\Hooks\Database\Events;
+use Tenancy\Support\Provider;
 
-class DatabaseProvider extends Provider{
+class DatabaseProvider extends Provider
+{
     public function register()
     {
         parent::register();

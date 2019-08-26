@@ -32,11 +32,11 @@ class ConfigureModels
     }
 
     /**
-     * Runs static functions on models
+     * Runs static functions on models.
      *
-     * @param array $models
+     * @param array  $models
      * @param string $function
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return $this
      */

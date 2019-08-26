@@ -18,10 +18,10 @@ namespace Tenancy\Tests\Database\Mysql;
 
 use PDOException;
 use Tenancy\Database\Drivers\Mysql\Provider;
-use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 use Tenancy\Hooks\Database\Events\Drivers\Creating;
 use Tenancy\Hooks\Database\Events\Drivers\Deleting;
 use Tenancy\Hooks\Database\Events\Drivers\Updating;
+use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
 use Tenancy\Tests\Hooks\Database\DatabaseDriverTestCase;
 
 class MysqlDriverTest extends DatabaseDriverTestCase

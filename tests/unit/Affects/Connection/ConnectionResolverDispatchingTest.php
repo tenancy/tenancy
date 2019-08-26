@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Connection;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
 use Tenancy\Affects\Connection\Events;
 use Tenancy\Affects\Connection\Provider;
 use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\TestCase;
 
 class ConnectionResolverDispatchingTest extends TestCase
 {
@@ -53,11 +53,11 @@ class ConnectionResolverDispatchingTest extends TestCase
      */
     public function simple_listener()
     {
-        $this->resolveConnection(function(){
+        $this->resolveConnection(function () {
             return new Mocks\ConnectionListener();
         });
 
-        $this->configureConnection(function($event){
+        $this->configureConnection(function ($event) {
             $event->useConnection('sqlite', $event->configuration);
         });
 

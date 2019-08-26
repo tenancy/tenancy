@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Connection;
 
-use Tenancy\Testing\TestCase;
 use Tenancy\Affects\Connection\Provider;
 use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\TestCase;
 
-class ConnectionResolverTest extends TestCase{
+class ConnectionResolverTest extends TestCase
+{
     use InteractsWithConnections;
     protected $additionalProviders = [Provider::class];
 
@@ -35,12 +36,13 @@ class ConnectionResolverTest extends TestCase{
     /**
      * @test
      */
-    public function simple_resolve(){
-        $this->resolveConnection(function(){
+    public function simple_resolve()
+    {
+        $this->resolveConnection(function () {
             return new Mocks\ConnectionListener();
         });
 
-        $this->configureConnection(function($event){
+        $this->configureConnection(function ($event) {
             $event->useConnection('sqlite', $event->configuration);
         });
 

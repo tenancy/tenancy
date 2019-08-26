@@ -17,15 +17,18 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Database\Support;
 
 use Closure;
-use Tenancy\Hooks\Database\Events\Resolving;
 use Tenancy\Hooks\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Events\Resolving;
 
-trait InteractsWithDatabases{
-    protected function resolveDatabase(Closure $callback){
+trait InteractsWithDatabases
+{
+    protected function resolveDatabase(Closure $callback)
+    {
         $this->events->listen(Resolving::class, $callback);
     }
 
-    protected function configureDatabase(Closure $callback){
+    protected function configureDatabase(Closure $callback)
+    {
         $this->events->listen(Configuring::class, $callback);
     }
 }

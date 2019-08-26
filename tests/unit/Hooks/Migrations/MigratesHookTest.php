@@ -16,20 +16,20 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Migrations;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
 use Illuminate\Support\Facades\DB;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Tenant\Events\Deleted;
+use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
 use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
 use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
+use Tenancy\Tenant\Events\Created;
+use Tenancy\Tenant\Events\Deleted;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
-use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 
 class MigratesHookTest extends TestCase
 {
@@ -63,7 +63,7 @@ class MigratesHookTest extends TestCase
             ]);
         };
 
-        $this->resolveConnection(function(){
+        $this->resolveConnection(function () {
             return new ConnectionListener();
         });
 

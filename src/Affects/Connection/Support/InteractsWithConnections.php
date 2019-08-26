@@ -17,15 +17,18 @@ declare(strict_types=1);
 namespace Tenancy\Affects\Connection\Support;
 
 use Closure;
-use Tenancy\Affects\Connection\Events\Resolving;
 use Tenancy\Affects\Connection\Events\Drivers\Configuring;
+use Tenancy\Affects\Connection\Events\Resolving;
 
-trait InteractsWithConnections{
-    protected function resolveConnection(Closure $callback){
+trait InteractsWithConnections
+{
+    protected function resolveConnection(Closure $callback)
+    {
         $this->events->listen(Resolving::class, $callback);
     }
 
-    protected function configureConnection(Closure $callback){
+    protected function configureConnection(Closure $callback)
+    {
         $this->events->listen(Configuring::class, $callback);
     }
 }

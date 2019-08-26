@@ -17,13 +17,14 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database;
 
 use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
 use Tenancy\Hooks\Database\Events;
-use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Hooks\Database\Provider;
 use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Tenant\Events as Tenant;
+use Tenancy\Testing\TestCase;
 
-class DatabaseResolverDispatchingTest extends TestCase{
+class DatabaseResolverDispatchingTest extends TestCase
+{
     use InteractsWithDatabases;
 
     protected $additionalProviders = [Provider::class];
@@ -38,7 +39,8 @@ class DatabaseResolverDispatchingTest extends TestCase{
     /**
      * @test
      */
-    public function without_driver(){
+    public function without_driver()
+    {
         $resolving = $resolved = $identified = $configuring = 0;
 
         $this->expectEvent(Events\Resolving::class, $resolving);
@@ -57,10 +59,11 @@ class DatabaseResolverDispatchingTest extends TestCase{
     /**
      * @test
      */
-    public function with_driver(){
+    public function with_driver()
+    {
         $resolving = $resolved = $identified = $configuring = 0;
 
-        $this->resolveDatabase(function(){
+        $this->resolveDatabase(function () {
             return new Mocks\NullDriver();
         });
 

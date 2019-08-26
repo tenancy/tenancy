@@ -31,27 +31,28 @@ class Provider extends AffectsProvider
         ProvidesConfigs;
 
     protected $configs = [
-        __DIR__.'/resources/config/connection.php'
+        __DIR__.'/resources/config/connection.php',
     ];
 
     protected $affects = [ConfiguresConnection::class];
 
     public $singletons = [
-        ResolvesConnections::class => ConnectionResolver::class
+        ResolvesConnections::class => ConnectionResolver::class,
     ];
 
     public $listen = [
         Events\Resolved::class => [
-            Listeners\SetConnection::class
+            Listeners\SetConnection::class,
         ],
     ];
 
-    public function boot(){
+    public function boot()
+    {
         parent::boot();
-        Environment::macro('getTenantConnectionName', function(){
+        Environment::macro('getTenantConnectionName', function () {
             return config('tenancy.connection.tenant-connection-name') ?? 'tenant';
         });
-        Environment::macro('getTenantConnection', function(){
+        Environment::macro('getTenantConnection', function () {
             return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());
         });
     }

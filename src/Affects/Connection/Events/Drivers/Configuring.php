@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Affects\Connection\Events\Drivers;
 
 use InvalidArgumentException;
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Affects\Connection\Contracts\ProvidesConfiguration;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Configuring
 {

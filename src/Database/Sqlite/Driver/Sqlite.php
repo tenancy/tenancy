@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Sqlite\Driver;
 
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Sqlite implements ProvidesDatabase
 {

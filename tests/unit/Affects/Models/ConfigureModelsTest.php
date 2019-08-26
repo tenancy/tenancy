@@ -16,14 +16,14 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Models;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Affects\Connection\Provider as ConnectionProvider;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Provider as ModelsProvider;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
 
-class ConfiguresModelsTest extends TestCase
+class ConfigureModelsTest extends TestCase
 {
     protected $additionalProviders = [ConnectionProvider::class, ModelsProvider::class];
 
@@ -40,23 +40,24 @@ class ConfiguresModelsTest extends TestCase
     /**
      * @test
      */
-    public function can_override_connection_resolver(){
-        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event){
+    public function can_override_connection_resolver()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
             $event->staticCallOnModels(
                 [Mocks\TenantModel::class],
                 'setConnectionResolver',
                 [new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db'))]);
         });
 
-       // This should not trigger an Exception, because it is using the default app connection.
-       (new Mocks\TenantModel())->getConnection();
+        // This should not trigger an Exception, because it is using the default app connection.
+        (new Mocks\TenantModel())->getConnection();
 
-       $this->resolveTenant($this->tenant);
-       Tenancy::getTenant();
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
 
-       $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
+        $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
 
-       $this->expectExceptionMessage('Database [tenant] not configured.');
-       (new Mocks\TenantModel())->getConnection();
+        $this->expectExceptionMessage('Database [tenant] not configured.');
+        (new Mocks\TenantModel())->getConnection();
     }
 }

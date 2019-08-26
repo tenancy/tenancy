@@ -18,7 +18,8 @@ namespace Tenancy\Affects\Connection\Contracts;
 
 use Tenancy\Identification\Contracts\Tenant;
 
-interface ProvidesConfiguration{
+interface ProvidesConfiguration
+{
     /**
      * @param Tenant $tenant
      *

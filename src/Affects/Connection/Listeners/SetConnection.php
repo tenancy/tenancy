@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Connection\Listeners;
 
-use Illuminate\Support\Arr;
-use Tenancy\Facades\Tenancy;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Support\Arr;
 use Tenancy\Affects\Connection\Events\Resolved;
+use Tenancy\Facades\Tenancy;
 
 class SetConnection
 {

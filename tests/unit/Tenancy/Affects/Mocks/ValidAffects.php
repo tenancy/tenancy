@@ -20,7 +20,8 @@ use Tenancy\Contracts\AffectsApp;
 
 class ValidAffects implements AffectsApp
 {
-    public function fire(){
+    public function fire()
+    {
         // TODO: Implement fire method
     }
 }

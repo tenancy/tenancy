@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database\Mocks;
 
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Events\Drivers\Configuring;
+use Tenancy\Identification\Contracts\Tenant;
 
 class NullDriver implements ProvidesDatabase
 {

@@ -27,7 +27,7 @@ class Provider extends HooksProvider
         ProvidesConfigs;
 
     protected $configs = [
-        __DIR__.'/resources/config/database.php'
+        __DIR__.'/resources/config/database.php',
     ];
 
     protected $hooks = [
@@ -35,6 +35,6 @@ class Provider extends HooksProvider
     ];
 
     public $singletons = [
-        ResolvesDatabases::class => DatabaseResolver::class
+        ResolvesDatabases::class => DatabaseResolver::class,
     ];
 }

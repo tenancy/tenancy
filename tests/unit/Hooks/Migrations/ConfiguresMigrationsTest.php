@@ -16,21 +16,21 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Migrations;
 
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Illuminate\Support\Facades\DB;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Tenant\Events\Deleted;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
 use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Tenant\Events\Created;
+use Tenancy\Tenant\Events\Deleted;
+use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
-use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 
 class ConfiguresMigrationsTest extends TestCase
 {
@@ -53,7 +53,7 @@ class ConfiguresMigrationsTest extends TestCase
 
         $this->registerMigrationsPath(__DIR__.'/database/');
 
-        $this->resolveConnection(function(){
+        $this->resolveConnection(function () {
             return new ConnectionListener();
         });
 
@@ -71,7 +71,8 @@ class ConfiguresMigrationsTest extends TestCase
         config(['tenancy.database.auto-delete' => true]);
     }
 
-    protected function cleanDatabase(){
+    protected function cleanDatabase()
+    {
         DB::purge(Tenancy::getTenantConnectionName());
         $this->events->dispatch(new Deleted($this->tenant));
     }

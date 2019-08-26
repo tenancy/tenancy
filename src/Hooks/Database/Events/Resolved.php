@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database\Events;
 
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Resolved
 {

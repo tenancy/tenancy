@@ -18,8 +18,10 @@ namespace Tenancy\Affects\Connection\Support\Traits;
 
 use Tenancy\Environment;
 
-trait OnTenant{
-    public function getConnectionName(){
+trait OnTenant
+{
+    public function getConnectionName()
+    {
         return Environment::getTenantConnectionName();
     }
 }
