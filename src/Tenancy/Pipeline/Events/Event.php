@@ -21,6 +21,7 @@ use Tenancy\Pipeline\Pipeline;
 abstract class Event
 {
     public $event;
+
     /**
      * @var Pipeline
      */

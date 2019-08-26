@@ -24,6 +24,7 @@ class ConfigureDisk
      * @var Switched
      */
     public $event;
+
     /**
      * @var array
      */

@@ -24,6 +24,7 @@ class ConfigureCache
      * @var Switched
      */
     public $event;
+
     /**
      * @var array
      */

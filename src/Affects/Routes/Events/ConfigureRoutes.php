@@ -26,6 +26,7 @@ class ConfigureRoutes
      * @var Switched
      */
     public $event;
+
     /**
      * @var Router
      */

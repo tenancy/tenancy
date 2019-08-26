@@ -24,6 +24,7 @@ class ConfigureLogs
      * @var Switched
      */
     public $event;
+
     /**
      * @var array
      */

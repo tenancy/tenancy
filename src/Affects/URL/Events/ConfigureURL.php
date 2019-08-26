@@ -25,6 +25,7 @@ class ConfigureURL
      * @var Switched
      */
     public $event;
+
     /**
      * @var UrlGenerator
      */

@@ -29,6 +29,7 @@ class ConfiguresCache extends Affect
     {
         /** @var CacheManager $manager¸ */
         $manager = resolve(CacheManager::class);
+
         /** @var Repository $config */
         $config = resolve(Repository::class);
 
