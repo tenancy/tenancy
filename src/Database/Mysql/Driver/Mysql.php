@@ -63,7 +63,8 @@ class Mysql implements ProvidesDatabase
         $tempTenant->{$tempTenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
         $originalTenant = Tenancy::getTenant();
 
-        Tenancy::setTenant($tempTenant);
+        $resolver = resolve(\Tenancy\Affects\Connection\ConnectionResolver::class);
+        $resolver->__invoke($tempTenant, Tenancy::getTenantConnectionName());
         $connection = Tenancy::getTenantConnection();
         $tables = $connection->getDoctrineSchemaManager()->listTableNames();
 

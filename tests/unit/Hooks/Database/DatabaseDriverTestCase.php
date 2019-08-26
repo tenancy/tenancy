@@ -177,7 +177,7 @@ abstract class DatabaseDriverTestCase extends TestCase
         factory(Mock::class, 10)->create();
         $mocks = Mock::all();
 
-        $this->db->disconnect(Tenancy::getTenantConnectionName());
+        $this->db->purge(Tenancy::getTenantConnectionName());
 
         $this->tenant->id = 1997;
         $this->events->dispatch(new Events\Updated($this->tenant));
