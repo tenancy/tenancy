@@ -1,15 +1,14 @@
 {
-    "name": "tenancy/db-driver-mysql",
-    "description": "The tenancy/tenancy database driver for mysql",
-    "keywords": ["database", "tenancy", "mysql", "mariadb"],
+    "name": "tenancy/hooks-database",
+    "description": "The tenancy/tenancy database mutations",
+    "keywords": ["hooks", "tenancy", "database"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*",
-        "tenancy/affects-connection": "*"
+        "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Database\\Drivers\\Mysql\\": ""
+            "Tenancy\\Hooks\\Database\\": ""
         }
     },
     "authors": [
@@ -27,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Database\\Drivers\\Mysql\\Provider"
+                "Tenancy\\Hooks\\Database\\Provider"
             ]
         }
     }
