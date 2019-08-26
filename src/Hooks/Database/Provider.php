@@ -18,16 +18,16 @@ namespace Tenancy\Hooks\Database;
 
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
 use Tenancy\Providers\Provides\ProvidesBindings;
-use Tenancy\Providers\Provides\ProvidesConfig;
+use Tenancy\Providers\Provides\ProvidesConfigs;
 use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
     use ProvidesBindings,
-        ProvidesConfig;
+        ProvidesConfigs;
 
     protected $configs = [
-        __DIR__.'/resources/config/database.php' => 'tenancy-database'
+        __DIR__.'/resources/config/database.php'
     ];
 
     protected $hooks = [

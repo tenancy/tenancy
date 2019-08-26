@@ -72,10 +72,6 @@ class SeedsHookTest extends TestCase
         $this->configureConnection($callback);
         $this->configureDatabase($callback);
 
-        config(['tenancy.database.auto-create' => true]);
-        config(['tenancy.database.auto-update' => true]);
-        config(['tenancy.database.auto-delete' => true]);
-
         $this->events->dispatch(new Created($this->tenant));
     }
 

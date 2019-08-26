@@ -72,9 +72,6 @@ abstract class DatabaseDriverTestCase extends TestCase
         $this->resolveConnection(function(){
             return new ConnectionListener();
         });
-        config(['tenancy.database.auto-create' => true]);
-        config(['tenancy.database.auto-update' => true]);
-        config(['tenancy.database.auto-delete' => true]);
     }
 
     abstract protected function registerDatabaseListener();

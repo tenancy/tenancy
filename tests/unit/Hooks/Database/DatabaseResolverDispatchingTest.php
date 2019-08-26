@@ -74,7 +74,7 @@ class DatabaseResolverDispatchingTest extends TestCase{
         $this->assertEquals(0, $resolving);
         $this->assertEquals(1, $identified);
         $this->assertEquals(1, $resolved);
-        $this->assertEquals(0, $configuring);
+        $this->assertEquals(1, $configuring);
     }
 
     protected function expectEvent(string $event, int &$count)

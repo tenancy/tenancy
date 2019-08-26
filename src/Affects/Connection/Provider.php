@@ -20,7 +20,7 @@ use Illuminate\Database\DatabaseManager;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Environment;
 use Tenancy\Providers\Provides\ProvidesBindings;
-use Tenancy\Providers\Provides\ProvidesConfig;
+use Tenancy\Providers\Provides\ProvidesConfigs;
 use Tenancy\Providers\Provides\ProvidesListeners;
 use Tenancy\Support\AffectsProvider;
 
@@ -28,10 +28,10 @@ class Provider extends AffectsProvider
 {
     use ProvidesBindings,
         ProvidesListeners,
-        ProvidesConfig;
+        ProvidesConfigs;
 
     protected $configs = [
-        __DIR__.'/resources/config/connection.php' => 'tenancy-connection'
+        __DIR__.'/resources/config/connection.php'
     ];
 
     protected $affects = [ConfiguresConnection::class];
