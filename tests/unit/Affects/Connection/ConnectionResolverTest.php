@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Connection;
 
+use InvalidArgumentException;
 use Tenancy\Affects\Connection\Provider;
 use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 use Tenancy\Facades\Tenancy;
@@ -36,7 +37,7 @@ class ConnectionResolverTest extends TestCase
     /**
      * @test
      */
-    public function simple_resolve()
+    public function can_use_connection()
     {
         $this->resolveConnection(function () {
             return new Mocks\ConnectionListener();
@@ -50,8 +51,49 @@ class ConnectionResolverTest extends TestCase
         Tenancy::getTenant();
 
         $this->assertEquals(
-            $this->tenant->getTenantKey(),
-            config('database.connections.tenant.username')
+            'sqlite',
+            config('database.connections.tenant.driver')
         );
+    }
+
+    /**
+     * @test
+     */
+    public function can_use_config()
+    {
+        $this->resolveConnection(function () {
+            return new Mocks\ConnectionListener();
+        });
+
+        $this->configureConnection(function ($event) {
+            $event->useConfig(__DIR__.'/database.php', $event->configuration);
+        });
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
+
+        $this->assertEquals(
+            'sqlite',
+            config('database.connections.tenant.driver')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function use_config_detects_invalid_path()
+    {
+        $this->resolveConnection(function () {
+            return new Mocks\ConnectionListener();
+        });
+
+        $this->configureConnection(function ($event) {
+            $event->useConfig(__DIR__.'/arlon.php', $event->configuration);
+        });
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
     }
 }
