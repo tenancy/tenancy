@@ -31,15 +31,9 @@ class Resolved
      */
     public $provider;
 
-    /**
-     * @var string|null
-     */
-    public $connection;
-
-    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesDatabase &$provider = null)
+    public function __construct(Tenant $tenant = null, ProvidesDatabase &$provider = null)
     {
         $this->tenant = $tenant;
-        $this->connection = $connection;
         $this->provider = &$provider;
     }
 }

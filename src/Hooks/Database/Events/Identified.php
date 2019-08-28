@@ -31,15 +31,9 @@ class Identified
      */
     public $provider;
 
-    /**
-     * @var string|null
-     */
-    public $connection;
-
-    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesDatabase &$provider)
+    public function __construct(Tenant $tenant = null, ProvidesDatabase &$provider)
     {
         $this->tenant = $tenant;
-        $this->connection = $connection;
         $this->provider = &$provider;
     }
 }

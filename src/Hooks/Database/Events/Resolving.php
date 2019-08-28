@@ -25,14 +25,8 @@ class Resolving
      */
     public $tenant;
 
-    /**
-     * @var string|null
-     */
-    public $connection;
-
-    public function __construct(Tenant $tenant = null, string $connection = null)
+    public function __construct(Tenant $tenant = null)
     {
         $this->tenant = $tenant;
-        $this->connection = $connection;
     }
 }
