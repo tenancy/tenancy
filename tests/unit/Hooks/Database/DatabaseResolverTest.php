@@ -17,11 +17,11 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database;
 
 use InvalidArgumentException;
-use Tenancy\Testing\TestCase;
-use Tenancy\Tenant\Events\Created;
-use Tenancy\Hooks\Database\Provider;
 use Tenancy\Hooks\Database\Events\Drivers\Creating;
+use Tenancy\Hooks\Database\Provider;
 use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Tenant\Events\Created;
+use Tenancy\Testing\TestCase;
 
 class DatabaseResolverTest extends TestCase
 {
@@ -49,7 +49,7 @@ class DatabaseResolverTest extends TestCase
             $event->useConnection('sqlite', $event->configuration);
         });
 
-        $this->events->listen(Creating::class, function(Creating $event){
+        $this->events->listen(Creating::class, function (Creating $event) {
             $this->assertEquals(
                 'sqlite',
                 $event->configuration['driver']
@@ -68,7 +68,7 @@ class DatabaseResolverTest extends TestCase
             $event->useConfig(__DIR__.'/database.php', $event->configuration);
         });
 
-        $this->events->listen(Creating::class, function(Creating $event){
+        $this->events->listen(Creating::class, function (Creating $event) {
             $this->assertEquals(
                 'sqlite',
                 $event->configuration['driver']

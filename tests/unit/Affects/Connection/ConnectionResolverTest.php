@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Connection;
 
-use Tenancy\Facades\Tenancy;
 use InvalidArgumentException;
-use Tenancy\Testing\TestCase;
 use Tenancy\Affects\Connection\Provider;
 use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\TestCase;
 
 class ConnectionResolverTest extends TestCase
 {
