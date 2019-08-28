@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database;
 
-use Tenancy\Facades\Tenancy;
 use InvalidArgumentException;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tenant\Events\Created;
@@ -35,6 +34,10 @@ class DatabaseResolverTest extends TestCase
     protected function afterSetUp()
     {
         $this->tenant = $this->mockTenant();
+
+        $this->resolveDatabase(function () {
+            return new Mocks\NullDriver();
+        });
     }
 
     /**
@@ -42,10 +45,6 @@ class DatabaseResolverTest extends TestCase
      */
     public function can_use_connection()
     {
-        $this->resolveDatabase(function () {
-            return new Mocks\NullDriver();
-        });
-
         $this->configureDatabase(function ($event) {
             $event->useConnection('sqlite', $event->configuration);
         });
@@ -65,10 +64,6 @@ class DatabaseResolverTest extends TestCase
      */
     public function can_use_config()
     {
-        $this->resolveDatabase(function () {
-            return new Mocks\NullDriver();
-        });
-
         $this->configureDatabase(function ($event) {
             $event->useConfig(__DIR__.'/database.php', $event->configuration);
         });
@@ -88,10 +83,6 @@ class DatabaseResolverTest extends TestCase
      */
     public function use_config_detects_invalid_path()
     {
-        $this->resolveDatabase(function () {
-            return new Mocks\NullDriver();
-        });
-
         $this->configureDatabase(function ($event) {
             $event->useConfig(__DIR__.'/arlon.php', $event->configuration);
         });
