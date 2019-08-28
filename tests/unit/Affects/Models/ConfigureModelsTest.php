@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Models;
 
+use InvalidArgumentException;
 use Tenancy\Affects\Connection\Provider as ConnectionProvider;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Provider as ModelsProvider;
@@ -59,5 +60,23 @@ class ConfigureModelsTest extends TestCase
 
         $this->expectExceptionMessage('Database [tenant] not configured.');
         (new Mocks\TenantModel())->getConnection();
+    }
+
+    /**
+     * @test
+     */
+    public function detects_wrong_classes()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->staticCallOnModels(
+                [Mocks\FakeModel::class],
+                'setConnectionResolver',
+                [new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db'))]);
+        });
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
     }
 }
