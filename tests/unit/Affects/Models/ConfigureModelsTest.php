@@ -98,8 +98,8 @@ class ConfigureModelsTest extends TestCase
             $event->staticCallOnModels(
                 [Mocks\TenantModel::class],
                 'creating',
-                [function($model){
-                    if(!isset($model->tenant_id)){
+                [function ($model) {
+                    if (!isset($model->tenant_id)) {
                         $model->tenant_id = Tenancy::getTenant()->getTenantKey();
                     }
                 }]
