@@ -18,18 +18,17 @@ namespace Tenancy\Tests\Database\Mysql;
 
 use PDOException;
 use Tenancy\Database\Drivers\Mysql\Provider;
-use Tenancy\Database\Events\Drivers\Configuring;
-use Tenancy\Database\Events\Drivers\Creating;
-use Tenancy\Database\Events\Drivers\Deleting;
-use Tenancy\Database\Events\Drivers\Updating;
-use Tenancy\Tests\Database\DatabaseDriverTestCase;
+use Tenancy\Hooks\Database\Events\Drivers\Creating;
+use Tenancy\Hooks\Database\Events\Drivers\Deleting;
+use Tenancy\Hooks\Database\Events\Drivers\Updating;
 use Tenancy\Tests\Database\Mysql\Mocks\Tenant;
+use Tenancy\Tests\Hooks\Database\DatabaseDriverTestCase;
 
 class MysqlDriverTest extends DatabaseDriverTestCase
 {
     protected $additionalProviders = [Provider::class];
 
-    protected $additionalMocks = [__DIR__.'/Mocks/factories/', __DIR__.'/../Mocks/factories'];
+    protected $additionalMocks = [__DIR__.'/Mocks/factories/', __DIR__.'/../../Hooks/Database/Mocks/factories'];
 
     protected $tenantModel = Tenant::class;
 
@@ -38,11 +37,13 @@ class MysqlDriverTest extends DatabaseDriverTestCase
     protected function registerDatabaseListener()
     {
         config(['database.connections.mysql' => include __DIR__.'/database.php']);
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+
+        $this->configureBoth(function ($event) {
             $event->useConfig(
                 __DIR__.DIRECTORY_SEPARATOR.'database.php',
                 $event->configuration);
         });
+
         $this->events->listen([Creating::class, Updating::class, Deleting::class], function ($event) {
             $event->configuration['host'] = '%';
         });

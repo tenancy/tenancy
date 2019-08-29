@@ -21,7 +21,7 @@ abstract class ConfigurableHook extends Hook
     /**
      * Queue connection to dispatch Hook on, or null for default.
      *
-     * @var null|string|bool
+     * @var null|string|false
      */
     public $queue = false;
 

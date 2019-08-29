@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Mysql;
 
-use Tenancy\Database\Drivers\Mysql\Listeners\ConfiguresTenantConnection;
-use Tenancy\Support\DatabaseProvider;
+use Tenancy\Database\Drivers\Mysql\Listeners\ConfiguresTenantDatabase;
+use Tenancy\Hooks\Database\Support\DatabaseProvider;
 
 class Provider extends DatabaseProvider
 {
-    protected $listener = ConfiguresTenantConnection::class;
+    protected $listener = ConfiguresTenantDatabase::class;
 }

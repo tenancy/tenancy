@@ -18,11 +18,11 @@ namespace Tenancy\Hooks\Migrations\Hooks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
-use Tenancy\Tenant\Events\Event;
 
 class SeedsHook extends ConfigurableHook
 {
@@ -37,6 +37,7 @@ class SeedsHook extends ConfigurableHook
     public function __construct()
     {
         $this->connection = Tenancy::getTenantConnectionName();
+        $this->resolver = resolve(ResolvesConnections::class);
     }
 
     public function for($event)
@@ -62,6 +63,7 @@ class SeedsHook extends ConfigurableHook
 
         Model::unguard();
 
+        $this->resolver->__invoke($this->event->tenant, $this->connection);
         $db->setDefaultConnection($this->connection);
 
         foreach ($this->seeds as $seed) {
@@ -72,6 +74,7 @@ class SeedsHook extends ConfigurableHook
             $seed();
         }
 
+        $this->resolver->__invoke(null, $this->connection);
         $db->setDefaultConnection($default);
 
         Model::reguard();

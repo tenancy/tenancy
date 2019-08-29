@@ -17,17 +17,27 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Migrations;
 
 use Illuminate\Support\Facades\DB;
-use Tenancy\Database\Drivers\Sqlite\Provider as DatabaseProvider;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Hooks\Migrations\Provider;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
+use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
+use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
 use Tenancy\Tenant\Events\Created;
+use Tenancy\Testing\Concerns\InteractsWithConnections;
+use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
 
 class SeedsHookTest extends TestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class, Provider::class];
+    protected $additionalProviders = [SQLiteProvider::class, MigrationsProvider::class, ConnectionProvider::class, DatabaseProvider::class];
+
+    use InteractsWithDatabases,
+        InteractsWithConnections,
+        InteractsWithMigrations;
+
     /**
      * @var Tenant
      */
@@ -42,16 +52,23 @@ class SeedsHookTest extends TestCase
     {
         $this->resolveTenant($this->tenant = $this->mockTenant());
 
-        $this->migrateTenant(__DIR__.'/database/');
-        $this->seedTenant(__DIR__.'/seeds/MockSeeder.php');
+        $this->registerMigrationsPath(__DIR__.'/database/');
+        $this->registerSeederFile(__DIR__.'/seeds/MockSeeder.php');
 
         $this->defaultConnection = DB::getDefaultConnection();
 
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $callback = function ($event) {
             $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
+        };
+
+        $this->resolveConnection(function () {
+            return new ConnectionListener();
         });
+
+        $this->configureConnection($callback);
+        $this->configureDatabase($callback);
 
         $this->events->dispatch(new Created($this->tenant));
     }

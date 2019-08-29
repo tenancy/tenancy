@@ -76,6 +76,7 @@
                 "Tenancy\\Providers\\TenancyProvider",
                 "Tenancy\\Affects\\Cache\\Provider",
                 "Tenancy\\Affects\\Config\\Provider",
+                "Tenancy\\Affects\\Connection\\Provider",
                 "Tenancy\\Affects\\Filesystem\\Provider",
                 "Tenancy\\Affects\\Logs\\Provider",
                 "Tenancy\\Affects\\Models\\Provider",

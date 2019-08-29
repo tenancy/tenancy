@@ -27,9 +27,5 @@ trait ProvidesListeners
                 Event::listen($event, $listener);
             }
         }
-
-        foreach ($this->subscribe as $subscriber) {
-            Event::subscribe($subscriber);
-        }
     }
 }

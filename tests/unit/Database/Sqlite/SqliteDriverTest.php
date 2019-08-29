@@ -17,8 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database\Sqlite;
 
 use Tenancy\Database\Drivers\Sqlite\Provider;
-use Tenancy\Database\Events\Drivers\Configuring;
-use Tenancy\Tests\Database\DatabaseDriverTestCase;
+use Tenancy\Tests\Hooks\Database\DatabaseDriverTestCase;
 
 class SqliteDriverTest extends DatabaseDriverTestCase
 {
@@ -26,7 +25,7 @@ class SqliteDriverTest extends DatabaseDriverTestCase
 
     protected function registerDatabaseListener()
     {
-        $this->events->listen(Configuring::class, function (Configuring $event) {
+        $this->configureBoth(function ($event) {
             $event->useConfig(__DIR__.DIRECTORY_SEPARATOR.'database.php', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);

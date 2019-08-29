@@ -1,10 +1,11 @@
 {
     "name": "tenancy/hooks-migrations",
     "description": "The tenancy/tenancy migrations mutations",
-    "keywords": ["affects", "tenancy", "migrations"],
+    "keywords": ["hooks", "tenancy", "migrations"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*"
+        "tenancy/framework": "*",
+        "tenancy/affects-connection": "*"
     },
     "autoload": {
         "psr-4": {

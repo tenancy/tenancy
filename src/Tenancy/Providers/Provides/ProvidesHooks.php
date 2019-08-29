@@ -22,12 +22,10 @@ trait ProvidesHooks
 {
     protected function bootProvidesHooks()
     {
-        if (count($this->hooks)) {
-            $this->app->resolving(ResolvesHooks::class, function (ResolvesHooks $resolver) {
-                foreach ($this->hooks as $hook) {
-                    $resolver->addHook($hook);
-                }
-            });
-        }
+        $this->app->resolving(ResolvesHooks::class, function (ResolvesHooks $resolver) {
+            foreach ($this->hooks as $hook) {
+                $resolver->addHook($hook);
+            }
+        });
     }
 }

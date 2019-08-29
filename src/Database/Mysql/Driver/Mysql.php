@@ -19,10 +19,11 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
-use Tenancy\Database\Contracts\ProvidesDatabase;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
-use Tenancy\Database\Events\Drivers as Events;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
@@ -59,19 +60,10 @@ class Mysql implements ProvidesDatabase
             return false;
         }
 
-        $tempTenant = $tenant;
-        $tempTenant->{$tempTenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
-        $originalTenant = Tenancy::getTenant();
-
-        Tenancy::setTenant($tempTenant);
-        $connection = Tenancy::getTenantConnection();
-        $tables = $connection->getDoctrineSchemaManager()->listTableNames();
-
-        Tenancy::setTenant($originalTenant);
-
         $tableStatements = [];
-        foreach ($tables as $table) {
-            $tableStatements['table'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
+
+        foreach ($this->retrieveTables($tenant) as $table) {
+            $tableStatements['move-table-'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
         }
 
         $statements = array_merge([
@@ -82,7 +74,7 @@ class Mysql implements ProvidesDatabase
         ], $tableStatements);
 
         // Add database drop statement as last statement
-        $tableStatements['delete_db'] = "DROP DATABASE `{$config['oldUsername']}`";
+        $tableStatements['delete-db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
         return $this->process($tenant, $statements);
     }
@@ -133,5 +125,25 @@ class Mysql implements ProvidesDatabase
         $this->system($tenant)->commit();
 
         return $success;
+    }
+
+    /**
+     * @param Tenant $tenant
+     *
+     * @return array
+     */
+    protected function retrieveTables(Tenant $tenant): array
+    {
+        $tenant->{$tenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
+
+        /** @var ResolvesConnections $resolver */
+        $resolver = resolve(ResolvesConnections::class);
+        $resolver($tenant, Tenancy::getTenantConnectionName());
+
+        $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
+
+        $resolver(null, Tenancy::getTenantConnectionName());
+
+        return $tables;
     }
 }
