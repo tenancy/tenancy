@@ -62,7 +62,7 @@ jobs:
             - checkout
             - restore_cache:
                   keys:
-                      - composer-7.2-{{ checksum "composer.json" }}
+                      - composer-7.3-{{ checksum "composer.json" }}
             - run: apt-get -yqq update
             - run: apt-get -yqq install git unzip zip libpq-dev default-mysql-client libpng-dev
             - run: docker-php-ext-install pdo_pgsql pdo_mysql gd
