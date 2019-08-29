@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Hooks\Database;
 use InvalidArgumentException;
 use Tenancy\Hooks\Database\Events\Drivers\Creating;
 use Tenancy\Hooks\Database\Provider;
-use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
 

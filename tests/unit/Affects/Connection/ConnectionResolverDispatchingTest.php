@@ -18,7 +18,7 @@ namespace Tenancy\Tests\Affects\Connection;
 
 use Tenancy\Affects\Connection\Events;
 use Tenancy\Affects\Connection\Provider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
+use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 

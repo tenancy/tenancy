@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Hooks\Database;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Events;
 use Tenancy\Hooks\Database\Provider;
-use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Testing\TestCase;
 
