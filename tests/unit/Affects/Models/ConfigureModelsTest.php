@@ -79,4 +79,49 @@ class ConfigureModelsTest extends TestCase
         $this->resolveTenant($this->tenant);
         Tenancy::getTenant();
     }
+
+    /**
+     * @test
+     */
+    public function can_override_builder()
+    {
+        $this->artisan('migrate', [
+            '--path' => realpath(__DIR__.'/migrations/'),
+            '--realpath' => true
+        ]);
+
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->staticCallOnModels(
+                [Mocks\TenantModel::class],
+                'addGlobalScope',
+                [new Mocks\TenantScope]);
+        });
+
+        (new Mocks\TenantModel())->create();
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
+
+        // When on tenant model should not return any models
+        $this->assertEmpty(
+            Mocks\TenantModel::all()
+        );
+
+        (new Mocks\TenantModel())->create([
+            'tenant_id' => Tenancy::getTenant()->getTenantKey()
+        ]);
+
+        // Should return the models on tenat
+        foreach(Mocks\TenantModel::all() as $model){
+            $this->assertEquals(
+                Tenancy::getTenant()->getTenantKey(),
+                $model->tenant_id
+            );
+        }
+
+        Tenancy::setTenant(null);
+        foreach(Mocks\TenantModel::all() as $model){
+            $this->assertNull($model->tenant_id);
+        }
+    }
 }
