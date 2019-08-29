@@ -34,9 +34,9 @@ class SetConnection
             $configuration['tenant-key'] = optional($event->tenant)->getTenantKey();
             $configuration['tenant-identifier'] = optional($event->tenant)->getTenantIdentifier();
 
-            config(['database.connections.'.$connection  => $configuration]);
+            config(['database.connections.'.$connection => $configuration]);
         } else {
-            config(['database.connections.'.$connection  => null]);
+            config(['database.connections.'.$connection => null]);
         }
 
         if (!$event->tenant
