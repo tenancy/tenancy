@@ -23,7 +23,8 @@ class ConfiguresConnection extends Affect
 {
     public function fire(): void
     {
+        /** @var ResolvesConnections $resolver */
         $resolver = resolve(ResolvesConnections::class);
-        $resolver->__invoke($this->event->tenant);
+        $resolver($this->event->tenant);
     }
 }

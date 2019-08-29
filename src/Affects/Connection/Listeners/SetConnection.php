@@ -28,11 +28,14 @@ class SetConnection
         $connection = $event->connection ?? Tenancy::getTenantConnectionName();
         $existingConfig = config('database.connections.'.$connection);
 
+        $key = optional($event->tenant)->getTenantKey();
+        $identifier = optional($event->tenant)->getTenantIdentifier();
+
         if ($event->tenant && $event->provider) {
             $configuration = $event->provider->configure($event->tenant);
 
-            $configuration['tenant-key'] = optional($event->tenant)->getTenantKey();
-            $configuration['tenant-identifier'] = optional($event->tenant)->getTenantIdentifier();
+            $configuration['tenant-key'] = $key;
+            $configuration['tenant-identifier'] = $identifier;
 
             config(['database.connections.'.$connection  => $configuration]);
         } else {
@@ -41,9 +44,11 @@ class SetConnection
 
         if (!$event->tenant
             || !$event->provider
-            || Arr::get($existingConfig, 'tenant-key') !== $configuration['tenant-key']
-            || Arr::get($existingConfig, 'tenant-identifier') !== $configuration['tenant-identifier']) {
-            resolve(DatabaseManager::class)->purge($connection);
+            || Arr::get($existingConfig, 'tenant-key') !== $key
+            || Arr::get($existingConfig, 'tenant-identifier') !== $identifier) {
+            /** @var DatabaseManager $manager */
+            $manager = resolve(DatabaseManager::class);
+            optional($manager)->purge($connection);
         }
     }
 }

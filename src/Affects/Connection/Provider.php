@@ -27,8 +27,8 @@ use Tenancy\Support\AffectsProvider;
 class Provider extends AffectsProvider
 {
     use ProvidesBindings,
-        ProvidesListeners,
-        ProvidesConfigs;
+        ProvidesConfigs,
+        ProvidesListeners;
 
     protected $configs = [
         __DIR__.'/resources/config/connection.php',
@@ -49,6 +49,7 @@ class Provider extends AffectsProvider
     public function boot()
     {
         parent::boot();
+
         Environment::macro('getTenantConnectionName', function () {
             return config('tenancy.connection.tenant-connection-name') ?? 'tenant';
         });

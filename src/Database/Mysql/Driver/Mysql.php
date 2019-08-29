@@ -19,6 +19,7 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
@@ -63,8 +64,10 @@ class Mysql implements ProvidesDatabase
         $tempTenant->{$tempTenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
         $originalTenant = Tenancy::getTenant();
 
-        $resolver = resolve(\Tenancy\Affects\Connection\ConnectionResolver::class);
-        $resolver->__invoke($tempTenant, Tenancy::getTenantConnectionName());
+        /** @var ResolvesConnections $resolver */
+        $resolver = resolve(ResolvesConnections::class);
+        $resolver($tempTenant, Tenancy::getTenantConnectionName());
+
         $connection = Tenancy::getTenantConnection();
         $tables = $connection->getDoctrineSchemaManager()->listTableNames();
 
