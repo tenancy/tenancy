@@ -95,6 +95,15 @@ class ConfigureModelsTest extends TestCase
                 [Mocks\TenantModel::class],
                 'addGlobalScope',
                 [new Mocks\TenantScope()]);
+            $event->staticCallOnModels(
+                [Mocks\TenantModel::class],
+                'creating',
+                [function($model){
+                    if(!isset($model->tenant_id)){
+                        $model->tenant_id = Tenancy::getTenant()->getTenantKey();
+                    }
+                }]
+            );
         });
 
         (new Mocks\TenantModel())->create();
@@ -107,9 +116,7 @@ class ConfigureModelsTest extends TestCase
             Mocks\TenantModel::all()
         );
 
-        (new Mocks\TenantModel())->create([
-            'tenant_id' => Tenancy::getTenant()->getTenantKey(),
-        ]);
+        (new Mocks\TenantModel())->create();
 
         // Should return the models on tenat
         foreach (Mocks\TenantModel::all() as $model) {
