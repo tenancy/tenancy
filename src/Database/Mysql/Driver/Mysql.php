@@ -129,6 +129,7 @@ class Mysql implements ProvidesDatabase
 
     /**
      * @param Tenant $tenant
+     *
      * @return array
      */
     protected function retrieveTables(Tenant $tenant): array
