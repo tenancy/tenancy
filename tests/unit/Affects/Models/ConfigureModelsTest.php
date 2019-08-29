@@ -86,15 +86,15 @@ class ConfigureModelsTest extends TestCase
     public function can_override_builder()
     {
         $this->artisan('migrate', [
-            '--path' => realpath(__DIR__.'/migrations/'),
-            '--realpath' => true
+            '--path'     => realpath(__DIR__.'/migrations/'),
+            '--realpath' => true,
         ]);
 
         $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
             $event->staticCallOnModels(
                 [Mocks\TenantModel::class],
                 'addGlobalScope',
-                [new Mocks\TenantScope]);
+                [new Mocks\TenantScope()]);
         });
 
         (new Mocks\TenantModel())->create();
@@ -108,11 +108,11 @@ class ConfigureModelsTest extends TestCase
         );
 
         (new Mocks\TenantModel())->create([
-            'tenant_id' => Tenancy::getTenant()->getTenantKey()
+            'tenant_id' => Tenancy::getTenant()->getTenantKey(),
         ]);
 
         // Should return the models on tenat
-        foreach(Mocks\TenantModel::all() as $model){
+        foreach (Mocks\TenantModel::all() as $model) {
             $this->assertEquals(
                 Tenancy::getTenant()->getTenantKey(),
                 $model->tenant_id
@@ -120,7 +120,7 @@ class ConfigureModelsTest extends TestCase
         }
 
         Tenancy::setTenant(null);
-        foreach(Mocks\TenantModel::all() as $model){
+        foreach (Mocks\TenantModel::all() as $model) {
             $this->assertNull($model->tenant_id);
         }
     }

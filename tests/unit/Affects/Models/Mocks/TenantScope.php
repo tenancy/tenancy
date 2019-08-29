@@ -16,23 +16,24 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Models\Mocks;
 
-use Tenancy\Facades\Tenancy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Builder;
+use Tenancy\Facades\Tenancy;
 
 class TenantScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param \Illuminate\Database\Eloquent\Model   $model
+     *
      * @return void
      */
     public function apply(Builder $builder, Model $model)
     {
-        if(Tenancy::getTenant() === null){
+        if (Tenancy::getTenant() === null) {
             $builder->whereNull('tenant_id');
         } else {
             $builder->where('tenant_id', Tenancy::getTenant()->getTenantKey());
