@@ -14,17 +14,19 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Connection;
+namespace Tenancy\Tests\Hooks\Database;
 
 use InvalidArgumentException;
-use Tenancy\Affects\Connection\Provider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
-use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Events\Drivers\Creating;
+use Tenancy\Hooks\Database\Provider;
+use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
+use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
 
-class ConnectionResolverTest extends TestCase
+class DatabaseResolverTest extends TestCase
 {
-    use InteractsWithConnections;
+    use InteractsWithDatabases;
+
     protected $additionalProviders = [Provider::class];
 
     protected $tenant;
@@ -32,10 +34,9 @@ class ConnectionResolverTest extends TestCase
     protected function afterSetUp()
     {
         $this->tenant = $this->mockTenant();
-        $this->resolveTenant($this->tenant);
 
-        $this->resolveConnection(function () {
-            return new Mocks\ConnectionListener();
+        $this->resolveDatabase(function () {
+            return new Mocks\NullDriver();
         });
     }
 
@@ -44,16 +45,18 @@ class ConnectionResolverTest extends TestCase
      */
     public function can_use_connection()
     {
-        $this->configureConnection(function ($event) {
+        $this->configureDatabase(function ($event) {
             $event->useConnection('sqlite', $event->configuration);
         });
 
-        Tenancy::getTenant();
+        $this->events->listen(Creating::class, function (Creating $event) {
+            $this->assertEquals(
+                'sqlite',
+                $event->configuration['driver']
+            );
+        });
 
-        $this->assertEquals(
-            'sqlite',
-            config('database.connections.tenant.driver')
-        );
+        $this->events->dispatch(new Created($this->tenant));
     }
 
     /**
@@ -61,16 +64,18 @@ class ConnectionResolverTest extends TestCase
      */
     public function can_use_config()
     {
-        $this->configureConnection(function ($event) {
+        $this->configureDatabase(function ($event) {
             $event->useConfig(__DIR__.'/database.php', $event->configuration);
         });
 
-        Tenancy::getTenant();
+        $this->events->listen(Creating::class, function (Creating $event) {
+            $this->assertEquals(
+                'sqlite',
+                $event->configuration['driver']
+            );
+        });
 
-        $this->assertEquals(
-            'sqlite',
-            config('database.connections.tenant.driver')
-        );
+        $this->events->dispatch(new Created($this->tenant));
     }
 
     /**
@@ -78,12 +83,12 @@ class ConnectionResolverTest extends TestCase
      */
     public function use_config_detects_invalid_path()
     {
-        $this->configureConnection(function ($event) {
+        $this->configureDatabase(function ($event) {
             $event->useConfig(__DIR__.'/arlon.php', $event->configuration);
         });
 
         $this->expectException(InvalidArgumentException::class);
 
-        Tenancy::getTenant();
+        $this->events->dispatch(new Created($this->tenant));
     }
 }

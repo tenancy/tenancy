@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database\Mocks;
 
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
-use Tenancy\Hooks\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class NullDriver implements ProvidesDatabase
@@ -28,28 +28,34 @@ class NullDriver implements ProvidesDatabase
 
         $config['database'] = $tenant->getTenantKey();
 
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
 
     public function create(Tenant $tenant): bool
     {
-        $this->configure($tenant);
+        $config = $this->configure($tenant);
+
+        event(new Events\Creating($tenant, $config, $this));
 
         return true;
     }
 
     public function update(Tenant $tenant): bool
     {
-        $this->configure($tenant);
+        $config = $this->configure($tenant);
+
+        event(new Events\Updating($tenant, $config, $this));
 
         return true;
     }
 
     public function delete(Tenant $tenant): bool
     {
-        $this->configure($tenant);
+        $config = $this->configure($tenant);
+
+        event(new Events\Deleting($tenant, $config, $this));
 
         return true;
     }
