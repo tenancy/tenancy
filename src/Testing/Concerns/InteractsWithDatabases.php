@@ -14,20 +14,20 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Connection\Support;
+namespace Tenancy\Testing\Concerns;
 
 use Closure;
-use Tenancy\Affects\Connection\Events\Drivers\Configuring;
-use Tenancy\Affects\Connection\Events\Resolving;
+use Tenancy\Hooks\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Events\Resolving;
 
-trait InteractsWithConnections
+trait InteractsWithDatabases
 {
-    protected function resolveConnection(Closure $callback)
+    protected function resolveDatabase(Closure $callback)
     {
         $this->events->listen(Resolving::class, $callback);
     }
 
-    protected function configureConnection(Closure $callback)
+    protected function configureDatabase(Closure $callback)
     {
         $this->events->listen(Configuring::class, $callback);
     }

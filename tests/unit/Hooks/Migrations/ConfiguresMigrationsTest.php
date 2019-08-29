@@ -19,16 +19,16 @@ namespace Tenancy\Tests\Hooks\Migrations;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Affects\Connection\Provider as ConnectionProvider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Database\Support\InteractsWithDatabases;
 use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
 use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
+use Tenancy\Testing\Concerns\InteractsWithConnections;
+use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
 

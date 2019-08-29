@@ -18,8 +18,8 @@ namespace Tenancy\Tests\Affects\Connection;
 
 use Tenancy\Affects\Connection\Events;
 use Tenancy\Affects\Connection\Provider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\TestCase;
 
 class ConnectionResolverDispatchingTest extends TestCase

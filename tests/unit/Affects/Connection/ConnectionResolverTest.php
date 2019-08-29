@@ -18,8 +18,8 @@ namespace Tenancy\Tests\Affects\Connection;
 
 use InvalidArgumentException;
 use Tenancy\Affects\Connection\Provider;
-use Tenancy\Affects\Connection\Support\InteractsWithConnections;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\TestCase;
 
 class ConnectionResolverTest extends TestCase
