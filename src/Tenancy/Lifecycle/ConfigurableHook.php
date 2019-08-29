@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * Copyright Laravel Tenancy & Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,7 @@ abstract class ConfigurableHook extends Hook
     /**
      * Queue connection to dispatch Hook on, or null for default.
      *
-     * @var null|string|bool
+     * @var null|string|false
      */
     public $queue = false;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * Copyright Laravel Tenancy & Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Facades;
 
-use InvalidArgumentException;
 use Tenancy\Database\Events\Resolving;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
@@ -91,16 +90,6 @@ class TenancyTest extends TestCase
 
     /**
      * @test
-     * @covers \Tenancy\Environment::getTenantConnection
-     */
-    public function can_retrieve_tenant_connection()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        Tenancy::getTenantConnection()->getName();
-    }
-
-    /**
-     * @test
      * @covers \Tenancy\Environment::setTenant
      */
     public function can_switch_tenant()
@@ -131,24 +120,5 @@ class TenancyTest extends TestCase
 
         $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
         $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());
-    }
-
-    /**
-     * @test
-     */
-    public function switch_tenant_sets_connection()
-    {
-        $this->assertNull(config('database.connections.'.Tenancy::getTenantConnectionName()));
-
-        Tenancy::setTenant($this->tenant);
-
-        $this->assertEquals(
-            config('database.connections.'.Tenancy::getTenantConnectionName().'.tenant-key'),
-            $this->tenant->getTenantKey()
-        );
-        $this->assertEquals(
-            config('database.connections.'.Tenancy::getTenantConnectionName().'.tenant-identifier'),
-            $this->tenant->getTenantIdentifier()
-        );
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * Copyright Laravel Tenancy & Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,6 +29,7 @@ class ConfiguresCache extends Affect
     {
         /** @var CacheManager $manager¸ */
         $manager = resolve(CacheManager::class);
+
         /** @var Repository $config */
         $config = resolve(Repository::class);
 

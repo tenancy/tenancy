@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * Copyright Laravel Tenancy & Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,23 +16,17 @@ declare(strict_types=1);
 
 namespace Tenancy\Database\Drivers\Sqlite\Driver;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Sqlite implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('tenancy.db-driver-sqlite.use-connection')) {
-            return config("database.connections.$name");
-        }
+        $config = [];
 
-        $config = config('tenancy.db-driver-sqlite.preset', []);
-
-        $config['database'] = database_path($tenant->getTenantKey());
-
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
@@ -40,6 +34,8 @@ class Sqlite implements ProvidesDatabase
     public function create(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Creating($tenant, $config, $this));
 
         return touch($config['database']);
     }
@@ -51,6 +47,8 @@ class Sqlite implements ProvidesDatabase
         $previous = $this->configure($original);
 
         $config = $this->configure($tenant);
+
+        event(new Events\Updating($tenant, $config, $this));
 
         if ($previous['database'] !== $config['database']) {
             return rename(
@@ -65,6 +63,8 @@ class Sqlite implements ProvidesDatabase
     public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
+
+        event(new Events\Deleting($tenant, $config, $this));
 
         return unlink($config['database']);
     }

@@ -5,7 +5,8 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "5.8.*",
-        "psr/container": "^1.0.0"
+        "psr/container": "^1.0.0",
+        "doctrine/dbal": "^2.9"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.7",
@@ -75,6 +76,7 @@
                 "Tenancy\\Providers\\TenancyProvider",
                 "Tenancy\\Affects\\Cache\\Provider",
                 "Tenancy\\Affects\\Config\\Provider",
+                "Tenancy\\Affects\\Connection\\Provider",
                 "Tenancy\\Affects\\Filesystem\\Provider",
                 "Tenancy\\Affects\\Logs\\Provider",
                 "Tenancy\\Affects\\Models\\Provider",
