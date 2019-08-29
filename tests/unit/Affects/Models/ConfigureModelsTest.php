@@ -119,6 +119,7 @@ class ConfigureModelsTest extends TestCase
         (new Mocks\TenantModel())->create();
 
         // Should return the models on tenat
+        $this->assertNotEmpty(Mocks\TenantModel::all());
         foreach (Mocks\TenantModel::all() as $model) {
             $this->assertEquals(
                 Tenancy::getTenant()->getTenantKey(),
@@ -127,6 +128,7 @@ class ConfigureModelsTest extends TestCase
         }
 
         Tenancy::setTenant(null);
+        $this->assertNotEmpty(Mocks\TenantModel::all());
         foreach (Mocks\TenantModel::all() as $model) {
             $this->assertNull($model->tenant_id);
         }
