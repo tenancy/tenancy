@@ -33,7 +33,7 @@ class ConfigureModels
 
     public static function __callStatic($method, $parameters)
     {
-        if(!is_array($models = array_shift($parameters))){
+        if (!is_array($models = array_shift($parameters))) {
             $models = [$models];
         }
         foreach ($models as $model) {
@@ -46,15 +46,16 @@ class ConfigureModels
 
     public function __call($method, $parameters)
     {
-        if(!is_array($models = array_shift($parameters))){
+        if (!is_array($models = array_shift($parameters))) {
             $models = [$models];
         }
         foreach ($models as $model) {
             if (!class_exists($model)) {
                 throw new InvalidArgumentException("$model does not exist");
             }
-            (new $model)->{$method}(...$parameters);
+            (new $model())->{$method}(...$parameters);
         }
+
         return $this;
     }
 }
