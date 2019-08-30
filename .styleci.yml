@@ -1,4 +1,3 @@
-preset: psr-2
-
+preset: recommended
 enabled:
-    - declare_strict_types
+  - declare_strict_types
