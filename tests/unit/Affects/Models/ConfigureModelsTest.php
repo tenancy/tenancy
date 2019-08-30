@@ -41,13 +41,35 @@ class ConfigureModelsTest extends TestCase
     /**
      * @test
      */
-    public function can_override_connection_resolver()
+    public function forwards_static_calls()
     {
         $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
-            $event->staticCallOnModels(
+            ConfigureModels::setConnectionResolver(
                 [Mocks\TenantModel::class],
-                'setConnectionResolver',
-                [new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db'))]);
+                new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db')));
+        });
+
+        // This should not trigger an Exception, because it is using the default app connection.
+        (new Mocks\TenantModel())->getConnection();
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
+
+        $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
+
+        $this->expectExceptionMessage('Database [tenant] not configured.');
+        (new Mocks\TenantModel())->getConnection();
+    }
+
+    /**
+     * @test
+     */
+    public function forwards_calls()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            $event->setConnectionResolver(
+                [Mocks\TenantModel::class],
+                new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db')));
         });
 
         // This should not trigger an Exception, because it is using the default app connection.
@@ -83,6 +105,29 @@ class ConfigureModelsTest extends TestCase
     /**
      * @test
      */
+    public function can_override_connection_resolver()
+    {
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
+            ConfigureModels::setConnectionResolver(
+                [Mocks\TenantModel::class],
+                new Mocks\ConnectionResolver(Tenancy::getTenantConnectionName(), resolve('db')));
+        });
+
+        // This should not trigger an Exception, because it is using the default app connection.
+        (new Mocks\TenantModel())->getConnection();
+
+        $this->resolveTenant($this->tenant);
+        Tenancy::getTenant();
+
+        $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
+
+        $this->expectExceptionMessage('Database [tenant] not configured.');
+        (new Mocks\TenantModel())->getConnection();
+    }
+
+    /**
+     * @test
+     */
     public function can_override_builder()
     {
         $this->artisan('migrate', [
@@ -91,18 +136,16 @@ class ConfigureModelsTest extends TestCase
         ]);
 
         $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
-            $event->staticCallOnModels(
+            $event->addGlobalScope(
                 [Mocks\TenantModel::class],
-                'addGlobalScope',
-                [new Mocks\TenantScope()]);
-            $event->staticCallOnModels(
+                new Mocks\TenantScope());
+            $event->creating(
                 [Mocks\TenantModel::class],
-                'creating',
-                [function ($model) {
+                function ($model) {
                     if (!isset($model->tenant_id)) {
                         $model->tenant_id = Tenancy::getTenant()->getTenantKey();
                     }
-                }]
+                }
             );
         });
 

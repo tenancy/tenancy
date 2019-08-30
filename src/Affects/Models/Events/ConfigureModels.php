@@ -31,25 +31,30 @@ class ConfigureModels
         $this->event = $event;
     }
 
-    /**
-     * Runs static functions on models.
-     *
-     * @param array  $models
-     * @param string $function
-     * @param array  $arguments
-     *
-     * @return $this
-     */
-    public function staticCallOnModels(array $models, string $function, array $arguments)
+    public static function __callStatic($method, $parameters)
     {
+        if(!is_array($models = array_shift($parameters))){
+            $models = [$models];
+        }
         foreach ($models as $model) {
             if (!class_exists($model)) {
                 throw new InvalidArgumentException("$model does not exist");
             }
-
-            forward_static_call([$model, $function], ...$arguments);
+            forward_static_call([$model, $method], ...$parameters);
         }
+    }
 
+    public function __call($method, $parameters)
+    {
+        if(!is_array($models = array_shift($parameters))){
+            $models = [$models];
+        }
+        foreach ($models as $model) {
+            if (!class_exists($model)) {
+                throw new InvalidArgumentException("$model does not exist");
+            }
+            (new $model)->{$method}(...$parameters);
+        }
         return $this;
     }
 }
