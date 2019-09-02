@@ -1,0 +1,33 @@
+{
+    "name": "tenancy/affects-models",
+    "description": "The tenancy/tenancy eloquent models mutations",
+    "keywords": ["affects", "tenancy", "models"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Models\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        },
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlonantonius.com",
+            "homepage": "https://arlonantonius.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Models\\Provider"
+            ]
+        }
+    }
+}
