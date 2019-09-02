@@ -5,7 +5,8 @@
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",
-        "tenancy/affects-connection": "*"
+        "tenancy/affects-connection": "*",
+        "doctrine/dbal": "^2.9"
     },
     "autoload": {
         "psr-4": {
