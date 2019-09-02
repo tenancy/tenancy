@@ -6,7 +6,8 @@
     "require": {
         "tenancy/framework": "*",
         "tenancy/hooks-database": "*",
-        "tenancy/affects-connection": "*"
+        "tenancy/affects-connection": "*",
+        "doctrine/dbal": "^2.9"
     },
     "autoload": {
         "psr-4": {
