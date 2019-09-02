@@ -38,13 +38,15 @@ class ConfigureMail
     }
 
     /**
-     * Set the basic from address for the mailer
+     * Set the basic from address for the mailer.
      *
-     * @param string $address
+     * @param string      $address
      * @param string|null $name
+     *
      * @return void
      */
-    public function setFrom(string $address, string $name = null){
+    public function setFrom(string $address, string $name = null)
+    {
         $this->mailer->alwaysFrom($address, $name);
     }
 }

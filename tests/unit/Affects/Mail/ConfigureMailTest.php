@@ -17,9 +17,9 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Mail;
 
 use Illuminate\Support\Facades\Mail;
+use Swift_Events_SendEvent;
+use Swift_Events_SendListener;
 use Tenancy\Affects\Mail\Events\ConfigureMail;
-use Tenancy\Affects\Mail\Provider;
-use Tenancy\Testing\TestCase;
 
 class ConfigureMailTest extends TestCase
 {
@@ -31,8 +31,8 @@ class ConfigureMailTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->app->resolving('mailer', function ($Mailer){
-            $Mailer->getSwiftMailer()->registerPlugin(New TestPlugin($this));
+        $this->app->resolving('mailer', function ($Mailer) {
+            $Mailer->getSwiftMailer()->registerPlugin(new TestPlugin($this));
         });
     }
 
@@ -41,7 +41,7 @@ class ConfigureMailTest extends TestCase
      */
     public function adjusting_config_adjusts_from_email()
     {
-        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event){
+        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
             $event->setFrom($event->event->tenant->email);
         });
 
@@ -76,13 +76,12 @@ class ConfigureMailTest extends TestCase
     }
 }
 
-use Swift_Events_SendListener;
-use Swift_Events_SendEvent;
+use Tenancy\Affects\Mail\Provider;
+use Tenancy\Testing\TestCase;
 
-class TestPlugin implements Swift_Events_SendListener{
-
+class TestPlugin implements Swift_Events_SendListener
+{
     protected $test;
-
 
     public function __construct($test)
     {
@@ -94,7 +93,8 @@ class TestPlugin implements Swift_Events_SendListener{
      *
      * @param Swift_Events_SendEvent $evt
      */
-    public function beforeSendPerformed(Swift_Events_SendEvent $evt){
+    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
+    {
         $this->test->emails[] = $evt->getMessage();
     }
 
@@ -103,7 +103,8 @@ class TestPlugin implements Swift_Events_SendListener{
      *
      * @param Swift_Events_SendEvent $evt
      */
-    public function sendPerformed(Swift_Events_SendEvent $evt){
+    public function sendPerformed(Swift_Events_SendEvent $evt)
+    {
         $this->test->emails[] = $evt->getMessage();
     }
 }
