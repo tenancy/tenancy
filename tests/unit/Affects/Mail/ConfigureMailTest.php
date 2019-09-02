@@ -17,9 +17,9 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Mail;
 
 use Illuminate\Support\Facades\Mail;
-use Swift_Events_SendEvent;
-use Swift_Events_SendListener;
 use Tenancy\Affects\Mail\Events\ConfigureMail;
+use Tenancy\Affects\Mail\Provider;
+use Tenancy\Testing\TestCase;
 
 class ConfigureMailTest extends TestCase
 {
@@ -32,14 +32,14 @@ class ConfigureMailTest extends TestCase
     protected function afterSetUp()
     {
         $this->app->resolving('mailer', function ($Mailer) {
-            $Mailer->getSwiftMailer()->registerPlugin(new TestPlugin($this));
+            $Mailer->getSwiftMailer()->registerPlugin(new SwiftTestPlugin($this));
         });
     }
 
     /**
      * @test
      */
-    public function adjusting_config_adjusts_from_email()
+    public function can_change_from_email()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
             $event->setFrom($event->event->tenant->email);
@@ -73,38 +73,5 @@ class ConfigureMailTest extends TestCase
             $second->email,
             array_keys($secondMail->getFrom())[0]
         );
-    }
-}
-
-use Tenancy\Affects\Mail\Provider;
-use Tenancy\Testing\TestCase;
-
-class TestPlugin implements Swift_Events_SendListener
-{
-    protected $test;
-
-    public function __construct($test)
-    {
-        $this->test = $test;
-    }
-
-    /**
-     * Invoked immediately before the Message is sent.
-     *
-     * @param Swift_Events_SendEvent $evt
-     */
-    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
-    {
-        $this->test->emails[] = $evt->getMessage();
-    }
-
-    /**
-     * Invoked immediately after the Message is sent.
-     *
-     * @param Swift_Events_SendEvent $evt
-     */
-    public function sendPerformed(Swift_Events_SendEvent $evt)
-    {
-        $this->test->emails[] = $evt->getMessage();
     }
 }
