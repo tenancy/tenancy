@@ -41,14 +41,16 @@ class ConfigureMailTest extends TestCase
         $this->resolveTenant($this->tenant);
     }
 
-    protected function getAddressFromMessage(Swift_Message $message){
+    protected function getAddressFromMessage(Swift_Message $message)
+    {
         return array_keys($message->getFrom())[0];
     }
 
     /**
      * @test
      */
-    public function can_set_config(){
+    public function can_set_config()
+    {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
             $event->setFrom($event->event->tenant->email, $event->event->tenant->name);
         });
