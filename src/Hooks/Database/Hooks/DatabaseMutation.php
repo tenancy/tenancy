@@ -18,12 +18,13 @@ namespace Tenancy\Hooks\Database\Hooks;
 
 use Illuminate\Support\Arr;
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
-use Tenancy\Lifecycle\Hook;
+use Tenancy\Hooks\Database\Events\ConfigureDatabaseMutation;
+use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Tenant\Events\Updated;
 
-class DatabaseMutation extends Hook
+class DatabaseMutation extends ConfigurableHook
 {
     const PRIORITY = -100;
 
@@ -41,6 +42,15 @@ class DatabaseMutation extends Hook
     public function fires(): bool
     {
         return Arr::has($this->mapping, get_class($this->event));
+    }
+
+    public function for($event)
+    {
+        parent::for($event);
+
+        event(new ConfigureDatabaseMutation($event, $this));
+
+        return $this;
     }
 
     public function fire(): void
