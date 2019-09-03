@@ -17,8 +17,10 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Mail;
 
 use Illuminate\Support\Facades\Mail;
+use Swift_Message;
 use Tenancy\Affects\Mail\Events\ConfigureMail;
 use Tenancy\Affects\Mail\Provider;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 
 class ConfigureMailTest extends TestCase
@@ -34,12 +36,37 @@ class ConfigureMailTest extends TestCase
         $this->app->resolving('mailer', function ($Mailer) {
             $Mailer->getSwiftMailer()->registerPlugin(new SwiftTestPlugin($this));
         });
+
+        $this->tenant = $this->mockTenant();
+        $this->resolveTenant($this->tenant);
+    }
+
+    protected function getAddressFromMessage(Swift_Message $message){
+        return array_keys($message->getFrom())[0];
     }
 
     /**
      * @test
      */
-    public function can_change_from_email()
+    public function can_set_config(){
+        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
+            $event->setFrom($event->event->tenant->email, $event->event->tenant->name);
+        });
+
+        Tenancy::getTenant();
+        Mail::to('example@example.com')->send(new Mocks\Mail());
+        $email = array_shift($this->emails);
+
+        $this->assertEquals(
+            $this->tenant->email,
+            $this->getAddressFromMessage($email)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function succesful_switch_on_more_tenants()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
             $event->setFrom($event->event->tenant->email);
@@ -50,28 +77,26 @@ class ConfigureMailTest extends TestCase
 
         $this->environment->setTenant($first);
         Mail::to('example@example.com')->send(new Mocks\Mail());
-        $firstMail = $this->emails[0];
-        $this->emails = [];
+        $firstMail = array_shift($this->emails);
 
         $this->environment->setTenant($second);
-
         Mail::to('example@example.com')->send(new Mocks\Mail());
-        $secondMail = $this->emails[0];
+        $secondMail = array_shift($this->emails);
 
         $this->assertNotEquals(
-            array_keys($firstMail->getFrom())[0],
-            array_keys($secondMail->getFrom())[0],
+            $this->getAddressFromMessage($firstMail),
+            $this->getAddressFromMessage($secondMail),
             "Both emails have the same 'from' email, meaning the tenant did not switch properly"
         );
 
         $this->assertEquals(
             $first->email,
-            array_keys($firstMail->getFrom())[0]
+            $this->getAddressFromMessage($firstMail)
         );
 
         $this->assertEquals(
             $second->email,
-            array_keys($secondMail->getFrom())[0]
+            $this->getAddressFromMessage($secondMail)
         );
     }
 }

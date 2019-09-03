@@ -45,6 +45,5 @@ class SwiftTestPlugin implements Swift_Events_SendListener
      */
     public function sendPerformed(Swift_Events_SendEvent $evt)
     {
-        $this->test->emails[] = $evt->getMessage();
     }
 }
