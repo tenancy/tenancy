@@ -32,6 +32,7 @@ class DatabaseMutation extends ConfigurableHook
         Updated::class => 'update',
         Deleted::class => 'delete',
     ];
+
     public function fires(): bool
     {
         return Arr::has($this->mapping, get_class($this->event));
