@@ -31,7 +31,7 @@ class Provider extends AffectsProvider
         ProvidesListeners;
 
     protected $configs = [
-        __DIR__.'/resources/config/connection.php',
+        __DIR__.'/resources/config/connections.php',
     ];
 
     protected $affects = [ConfiguresConnection::class];
@@ -51,7 +51,7 @@ class Provider extends AffectsProvider
         parent::boot();
 
         Environment::macro('getTenantConnectionName', function () {
-            return config('tenancy.connection.tenant-connection-name') ?? 'tenant';
+            return config('tenancy.connections.tenant-connection-name') ?? 'tenant';
         });
         Environment::macro('getTenantConnection', function () {
             return resolve(DatabaseManager::class)->connection(static::getTenantConnectionName());

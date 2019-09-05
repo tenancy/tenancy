@@ -52,7 +52,7 @@ class RegistersFunctionsTest extends TestCase
      */
     public function get_tenant_connection_name_prefers_config()
     {
-        config(['tenancy.connection.tenant-connection-name' => 'tenant2']);
+        config(['tenancy.connections.tenant-connection-name' => 'tenant2']);
 
         $this->assertEquals(
             'tenant2',
