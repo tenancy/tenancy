@@ -1,6 +1,6 @@
 {
-    "name": "tenancy/affects-connection",
-    "description": "The tenancy/tenancy connection mutations",
+    "name": "tenancy/affects-connections",
+    "description": "The tenancy/tenancy connections mutations",
     "keywords": ["affects", "tenancy", "connection"],
     "license": "MIT",
     "require": {
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Affects\\Connection\\": ""
+            "Tenancy\\Affects\\Connections\\": ""
         }
     },
     "authors": [
@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Connection\\Provider"
+                "Tenancy\\Affects\\Connections\\Provider"
             ]
         }
     }

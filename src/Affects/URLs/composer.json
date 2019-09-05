@@ -1,14 +1,14 @@
 {
-    "name": "tenancy/affects-url",
-    "description": "The tenancy/tenancy url mutations",
-    "keywords": ["affects", "tenancy", "url"],
+    "name": "tenancy/affects-urls",
+    "description": "The tenancy/tenancy urls mutations",
+    "keywords": ["affects", "tenancy", "urls"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Affects\\URL\\": ""
+            "Tenancy\\Affects\\URLs\\": ""
         }
     },
     "authors": [
@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\URL\\Provider"
+                "Tenancy\\Affects\\URLs\\Provider"
             ]
         }
     }
