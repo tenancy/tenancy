@@ -19,7 +19,7 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;

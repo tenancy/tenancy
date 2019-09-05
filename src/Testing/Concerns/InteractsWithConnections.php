@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Testing\Concerns;
 
 use Closure;
-use Tenancy\Affects\Connection\Events\Drivers\Configuring;
-use Tenancy\Affects\Connection\Events\Resolving;
+use Tenancy\Affects\Connections\Events\Drivers\Configuring;
+use Tenancy\Affects\Connections\Events\Resolving;
 
 trait InteractsWithConnections
 {

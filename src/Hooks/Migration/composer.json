@@ -1,0 +1,34 @@
+{
+    "name": "tenancy/hooks-migration",
+    "description": "The tenancy/tenancy migration mutations",
+    "keywords": ["hooks", "tenancy", "migration"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*",
+        "tenancy/affects-connection": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Hooks\\Migration\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        },
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlonantonius.com",
+            "homepage": "https://arlonantonius.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Hooks\\Migration\\Provider"
+            ]
+        }
+    }
+}

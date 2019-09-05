@@ -14,12 +14,14 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Hooks\Migration;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Support\HooksProvider;
 
-class Mock extends Model
+class Provider extends HooksProvider
 {
-    use OnTenant;
+    protected $hooks = [
+        Hooks\MigratesHook::class,
+        Hooks\SeedsHook::class,
+    ];
 }

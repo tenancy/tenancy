@@ -14,12 +14,16 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Affects\Connections\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Identification\Contracts\Tenant;
 
-class Mock extends Model
+interface ProvidesConfiguration
 {
-    use OnTenant;
+    /**
+     * @param Tenant $tenant
+     *
+     * @return array
+     */
+    public function configure(Tenant $tenant): array;
 }

@@ -14,12 +14,11 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Affects\URLs;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Support\AffectsProvider;
 
-class Mock extends Model
+class Provider extends AffectsProvider
 {
-    use OnTenant;
+    protected $affects = [ConfiguresURL::class];
 }

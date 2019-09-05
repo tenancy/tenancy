@@ -14,12 +14,25 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Affects\Filesystems\Events;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Identification\Events\Switched;
 
-class Mock extends Model
+class ConfigureDisk
 {
-    use OnTenant;
+    /**
+     * @var Switched
+     */
+    public $event;
+
+    /**
+     * @var array
+     */
+    public $config;
+
+    public function __construct(Switched $event, array &$config = [])
+    {
+        $this->event = $event;
+        $this->config = &$config;
+    }
 }
