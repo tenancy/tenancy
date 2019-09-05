@@ -21,11 +21,13 @@ use Tenancy\Affects\AffectResolver;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Identification\TenantResolver;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
-use Tenancy\Tenant\Events as Tenant;
+use Tenancy\Support\Contracts\ProvidesPassword;
+use Tenancy\Tenant\Events as Event;
 
 class TenancyProvider extends ServiceProvider
 {
@@ -40,13 +42,13 @@ class TenancyProvider extends ServiceProvider
     ];
 
     protected $listen = [
-        Tenant\Created::class => [
+        Event\Created::class => [
             ResolvesHooks::class,
         ],
-        Tenant\Updated::class => [
+        Event\Updated::class => [
             ResolvesHooks::class,
         ],
-        Tenant\Deleted::class => [
+        Event\Deleted::class => [
             ResolvesHooks::class,
         ],
         Switched::class => [
@@ -59,11 +61,24 @@ class TenancyProvider extends ServiceProvider
         $this->runTrait('register');
 
         $this->app->register(TenantProvider::class);
+        $this->registerPasswordGenerator();
     }
 
     public function boot()
     {
         $this->runTrait('boot');
+    }
+
+    protected function registerPasswordGenerator()
+    {
+        $this->app->singleton(ProvidesPassword::class, function (Tenant $tenant) {
+            return md5(sprintf(
+                '%s-%s-%s',
+                $tenant->getTenantIdentifier(),
+                $tenant->getTenantKey(),
+                config('tenancy.key') ?? config('app.key')
+            ));
+        });
     }
 
     protected function runTrait(string $runtime)
