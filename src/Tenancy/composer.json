@@ -4,7 +4,7 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.0.*",
         "psr/container": "^1.0.0"
     },
     "autoload": {
