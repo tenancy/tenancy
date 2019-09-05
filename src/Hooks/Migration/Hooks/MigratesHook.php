@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Migration\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Lifecycle\ConfigurableHook;

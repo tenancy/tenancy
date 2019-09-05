@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Models;
 
 use InvalidArgumentException;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Provider as ModelsProvider;
 use Tenancy\Facades\Tenancy;

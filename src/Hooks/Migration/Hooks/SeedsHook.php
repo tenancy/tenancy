@@ -18,7 +18,7 @@ namespace Tenancy\Hooks\Migration\Hooks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
+use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migration\Events\ConfigureSeeds;
 use Tenancy\Lifecycle\ConfigurableHook;

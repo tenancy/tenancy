@@ -20,7 +20,7 @@ use Closure;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\QueryException;
 use PDO;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Hooks\Migration\Provider as MigrationProvider;
@@ -32,7 +32,7 @@ use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
+use Tenancy\Tests\Affects\Connections\Mocks\ConnectionListener;
 use Tenancy\Tests\Hooks\Database\Mocks\Mock;
 
 abstract class DatabaseDriverTestCase extends TestCase

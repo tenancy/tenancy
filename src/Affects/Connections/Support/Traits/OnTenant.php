@@ -14,12 +14,14 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Affects\Connections\Support\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Environment;
 
-class Mock extends Model
+trait OnTenant
 {
-    use OnTenant;
+    public function getConnectionName()
+    {
+        return Environment::getTenantConnectionName();
+    }
 }

@@ -7,13 +7,13 @@ git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/framewo
 
 # Affects
 git subsplit publish --heads="master" src/Affects/Cache:git@github.com:tenancy/affects-cache.git
-git subsplit publish --heads="master" src/Affects/Config:git@github.com:tenancy/affects-config.git
-git subsplit publish --heads="master" src/Affects/Connection:git@github.com:tenancy/affects-connection.git
-git subsplit publish --heads="master" src/Affects/Filesystem:git@github.com:tenancy/affects-filesystem.git
+git subsplit publish --heads="master" src/Affects/Configs:git@github.com:tenancy/affects-configs.git
+git subsplit publish --heads="master" src/Affects/Connections:git@github.com:tenancy/affects-connections.git
+git subsplit publish --heads="master" src/Affects/Filesystems:git@github.com:tenancy/affects-filesystems.git
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
 git subsplit publish --heads="master" src/Affects/Models:git@github.com:tenancy/affects-models.git
 git subsplit publish --heads="master" src/Affects/Routes:git@github.com:tenancy/affects-routes.git
-git subsplit publish --heads="master" src/Affects/URL:git@github.com:tenancy/affects-url.git
+git subsplit publish --heads="master" src/Affects/URLs:git@github.com:tenancy/affects-urls.git
 git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/affects-views.git
 
 # Lifecycle Hooks

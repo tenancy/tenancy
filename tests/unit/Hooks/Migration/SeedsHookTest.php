@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Migration;
 
 use Illuminate\Support\Facades\DB;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
@@ -28,7 +28,7 @@ use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
+use Tenancy\Tests\Affects\Connections\Mocks\ConnectionListener;
 
 class SeedsHookTest extends TestCase
 {

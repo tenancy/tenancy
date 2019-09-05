@@ -14,12 +14,17 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Database\Mocks;
+namespace Tenancy\Affects\Connections;
 
-use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Affects\Affect;
+use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 
-class Mock extends Model
+class ConfiguresConnection extends Affect
 {
-    use OnTenant;
+    public function fire(): void
+    {
+        /** @var ResolvesConnections $resolver */
+        $resolver = resolve(ResolvesConnections::class);
+        $resolver($this->event->tenant);
+    }
 }

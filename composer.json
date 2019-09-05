@@ -40,7 +40,7 @@
         "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
         "tenancy/affects-cache": "self.version",
-        "tenancy/affects-config": "self.version",
+        "tenancy/affects-configs": "self.version",
         "tenancy/affects-connection": "self.version",
         "tenancy/affects-filesystem": "self.version",
         "tenancy/affects-logs": "self.version",
@@ -78,7 +78,7 @@
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
                 "Tenancy\\Affects\\Cache\\Provider",
-                "Tenancy\\Affects\\Config\\Provider",
+                "Tenancy\\Affects\\Configs\\Provider",
                 "Tenancy\\Affects\\Connection\\Provider",
                 "Tenancy\\Affects\\Filesystem\\Provider",
                 "Tenancy\\Affects\\Logs\\Provider",
