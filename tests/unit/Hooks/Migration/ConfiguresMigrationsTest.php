@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Hooks\Migrations;
+namespace Tenancy\Tests\Hooks\Migration;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -22,9 +22,9 @@ use Tenancy\Affects\Connection\Provider as ConnectionProvider;
 use Tenancy\Database\Drivers\Sqlite\Provider as SQLiteProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
-use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
-use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
+use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migration\Provider as MigrationProvider;
+use Tenancy\Hooks\Migration\Support\InteractsWithMigrations;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
 use Tenancy\Testing\Concerns\InteractsWithConnections;
@@ -34,7 +34,7 @@ use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
 
 class ConfiguresMigrationsTest extends TestCase
 {
-    protected $additionalProviders = [SQLiteProvider::class, MigrationsProvider::class, ConnectionProvider::class, DatabaseProvider::class];
+    protected $additionalProviders = [SQLiteProvider::class, MigrationProvider::class, ConnectionProvider::class, DatabaseProvider::class];
 
     use InteractsWithDatabases,
         InteractsWithConnections,

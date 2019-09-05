@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Hooks\Migrations;
+namespace Tenancy\Hooks\Migration;
 
 use Tenancy\Support\HooksProvider;
 

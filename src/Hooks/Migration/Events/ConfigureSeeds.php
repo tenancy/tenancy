@@ -14,9 +14,9 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Hooks\Migrations\Events;
+namespace Tenancy\Hooks\Migration\Events;
 
-use Tenancy\Hooks\Migrations\Hooks\SeedsHook;
+use Tenancy\Hooks\Migration\Hooks\SeedsHook;
 use Tenancy\Tenant\Events\Event;
 
 class ConfigureSeeds

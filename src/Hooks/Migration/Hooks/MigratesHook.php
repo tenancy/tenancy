@@ -14,12 +14,12 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Hooks\Migrations\Hooks;
+namespace Tenancy\Hooks\Migration\Hooks;
 
 use Illuminate\Database\Migrations\Migrator;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
 

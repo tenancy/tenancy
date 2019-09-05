@@ -14,13 +14,13 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Hooks\Migrations\Hooks;
+namespace Tenancy\Hooks\Migration\Hooks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Tenancy\Affects\Connection\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
+use Tenancy\Hooks\Migration\Events\ConfigureSeeds;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Deleted;
 

@@ -23,8 +23,8 @@ use PDO;
 use Tenancy\Affects\Connection\Provider as ConnectionProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
-use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
+use Tenancy\Hooks\Migration\Provider as MigrationProvider;
+use Tenancy\Hooks\Migration\Support\InteractsWithMigrations;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
 use Tenancy\Tenant\Events;
@@ -161,7 +161,7 @@ abstract class DatabaseDriverTestCase extends TestCase
      */
     public function runs_update_moves_tables()
     {
-        $this->app->register(MigrationsProvider::class);
+        $this->app->register(MigrationProvider::class);
         $this->registerMigrationsPath(__DIR__.DIRECTORY_SEPARATOR.'migrations');
 
         $this->events->dispatch(new Events\Created($this->tenant));

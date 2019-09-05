@@ -49,7 +49,7 @@
         "tenancy/affects-url": "self.version",
         "tenancy/affects-views": "self.version",
         "tenancy/hooks-database": "self.version",
-        "tenancy/hooks-migrations": "self.version",
+        "tenancy/hooks-migration": "self.version",
         "tenancy/db-driver-mysql": "self.version",
         "tenancy/db-driver-sqlite": "self.version",
         "tenancy/identification-driver-console": "self.version",

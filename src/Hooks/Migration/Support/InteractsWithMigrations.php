@@ -14,10 +14,10 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Hooks\Migrations\Support;
+namespace Tenancy\Hooks\Migration\Support;
 
-use Tenancy\Hooks\Migrations\Events\ConfigureMigrations;
-use Tenancy\Hooks\Migrations\Events\ConfigureSeeds;
+use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migration\Events\ConfigureSeeds;
 
 trait InteractsWithMigrations
 {

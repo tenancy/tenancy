@@ -1,7 +1,7 @@
 {
-    "name": "tenancy/hooks-migrations",
-    "description": "The tenancy/tenancy migrations mutations",
-    "keywords": ["hooks", "tenancy", "migrations"],
+    "name": "tenancy/hooks-migration",
+    "description": "The tenancy/tenancy migration mutations",
+    "keywords": ["hooks", "tenancy", "migration"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Hooks\\Migrations\\": ""
+            "Tenancy\\Hooks\\Migration\\": ""
         }
     },
     "authors": [
@@ -27,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Hooks\\Migrations\\Provider"
+                "Tenancy\\Hooks\\Migration\\Provider"
             ]
         }
     }

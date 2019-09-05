@@ -18,7 +18,7 @@ git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/a
 
 # Lifecycle Hooks
 git subsplit publish --heads="master" src/Hooks/Database:git@github.com:tenancy/hooks-database.git
-git subsplit publish --heads="master" src/Hooks/Migrations:git@github.com:tenancy/hooks-migrations.git
+git subsplit publish --heads="master" src/Hooks/Migration:git@github.com:tenancy/hooks-migration.git
 
 # Identification drivers
 git subsplit publish --heads="master" src/Identification/Console:git@github.com:tenancy/identification-driver-console.git
