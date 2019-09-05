@@ -132,11 +132,12 @@ class Mysql implements ProvidesDatabase
      */
     protected function retrieveTables(Tenant $tenant): array
     {
-        $tenant->{$tenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
+        $tempTenant = $tenant->replicate();
+        $tempTenant->{$tenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
 
         /** @var ResolvesConnections $resolver */
         $resolver = resolve(ResolvesConnections::class);
-        $resolver($tenant, Tenancy::getTenantConnectionName());
+        $resolver($tempTenant, Tenancy::getTenantConnectionName());
 
         $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
 
