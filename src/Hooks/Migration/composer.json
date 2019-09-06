@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",
-        "tenancy/affects-connection": "*"
+        "tenancy/affects-connections": "*"
     },
     "autoload": {
         "psr-4": {
