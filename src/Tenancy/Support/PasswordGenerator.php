@@ -19,7 +19,8 @@ namespace Tenancy\Support;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Support\Contracts\ProvidesPassword;
 
-class PasswordGenerator implements ProvidesPassword{
+class PasswordGenerator implements ProvidesPassword
+{
     public function __invoke(Tenant $tenant): string
     {
         return md5(sprintf(
