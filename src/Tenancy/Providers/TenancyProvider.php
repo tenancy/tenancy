@@ -21,12 +21,12 @@ use Tenancy\Affects\AffectResolver;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Environment;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Identification\TenantResolver;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
 use Tenancy\Support\Contracts\ProvidesPassword;
+use Tenancy\Support\PasswordGenerator;
 use Tenancy\Tenant\Events as Event;
 
 class TenancyProvider extends ServiceProvider
@@ -39,6 +39,7 @@ class TenancyProvider extends ServiceProvider
         ResolvesHooks::class       => HookResolver::class,
         ResolvesAffects::class     => AffectResolver::class,
         ResolvesTenants::class     => TenantResolver::class,
+        ProvidesPassword::class    => PasswordGenerator::class,
     ];
 
     protected $listen = [
@@ -61,24 +62,11 @@ class TenancyProvider extends ServiceProvider
         $this->runTrait('register');
 
         $this->app->register(TenantProvider::class);
-        $this->registerPasswordGenerator();
     }
 
     public function boot()
     {
         $this->runTrait('boot');
-    }
-
-    protected function registerPasswordGenerator()
-    {
-        $this->app->singleton(ProvidesPassword::class, function (Tenant $tenant) {
-            return md5(sprintf(
-                '%s-%s-%s',
-                $tenant->getTenantIdentifier(),
-                $tenant->getTenantKey(),
-                config('tenancy.key') ?? config('app.key')
-            ));
-        });
     }
 
     protected function runTrait(string $runtime)
