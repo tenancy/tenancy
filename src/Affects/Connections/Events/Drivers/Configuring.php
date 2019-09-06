@@ -78,6 +78,7 @@ class Configuring
 
         $configuration['username'] = $configuration['username'] ?? $tenant->getTenantKey();
         $configuration['database'] = $configuration['database'] ?? $configuration['username'];
+        $configuration['password'] = $configuration['password'] ?? resolve(ProvidesPassword::class)->generate($tenant);
 
         return $configuration;
     }
