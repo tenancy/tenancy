@@ -92,7 +92,7 @@
                 "Tenancy\\Identification\\Drivers\\Queue\\Providers\\IdentificationProvider"
             ],
             "aliases": {
-                "Tenancy": "Tenancy\\Facades\\TenancyFacade"
+                "Tenancy": "Tenancy\\Facades\\Tenancy"
             }
         }
     }
