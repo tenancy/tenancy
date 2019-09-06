@@ -19,6 +19,7 @@ namespace Tenancy\Affects\Connections\Events\Drivers;
 use InvalidArgumentException;
 use Tenancy\Affects\Connections\Contracts\ProvidesConfiguration;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Support\Contracts\ProvidesPassword;
 
 class Configuring
 {
@@ -78,7 +79,7 @@ class Configuring
 
         $configuration['username'] = $configuration['username'] ?? $tenant->getTenantKey();
         $configuration['database'] = $configuration['database'] ?? $configuration['username'];
-        $configuration['password'] = $configuration['password'] ?? resolve(ProvidesPassword::class)->generate($tenant);
+        $configuration['password'] = $configuration['password'] ?? resolve(ProvidesPassword::class)->__invoke($tenant);
 
         return $configuration;
     }
