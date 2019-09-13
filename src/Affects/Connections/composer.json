@@ -1,0 +1,33 @@
+{
+    "name": "tenancy/affects-connections",
+    "description": "The tenancy/tenancy connections mutations",
+    "keywords": ["affects", "tenancy", "connections"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Connections\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        },
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlonantonius.com",
+            "homepage": "https://arlonantonius.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Connections\\Provider"
+            ]
+        }
+    }
+}

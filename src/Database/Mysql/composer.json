@@ -5,7 +5,8 @@
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",
-        "tenancy/affects-connection": "*",
+        "tenancy/hooks-database": "*",
+        "tenancy/affects-connections": "*",
         "doctrine/dbal": "^2.9"
     },
     "autoload": {

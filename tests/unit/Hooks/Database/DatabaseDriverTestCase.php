@@ -20,11 +20,11 @@ use Closure;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\QueryException;
 use PDO;
-use Tenancy\Affects\Connection\Provider as ConnectionProvider;
+use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
-use Tenancy\Hooks\Migrations\Provider as MigrationsProvider;
-use Tenancy\Hooks\Migrations\Support\InteractsWithMigrations;
+use Tenancy\Hooks\Migration\Provider as MigrationProvider;
+use Tenancy\Hooks\Migration\Support\InteractsWithMigrations;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
 use Tenancy\Tenant\Events;
@@ -32,7 +32,7 @@ use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Affects\Connection\Mocks\ConnectionListener;
+use Tenancy\Tests\Affects\Connections\Mocks\ConnectionListener;
 use Tenancy\Tests\Hooks\Database\Mocks\Mock;
 
 abstract class DatabaseDriverTestCase extends TestCase
@@ -161,7 +161,7 @@ abstract class DatabaseDriverTestCase extends TestCase
      */
     public function runs_update_moves_tables()
     {
-        $this->app->register(MigrationsProvider::class);
+        $this->app->register(MigrationProvider::class);
         $this->registerMigrationsPath(__DIR__.DIRECTORY_SEPARATOR.'migrations');
 
         $this->events->dispatch(new Events\Created($this->tenant));

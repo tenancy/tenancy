@@ -25,7 +25,9 @@ use Tenancy\Identification\Events\Switched;
 use Tenancy\Identification\TenantResolver;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
-use Tenancy\Tenant\Events as Tenant;
+use Tenancy\Support\Contracts\ProvidesPassword;
+use Tenancy\Support\PasswordGenerator;
+use Tenancy\Tenant\Events as Event;
 
 class TenancyProvider extends ServiceProvider
 {
@@ -37,16 +39,17 @@ class TenancyProvider extends ServiceProvider
         ResolvesHooks::class       => HookResolver::class,
         ResolvesAffects::class     => AffectResolver::class,
         ResolvesTenants::class     => TenantResolver::class,
+        ProvidesPassword::class    => PasswordGenerator::class,
     ];
 
     protected $listen = [
-        Tenant\Created::class => [
+        Event\Created::class => [
             ResolvesHooks::class,
         ],
-        Tenant\Updated::class => [
+        Event\Updated::class => [
             ResolvesHooks::class,
         ],
-        Tenant\Deleted::class => [
+        Event\Deleted::class => [
             ResolvesHooks::class,
         ],
         Switched::class => [

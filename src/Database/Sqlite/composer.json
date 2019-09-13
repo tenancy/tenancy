@@ -4,7 +4,8 @@
     "keywords": ["database", "tenancy", "sqlite"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*"
+        "tenancy/framework": "*",
+        "tenancy/hooks-database": "*"
     },
     "autoload": {
         "psr-4": {

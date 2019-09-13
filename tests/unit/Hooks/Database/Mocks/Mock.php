@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
-use Tenancy\Affects\Connection\Support\Traits\OnTenant;
+use Tenancy\Affects\Connections\Support\Traits\OnTenant;
 
 class Mock extends Model
 {
