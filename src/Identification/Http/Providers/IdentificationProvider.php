@@ -24,7 +24,7 @@ use Tenancy\Support\DriverProvider;
 class IdentificationProvider extends DriverProvider
 {
     protected $drivers = [
-        IdentifiesByHttp::class
+        IdentifiesByHttp::class,
     ];
 
     protected $configs = [
