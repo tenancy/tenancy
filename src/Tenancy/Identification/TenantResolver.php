@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use ReflectionClass;
@@ -152,7 +151,7 @@ class TenantResolver implements ResolvesTenants
                 $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
-                    foreach($this->retrieveDriverMethods($driver) as $method) {
+                    foreach ($this->retrieveDriverMethods($driver) as $method) {
                         if ($tenant = app()->call("$item@$method")) {
                             return false;
                         }
@@ -165,8 +164,10 @@ class TenantResolver implements ResolvesTenants
 
     /**
      * @param string $driver
-     * @return array|string[]
+     *
      * @throws \ReflectionException
+     *
+     * @return array|string[]
      */
     protected function retrieveDriverMethods(string $driver): array
     {
