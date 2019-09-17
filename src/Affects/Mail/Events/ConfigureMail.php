@@ -16,7 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Mail\Events;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Transport\MailgunTransport;
+use Swift_Mailer;
+use Swift_SmtpTransport;
+use Swift_Transport;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureMail
@@ -48,5 +54,53 @@ class ConfigureMail
     public function setFrom(string $address, string $name = null)
     {
         $this->mailer->alwaysFrom($address, $name);
+    }
+
+    /**
+     * Set the basic from address for the mailer.
+     *
+     * @param string      $address
+     * @param string|null $name
+     *
+     * @return void
+     */
+    public function loadMailgunConfig(string $key, string $domain, string $endpoint = null)
+    {
+        $this->replaceSwiftMailer(new MailgunTransport(new Client(config('services.mailgun')), $key, $domain, $endpoint));
+    }
+
+    /**
+     * Set the basic from address for the mailer.
+     *
+     * @param string      $address
+     * @param string|null $name
+     *
+     * @return void
+     */
+    public function loadSmtpConfig(string $host, int $port, string $username = null, string $password = null, string $encryption = 'tls')
+    {
+        if(!($transport = $this->mailer->getSwiftMailer()->getTransport()) instanceof Swift_SmtpTransport){
+            $transport = new Swift_SmtpTransport($host, $port, $encryption);
+        }
+
+        if($username !== null){
+            $transport->setUsername($username);
+            $transport->setPassword($password);
+        }
+
+        $this->replaceSwiftMailer($transport);
+    }
+
+    /**
+     * Set the basic from address for the mailer.
+     *
+     * @param string      $address
+     * @param string|null $name
+     *
+     * @return void
+     */
+    public function replaceSwiftMailer(Swift_Transport $transport)
+    {
+        $this->mailer->setSwiftMailer(new Swift_Mailer($transport));
     }
 }

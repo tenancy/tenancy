@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Mail;
 
+use Illuminate\Mail\Transport\MailgunTransport;
 use Illuminate\Support\Facades\Mail;
 use Swift_Message;
 use Tenancy\Affects\Mail\Events\ConfigureMail;
@@ -99,6 +100,42 @@ class ConfigureMailTest extends TestCase
         $this->assertEquals(
             $second->email,
             $this->getAddressFromMessage($secondMail)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_configure_mailgun()
+    {
+        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
+            $event->loadMailgunConfig("example", "https://google.com/");
+        });
+
+        Tenancy::getTenant();
+
+        $this->assertInstanceOf(
+            MailgunTransport::class,
+            Mail::getSwiftMailer()->getTransport()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_configure_smtp()
+    {
+        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
+            $event->loadSmtpConfig("localhost", 465, $event->event->tenant->email, "password");
+        });
+
+        Tenancy::getTenant();
+
+        dd(Mail::getSwiftMailer()->getTransport()->getLocalDomain());
+
+        $this->assertEquals(
+            $this->tenant->email,
+            Mail::getSwiftMailer()->getTransport()->getUsername()
         );
     }
 }
