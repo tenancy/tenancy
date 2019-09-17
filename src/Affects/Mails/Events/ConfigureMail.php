@@ -40,9 +40,10 @@ class ConfigureMail
     }
 
     /**
-     * Replace the Swift Mailer with a new one
+     * Replace the Swift Mailer with a new one.
      *
      * @param Swift_Transport $transport
+     *
      * @return self
      */
     public function replaceSwiftMailer(Swift_Transport $transport)
