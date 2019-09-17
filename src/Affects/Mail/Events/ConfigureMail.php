@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Affects\Mail\Events;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Transport\MailgunTransport;
 use Swift_Mailer;
@@ -54,6 +53,8 @@ class ConfigureMail
     public function setFrom(string $address, string $name = null)
     {
         $this->mailer->alwaysFrom($address, $name);
+
+        return $this;
     }
 
     /**
@@ -67,6 +68,8 @@ class ConfigureMail
     public function loadMailgunConfig(string $key, string $domain, string $endpoint = null)
     {
         $this->replaceSwiftMailer(new MailgunTransport(new Client(config('services.mailgun')), $key, $domain, $endpoint));
+
+        return $this;
     }
 
     /**
@@ -88,7 +91,7 @@ class ConfigureMail
             $transport->setPassword($password);
         }
 
-        $this->replaceSwiftMailer($transport);
+        return $this->replaceSwiftMailer($transport);
     }
 
     /**
@@ -102,5 +105,7 @@ class ConfigureMail
     public function replaceSwiftMailer(Swift_Transport $transport)
     {
         $this->mailer->setSwiftMailer(new Swift_Mailer($transport));
+
+        return $this;
     }
 }
