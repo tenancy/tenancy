@@ -151,8 +151,9 @@ class TenantResolver implements ResolvesTenants
                 $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
+                    /** @var ReflectionMethod $method */
                     foreach ($this->retrieveDriverMethods($driver) as $method) {
-                        if ($tenant = app()->call("$item@$method")) {
+                        if ($tenant = app()->call("$item@{$method->getName()}")) {
                             return false;
                         }
                     }
@@ -165,9 +166,7 @@ class TenantResolver implements ResolvesTenants
     /**
      * @param string $driver
      *
-     * @throws \ReflectionException
-     *
-     * @return array|string[]
+     * @return array|ReflectionMethod[]
      */
     protected function retrieveDriverMethods(string $driver): array
     {
