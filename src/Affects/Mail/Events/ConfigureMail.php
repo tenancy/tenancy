@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Mail\Events;
+namespace Tenancy\Affects\Mails\Events;
 
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Mail\Mailer;

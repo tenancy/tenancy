@@ -14,13 +14,13 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Mail;
+namespace Tenancy\Tests\Affects\Mails;
 
 use Illuminate\Mail\Transport\MailgunTransport;
 use Illuminate\Support\Facades\Mail;
 use Swift_Message;
-use Tenancy\Affects\Mail\Events\ConfigureMail;
-use Tenancy\Affects\Mail\Provider;
+use Tenancy\Affects\Mails\Events\ConfigureMail;
+use Tenancy\Affects\Mails\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 
