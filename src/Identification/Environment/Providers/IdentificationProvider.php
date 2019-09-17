@@ -22,6 +22,6 @@ use Tenancy\Support\DriverProvider;
 class IdentificationProvider extends DriverProvider
 {
     protected $drivers = [
-        IdentifiesByEnvironment::class => 'tenantIdentificationByEnvironment',
+        IdentifiesByEnvironment::class,
     ];
 }
