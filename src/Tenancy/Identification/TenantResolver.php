@@ -18,6 +18,8 @@ namespace Tenancy\Identification;
 
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionMethod;
 use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant;
@@ -123,13 +125,12 @@ class TenantResolver implements ResolvesTenants
 
     /**
      * @param string $contract
-     * @param string $method
      *
      * @return $this
      */
-    public function registerDriver(string $contract, string $method)
+    public function registerDriver(string $contract)
     {
-        $this->drivers[$contract] = $method;
+        $this->drivers[] = $contract;
 
         return $this;
     }
@@ -144,21 +145,31 @@ class TenantResolver implements ResolvesTenants
         $tenant = null;
 
         $models
-            ->filterByContract(array_keys($this->drivers))
+            ->filterByContract($this->drivers)
             ->each(function (string $item) use (&$tenant) {
                 $implements = class_implements($item);
-                $drivers = array_intersect($implements, array_keys($this->drivers));
+                $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
-                    $method = $this->drivers[$driver];
-                    $tenant = app()->call("$item@$method");
-
-                    if ($tenant) {
-                        return false;
+                    /** @var ReflectionMethod $method */
+                    foreach ($this->retrieveDriverMethods($driver) as $method) {
+                        if ($tenant = app()->call("$item@{$method->getName()}")) {
+                            return false;
+                        }
                     }
                 }
             });
 
         return $tenant;
+    }
+
+    /**
+     * @param string $driver
+     *
+     * @return array|ReflectionMethod[]
+     */
+    protected function retrieveDriverMethods(string $driver): array
+    {
+        return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
     }
 }
