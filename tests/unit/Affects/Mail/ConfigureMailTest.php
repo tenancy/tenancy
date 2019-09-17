@@ -109,7 +109,7 @@ class ConfigureMailTest extends TestCase
     public function can_configure_mailgun()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->loadMailgunConfig("example", "https://google.com/");
+            $event->loadMailgunConfig('example', 'https://google.com/');
         });
 
         Tenancy::getTenant();
@@ -126,7 +126,7 @@ class ConfigureMailTest extends TestCase
     public function can_configure_smtp()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->loadSmtpConfig("localhost", 465, $event->event->tenant->email, "password");
+            $event->loadSmtpConfig('localhost', 465, $event->event->tenant->email, 'password');
         });
 
         Tenancy::getTenant();
