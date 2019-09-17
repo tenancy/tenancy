@@ -152,10 +152,10 @@ class TenantResolver implements ResolvesTenants
                 $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
-                    $method = $this->retrieveDriverMethod($driver);
-
-                    if ($tenant = app()->call("$item@$method")) {
-                        return false;
+                    foreach($this->retrieveDriverMethods($driver) as $method) {
+                        if ($tenant = app()->call("$item@$method")) {
+                            return false;
+                        }
                     }
                 }
             });
@@ -163,15 +163,13 @@ class TenantResolver implements ResolvesTenants
         return $tenant;
     }
 
-    protected function retrieveDriverMethod(string $driver): string
+    /**
+     * @param string $driver
+     * @return array|string[]
+     * @throws \ReflectionException
+     */
+    protected function retrieveDriverMethods(string $driver): array
     {
-        $methods = (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
-
-        /** @var ReflectionMethod $method */
-        if ($method = Arr::first($methods)) {
-            return $method->getName();
-        }
-
-        throw new InvalidArgumentException("Driver $driver has no valid identification method.");
+        return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
     }
 }
