@@ -82,11 +82,11 @@ class ConfigureMail
      */
     public function loadSmtpConfig(string $host, int $port, string $username = null, string $password = null, string $encryption = 'tls')
     {
-        if(!($transport = $this->mailer->getSwiftMailer()->getTransport()) instanceof Swift_SmtpTransport){
+        if (!($transport = $this->mailer->getSwiftMailer()->getTransport()) instanceof Swift_SmtpTransport) {
             $transport = new Swift_SmtpTransport($host, $port, $encryption);
         }
 
-        if($username !== null){
+        if ($username !== null) {
             $transport->setUsername($username);
             $transport->setPassword($password);
         }
