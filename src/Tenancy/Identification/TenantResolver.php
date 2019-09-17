@@ -16,8 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionMethod;
 use Tenancy\Concerns\DispatchesEvents;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant;
@@ -123,13 +126,12 @@ class TenantResolver implements ResolvesTenants
 
     /**
      * @param string $contract
-     * @param string $method
      *
      * @return $this
      */
-    public function registerDriver(string $contract, string $method)
+    public function registerDriver(string $contract)
     {
-        $this->drivers[$contract] = $method;
+        $this->drivers[] = $contract;
 
         return $this;
     }
@@ -144,21 +146,32 @@ class TenantResolver implements ResolvesTenants
         $tenant = null;
 
         $models
-            ->filterByContract(array_keys($this->drivers))
+            ->filterByContract($this->drivers)
             ->each(function (string $item) use (&$tenant) {
                 $implements = class_implements($item);
-                $drivers = array_intersect($implements, array_keys($this->drivers));
+                $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
-                    $method = $this->drivers[$driver];
-                    $tenant = app()->call("$item@$method");
+                    $method = $this->retrieveDriverMethod($driver);
 
-                    if ($tenant) {
+                    if ($tenant = app()->call("$item@$method")) {
                         return false;
                     }
                 }
             });
 
         return $tenant;
+    }
+
+    protected function retrieveDriverMethod(string $driver): string
+    {
+        $methods = (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
+
+        /** @var ReflectionMethod $method */
+        if ($method = Arr::first($methods)) {
+            return $method->getName();
+        }
+
+        throw new InvalidArgumentException("Driver $driver has no valid identification method.");
     }
 }

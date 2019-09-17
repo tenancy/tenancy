@@ -33,8 +33,8 @@ abstract class DriverProvider extends Provider
         parent::register();
 
         $this->app->resolving(ResolvesTenants::class, function (ResolvesTenants $resolver) {
-            foreach ($this->drivers as $contract => $method) {
-                $resolver->registerDriver($contract, $method);
+            foreach ($this->drivers as $contract) {
+                $resolver->registerDriver($contract);
             }
         });
 
