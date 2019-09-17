@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Mails;
 
-use Illuminate\Mail\Transport\MailgunTransport;
 use Illuminate\Support\Facades\Mail;
 use Swift_Message;
 use Tenancy\Affects\Mails\Events\ConfigureMail;
@@ -50,10 +49,10 @@ class ConfigureMailTest extends TestCase
     /**
      * @test
      */
-    public function can_set_config()
+    public function can_forward_calls()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->setFrom($event->event->tenant->email, $event->event->tenant->name);
+            $event->alwaysFrom($event->event->tenant->email, $event->event->tenant->name);
         });
 
         Tenancy::getTenant();
@@ -72,7 +71,7 @@ class ConfigureMailTest extends TestCase
     public function succesful_switch_on_more_tenants()
     {
         $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->setFrom($event->event->tenant->email);
+            $event->alwaysFrom($event->event->tenant->email);
         });
 
         $first = $this->createMockTenant();
@@ -100,40 +99,6 @@ class ConfigureMailTest extends TestCase
         $this->assertEquals(
             $second->email,
             $this->getAddressFromMessage($secondMail)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function can_configure_mailgun()
-    {
-        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->loadMailgunConfig('example', 'https://google.com/');
-        });
-
-        Tenancy::getTenant();
-
-        $this->assertInstanceOf(
-            MailgunTransport::class,
-            Mail::getSwiftMailer()->getTransport()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function can_configure_smtp()
-    {
-        $this->events->listen(ConfigureMail::class, function (ConfigureMail $event) {
-            $event->loadSmtpConfig('localhost', 465, $event->event->tenant->email, 'password');
-        });
-
-        Tenancy::getTenant();
-
-        $this->assertEquals(
-            $this->tenant->email,
-            Mail::getSwiftMailer()->getTransport()->getUsername()
         );
     }
 }
