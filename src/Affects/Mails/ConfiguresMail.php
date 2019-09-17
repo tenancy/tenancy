@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Affects\Mail;
+namespace Tenancy\Affects\Mails;
 
 use Illuminate\Contracts\Mail\Mailer;
 use Tenancy\Affects\Affect;

@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Mail\Mocks;
+namespace Tenancy\Tests\Affects\Mails\Mocks;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

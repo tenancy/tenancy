@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Mail;
+namespace Tenancy\Tests\Affects\Mails;
 
 use Swift_Events_SendEvent;
 use Swift_Events_SendListener;
