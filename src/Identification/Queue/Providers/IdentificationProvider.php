@@ -16,54 +16,26 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Providers;
 
-use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\QueueManager;
-use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
-use Tenancy\Environment;
-use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Drivers\Queue\Listeners\IdentifyByQueue;
+use Tenancy\Identification\Drivers\Queue\Middleware;
+use Tenancy\Support\DriverProvider;
 
-class IdentificationProvider extends ServiceProvider
+class IdentificationProvider extends DriverProvider
 {
+    protected $drivers = [
+        IdentifyByQueue::class => 'tenantIdentificationByQueue'
+    ];
+
     public function register()
     {
         $this->app->extend('queue', function (QueueManager $queue) {
-            $queue->createPayloadUsing(function (string $connection, string $queue = null, array $payload = []) {
-                if (isset($payload['tenant_key'], $payload['tenant_identifier'])) {
-                    return [];
-                }
 
-                /** @var Environment $environment */
-                $environment = resolve(Environment::class);
-                $tenant = $environment->getTenant();
+            // Store tenant key and identifier on job payload when a tenant is identified.
+            $queue->createPayloadUsing($this->app->make(Middleware\SaveTenantOnQueuePayload::class));
 
-                return $tenant ? [
-                    'tenant_key'        => $tenant->getTenantKey(),
-                    'tenant_identifier' => $tenant->getTenantIdentifier(),
-                ] : [];
-            });
-
-            $queue->before(function (JobProcessing $event) {
-                /** @var array $payload */
-                $payload = $event->job->payload();
-                if ($command = Arr::get($payload, 'data.command')) {
-                    $command = unserialize($command);
-                }
-
-                $key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
-                $identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
-
-                if ($key && $identifier) {
-                    /** @var Environment $environment */
-                    $environment = resolve(Environment::class);
-                    /** @var ResolvesTenants $resolver */
-                    $resolver = resolve(ResolvesTenants::class);
-
-                    $tenant = $resolver->findModel($identifier, $key);
-
-                    $environment->setTenant($tenant);
-                }
-            });
+            // Resolve any tenant related meta data on job and allow resolving of tenant.
+            $queue->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
 
             return $queue;
         });
