@@ -30,7 +30,7 @@ class IdentifyInQueueTest extends TestCase
     {
         /** @var ResolvesTenants $resolver */
         $resolver = $this->app->make(ResolvesTenants::class);
-        $resolver->addModel(\Tenancy\Testing\Mocks\Tenant::class);
+        $resolver->addModel(Mocks\TenantIdentifiableInQueue::class);
     }
 
     /**

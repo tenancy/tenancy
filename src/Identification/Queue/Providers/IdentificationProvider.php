@@ -18,15 +18,20 @@ namespace Tenancy\Identification\Drivers\Queue\Providers;
 
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\QueueManager;
-use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
 use Tenancy\Environment;
-use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
+use Tenancy\Support\DriverProvider;
 
-class IdentificationProvider extends ServiceProvider
+class IdentificationProvider extends DriverProvider
 {
+    protected $drivers = [
+        IdentifiesByQueue::class,
+    ];
+
     public function register()
     {
+        parent::register();
+
         $this->app->extend('queue', function (QueueManager $queue) {
             $queue->createPayloadUsing(function (string $connection, string $queue = null, array $payload = []) {
                 if (isset($payload['tenant_key'], $payload['tenant_identifier'])) {
@@ -44,25 +49,15 @@ class IdentificationProvider extends ServiceProvider
             });
 
             $queue->before(function (JobProcessing $event) {
-                /** @var array $payload */
-                $payload = $event->job->payload();
-                if ($command = Arr::get($payload, 'data.command')) {
-                    $command = unserialize($command);
-                }
+                $this->app->when(JobProcessing::class)
+                    ->needs('$connectionName')
+                    ->give($event->connectionName);
+                $this->app->when(JobProcessing::class)
+                    ->needs('$job')
+                    ->give($event->job);
 
-                $key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
-                $identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
-
-                if ($key && $identifier) {
-                    /** @var Environment $environment */
-                    $environment = resolve(Environment::class);
-                    /** @var ResolvesTenants $resolver */
-                    $resolver = resolve(ResolvesTenants::class);
-
-                    $tenant = $resolver->findModel($identifier, $key);
-
-                    $environment->setTenant($tenant);
-                }
+                $environment = resolve(Environment::class);
+                $environment->getTenant(true);
             });
 
             return $queue;
