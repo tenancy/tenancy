@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Identification\Console\Mocks\Tenant;
 use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableInQueue;
 
 /*
