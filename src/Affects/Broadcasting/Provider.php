@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Broadcasting;
 
-
 use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider

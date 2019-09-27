@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Broadcasting;
 
-
 use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Contracts\Config\Repository;
 use Tenancy\Affects\Affect;

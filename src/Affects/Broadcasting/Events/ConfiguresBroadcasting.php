@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Broadcasting\Events;
 
-
 use Tenancy\Identification\Events\Switched;
 
 class ConfiguresBroadcasting
