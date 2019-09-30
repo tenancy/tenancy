@@ -1,4 +1,4 @@
-# ![tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=25&v=4) Laravel Tenancy
+# ![tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=25&v=4) Tenancy for Laravel
 
 Enabling awesome Software as a Service with the Laravel framework.
 
