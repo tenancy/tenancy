@@ -16,9 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Broadcasts;
 
-use Illuminate\Broadcasting\Broadcasters\LogBroadcaster;
 use Illuminate\Broadcasting\BroadcastManager;
-use Illuminate\Contracts\Broadcasting\Broadcaster;
 use Tenancy\Affects\Broadcasts\Events\ConfigureBroadcast;
 use Tenancy\Affects\Broadcasts\Provider;
 use Tenancy\Facades\Tenancy;
@@ -43,8 +41,14 @@ class ConfiguresBroadcastTest extends TestCase
         $this->tenant = $this->mockTenant();
         $this->broadcast = $this->app->make(BroadcastManager::class);
 
+        $this->app->resolving(BroadcastManager::class, function (BroadcastManager $manager){
+            $manager->extend('fake', function(){
+                return new Mocks\FakeBroadcaster();
+            });
+        });
+
         $this->events->listen(ConfigureBroadcast::class, function (ConfigureBroadcast $event) {
-            $event->config['driver'] = 'log';
+            $event->config['driver'] = 'fake';
         });
     }
 
@@ -58,6 +62,7 @@ class ConfiguresBroadcastTest extends TestCase
 
         $this->broadcast->driver('tenant');
     }
+
     /**
      * @test
      */
@@ -68,16 +73,36 @@ class ConfiguresBroadcastTest extends TestCase
         /** @var Tenant $tenant */
         $tenant = Tenancy::getTenant();
 
-        $broadcaster = $this->broadcast->driver('tenant');
+        $broadcaster = $this->getBroadcastManager()->driver('tenant');
+        $options = ['tenant-key' => $tenant->getTenantKey()];
+        $broadcaster->channel('tenancy', true, $options);
 
-        $this->assertInstanceOf(
-            Broadcaster::class,
-            $broadcaster
+        $this->assertEquals(
+            $options,
+            $broadcaster->retrieveChannelOptions('tenancy')
         );
 
-        $this->assertInstanceOf(
-            LogBroadcaster::class,
-            $broadcaster
+        Tenancy::setTenant(null);
+
+        $switched = Tenancy::getTenant();
+
+        $this->assertNull($switched);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Driver [] is not supported.');
+        $broadcaster = $this->getBroadcastManager()->driver('tenant');
+
+        Tenancy::setTenant($this->tenant);
+
+        $broadcaster = $this->getBroadcastManager()->driver('tenant');
+        $this->assertEquals(
+            $options,
+            $broadcaster->retrieveChannelOptions('tenancy')
         );
+    }
+
+    protected function getBroadcastManager()
+    {
+        return resolve(BroadcastManager::class);
     }
 }

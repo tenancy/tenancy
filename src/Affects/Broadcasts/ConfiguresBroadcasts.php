@@ -40,5 +40,8 @@ class ConfiguresBroadcasts extends Affect
         }
 
         $config->set('broadcasting.connections.tenant', $broadcastConfig ?? null);
+
+        // There is no other way at this moment :c
+        app()->forgetInstance(BroadcastManager::class);
     }
 }
