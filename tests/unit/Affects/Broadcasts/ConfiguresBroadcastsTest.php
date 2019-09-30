@@ -23,7 +23,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
-class ConfiguresBroadcastTest extends TestCase
+class ConfiguresBroadcastsTest extends TestCase
 {
     protected $additionalProviders = [Provider::class];
     /**
@@ -41,8 +41,8 @@ class ConfiguresBroadcastTest extends TestCase
         $this->tenant = $this->mockTenant();
         $this->broadcast = $this->app->make(BroadcastManager::class);
 
-        $this->app->resolving(BroadcastManager::class, function (BroadcastManager $manager){
-            $manager->extend('fake', function(){
+        $this->app->resolving(BroadcastManager::class, function (BroadcastManager $manager) {
+            $manager->extend('fake', function () {
                 return new Mocks\FakeBroadcaster();
             });
         });
