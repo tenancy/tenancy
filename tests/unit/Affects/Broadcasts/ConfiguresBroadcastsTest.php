@@ -66,7 +66,7 @@ class ConfiguresBroadcastTest extends TestCase
     /**
      * @test
      */
-    public function broadcaster_valid_when_switched()
+    public function broadcaster_gets_unregistered()
     {
         $this->resolveTenant($this->tenant);
 
@@ -79,7 +79,7 @@ class ConfiguresBroadcastTest extends TestCase
 
         $this->assertEquals(
             $options,
-            $broadcaster->retrieveChannelOptions('tenancy')
+            $this->getBroadcastManager()->driver('tenant')->retrieveChannelOptions('tenancy')
         );
 
         Tenancy::setTenant(null);
@@ -91,14 +91,6 @@ class ConfiguresBroadcastTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Driver [] is not supported.');
         $broadcaster = $this->getBroadcastManager()->driver('tenant');
-
-        Tenancy::setTenant($this->tenant);
-
-        $broadcaster = $this->getBroadcastManager()->driver('tenant');
-        $this->assertEquals(
-            $options,
-            $broadcaster->retrieveChannelOptions('tenancy')
-        );
     }
 
     protected function getBroadcastManager()
