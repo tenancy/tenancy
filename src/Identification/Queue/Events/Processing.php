@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Identification\Drivers\Queue\Events;
 
 use Illuminate\Queue\Events\JobProcessing;
@@ -43,6 +57,7 @@ class Processing
     public function resolve(): ?Tenant
     {
         $resolver = $this->resolver();
+
         return $resolver();
     }
 
@@ -64,6 +79,7 @@ class Processing
      * Switch to a specified tenant or fall back on auto identification.
      *
      * @param Tenant|null $tenant
+     *
      * @return $this
      */
     public function switch(Tenant $tenant = null)
@@ -75,7 +91,7 @@ class Processing
 
         return $this;
     }
-    
+
     protected function resolver(): ResolvesTenants
     {
         return resolve(ResolvesTenants::class);

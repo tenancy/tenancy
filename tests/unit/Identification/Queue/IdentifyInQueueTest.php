@@ -35,7 +35,7 @@ class IdentifyInQueueTest extends TestCase
 
     protected function afterSetUp()
     {
-        /** @var ResolvesTenants $resolver */
+        /* @var ResolvesTenants $resolver */
         $this->resolver = $this->app->make(ResolvesTenants::class);
         $this->resolver->addModel(Tenant::class);
     }

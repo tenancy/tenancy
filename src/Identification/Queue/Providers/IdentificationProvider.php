@@ -25,7 +25,7 @@ use Tenancy\Support\DriverProvider;
 class IdentificationProvider extends DriverProvider
 {
     protected $drivers = [
-        IdentifiesByQueue::class
+        IdentifiesByQueue::class,
     ];
 
     public function register()
