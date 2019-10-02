@@ -61,9 +61,8 @@ interface ResolvesTenants
 
     /**
      * @param string $contract
-     * @param string $method
      *
      * @return $this
      */
-    public function registerDriver(string $contract, string $method);
+    public function registerDriver(string $contract);
 }
