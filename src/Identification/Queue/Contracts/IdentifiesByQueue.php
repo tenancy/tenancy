@@ -2,8 +2,8 @@
 
 namespace Tenancy\Identification\Drivers\Queue\Contracts;
 
-use Illuminate\Queue\Events\JobProcessing;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Drivers\Queue\Events\Processing;
 
 interface IdentifiesByQueue
 {
@@ -11,9 +11,9 @@ interface IdentifiesByQueue
     /**
      * Specify whether the tenant model is matching the queue job.
      *
-     * @param JobProcessing $event
+     * @param Processing $event
      *
      * @return Tenant
      */
-    public function tenantIdentificationByQueue(JobProcessing $event): ?Tenant;
+    public function tenantIdentificationByQueue(Processing $event = null): ?Tenant;
 }

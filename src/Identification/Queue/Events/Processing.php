@@ -16,8 +16,7 @@ class Processing
     public $event;
     public $tenant_key;
     public $tenant_identifier;
-
-    protected $command;
+    public $job;
 
     public function __construct(JobProcessing $event)
     {
@@ -33,17 +32,25 @@ class Processing
         $this->tenant_key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
         $this->tenant_identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
 
-        $this->command = $command;
+        $this->job = $command;
     }
 
+    /**
+     * Use the tenant resolver to identify a candidate tenant.
+     *
+     * @return Tenant|null
+     */
     public function resolve(): ?Tenant
     {
-        app()->instance(self::class, $this);
-
         $resolver = $this->resolver();
         return $resolver();
     }
 
+    /**
+     * Retrieve a tenant based on properties in the job.
+     *
+     * @return Tenant|null
+     */
     public function tenant(): ?Tenant
     {
         if ($this->tenant_identifier && $this->tenant_key) {
@@ -53,18 +60,24 @@ class Processing
         return null;
     }
 
+    /**
+     * Switch to a specified tenant or fall back on auto identification.
+     *
+     * @param Tenant|null $tenant
+     * @return $this
+     */
     public function switch(Tenant $tenant = null)
     {
         /** @var Environment $environment */
-        $environment = app(Environment::class);
+        $environment = resolve(Environment::class);
 
-        $environment->setTenant($tenant ?? $this->tenant());
+        $environment->setTenant($tenant ?? $this->tenant() ?? $this->resolve());
 
         return $this;
     }
-
+    
     protected function resolver(): ResolvesTenants
     {
-        return app(ResolvesTenants::class);
+        return resolve(ResolvesTenants::class);
     }
 }

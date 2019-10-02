@@ -69,6 +69,10 @@ class IdentifyInQueueTest extends TestCase
 
         $second = $this->createMockTenant();
 
+        Event::listen(Processing::class, function (Processing $event) {
+            $event->switch();
+        });
+
         Event::listen('mock.tenant.job', function ($event) use ($second) {
             $this->assertEquals($second->getTenantIdentifier(), $event->getTenantIdentifier());
             $this->assertEquals($second->getTenantKey(), $event->getTenantKey());
@@ -115,10 +119,11 @@ class IdentifyInQueueTest extends TestCase
         $tenant = $this->createMockTenant();
         $this->resolver->addModel(Mocks\TenantIdentifiableInQueue::class);
 
+        TenantIdentifiableInQueue::query()->forceDelete();
         /** @var TenantIdentifiableInQueue $second */
         $second = factory(Mocks\TenantIdentifiableInQueue::class)->create();
 
-        Event::listen(Processing::class, function (Processing $event) use ($second) {
+        Event::listen(Processing::class, function (Processing $event) {
             $event->switch($event->resolve());
         });
 
