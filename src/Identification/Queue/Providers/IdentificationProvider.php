@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Providers;
 
-use Illuminate\Queue\Queue;
 use Illuminate\Queue\QueueManager;
 use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Drivers\Queue\Middleware;

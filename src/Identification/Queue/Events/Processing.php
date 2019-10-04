@@ -19,8 +19,6 @@ namespace Tenancy\Identification\Drivers\Queue\Events;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Arr;
-use Tenancy\Environment;
-use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Processing

@@ -20,7 +20,6 @@ use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Drivers\Queue\Events\Processing;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
