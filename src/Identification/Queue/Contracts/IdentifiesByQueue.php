@@ -28,5 +28,5 @@ interface IdentifiesByQueue
      *
      * @return Tenant
      */
-    public function tenantIdentificationByQueue(Processing $event = null): ?Tenant;
+    public function tenantIdentificationByQueue(Processing $event): ?Tenant;
 }

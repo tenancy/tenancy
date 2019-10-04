@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Events;
 
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Arr;
 use Tenancy\Environment;
@@ -28,8 +29,15 @@ class Processing
      * @var JobProcessing
      */
     public $event;
+    /** @var Tenant|null */
+    public $tenant;
+    /** @var string|null */
     public $tenant_key;
+    /** @var string|null */
     public $tenant_identifier;
+    /**
+     * @var Job
+     */
     public $job;
 
     public function __construct(JobProcessing $event)
@@ -43,57 +51,10 @@ class Processing
             $command = unserialize($command);
         }
 
+        $this->tenant = $command->tenant ?? null;
         $this->tenant_key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
         $this->tenant_identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
 
         $this->job = $command;
-    }
-
-    /**
-     * Use the tenant resolver to identify a candidate tenant.
-     *
-     * @return Tenant|null
-     */
-    public function resolve(): ?Tenant
-    {
-        $resolver = $this->resolver();
-
-        return $resolver();
-    }
-
-    /**
-     * Retrieve a tenant based on properties in the job.
-     *
-     * @return Tenant|null
-     */
-    public function tenant(): ?Tenant
-    {
-        if ($this->tenant_identifier && $this->tenant_key) {
-            return $this->resolver()->findModel($this->tenant_identifier, $this->tenant_key);
-        }
-
-        return null;
-    }
-
-    /**
-     * Switch to a specified tenant or fall back on auto identification.
-     *
-     * @param Tenant|null $tenant
-     *
-     * @return $this
-     */
-    public function switch(Tenant $tenant = null)
-    {
-        /** @var Environment $environment */
-        $environment = resolve(Environment::class);
-
-        $environment->setTenant($tenant ?? $this->tenant() ?? $this->resolve());
-
-        return $this;
-    }
-
-    protected function resolver(): ResolvesTenants
-    {
-        return resolve(ResolvesTenants::class);
     }
 }

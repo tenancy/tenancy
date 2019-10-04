@@ -32,6 +32,16 @@ class TenantIdentifiableInQueue extends Mock implements IdentifiesByQueue
      */
     public function tenantIdentificationByQueue(Processing $event = null): ?Tenant
     {
-        return $this->newQuery()->first();
+        if ($event->tenant && get_class($event->tenant) === get_class($this)) {
+            return $event->tenant;
+        }
+
+        if ($event->tenant_key && $event->tenant_identifier === $this->getTenantIdentifier()) {
+            return $this->newQuery()
+                ->where($this->getTenantKeyName(), $event->tenant_key)
+                ->first();
+        }
+
+        return null;
     }
 }

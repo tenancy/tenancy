@@ -18,6 +18,8 @@ namespace Tenancy\Identification\Drivers\Queue\Middleware;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Queue\Events\JobProcessing;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 
 class ReadTenantFromQueuePayload
@@ -26,19 +28,26 @@ class ReadTenantFromQueuePayload
      * @var Application
      */
     private $app;
+    /**
+     * @var ResolvesTenants
+     */
+    private $resolver;
 
-    public function __construct(Application $app)
+    public function __construct(Application $app, ResolvesTenants $resolver)
     {
         $this->app = $app;
+        $this->resolver = $resolver;
     }
 
     public function __invoke(JobProcessing $event)
     {
+        // Create a wrapper event.
         $processing = new Processing($event);
 
         // Bind this event into ioc for use in the tenant model resolving.
         $this->app->instance(Processing::class, $processing);
 
-        event($processing);
+        // Force tenant identification.
+        Tenancy::getTenant(true);
     }
 }

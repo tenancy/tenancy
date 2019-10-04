@@ -22,6 +22,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Job implements ShouldQueue
 {
@@ -31,16 +32,17 @@ class Job implements ShouldQueue
     public $tenant_key = null;
     public $tenant_identifier = null;
 
-    public function __construct($tenant_key = null, string $tenant_identifier = null)
+    public function __construct($tenant_key = null, string $tenant_identifier = null, Tenant $tenant = null)
     {
         $this->tenant_key = $tenant_key;
         $this->tenant_identifier = $tenant_identifier;
+        $this->tenant = $tenant;
     }
 
     public function handle()
     {
         event('mock.tenant.job', [
-            'tenant' => Tenancy::getTenant(),
+            'tenant' => Tenancy::getTenant(true),
         ]);
     }
 }

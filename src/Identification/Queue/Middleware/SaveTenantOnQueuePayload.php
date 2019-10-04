@@ -16,15 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Middleware;
 
-use Tenancy\Environment;
+use Tenancy\Facades\Tenancy;
 
 class SaveTenantOnQueuePayload
 {
     public function __invoke(string $connection, string $queue = null, array $payload = [])
     {
-        /** @var Environment $environment */
-        $environment = resolve(Environment::class);
-        $tenant = $environment->getTenant();
+        $tenant = Tenancy::getTenant();
 
         return $tenant ? [
             'tenant_key'        => $tenant->getTenantKey(),
