@@ -29,14 +29,14 @@ class ConfiguresURLTest extends AffectsTestCase
     protected function registerForwardingCall()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->forceRootUrl($event->event->tenant->name. '.tenant');
+            $event->forceRootUrl($event->event->tenant->name.'.tenant');
         });
     }
 
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot($event->event->tenant->name. '.tenant');
+            $event->changeRoot($event->event->tenant->name.'.tenant');
         });
     }
 
@@ -51,7 +51,7 @@ class ConfiguresURLTest extends AffectsTestCase
     protected function assertAffected(Tenant $tenant)
     {
         $this->assertEquals(
-            $tenant->name . '.tenant',
+            $tenant->name.'.tenant',
             URL::current()
         );
     }

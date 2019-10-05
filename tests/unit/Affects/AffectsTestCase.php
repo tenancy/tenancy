@@ -38,10 +38,12 @@ abstract class AffectsTestCase extends TestCase
     }
 
     abstract protected function assertAffected(Tenant $tenant);
-    abstract protected function assertNotAffected();
-    abstract protected function registerAffecting();
-    abstract protected function registerForwardingCall();
 
+    abstract protected function assertNotAffected();
+
+    abstract protected function registerAffecting();
+
+    abstract protected function registerForwardingCall();
 
     /**
      * @test
@@ -84,9 +86,9 @@ abstract class AffectsTestCase extends TestCase
      */
     public function can_forward_calls()
     {
-        if(!$this->forwardCallTest)
-        {
+        if (!$this->forwardCallTest) {
             $this->assertTrue(true);
+
             return;
         }
 
