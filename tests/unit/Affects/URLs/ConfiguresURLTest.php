@@ -19,54 +19,39 @@ namespace Tenancy\Tests\Affects\URLs;
 use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Testing\TestCase;
+use Tenancy\Tests\Affects\AffectsTestCase;
 
-class ConfiguresURLTest extends TestCase
+class ConfiguresURLTest extends AffectsTestCase
 {
     protected $additionalProviders = [Provider::class];
 
-    /**
-     * @var Tenant
-     */
-    protected $tenant;
-
-    protected function afterSetUp()
-    {
-        $this->tenant = $this->mockTenant();
-    }
-
-    /**
-     * @test
-     */
-    public function can_set_url()
+    protected function registerForwardingCall()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot('tenant.test');
+            $event->forceRootUrl($event->event->tenant->name. '.tenant');
         });
+    }
 
-        Tenancy::setTenant($this->tenant);
+    protected function registerAffecting()
+    {
+        $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
+            $event->changeRoot($event->event->tenant->name. '.tenant');
+        });
+    }
 
-        $this->assertEquals(
-            'tenant.test',
+    protected function assertNotAffected()
+    {
+        $this->assertStringNotContainsString(
+            '.tenant',
             URL::current()
         );
     }
 
-    /**
-     * @test
-     */
-    public function forwards_to_url_generator()
+    protected function assertAffected(Tenant $tenant)
     {
-        $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->forceRootUrl('tenant.test');
-        });
-
-        Tenancy::setTenant($this->tenant);
-
         $this->assertEquals(
-            'tenant.test',
+            $tenant->name . '.tenant',
             URL::current()
         );
     }
