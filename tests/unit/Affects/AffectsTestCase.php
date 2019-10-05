@@ -87,7 +87,7 @@ abstract class AffectsTestCase extends TestCase
     public function can_forward_calls()
     {
         if (!$this->forwardCallTest) {
-            $this->assertTrue(true);
+            $this->markTestSkipped();
 
             return;
         }
