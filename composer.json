@@ -39,6 +39,7 @@
     "replace": {
         "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
+        "tenancy/affects-broadcasts": "self.version",
         "tenancy/affects-cache": "self.version",
         "tenancy/affects-configs": "self.version",
         "tenancy/affects-connections": "self.version",
@@ -77,6 +78,7 @@
         "laravel": {
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
+                "Tenancy\\Affects\\Broadcasts\\Provider",
                 "Tenancy\\Affects\\Cache\\Provider",
                 "Tenancy\\Affects\\Configs\\Provider",
                 "Tenancy\\Affects\\Connections\\Provider",
