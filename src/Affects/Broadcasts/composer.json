@@ -1,0 +1,33 @@
+{
+    "name": "tenancy/affects-broadcasts",
+    "description": "The tenancy/tenancy broadcasts mutations",
+    "keywords": ["affects", "tenancy", "broadcasts"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Affects\\Broadcasts\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "http://luceos.com"
+        },
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlonantonius.com",
+            "homepage": "https://arlonantonius.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Affects\\Broadcasts\\Provider"
+            ]
+        }
+    }
+}
