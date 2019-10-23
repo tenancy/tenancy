@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableInQueue;
+use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableByQueue;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableInQueue;
 | model instances for testing / seeding your application's database.
 |
 */
-$factory->define(TenantIdentifiableInQueue::class, function (Faker $faker) {
+$factory->define(TenantIdentifiableByQueue::class, function (Faker $faker) {
     return [
         'name'           => $faker->slug,
         'email'          => $faker->unique()->safeEmail,

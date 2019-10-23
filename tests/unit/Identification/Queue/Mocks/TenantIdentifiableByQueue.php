@@ -21,7 +21,7 @@ use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 use Tenancy\Testing\Mocks\Tenant as Mock;
 
-class TenantIdentifiableInQueue extends Mock implements IdentifiesByQueue
+class TenantIdentifiableByQueue extends Mock implements IdentifiesByQueue
 {
     /**
      * Specify whether the tenant model is matching the queue job.
@@ -32,7 +32,7 @@ class TenantIdentifiableInQueue extends Mock implements IdentifiesByQueue
      */
     public function tenantIdentificationByQueue(Processing $event = null): ?Tenant
     {
-        if ($event->tenant && get_class($event->tenant) === get_class($this)) {
+        if ($event->tenant && $event->tenant instanceof $this) {
             return $event->tenant;
         }
 
