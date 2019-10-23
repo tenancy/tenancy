@@ -39,11 +39,13 @@
     "replace": {
         "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
+        "tenancy/affects-broadcasts": "self.version",
         "tenancy/affects-cache": "self.version",
         "tenancy/affects-configs": "self.version",
         "tenancy/affects-connections": "self.version",
         "tenancy/affects-filesystems": "self.version",
         "tenancy/affects-logs": "self.version",
+        "tenancy/affects-mails": "self.version",
         "tenancy/affects-models": "self.version",
         "tenancy/affects-routes": "self.version",
         "tenancy/affects-urls": "self.version",
@@ -77,11 +79,13 @@
         "laravel": {
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
+                "Tenancy\\Affects\\Broadcasts\\Provider",
                 "Tenancy\\Affects\\Cache\\Provider",
                 "Tenancy\\Affects\\Configs\\Provider",
                 "Tenancy\\Affects\\Connections\\Provider",
                 "Tenancy\\Affects\\Filesystems\\Provider",
                 "Tenancy\\Affects\\Logs\\Provider",
+                "Tenancy\\Affects\\Mails\\Provider",
                 "Tenancy\\Affects\\Models\\Provider",
                 "Tenancy\\Affects\\Routes\\Provider",
                 "Tenancy\\Affects\\URLs\\Provider",
