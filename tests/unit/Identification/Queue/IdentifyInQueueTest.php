@@ -23,7 +23,7 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableInQueue;
+use Tenancy\Tests\Identification\Queue\Mocks\TenantIdentifiableByQueue;
 
 class IdentifyInQueueTest extends TestCase
 {
@@ -38,7 +38,7 @@ class IdentifyInQueueTest extends TestCase
         /* @var ResolvesTenants $resolver */
         $this->resolver = $this->app->make(ResolvesTenants::class);
         $this->resolver->addModel(Tenant::class);
-        $this->resolver->addModel(TenantIdentifiableInQueue::class);
+        $this->resolver->addModel(TenantIdentifiableByQueue::class);
     }
 
     /**
@@ -46,7 +46,7 @@ class IdentifyInQueueTest extends TestCase
      */
     public function queue_identifies_tenant()
     {
-        $tenant = factory(TenantIdentifiableInQueue::class)->create();
+        $tenant = factory(TenantIdentifiableByQueue::class)->create();
 
         $this->environment->setTenant($tenant);
 
@@ -72,7 +72,7 @@ class IdentifyInQueueTest extends TestCase
     {
         $this->environment->setTenant($this->createMockTenant());
 
-        $override = factory(TenantIdentifiableInQueue::class)->create();
+        $override = factory(TenantIdentifiableByQueue::class)->create();
 
         Event::listen('mock.tenant.job', function ($event) use ($override) {
             $this->assertEquals($override->getTenantIdentifier(), $event->getTenantIdentifier());
@@ -89,7 +89,7 @@ class IdentifyInQueueTest extends TestCase
     {
         $this->environment->setTenant($this->createMockTenant());
 
-        $override = factory(TenantIdentifiableInQueue::class)->create();
+        $override = factory(TenantIdentifiableByQueue::class)->create();
 
         Event::listen('mock.tenant.job', function ($event) use ($override) {
             $this->assertEquals($override->getTenantIdentifier(), $event->getTenantIdentifier());

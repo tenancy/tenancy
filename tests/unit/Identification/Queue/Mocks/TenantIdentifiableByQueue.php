@@ -21,7 +21,7 @@ use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 use Tenancy\Testing\Mocks\Tenant as Mock;
 
-class TenantIdentifiableInQueue extends Mock implements IdentifiesByQueue
+class TenantIdentifiableByQueue extends Mock implements IdentifiesByQueue
 {
     /**
      * Specify whether the tenant model is matching the queue job.
