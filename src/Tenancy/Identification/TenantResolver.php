@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use ReflectionClass;
@@ -153,7 +154,13 @@ class TenantResolver implements ResolvesTenants
                 foreach ($drivers as $driver) {
                     /** @var ReflectionMethod $method */
                     foreach ($this->retrieveDriverMethods($driver) as $method) {
-                        if ($tenant = app()->call("$item@{$method->getName()}")) {
+                        try {
+                            $tenant = app()->call("$item@{$method->getName()}");
+                        } catch (BindingResolutionException $e) {
+                            // Prevent trying to find a tenant when bindings aren't working for them.
+                        }
+
+                        if ($tenant) {
                             return false;
                         }
                     }
