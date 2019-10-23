@@ -27,12 +27,22 @@ class Processing
      * @var JobProcessing
      */
     public $event;
-    /** @var Tenant|null */
+
+    /**
+     * @var Tenant|null
+     */
     public $tenant;
-    /** @var string|null */
+
+    /**
+     * @var string|null
+     */
     public $tenant_key;
-    /** @var string|null */
+
+    /**
+     * @var string|null
+     */
     public $tenant_identifier;
+
     /**
      * @var Job
      */

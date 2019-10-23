@@ -28,6 +28,7 @@ class ReadTenantFromQueuePayload
      * @var Application
      */
     private $app;
+
     /**
      * @var ResolvesTenants
      */
@@ -41,13 +42,10 @@ class ReadTenantFromQueuePayload
 
     public function __invoke(JobProcessing $event)
     {
-        // Create a wrapper event.
         $processing = new Processing($event);
 
-        // Bind this event into ioc for use in the tenant model resolving.
         $this->app->instance(Processing::class, $processing);
 
-        // Force tenant identification.
         Tenancy::getTenant(true);
     }
 }
