@@ -22,7 +22,7 @@ use Dotenv\Environment\DotenvFactory;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Environment\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Environment\Mocks\Tenant;
+use Tenancy\Tests\Identification\Environment\Mocks\TenantIdentifiableByEnvironment;
 
 class IdentifyByEnvironmentTest extends TestCase
 {
@@ -32,14 +32,14 @@ class IdentifyByEnvironmentTest extends TestCase
     /** @var User */
     protected $user;
 
-    /** @var Tenant */
+    /** @var TenantIdentifiableByEnvironment */
     protected $tenant;
 
     protected function afterSetUp()
     {
         /** @var ResolvesTenants $resolver */
         $resolver = resolve(ResolvesTenants::class);
-        $resolver->addModel(Tenant::class);
+        $resolver->addModel(TenantIdentifiableByEnvironment::class);
 
         $this->tenant = $this->createMockTenant();
     }
