@@ -22,7 +22,7 @@ use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 
-class Hostname extends Model implements Tenant, IdentifiesByHttp
+class HostnameIdentifiableByHttp extends Model implements Tenant, IdentifiesByHttp
 {
     use AllowsTenantIdentification;
 

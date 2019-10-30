@@ -20,7 +20,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Http\Mocks\Hostname;
+use Tenancy\Tests\Identification\Http\Mocks\HostnameIdentifiableByHttp;
 
 class IdentifyByHttpTest extends TestCase
 {
@@ -30,14 +30,14 @@ class IdentifyByHttpTest extends TestCase
     /** @var User */
     protected $user;
 
-    /** @var Hostname */
+    /** @var HostnameIdentifiableByHttp */
     protected $hostname;
 
     protected function afterSetUp()
     {
         /** @var ResolvesTenants $resolver */
         $resolver = resolve(ResolvesTenants::class);
-        $resolver->addModel(Hostname::class);
+        $resolver->addModel(HostnameIdentifiableByHttp::class);
 
         $this->createSystemTable('hostnames', function (Blueprint $table) {
             $table->increments('id');
@@ -45,7 +45,7 @@ class IdentifyByHttpTest extends TestCase
             $table->timestamps();
         });
 
-        $this->hostname = factory(Hostname::class)->create();
+        $this->hostname = factory(HostnameIdentifiableByHttp::class)->create();
     }
 
     /**
