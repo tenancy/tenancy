@@ -20,7 +20,7 @@ use Illuminate\Contracts\Console\Kernel;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Identification\Console\Mocks\Tenant;
+use Tenancy\Tests\Identification\Console\Mocks\TenantIdentifiableByConsole;
 
 class IdentifyByConsoleTest extends TestCase
 {
@@ -30,7 +30,7 @@ class IdentifyByConsoleTest extends TestCase
     /** @var User */
     protected $user;
 
-    /** @var Tenant */
+    /** @var TenantIdentifiableByConsole */
     protected $tenant;
 
     protected function afterSetUp()
@@ -46,7 +46,7 @@ class IdentifyByConsoleTest extends TestCase
     {
         /** @var ResolvesTenants $resolver */
         $resolver = $this->app->make(ResolvesTenants::class);
-        $resolver->addModel(Tenant::class);
+        $resolver->addModel(TenantIdentifiableByConsole::class);
 
         $this->tenant = $this->createMockTenant();
     }
