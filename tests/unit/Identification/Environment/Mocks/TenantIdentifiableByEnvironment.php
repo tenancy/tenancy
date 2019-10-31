@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Identification\Environment\Mocks;
 use Tenancy\Identification\Contracts\Tenant as Contract;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
 
-class Tenant extends \Tenancy\Testing\Mocks\Tenant implements IdentifiesByEnvironment
+class TenantIdentifiableByEnvironment extends \Tenancy\Testing\Mocks\Tenant implements IdentifiesByEnvironment
 {
     /**
      * Specify whether the tenant model is matching the request.
