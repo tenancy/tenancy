@@ -18,7 +18,6 @@ namespace Tenancy\Tests\Affects\Connections;
 
 use Tenancy\Affects\Connections\Provider;
 use Tenancy\Environment;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 
