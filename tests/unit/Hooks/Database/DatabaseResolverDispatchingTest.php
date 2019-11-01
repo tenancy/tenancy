@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database;
 
-use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Events;
 use Tenancy\Hooks\Database\Provider;
 use Tenancy\Tenant\Events as Tenant;
