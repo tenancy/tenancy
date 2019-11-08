@@ -25,7 +25,7 @@ use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 class HostnameIdentifiableByHttp extends Model implements Tenant, IdentifiesByHttp
 {
     use AllowsTenantIdentification;
-    
+
     protected $table = 'hostnames';
 
     /**
