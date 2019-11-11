@@ -5,7 +5,6 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "^6.0",
-        "psr/container": "^1.0.0",
         "doctrine/dbal": "^2.9"
     },
     "require-dev": {
