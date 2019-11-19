@@ -56,7 +56,7 @@ class ConfiguresDiskTest extends TestCase
     public function configuration_initially_empty()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Driver [] is not supported.');
+        $this->expectExceptionMessage('Disk [tenant] does not have a configured driver.');
 
         $this->manager->disk('tenant');
     }

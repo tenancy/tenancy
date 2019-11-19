@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Tests\Identification\Http\Mocks\Hostname;
+use Tenancy\Tests\Identification\Http\Mocks\HostnameIdentifiableByHttp;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ use Tenancy\Tests\Identification\Http\Mocks\Hostname;
 | model instances for testing / seeding your application's database.
 |
 */
-$factory->define(Hostname::class, function (Faker $faker) {
+$factory->define(HostnameIdentifiableByHttp::class, function (Faker $faker) {
     return [
         'fqdn' => $faker->domainName,
     ];
