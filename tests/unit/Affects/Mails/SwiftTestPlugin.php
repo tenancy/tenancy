@@ -35,7 +35,7 @@ class SwiftTestPlugin implements Swift_Events_SendListener
      */
     public function beforeSendPerformed(Swift_Events_SendEvent $evt)
     {
-        $this->test->emails[] = $evt->getMessage();
+        $this->test->email = $evt->getMessage();
     }
 
     /**

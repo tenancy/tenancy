@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects;
 
 use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
 abstract class AffectsTestCase extends TestCase
@@ -39,11 +39,21 @@ abstract class AffectsTestCase extends TestCase
 
     abstract protected function assertAffected(Tenant $tenant);
 
-    abstract protected function assertNotAffected();
+    abstract protected function assertNotAffected(Tenant $tenant);
 
     abstract protected function registerAffecting();
 
     abstract protected function registerForwardingCall();
+
+    protected function beforeIdentification(Tenant $tenant = null)
+    {
+        //
+    }
+
+    protected function afterIdentification(Tenant $tenant = null)
+    {
+        //
+    }
 
     /**
      * @test
@@ -51,7 +61,7 @@ abstract class AffectsTestCase extends TestCase
     public function not_affected_by_default()
     {
         $this->registerAffecting();
-        $this->assertNotAffected();
+        $this->assertNotAffected($this->tenant);
     }
 
     /**
@@ -60,11 +70,24 @@ abstract class AffectsTestCase extends TestCase
     public function can_affect_the_application()
     {
         $this->registerAffecting();
-        $this->assertNotAffected();
-
-        Tenancy::setTenant($this->tenant);
+        $this->identifyTenant($this->tenant);
 
         $this->assertAffected($this->tenant);
+    }
+
+    /**
+     * @test
+     */
+    public function affects_can_be_undone()
+    {
+        $this->registerAffecting();
+        $this->identifyTenant($this->tenant);
+
+        $this->assertAffected($this->tenant);
+
+        $this->identifyTenant(null);
+
+        $this->assertNotAffected($this->tenant);
     }
 
     /**
@@ -73,12 +96,14 @@ abstract class AffectsTestCase extends TestCase
     public function can_override_previous_affect()
     {
         $this->registerAffecting();
-        Tenancy::setTenant($this->tenant);
+        $this->identifyTenant($this->tenant);
 
         $this->assertAffected($this->tenant);
 
         $newTenant = $this->mockTenant();
-        Tenancy::setTenant($newTenant);
+        $this->identifyTenant($newTenant);
+
+        $this->assertAffected($newTenant);
     }
 
     /**
@@ -93,10 +118,19 @@ abstract class AffectsTestCase extends TestCase
         }
 
         $this->registerForwardingCall();
-        $this->assertNotAffected();
+        $this->assertNotAffected($this->tenant);
 
-        Tenancy::setTenant($this->tenant);
+        $this->identifyTenant($this->tenant);
 
         $this->assertAffected($this->tenant);
+    }
+
+    protected function identifyTenant(Tenant $tenant = null)
+    {
+        $this->beforeIdentification($tenant);
+
+        Tenancy::setTenant($tenant);
+
+        $this->afterIdentification($tenant);
     }
 }

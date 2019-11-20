@@ -29,7 +29,7 @@ class ConfigureMailTest extends TestCase
 
     protected $tenant;
 
-    public $emails = [];
+    public $email;
 
     protected function afterSetUp()
     {
@@ -57,11 +57,10 @@ class ConfigureMailTest extends TestCase
 
         Tenancy::getTenant();
         Mail::to('example@example.com')->send(new Mocks\Mail());
-        $email = array_shift($this->emails);
 
         $this->assertEquals(
             $this->tenant->email,
-            $this->getAddressFromMessage($email)
+            $this->getAddressFromMessage($this->email)
         );
     }
 
@@ -79,11 +78,11 @@ class ConfigureMailTest extends TestCase
 
         $this->environment->setTenant($first);
         Mail::to('example@example.com')->send(new Mocks\Mail());
-        $firstMail = array_shift($this->emails);
+        $firstMail = $this->email;
 
         $this->environment->setTenant($second);
         Mail::to('example@example.com')->send(new Mocks\Mail());
-        $secondMail = array_shift($this->emails);
+        $secondMail = $this->email;
 
         $this->assertNotEquals(
             $this->getAddressFromMessage($firstMail),

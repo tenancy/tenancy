@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Affects\URLs;
 use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
-use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsTestCase;
 
 class ConfiguresURLTest extends AffectsTestCase
@@ -40,10 +40,10 @@ class ConfiguresURLTest extends AffectsTestCase
         });
     }
 
-    protected function assertNotAffected()
+    protected function assertNotAffected(Tenant $tenant)
     {
-        $this->assertStringNotContainsString(
-            '.tenant',
+        $this->assertNotEquals(
+            $tenant->name . '.tenant',
             URL::current()
         );
     }
