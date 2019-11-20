@@ -43,7 +43,7 @@ class ConfiguresURLTest extends AffectsTestCase
     protected function assertNotAffected(Tenant $tenant)
     {
         $this->assertNotEquals(
-            $tenant->name . '.tenant',
+            $tenant->name.'.tenant',
             URL::current()
         );
     }

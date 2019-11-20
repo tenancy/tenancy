@@ -45,9 +45,10 @@ class ConfigureMailNewTest extends AffectsTestCase
 
     protected function getAddressFromMessage(Swift_Message $message = null)
     {
-        if(empty($message)){
+        if (empty($message)) {
             return '';
         }
+
         return array_keys($message->getFrom())[0];
     }
 
