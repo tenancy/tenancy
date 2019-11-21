@@ -32,7 +32,7 @@ class ConfiguresMail extends Affect
         if ($this->event->tenant) {
             $this->events()->dispatch(new Events\ConfigureMail($this->event, $mailer));
         } else {
-            $mailer->setSwiftMailer(resolve('swift.mailer'));
+            app()->forgetInstance('mailer');
         }
     }
 }
