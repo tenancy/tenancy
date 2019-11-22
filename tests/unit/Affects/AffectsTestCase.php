@@ -48,7 +48,10 @@ abstract class AffectsTestCase extends TestCase
 
     abstract protected function registerAffecting();
 
-    abstract protected function registerForwardingCall();
+    protected function registerForwardingCall()
+    {
+        //
+    }
 
     protected function beforeIdentification(Tenant $tenant = null)
     {
