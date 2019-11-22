@@ -19,8 +19,8 @@ namespace Tenancy\Tests\Affects\Views;
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
-use Tenancy\Tests\Affects\AffectsTestCase;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Tests\Affects\AffectsTestCase;
 
 class ConfiguresViewsNewTest extends AffectsTestCase
 {

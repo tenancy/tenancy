@@ -18,9 +18,9 @@ namespace Tenancy\Tests\Affects\Routes;
 
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
-use Tenancy\Tests\Affects\AffectsTestCase;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Tests\Affects\AffectsTestCase;
 
 class ConfiguresRoutesNewTest extends AffectsTestCase
 {
