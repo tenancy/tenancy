@@ -30,6 +30,11 @@ class ConfigureMailNewTest extends AffectsTestCase
      */
     protected $forwardCallTest = false;
 
+    /**
+     * @var bool
+     */
+    protected $undoTest = false;
+
     protected $additionalProviders = [Provider::class];
 
     public $email;

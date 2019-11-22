@@ -32,6 +32,11 @@ abstract class AffectsTestCase extends TestCase
      */
     protected $forwardCallTest = true;
 
+    /**
+     * @var bool
+     */
+    protected $undoTest = true;
+
     protected function afterSetUp()
     {
         $this->tenant = $this->mockTenant();
@@ -80,6 +85,12 @@ abstract class AffectsTestCase extends TestCase
      */
     public function affects_can_be_undone()
     {
+        if (!$this->undoTest) {
+            $this->markTestSkipped();
+
+            return;
+        }
+
         $this->registerAffecting();
         $this->identifyTenant($this->tenant);
 

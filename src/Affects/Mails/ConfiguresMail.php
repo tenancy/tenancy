@@ -31,8 +31,6 @@ class ConfiguresMail extends Affect
 
         if ($this->event->tenant) {
             $this->events()->dispatch(new Events\ConfigureMail($this->event, $mailer));
-        } else {
-            app()->forgetInstance('mailer');
         }
     }
 }
