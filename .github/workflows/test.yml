@@ -23,11 +23,11 @@ jobs:
             mysql:
                 image: ${{ matrix.service }}
                 env:
-                    - MYSQL_DATABASE: testing
-                    - MYSQL_USER: testing
-                    - MYSQL_PASSWORD: testing
-                    - MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    - MYSQL_ROOT_HOST: "%"
+                    MYSQL_DATABASE: testing
+                    MYSQL_USER: testing
+                    MYSQL_PASSWORD: testing
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                    MYSQL_ROOT_HOST: "%"
                 ports:
                     - 13306:3306
 
@@ -55,8 +55,8 @@ jobs:
             - name: Run Composer tests
               run: ./vendor/bin/phpunit
               env:
-                - TENANCY_DB: testing
-                - TENANCY_USERNAME: testing
-                - TENANCY_PASSWORD: testing
-                - TENANCY_HOST: mysql
-                - APP_KEY: deela5kinohw0haekoothahSh8eexach
+                  TENANCY_DB: testing
+                  TENANCY_USERNAME: testing
+                  TENANCY_PASSWORD: testing
+                  TENANCY_HOST: mysql
+                  APP_KEY: deela5kinohw0haekoothahSh8eexach
