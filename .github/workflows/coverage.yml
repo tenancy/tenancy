@@ -24,20 +24,24 @@ jobs:
               with:
                   php-version: '7.3'
                   coverage: xdebug
+
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
             - name: Create MySQL Database
               run: mysql -uroot -proot -e "create database testing;" --port 13306
+
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Composer dependencies
               run: composer install
 
-            - name: Run tests
+            - name: Run tests for coverage
               run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
               env:
                   TENANCY_DB: testing
                   TENANCY_USERNAME: testing
                   TENANCY_PASSWORD: testing
                   APP_KEY: deela5kinohw0haekoothahSh8eexach
+            - name: Upload coverage
+              run: bash <(curl -s https://codecov.io/bash)
