@@ -42,17 +42,18 @@ jobs:
 
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
-            - name: Grant permissions
+            - name: Create MySQL Database
+              run: mysql -uroot -proot -e "create database 'testing';" --port 13306
+            - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Composer dependencies
               run: composer install
 
-            - name: Run Composer tests
+            - name: Run tests
               run: ./vendor/bin/phpunit
               env:
                   TENANCY_DB: testing
                   TENANCY_USERNAME: testing
                   TENANCY_PASSWORD: testing
-                  TENANCY_HOST: mysql
                   APP_KEY: deela5kinohw0haekoothahSh8eexach
