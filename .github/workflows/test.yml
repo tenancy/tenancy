@@ -1,0 +1,62 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php: [7.2, 7.3]
+                service: ['mysql:5.7', mariadb]
+
+                include:
+                    - service: 'mysql:8'
+                      db: MySQL8
+                    - service: 'mysql:5.7'
+                      db: MySQL5
+                    - service: mariadb
+                      db: MariaDB
+
+        services:
+            mysql:
+                image: ${{ matrix.service }}
+                env:
+                    - MYSQL_DATABASE: testing
+                    - MYSQL_USER: testing
+                    - MYSQL_PASSWORD: testing
+                    - MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                    - MYSQL_ROOT_HOST: "%"
+                ports:
+                    - 13306:3306
+
+        name: 'PHP ${{ matrix.php }} / ${{ matrix.db }}'
+
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Select PHP version
+              run: sudo update-alternatives --set php $(which php${{ matrix.php }})
+
+            - name: Create MySQL Database
+              run: mysql -uroot -proot --host=mysql -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+
+            - name: Install Composer dependencies
+              run: composer install
+
+            - name: Setup Composer tests
+              run: composer test:setup
+              env:
+                  DB_PORT: 13306
+                  DB_PASSWORD: root
+                  DB_PREFIX: ${{ matrix.prefix }}
+
+            - name: Run Composer tests
+              run: ./vendor/bin/phpunit
+              env:
+                - TENANCY_DB: testing
+                - TENANCY_USERNAME: testing
+                - TENANCY_PASSWORD: testing
+                - TENANCY_HOST: mysql
+                - APP_KEY: deela5kinohw0haekoothahSh8eexach
