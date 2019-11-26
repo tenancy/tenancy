@@ -1,0 +1,21 @@
+name: Coverage
+
+on: [push, pull_request]
+
+jobs:
+    coverage:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Select PHP version
+              uses: shivammathur/setup-php@master
+              with:
+                  php-version: '7.3'
+
+            - name: Install Composer dependencies
+              run: composer install
+
+            - name: Run tests for coverage
+              run: ./vendor/bin/phpcs

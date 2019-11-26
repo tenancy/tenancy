@@ -47,7 +47,7 @@ jobs:
 
             - name: Create MySQL Database
               run: mysql -uroot -proot -e "create database testing;" --port 13306
-              
+
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
