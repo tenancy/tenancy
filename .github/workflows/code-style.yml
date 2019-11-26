@@ -1,11 +1,11 @@
-name: Coverage
+name: Code Style
 
 on: [push, pull_request]
 
 jobs:
-    coverage:
+    code style:
         runs-on: ubuntu-latest
-        
+
         steps:
             - uses: actions/checkout@master
 
