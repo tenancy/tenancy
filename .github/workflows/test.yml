@@ -7,9 +7,10 @@ jobs:
         runs-on: ubuntu-latest
 
         strategy:
+            fail-fast: false
             matrix:
                 php: [7.2, 7.3]
-                service: ['mysql:5.7', mariadb]
+                service: ['mysql:8', 'mysql:5.7', mariadb]
 
                 include:
                     - service: 'mysql:8'
@@ -39,7 +40,9 @@ jobs:
             - name: Select PHP version
               run: sudo update-alternatives --set php $(which php${{ matrix.php }})
 
-            - name: Create MySQL Database
+            - name: Create MySQL User
+              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
+            - name: Grant permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Composer dependencies
