@@ -31,6 +31,8 @@ class ConfiguresURL extends Affect
 
         if ($this->event->tenant) {
             $this->events()->dispatch(new Events\ConfigureURL($this->event, $url));
+        } else {
+            $url->forceRootUrl(null);
         }
     }
 }
