@@ -1,28 +1,13 @@
-name: Tests
+name: Coverage
 
 on: [push, pull_request]
 
 jobs:
-    test:
+    coverage:
         runs-on: ubuntu-latest
-
-        strategy:
-            fail-fast: false
-            matrix:
-                php: [7.2, 7.3]
-                service: ['mysql:8', 'mysql:5.7', mariadb]
-
-                include:
-                    - service: 'mysql:8'
-                      db: MySQL8
-                    - service: 'mysql:5.7'
-                      db: MySQL5
-                    - service: mariadb
-                      db: MariaDB
-
         services:
             mysql:
-                image: ${{ matrix.service }}
+                image: mysql:8
                 env:
                     MYSQL_DATABASE: testing
                     MYSQL_USER: testing
@@ -31,17 +16,14 @@ jobs:
                     MYSQL_ROOT_HOST: "%"
                 ports:
                     - 13306:3306
-
-        name: 'PHP ${{ matrix.php }} / ${{ matrix.db }}'
-
         steps:
             - uses: actions/checkout@master
 
             - name: Select PHP version
               uses: shivammathur/setup-php@master
               with:
-                  php-version: '${{ matrix.php }}'
-
+                  php-version: '7.3'
+                  coverage: xdebug
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
             - name: Create MySQL Database
@@ -53,7 +35,7 @@ jobs:
               run: composer install
 
             - name: Run tests
-              run: ./vendor/bin/phpunit
+              run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
               env:
                   TENANCY_DB: testing
                   TENANCY_USERNAME: testing
