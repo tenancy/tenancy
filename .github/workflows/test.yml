@@ -40,17 +40,10 @@ jobs:
               run: sudo update-alternatives --set php $(which php${{ matrix.php }})
 
             - name: Create MySQL Database
-              run: mysql -uroot -proot --host=mysql -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Composer dependencies
               run: composer install
-
-            - name: Setup Composer tests
-              run: composer test:setup
-              env:
-                  DB_PORT: 13306
-                  DB_PASSWORD: root
-                  DB_PREFIX: ${{ matrix.prefix }}
 
             - name: Run Composer tests
               run: ./vendor/bin/phpunit
