@@ -13,7 +13,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [7.2, 7.3, 7.4]
+                php: [7.2, 7.3]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
 
                 include:
@@ -45,7 +45,6 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: '${{ matrix.php }}'
-                  extension-csv: mbstring, dom, fileinfo, mysql, pgsql, sqlite
 
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
