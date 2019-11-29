@@ -16,7 +16,7 @@ jobs:
             - name: Select PHP version
               uses: shivammathur/setup-php@master
               with:
-                  php-version: '7.4'
+                  php-version: '7.3'
 
             - name: Install Composer dependencies
               run: composer install
