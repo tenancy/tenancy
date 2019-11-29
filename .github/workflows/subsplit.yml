@@ -21,7 +21,7 @@ jobs:
               run: git clone https://github.com/dflydev/git-subsplit.git ~/subsplit
 
             - name: Install subsplit
-              run: cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
+              run: sudo cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
 
             - name: Subsplit
               run: bash build/tenancy-split.sh
