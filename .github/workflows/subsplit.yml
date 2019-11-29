@@ -1,0 +1,27 @@
+name: Subsplit
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    subsplit:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Select PHP version
+              uses: shivammathur/setup-php@master
+              with:
+                  php-version: '7.3'
+
+            - name: Clone subsplit
+              run: git clone git@github.com:dflydev/git-subsplit.git ~/subsplit
+
+            - name: Install subsplit
+              run: cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
+
+            - name: Subsplit
+              run: bash build/tenancy-split.sh
