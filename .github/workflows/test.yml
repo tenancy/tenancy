@@ -45,6 +45,7 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: '${{ matrix.php }}'
+                  extension-csv: mbstring, dom, fileinfo
 
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
