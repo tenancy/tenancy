@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Routes;
 
-use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Affect;
 use Tenancy\Concerns\DispatchesEvents;
@@ -32,8 +31,6 @@ class ConfiguresRoutes extends Affect
 
         if ($this->event->tenant) {
             $this->events()->dispatch(new Events\ConfigureRoutes($this->event, $router));
-        } else {
-            $router->setRoutes(new RouteCollection());
         }
 
         $router->getRoutes()->refreshNameLookups();
