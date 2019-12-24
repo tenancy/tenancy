@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Lifecycle\Mocks;
+namespace Tenancy\Tests\Framework\Lifecycle\Mocks;
 
 class InvalidHook
 {

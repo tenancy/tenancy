@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Unit\Identification\Concerns;
+namespace Tenancy\Tests\Framework\Identification\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;

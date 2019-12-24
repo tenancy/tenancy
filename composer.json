@@ -28,11 +28,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tenancy\\Testing\\": "src/Testing",
-            "Tenancy\\Tests\\": "tests/unit/Tenancy",
-            "Tenancy\\Tests\\Affects\\": "tests/unit/Affects",
-            "Tenancy\\Tests\\Database\\": "tests/unit/Database",
-            "Tenancy\\Tests\\Hooks\\": "tests/unit/Hooks",
-            "Tenancy\\Tests\\Identification\\": "tests/unit/Identification"
+            "Tenancy\\Tests\\Framework\\": "tests/Tenancy",
+            "Tenancy\\Tests\\Affects\\": "tests/Affects",
+            "Tenancy\\Tests\\Database\\": "tests/Database",
+            "Tenancy\\Tests\\Hooks\\": "tests/Hooks",
+            "Tenancy\\Tests\\Identification\\": "tests/Identification"
         }
     },
     "replace": {
