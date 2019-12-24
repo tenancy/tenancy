@@ -3,7 +3,7 @@
 git subsplit init git@github.com:tenancy/tenancy.git
 
 # Tenancy.
-git subsplit publish --heads="master" src/Tenancy:git@github.com:tenancy/framework.git
+git subsplit publish --heads="master" ../src/Tenancy:git@github.com:tenancy/framework.git
 
 # Affects
 git subsplit publish --heads="master" src/Affects/Broadcasts:git@github.com:tenancy/affects-broadcasts.git
