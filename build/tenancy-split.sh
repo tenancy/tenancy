@@ -6,10 +6,10 @@ git subsplit init git@github.com:tenancy/tenancy.git
 git subsplit publish --heads="master" ../src/Tenancy:git@github.com:tenancy/framework.git
 
 # Affects
-git subsplit publish --heads="master" src/Affects/Broadcasts:git@github.com:tenancy/affects-broadcasts.git
-git subsplit publish --heads="master" src/Affects/Cache:git@github.com:tenancy/affects-cache.git
-git subsplit publish --heads="master" src/Affects/Configs:git@github.com:tenancy/affects-configs.git
-git subsplit publish --heads="master" src/Affects/Connections:git@github.com:tenancy/affects-connections.git
+git subsplit publish --heads="master" ../src/Affects/Broadcasts:git@github.com:tenancy/affects-broadcasts.git
+git subsplit publish --heads="master" ../src/Affects/Cache:git@github.com:tenancy/affects-cache.git
+git subsplit publish --heads="master" ../src/Affects/Configs:git@github.com:tenancy/affects-configs.git
+git subsplit publish --heads="master" ../src/Affects/Connections:git@github.com:tenancy/affects-connections.git
 git subsplit publish --heads="master" src/Affects/Filesystems:git@github.com:tenancy/affects-filesystems.git
 git subsplit publish --heads="master" src/Affects/Logs:git@github.com:tenancy/affects-logs.git
 git subsplit publish --heads="master" src/Affects/Mails:git@github.com:tenancy/affects-mails.git
