@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Lifecycle;
+namespace Tenancy\Tests\Framework\Lifecycle;
 
 use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Support\Facades\Queue;
@@ -24,9 +24,9 @@ use Tenancy\Lifecycle\HookResolver;
 use Tenancy\Pipeline\Events\Resolved;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Lifecycle\Mocks\ConfiguredHook;
-use Tenancy\Tests\Lifecycle\Mocks\DefaultHook;
-use Tenancy\Tests\Lifecycle\Mocks\InvalidHook;
+use Tenancy\Tests\Framework\Lifecycle\Mocks\ConfiguredHook;
+use Tenancy\Tests\Framework\Lifecycle\Mocks\DefaultHook;
+use Tenancy\Tests\Framework\Lifecycle\Mocks\InvalidHook;
 
 class HookResolverTest extends TestCase
 {

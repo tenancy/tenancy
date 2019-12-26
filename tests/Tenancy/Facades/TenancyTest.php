@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Facades;
+namespace Tenancy\Tests\Framework\Facades;
 
 use Tenancy\Database\Events\Resolving;
 use Tenancy\Environment;

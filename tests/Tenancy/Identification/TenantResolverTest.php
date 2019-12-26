@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Unit\Identification;
+namespace Tenancy\Tests\Framework\Identification;
 
 use Illuminate\Foundation\Auth\User;
 use Tenancy\Identification\Contracts\ResolvesTenants;

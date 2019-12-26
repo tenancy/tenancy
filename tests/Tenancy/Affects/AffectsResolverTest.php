@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects;
+namespace Tenancy\Tests\Framework\Affects;
 
 use InvalidArgumentException;
 use Tenancy\Affects\Contracts\ResolvesAffects;

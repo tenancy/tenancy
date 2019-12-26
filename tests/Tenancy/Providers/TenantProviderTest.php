@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Unit\Providers;
+namespace Tenancy\Tests\Framework\Providers;
 
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;

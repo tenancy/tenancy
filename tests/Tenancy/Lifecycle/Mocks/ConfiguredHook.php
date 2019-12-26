@@ -14,11 +14,11 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Lifecycle\Mocks;
+namespace Tenancy\Tests\Framework\Lifecycle\Mocks;
 
-use Tenancy\Lifecycle\Hook;
+use Tenancy\Lifecycle\ConfigurableHook;
 
-class DefaultHook extends Hook
+class ConfiguredHook extends ConfigurableHook
 {
     public function fire(): void
     {

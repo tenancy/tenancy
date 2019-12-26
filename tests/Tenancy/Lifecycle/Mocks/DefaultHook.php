@@ -14,14 +14,14 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Mocks;
+namespace Tenancy\Tests\Framework\Lifecycle\Mocks;
 
-use Tenancy\Contracts\AffectsApp;
+use Tenancy\Lifecycle\Hook;
 
-class ValidAffects implements AffectsApp
+class DefaultHook extends Hook
 {
-    public function fire()
+    public function fire(): void
     {
-        // TODO: Implement fire method
+        // TODO: Implement fire() method.
     }
 }
