@@ -12,11 +12,6 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Select PHP version
-              uses: shivammathur/setup-php@master
-              with:
-                  php-version: '7.3'
-
             - name: Clone subsplit
               run: git clone https://github.com/dflydev/git-subsplit.git ~/subsplit
 
