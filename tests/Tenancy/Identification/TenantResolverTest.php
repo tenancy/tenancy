@@ -22,6 +22,8 @@ use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Support\TenantModelCollection;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
+use Tenancy\Tests\Framework\Identification\Mocks\IdentifiesByTest;
+use Tenancy\Tests\Framework\Identification\Mocks\TenantIdentifiableByTest;
 
 class TenantResolverTest extends TestCase
 {
@@ -95,5 +97,28 @@ class TenantResolverTest extends TestCase
 
         $this->assertCount(1, $this->resolver->getModels());
         $this->assertEquals(Tenant::class, $this->resolver->getModels()->first());
+    }
+
+    /**
+     * @test
+     */
+    public function can_identify_by_contract()
+    {
+        $this->resolver->registerDriver(IdentifiesByTest::class);
+        $this->resolver->addModel(TenantIdentifiableByTest::class);
+
+        $tenant = $this->createMockTenant();
+
+        $identified = $this->resolver->identifyByContract(IdentifiesByTest::class);
+
+        $this->assertInstanceOf(
+            TenantIdentifiableByTest::class,
+            $identified
+        );
+
+        $this->assertEquals(
+            $tenant->getTenantKey(),
+            $identified->getTenantKey()
+        );
     }
 }

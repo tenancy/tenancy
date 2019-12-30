@@ -179,4 +179,60 @@ class TenantResolver implements ResolvesTenants
     {
         return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
     }
+
+    public function identifyByContract(string $contract)
+    {
+        /** @var Tenant|null $tenant */
+        $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
+
+        if (!$tenant && count($this->drivers) > 0) {
+            $tenant = $this->resolveFromDriver($models, $contract);
+        }
+
+        if ($tenant) {
+            $this->events()->dispatch(new Events\Identified($tenant));
+        }
+
+        // Provide a debug log entry when no tenant was identified, possibly because no identification driver is active.
+        if (!$tenant && count($this->drivers) === 0) {
+            logger('No tenant was identified, a possible cause being that no identification drivers are available.');
+        }
+
+        if (!$tenant) {
+            $this->events()->dispatch(new Events\NothingIdentified($tenant));
+        }
+
+        $this->events()->dispatch(new Events\Resolved($tenant));
+
+        return $tenant;
+    }
+
+    /**
+     * @param TenantModelCollection $models
+     * @param string|array $contract
+     *
+     * @return Tenant|null
+     */
+    protected function resolveFromDriver(TenantModelCollection $models, string $contract): ?Tenant
+    {
+        $tenant = null;
+
+        $models
+            ->filterByContract($contract)
+            ->each(function (string $item) use (&$tenant, $contract) {
+                foreach ($this->retrieveDriverMethods($contract) as $method) {
+                    try {
+                        $tenant = app()->call("$item@{$method->getName()}");
+                    } catch (BindingResolutionException $e) {
+                        // Prevent trying to find a tenant when bindings aren't working for them.
+                    }
+
+                    if ($tenant) {
+                        return false;
+                    }
+                }
+            });
+
+        return $tenant;
+    }
 }
