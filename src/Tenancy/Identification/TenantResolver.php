@@ -49,12 +49,12 @@ class TenantResolver implements ResolvesTenants
 
     public function __invoke(string $contract = null): ?Tenant
     {
-        if (!is_null($contract)) {
-            return $this->identifyByContract($contract);
-        }
-
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
+
+        if (!$tenant && !is_null($contract)) {
+            return $this->identifyByContract($contract);
+        }
 
         if (!$tenant && count($this->drivers) > 0) {
             $tenant = $this->resolveFromDrivers($models);
@@ -186,20 +186,17 @@ class TenantResolver implements ResolvesTenants
 
     protected function identifyByContract(string $contract)
     {
-        /** @var Tenant|null $tenant */
-        $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
+        // Provide a debug log entry when no the specific identification driver has not been installed.
+        if (!in_array($contract, $this->drivers)) {
+            logger('Identification driver ' . $contract . ' was not available');
 
-        if (!$tenant && count($this->drivers) > 0) {
-            $tenant = $this->resolveFromDriver($models, $contract);
+            return null;
         }
+
+        $tenant = $this->resolveFromDriver($this->getModels(), $contract);
 
         if ($tenant) {
             $this->events()->dispatch(new Events\Identified($tenant));
-        }
-
-        // Provide a debug log entry when no tenant was identified, possibly because no identification driver is active.
-        if (!$tenant && count($this->drivers) === 0) {
-            logger('No tenant was identified, a possible cause being that no identification drivers are available.');
         }
 
         if (!$tenant) {
@@ -221,10 +218,12 @@ class TenantResolver implements ResolvesTenants
     {
         $tenant = null;
 
+        $methods = $this->retrieveDriverMethods($contract);
+
         $models
             ->filterByContract($contract)
-            ->each(function (string $item) use (&$tenant, $contract) {
-                foreach ($this->retrieveDriverMethods($contract) as $method) {
+            ->each(function (string $item) use (&$tenant, $methods) {
+                foreach ($methods as $method) {
                     try {
                         $tenant = app()->call("$item@{$method->getName()}");
                     } catch (BindingResolutionException $e) {
