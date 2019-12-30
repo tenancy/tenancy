@@ -71,7 +71,7 @@ class ConfiguresBroadcastsTest extends TestCase
         $this->resolveTenant($this->tenant);
 
         /** @var Tenant $tenant */
-        $tenant = Tenancy::getTenant();
+        $tenant = Tenancy::identifyTenant();
 
         $broadcaster = $this->getBroadcastManager()->driver('tenant');
         $options = ['tenant-key' => $tenant->getTenantKey()];
@@ -84,7 +84,7 @@ class ConfiguresBroadcastsTest extends TestCase
 
         Tenancy::setTenant(null);
 
-        $switched = Tenancy::getTenant();
+        $switched = Tenancy::identifyTenant();
 
         $this->assertNull($switched);
 

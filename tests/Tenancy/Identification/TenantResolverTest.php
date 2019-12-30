@@ -109,7 +109,7 @@ class TenantResolverTest extends TestCase
 
         $tenant = $this->createMockTenant();
 
-        $identified = $this->resolver->identifyByContract(IdentifiesByTest::class);
+        $identified = $this->resolver->__invoke(IdentifiesByTest::class);
 
         $this->assertInstanceOf(
             TenantIdentifiableByTest::class,

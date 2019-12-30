@@ -81,7 +81,7 @@ class MigratesHookTest extends TestCase
      */
     public function migrates()
     {
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertTrue(
             DB::connection(Tenancy::getTenantConnectionName())
@@ -97,7 +97,7 @@ class MigratesHookTest extends TestCase
      */
     public function resets()
     {
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertTrue(
             DB::connection(Tenancy::getTenantConnectionName())
@@ -110,7 +110,7 @@ class MigratesHookTest extends TestCase
         config(['tenancy.database.auto-delete' => false]);
         $this->events->dispatch(new Deleted($this->tenant));
 
-        Tenancy::getTenant(true);
+        Tenancy::identifyTenant(true);
 
         $this->assertFalse(
             DB::connection(Tenancy::getTenantConnectionName())

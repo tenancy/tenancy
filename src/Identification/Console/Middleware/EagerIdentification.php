@@ -20,6 +20,7 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Environment;
+use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 
 class EagerIdentification
 {
@@ -40,7 +41,7 @@ class EagerIdentification
 
         if (!$tenancy->isIdentified()) {
             $this->app->instance(InputInterface::class, $event->input);
-            $tenancy->getTenant();
+            $tenancy->identifyTenant(false, IdentifiesByConsole::class);
         }
     }
 }

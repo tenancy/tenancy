@@ -47,8 +47,12 @@ class TenantResolver implements ResolvesTenants
         $this->configure();
     }
 
-    public function __invoke(): ?Tenant
+    public function __invoke(string $contract = null): ?Tenant
     {
+        if(!is_null($contract)){
+            return $this->identifyByContract($contract);
+        }
+
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
 
@@ -180,7 +184,7 @@ class TenantResolver implements ResolvesTenants
         return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
     }
 
-    public function identifyByContract(string $contract)
+    protected function identifyByContract(string $contract)
     {
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));

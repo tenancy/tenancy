@@ -75,7 +75,7 @@ class ConfiguresLogsTest extends TestCase
     {
         $this->resolveTenant($this->tenant);
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         /** @var LoggerInterface $logger */
         $logger = logger()->driver('tenant');

@@ -21,7 +21,7 @@ use Tenancy\Identification\Support\TenantModelCollection;
 
 interface ResolvesTenants
 {
-    public function __invoke(): ?Tenant;
+    public function __invoke(string $contract = null): ?Tenant;
 
     /**
      * Registers a viable tenant model class.
@@ -65,6 +65,4 @@ interface ResolvesTenants
      * @return $this
      */
     public function registerDriver(string $contract);
-
-    public function identifyByContract(string $contract);
 }

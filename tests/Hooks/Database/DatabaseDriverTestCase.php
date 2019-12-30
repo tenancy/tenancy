@@ -78,7 +78,7 @@ abstract class DatabaseDriverTestCase extends TestCase
 
     protected function getTenantConnection()
     {
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }

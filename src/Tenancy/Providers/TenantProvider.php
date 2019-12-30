@@ -29,7 +29,11 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
             /** @var Environment $env */
             $env = resolve(Environment::class);
 
-            return $env->getTenant();
+            if($env->isIdentified()){
+                return $env->getTenant();
+            }
+
+            return $env->identifyTenant();
         });
     }
 

@@ -53,7 +53,7 @@ class IdentifyByEnvironmentTest extends TestCase
 
         $this->setEnv('TENANT_NAME', $this->tenant->name);
 
-        $this->assertEquals($this->tenant->name, optional($this->environment->getTenant())->name);
+        $this->assertEquals($this->tenant->name, optional($this->environment->identifyTenant())->name);
 
         $this->assertTrue($this->environment->isIdentified());
     }
