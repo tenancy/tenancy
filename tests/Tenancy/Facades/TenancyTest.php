@@ -98,7 +98,7 @@ class TenancyTest extends TestCase
 
         $this->resolveTenant($this->tenant);
 
-        $this->assertEquals($this->tenant->getTenantKey(), Tenancy::getTenant(true)->getTenantKey());
+        $this->assertEquals($this->tenant->getTenantKey(), Tenancy::identifyTenant(true)->getTenantKey());
 
         /** @var Tenant $switch */
         $switch = $this->mockTenant();
