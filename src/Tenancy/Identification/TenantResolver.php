@@ -49,7 +49,7 @@ class TenantResolver implements ResolvesTenants
 
     public function __invoke(string $contract = null): ?Tenant
     {
-        if(!is_null($contract)){
+        if (!is_null($contract)) {
             return $this->identifyByContract($contract);
         }
 
