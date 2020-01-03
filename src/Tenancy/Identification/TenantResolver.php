@@ -188,9 +188,9 @@ class TenantResolver implements ResolvesTenants
     {
         // Provide a debug log entry when no the specific identification driver has not been installed.
         if (!in_array($contract, $this->drivers)) {
-            logger('Identification driver ' . $contract . ' was not available');
+            logger('Identification driver '.$contract.' was not available');
 
-            return null;
+            return;
         }
 
         $tenant = $this->resolveFromDriver($this->getModels(), $contract);
@@ -210,7 +210,7 @@ class TenantResolver implements ResolvesTenants
 
     /**
      * @param TenantModelCollection $models
-     * @param string|array $contract
+     * @param string|array          $contract
      *
      * @return Tenant|null
      */
