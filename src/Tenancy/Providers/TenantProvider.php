@@ -40,7 +40,7 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return [
-             Tenant::class,
-         ];
+            Tenant::class,
+        ];
     }
 }
