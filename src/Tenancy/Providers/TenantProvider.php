@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * Copyright Tenancy for Laravel & Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,7 +36,7 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return [
-             Tenant::class,
-         ];
+            Tenant::class,
+        ];
     }
 }
