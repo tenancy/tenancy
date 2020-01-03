@@ -11,6 +11,9 @@ jobs:
 
         steps:
             - uses: actions/checkout@master
+            - uses: webfactory/ssh-agent@v0.1.1
+              with:
+                ssh-private-key:  ${{ secrets.SUBSPLIT_KEY }}
 
             - name: Clone subsplit
               run: git clone https://github.com/dflydev/git-subsplit.git ~/subsplit
