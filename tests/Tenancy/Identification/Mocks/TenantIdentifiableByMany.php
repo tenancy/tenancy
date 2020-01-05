@@ -29,7 +29,8 @@ class TenantIdentifiableByMany extends Tenant implements IdentifiesByTest, Ident
 
     public function tenantIdentificationByEnvironment(): ?\Tenancy\Identification\Contracts\Tenant
     {
-        throw new InvalidArgumentException("Trying to identify the wrong contract");
+        throw new InvalidArgumentException('Trying to identify the wrong contract');
+
         return null;
     }
 }
