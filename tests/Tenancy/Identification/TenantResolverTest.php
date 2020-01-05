@@ -17,12 +17,15 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Identification;
 
 use Illuminate\Foundation\Auth\User;
+use InvalidArgumentException;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
 use Tenancy\Identification\Events\Resolving;
 use Tenancy\Identification\Support\TenantModelCollection;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Framework\Identification\Mocks\IdentifiesByTest;
+use Tenancy\Tests\Framework\Identification\Mocks\TenantIdentifiableByMany;
 use Tenancy\Tests\Framework\Identification\Mocks\TenantIdentifiableByTest;
 
 class TenantResolverTest extends TestCase
@@ -120,5 +123,35 @@ class TenantResolverTest extends TestCase
             $tenant->getTenantKey(),
             $identified->getTenantKey()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function identify_by_contract_does_not_trigger_others()
+    {
+        $this->resolver->registerDriver(IdentifiesByTest::class);
+        $this->resolver->registerDriver(IdentifiesByEnvironment::class);
+        $this->resolver->addModel(TenantIdentifiableByMany::class);
+
+        $tenant = $this->createMockTenant();
+
+        $identified = $this->resolver->__invoke(IdentifiesByTest::class);
+
+        $this->assertInstanceOf(
+            TenantIdentifiableByMany::class,
+            $identified
+        );
+
+        $this->assertEquals(
+            $tenant->getTenantKey(),
+            $identified->getTenantKey()
+        );
+
+        $this->expectException(
+            InvalidArgumentException::class
+        );
+
+        $this->resolver->__invoke(IdentifiesByEnvironment::class);
     }
 }
