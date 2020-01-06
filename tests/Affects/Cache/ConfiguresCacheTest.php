@@ -67,7 +67,7 @@ class ConfiguresCacheTest extends TestCase
         $this->resolveTenant($this->tenant);
 
         /** @var Tenant $tenant */
-        $tenant = Tenancy::getTenant();
+        $tenant = Tenancy::identifyTenant();
 
         $cache = $this->cache->driver('tenant');
         $cache->set('key', $tenant->getTenantKey());

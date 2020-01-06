@@ -51,15 +51,20 @@ class Environment
         return $this;
     }
 
-    public function getTenant(bool $refresh = false): ?Tenant
+    public function getTenant(): ?Tenant
+    {
+        return $this->tenant;
+    }
+
+    public function identifyTenant(bool $refresh = false, string $contract = null): ?Tenant
     {
         if (!$this->identified || $refresh) {
             $resolver = $this->tenantResolver();
 
-            $this->setTenant($resolver());
+            $this->setTenant($resolver($contract));
         }
 
-        return $this->tenant;
+        return $this->getTenant();
     }
 
     public function isIdentified(): bool

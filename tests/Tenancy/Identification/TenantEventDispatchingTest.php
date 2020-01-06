@@ -61,7 +61,7 @@ class TenantEventDispatchingTest extends TestCase
         $this->expectEvent(NothingIdentified::class, $nothingIdentified);
         $this->expectEvent(Identified::class, $identified);
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(1, $switched);
         $this->assertEquals(1, $resolving);
@@ -85,7 +85,7 @@ class TenantEventDispatchingTest extends TestCase
         $this->expectEvent(NothingIdentified::class, $nothingIdentified);
         $this->expectEvent(Identified::class, $identified);
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(1, $switched);
         $this->assertEquals(0, $resolving);
@@ -109,8 +109,8 @@ class TenantEventDispatchingTest extends TestCase
         $this->expectEvent(NothingIdentified::class, $nothingIdentified);
         $this->expectEvent(Identified::class, $identified);
 
-        Tenancy::getTenant();
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(1, $switched);
         $this->assertEquals(0, $resolving);
@@ -119,7 +119,7 @@ class TenantEventDispatchingTest extends TestCase
         $this->assertEquals(1, $identified);
 
         $this->resolveTenant($this->mockTenant());
-        Tenancy::getTenant(true);
+        Tenancy::identifyTenant(true);
 
         $this->assertEquals(2, $switched);
         $this->assertEquals(0, $resolving);

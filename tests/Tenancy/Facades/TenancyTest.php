@@ -50,11 +50,11 @@ class TenancyTest extends TestCase
      */
     public function can_proxy_environment_calls()
     {
-        $this->assertNull(Tenancy::getTenant());
+        $this->assertNull(Tenancy::identifyTenant());
 
         $this->assertInstanceOf(Environment::class, Tenancy::setTenant($this->tenant));
 
-        $this->assertEquals($this->tenant->name, optional(Tenancy::getTenant())->name);
+        $this->assertEquals($this->tenant->name, optional(Tenancy::identifyTenant())->name);
     }
 
     /**
@@ -67,11 +67,11 @@ class TenancyTest extends TestCase
 
         Tenancy::setIdentified(true);
 
-        $this->assertNull(Tenancy::getTenant());
+        $this->assertNull(Tenancy::identifyTenant());
 
         Tenancy::setIdentified(false);
 
-        $this->assertNotNull(Tenancy::getTenant());
+        $this->assertNotNull(Tenancy::identifyTenant());
     }
 
     /**
@@ -80,12 +80,12 @@ class TenancyTest extends TestCase
      */
     public function refreshing_loads_new_tenant()
     {
-        $this->assertNull(Tenancy::getTenant());
+        $this->assertNull(Tenancy::identifyTenant());
 
         $this->resolveTenant($this->tenant);
 
         $this->assertNull(Tenancy::getTenant());
-        $this->assertNotNull(Tenancy::getTenant(true));
+        $this->assertNotNull(Tenancy::identifyTenant(true));
     }
 
     /**
@@ -94,11 +94,11 @@ class TenancyTest extends TestCase
      */
     public function can_switch_tenant()
     {
-        $this->assertNull(Tenancy::getTenant());
+        $this->assertNull(Tenancy::identifyTenant());
 
         $this->resolveTenant($this->tenant);
 
-        $this->assertEquals($this->tenant->getTenantKey(), Tenancy::getTenant(true)->getTenantKey());
+        $this->assertEquals($this->tenant->getTenantKey(), Tenancy::identifyTenant(true)->getTenantKey());
 
         /** @var Tenant $switch */
         $switch = $this->mockTenant();
@@ -116,7 +116,7 @@ class TenancyTest extends TestCase
         $this->assertTrue($switchedEventFired);
 
         /** @var Tenant $switched */
-        $switched = Tenancy::getTenant();
+        $switched = Tenancy::identifyTenant();
 
         $this->assertNotEquals($this->tenant->getTenantKey(), $switched->getTenantKey());
         $this->assertEquals($switch->getTenantKey(), $switched->getTenantKey());

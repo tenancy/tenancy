@@ -18,6 +18,7 @@ namespace Tenancy\Identification\Drivers\Http\Middleware;
 
 use Closure;
 use Tenancy\Environment;
+use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 
 class EagerIdentification
 {
@@ -33,7 +34,7 @@ class EagerIdentification
         $tenancy = resolve(Environment::class);
 
         if (!$tenancy->isIdentified()) {
-            $tenancy->getTenant();
+            $tenancy->identifyTenant(false, IdentifiesByHttp::class);
         }
 
         return $next($request);

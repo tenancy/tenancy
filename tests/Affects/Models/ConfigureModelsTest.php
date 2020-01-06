@@ -53,7 +53,7 @@ class ConfigureModelsTest extends TestCase
         (new Mocks\TenantModel())->getConnection();
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
 
@@ -76,7 +76,7 @@ class ConfigureModelsTest extends TestCase
         (new Mocks\TenantModel())->getConnection();
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
 
@@ -99,7 +99,7 @@ class ConfigureModelsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
     }
 
     /**
@@ -117,7 +117,7 @@ class ConfigureModelsTest extends TestCase
         (new Mocks\TenantModel())->getConnection();
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(Mocks\ConnectionResolver::class, get_class(Mocks\TenantModel::getConnectionResolver()));
 
@@ -152,7 +152,7 @@ class ConfigureModelsTest extends TestCase
         (new Mocks\TenantModel())->create();
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         // When on tenant model should not return any models
         $this->assertEmpty(

@@ -50,7 +50,7 @@ class ConfiguresViewsTest extends TestCase
         });
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertTrue($views->exists('tenant::test'));
     }
@@ -69,7 +69,7 @@ class ConfiguresViewsTest extends TestCase
         });
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertTrue($views->exists('test'));
     }
@@ -90,7 +90,7 @@ class ConfiguresViewsTest extends TestCase
         });
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(
             $original,

@@ -46,7 +46,7 @@ class ConfiguresRoutesTest extends TestCase
         });
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         /** @var Router $router */
         $router = $this->app->make(Router::class);
@@ -64,7 +64,7 @@ class ConfiguresRoutesTest extends TestCase
         });
 
         $this->resolveTenant($this->tenant);
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         /** @var Router $router */
         $router = $this->app->make(Router::class);

@@ -78,7 +78,7 @@ class SeedsHookTest extends TestCase
      */
     public function seeds()
     {
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertNotNull(
             DB::connection(Tenancy::getTenantConnectionName())

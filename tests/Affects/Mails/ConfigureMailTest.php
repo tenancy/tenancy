@@ -55,7 +55,7 @@ class ConfigureMailTest extends TestCase
             $event->alwaysFrom($event->event->tenant->email, $event->event->tenant->name);
         });
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
         Mail::to('example@example.com')->send(new Mocks\Mail());
 
         $this->assertEquals(

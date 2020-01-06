@@ -48,7 +48,7 @@ class ConnectionResolverTest extends TestCase
             $event->useConnection('sqlite', $event->configuration);
         });
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(
             'sqlite',
@@ -65,7 +65,7 @@ class ConnectionResolverTest extends TestCase
             $event->useConfig(__DIR__.'/database.php', $event->configuration);
         });
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $this->assertEquals(
             'sqlite',
@@ -84,6 +84,6 @@ class ConnectionResolverTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
     }
 }

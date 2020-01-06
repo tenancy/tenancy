@@ -68,7 +68,7 @@ class ConfiguresDiskTest extends TestCase
     {
         $this->resolveTenant($this->tenant);
 
-        Tenancy::getTenant();
+        Tenancy::identifyTenant();
 
         $disk = $this->manager->disk('tenant');
 

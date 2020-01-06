@@ -20,6 +20,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Queue\Events\JobProcessing;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 
 class ReadTenantFromQueuePayload
@@ -46,6 +47,6 @@ class ReadTenantFromQueuePayload
 
         $this->app->instance(Processing::class, $processing);
 
-        Tenancy::getTenant(true);
+        Tenancy::identifyTenant(true, IdentifiesByQueue::class);
     }
 }
