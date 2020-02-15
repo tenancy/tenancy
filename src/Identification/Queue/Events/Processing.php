@@ -18,11 +18,14 @@ namespace Tenancy\Identification\Drivers\Queue\Events;
 
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Arr;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Processing
 {
+    use SerializesAndRestoresModelIdentifiers;
+
     /**
      * @var JobProcessing
      */
@@ -56,13 +59,32 @@ class Processing
         $payload = $event->job->payload();
 
         if ($command = Arr::get($payload, 'data.command')) {
-            $command = unserialize($command);
+            $job = $this->unserializeToJob($command);
         }
 
-        $this->tenant = $command->tenant ?? null;
-        $this->tenant_key = $command->tenant_key ?? $payload['tenant_key'] ?? null;
-        $this->tenant_identifier = $command->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
+        $tenant = null;
+        if($job->tenant){
+            $tenant = $this->restoreModel($job->tenant);
+        }
+
+        $this->tenant = $tenant ?? null;
+        $this->tenant_key = $job->tenant_key ?? $payload['tenant_key'] ?? null;
+        $this->tenant_identifier = $job->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
 
         $this->job = $command;
+    }
+
+
+    /**
+     * Unserializes the job to a simple job.
+     *
+     * @param string $object
+     *
+     * @return object
+     */
+    private function unserializeToJob(string $object)
+    {
+        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen('stdClass') . ':"stdClass"', $object);
+        return unserialize( $stdClassObj );
     }
 }
