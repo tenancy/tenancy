@@ -63,7 +63,7 @@ class Processing
         }
 
         $tenant = null;
-        if($job->tenant){
+        if ($job->tenant) {
             $tenant = $this->restoreModel($job->tenant);
         }
 
@@ -74,7 +74,6 @@ class Processing
         $this->job = $command;
     }
 
-
     /**
      * Unserializes the job to a simple job.
      *
@@ -84,7 +83,8 @@ class Processing
      */
     private function unserializeToJob(string $object)
     {
-        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen('stdClass') . ':"stdClass"', $object);
-        return unserialize( $stdClassObj );
+        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen('stdClass').':"stdClass"', $object);
+
+        return unserialize($stdClassObj);
     }
 }

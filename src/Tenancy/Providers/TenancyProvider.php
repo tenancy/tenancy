@@ -31,8 +31,8 @@ use Tenancy\Tenant\Events as Event;
 
 class TenancyProvider extends ServiceProvider
 {
-    use Provides\ProvidesBindings,
-        Provides\ProvidesListeners;
+    use Provides\ProvidesBindings;
+    use Provides\ProvidesListeners;
 
     public $singletons = [
         Environment::class         => Environment::class,
