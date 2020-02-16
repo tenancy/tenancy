@@ -58,18 +58,25 @@ class Processing
         /** @var array $payload */
         $payload = $event->job->payload();
 
+        $tenant = null;
+        $tenant_key = null;
+        $tenant_identifier = null;
+
         if ($command = Arr::get($payload, 'data.command')) {
             $job = $this->unserializeToJob($command);
-        }
 
-        $tenant = null;
-        if($job->tenant){
-            $tenant = $this->restoreModel($job->tenant);
+            $tenant = $this->getJobProperty($job, 'tenant');
+            $tenant_key = $this->getJobProperty($job, 'tenant_key');
+            $tenant_identifier = $this->getJobProperty($job, 'tenant_identifier');
+
+            if($tenant){
+                $tenant = $this->restoreModel($tenant);
+            }
         }
 
         $this->tenant = $tenant ?? null;
-        $this->tenant_key = $job->tenant_key ?? $payload['tenant_key'] ?? null;
-        $this->tenant_identifier = $job->tenant_identifier ?? $payload['tenant_identifier'] ?? null;
+        $this->tenant_key = $tenant_key ?? $payload['tenant_key'] ?? null;
+        $this->tenant_identifier = $tenant_identifier ?? $payload['tenant_identifier'] ?? null;
 
         $this->job = $command;
     }
@@ -85,6 +92,24 @@ class Processing
     private function unserializeToJob(string $object)
     {
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen('stdClass') . ':"stdClass"', $object);
+
         return unserialize( $stdClassObj );
+    }
+
+    /**
+     * Returns a property from an unserialized job if it exists on the object.
+     *
+     * @param object $job
+     * @param string $key
+     *
+     * @return mixed
+     */
+    private function getJobProperty(object $job, string $key)
+    {
+        if(property_exists($job, $key)){
+            return $job->{$key};
+        }
+
+        return null;
     }
 }
