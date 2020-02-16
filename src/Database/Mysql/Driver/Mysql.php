@@ -159,7 +159,7 @@ class Mysql implements ProvidesDatabase
     {
         $result = $this->process($tenant, $statements);
 
-        event((new $event($tenant, $result)));
+        event((new $event($tenant, $this, $result)));
 
         return $result;
     }
