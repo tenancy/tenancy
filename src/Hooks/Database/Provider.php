@@ -23,8 +23,8 @@ use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    use ProvidesBindings,
-        ProvidesConfigs;
+    use ProvidesBindings;
+    use ProvidesConfigs;
 
     protected $configs = [
         __DIR__.'/resources/config/database.php',
