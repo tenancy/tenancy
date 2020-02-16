@@ -81,7 +81,6 @@ class Processing
         $this->job = $command;
     }
 
-
     /**
      * Unserializes the job to a simple job.
      *

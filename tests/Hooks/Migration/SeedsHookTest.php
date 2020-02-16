@@ -34,9 +34,9 @@ class SeedsHookTest extends TestCase
 {
     protected $additionalProviders = [SQLiteProvider::class, MigrationProvider::class, ConnectionProvider::class, DatabaseProvider::class];
 
-    use InteractsWithDatabases,
-        InteractsWithConnections,
-        InteractsWithMigrations;
+    use InteractsWithDatabases;
+    use InteractsWithConnections;
+    use InteractsWithMigrations;
 
     /**
      * @var Tenant
