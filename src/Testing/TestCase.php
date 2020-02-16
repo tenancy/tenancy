@@ -20,9 +20,9 @@ use Illuminate\Foundation\Testing;
 
 class TestCase extends Testing\TestCase
 {
-    use Concerns\CreatesApplication,
-        Concerns\InteractsWithTenants,
-        Testing\RefreshDatabase;
+    use Concerns\CreatesApplication;
+    use Concerns\InteractsWithTenants;
+    use Testing\RefreshDatabase;
 
     protected function beforeBoot()
     {
