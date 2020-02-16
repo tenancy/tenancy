@@ -43,7 +43,7 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Creating($tenant, $config, $this));
 
-        return $this->process($tenant, [
+        return $this->processAndDispatch(Events\Created::class, $tenant, [
             'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
@@ -76,7 +76,7 @@ class Mysql implements ProvidesDatabase
         // Add database drop statement as last statement
         $tableStatements['delete-db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
-        return $this->process($tenant, $statements);
+        return $this->processAndDispatch(Events\Updated::class, $tenant, $statements);
     }
 
     public function delete(Tenant $tenant): bool
@@ -85,7 +85,7 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Deleting($tenant, $config, $this));
 
-        return $this->process($tenant, [
+        return $this->processAndDispatch(Events\Deleted::class, $tenant, [
             'user'     => "DROP USER `{$config['username']}`@'{$config['host']}'",
             'database' => "DROP DATABASE IF EXISTS `{$config['database']}`",
         ]);
@@ -144,5 +144,23 @@ class Mysql implements ProvidesDatabase
         $resolver(null, Tenancy::getTenantConnectionName());
 
         return $tables;
+    }
+
+    /**
+     * Processes the provided statements and dispatches an event.
+     *
+     * @param string $event
+     * @param Tenant $tenant
+     * @param array $statements
+     *
+     * @return bool
+     */
+    private function processAndDispatch(string $event, Tenant $tenant, array $statements)
+    {
+        $result = $this->process($tenant, $statements);
+
+        event((new $event($tenant, $result)));
+
+        return $result;
     }
 }

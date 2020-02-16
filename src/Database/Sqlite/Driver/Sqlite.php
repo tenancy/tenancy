@@ -37,7 +37,11 @@ class Sqlite implements ProvidesDatabase
 
         event(new Events\Creating($tenant, $config, $this));
 
-        return touch($config['database']);
+        $result = touch($config['database']);
+
+        event(new Events\Created($tenant, $this, $result));
+
+        return $result;
     }
 
     public function update(Tenant $tenant): bool
@@ -50,14 +54,18 @@ class Sqlite implements ProvidesDatabase
 
         event(new Events\Updating($tenant, $config, $this));
 
+        $result = false;
+
         if ($previous['database'] !== $config['database']) {
-            return rename(
+            $result = rename(
                 $previous['database'],
                 $config['database']
             );
         }
 
-        return false;
+        event(new Events\Updated($tenant, $this, $result));
+
+        return $result;
     }
 
     public function delete(Tenant $tenant): bool
@@ -66,6 +74,10 @@ class Sqlite implements ProvidesDatabase
 
         event(new Events\Deleting($tenant, $config, $this));
 
-        return unlink($config['database']);
+        $result = unlink($config['database']);
+
+        event(new Events\Deleted($tenant, $this, $result));
+
+        return $result;
     }
 }
