@@ -26,9 +26,9 @@ use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
-    use ProvidesBindings,
-        ProvidesConfigs,
-        ProvidesListeners;
+    use ProvidesBindings;
+    use ProvidesConfigs;
+    use ProvidesListeners;
 
     protected $configs = [
         __DIR__.'/resources/config/connections.php',

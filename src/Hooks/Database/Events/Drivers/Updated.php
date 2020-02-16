@@ -18,5 +18,4 @@ namespace Tenancy\Hooks\Database\Events\Drivers;
 
 class Updated extends ResultEvent
 {
-
 }

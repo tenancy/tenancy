@@ -22,9 +22,9 @@ use Tenancy\Identification\Events\Switched;
 
 class Environment
 {
-    use Concerns\DispatchesEvents,
-        Concerns\ResolvesTenants,
-        Macroable;
+    use Concerns\DispatchesEvents;
+    use Concerns\ResolvesTenants;
+    use Macroable;
 
     /**
      * @var Tenant|null
