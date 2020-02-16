@@ -26,8 +26,10 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Job implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
     public $tenant = null;
     public $tenant_key = null;
     public $tenant_identifier = null;

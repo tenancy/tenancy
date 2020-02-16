@@ -151,7 +151,7 @@ class Mysql implements ProvidesDatabase
      *
      * @param string $event
      * @param Tenant $tenant
-     * @param array $statements
+     * @param array  $statements
      *
      * @return bool
      */

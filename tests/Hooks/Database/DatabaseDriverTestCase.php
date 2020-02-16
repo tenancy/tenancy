@@ -37,9 +37,9 @@ use Tenancy\Tests\Hooks\Database\Mocks\Mock;
 
 abstract class DatabaseDriverTestCase extends TestCase
 {
-    use InteractsWithMigrations,
-        InteractsWithDatabases,
-        InteractsWithConnections;
+    use InteractsWithMigrations;
+    use InteractsWithDatabases;
+    use InteractsWithConnections;
 
     protected $db;
 

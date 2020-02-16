@@ -28,8 +28,8 @@ use Tenancy\Identification\Support\TenantModelCollection;
 
 class TenantResolver implements ResolvesTenants
 {
-    use DispatchesEvents,
-        Macroable;
+    use DispatchesEvents;
+    use Macroable;
 
     /**
      * The tenant models.
