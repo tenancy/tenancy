@@ -57,8 +57,8 @@ class Processing
 
         /** @var array $payload */
         $payload = $event->job->payload();
-
         $job = null;
+
         if ($command = Arr::get($payload, 'data.command')) {
             $job = $this->unserializeToJob($command);
         }
