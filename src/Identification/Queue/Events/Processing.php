@@ -58,20 +58,17 @@ class Processing
         /** @var array $payload */
         $payload = $event->job->payload();
 
-        $tenant = null;
-        $tenant_key = null;
-        $tenant_identifier = null;
-
+        $job = null;
         if ($command = Arr::get($payload, 'data.command')) {
             $job = $this->unserializeToJob($command);
+        }
 
-            $tenant = $this->getJobProperty($job, 'tenant');
-            $tenant_key = $this->getJobProperty($job, 'tenant_key');
-            $tenant_identifier = $this->getJobProperty($job, 'tenant_identifier');
+        $tenant = $this->getJobProperty($job, 'tenant');
+        $tenant_key = $this->getJobProperty($job, 'tenant_key');
+        $tenant_identifier = $this->getJobProperty($job, 'tenant_identifier');
 
-            if ($tenant) {
-                $tenant = $this->restoreModel($tenant);
-            }
+        if ($tenant) {
+            $tenant = $this->restoreModel($tenant);
         }
 
         $this->tenant = $tenant ?? null;
