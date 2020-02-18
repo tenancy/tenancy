@@ -27,11 +27,6 @@ class IdentificationProvider extends DriverProvider
         IdentifiesByQueue::class,
     ];
 
-    public function register()
-    {
-        parent::register();
-    }
-    
     public function boot()
     {
         $this->app->extend('queue', function (QueueManager $queue) {
