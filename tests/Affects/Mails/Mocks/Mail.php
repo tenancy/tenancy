@@ -24,6 +24,7 @@ class Mail extends Mailable
 {
     use Queueable;
     use SerializesModels;
+
     /**
      * Create a new message instance.
      *
