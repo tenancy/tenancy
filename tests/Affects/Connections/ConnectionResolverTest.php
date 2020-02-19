@@ -25,6 +25,7 @@ use Tenancy\Testing\TestCase;
 class ConnectionResolverTest extends TestCase
 {
     use InteractsWithConnections;
+
     protected $additionalProviders = [Provider::class];
 
     protected $tenant;

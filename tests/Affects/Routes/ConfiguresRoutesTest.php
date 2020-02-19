@@ -26,6 +26,7 @@ use Tenancy\Testing\TestCase;
 class ConfiguresRoutesTest extends TestCase
 {
     protected $additionalProviders = [Provider::class];
+
     /**
      * @var Tenant
      */
