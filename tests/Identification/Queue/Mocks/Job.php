@@ -30,6 +30,7 @@ class Job implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+
     public $tenant = null;
     public $tenant_key = null;
     public $tenant_identifier = null;
