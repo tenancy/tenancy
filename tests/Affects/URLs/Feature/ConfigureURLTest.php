@@ -23,7 +23,7 @@ use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 use Tenancy\Tests\Affects\AffectShouldBeUndone;
 
-class ConfiguresURLTest extends AffectsFeatureTestCase
+class ConfigureURLTest extends AffectsFeatureTestCase
 {
     use AffectShouldBeUndone;
 
