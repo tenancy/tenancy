@@ -22,7 +22,7 @@ use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfiguresViewsNewTest extends AffectsFeatureTestCase
+class ConfiguresViewsTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 
