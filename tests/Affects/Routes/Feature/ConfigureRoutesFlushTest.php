@@ -15,7 +15,6 @@ class ConfiguresRoutesFlushTest extends AffectsFeatureTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureRoutes::class, function (ConfigureRoutes $event) {
-            $event->fromFile([], __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .  'routes.php');
             $event->flush();
         });
     }
