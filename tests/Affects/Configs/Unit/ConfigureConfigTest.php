@@ -1,6 +1,6 @@
 <?php
 
-namespace Tenancy\Tests\Affects\Configs\Feature;
+namespace Tenancy\Tests\Affects\Configs\Unit;
 
 use Illuminate\Contracts\Config\Repository;
 use Tenancy\Affects\Configs\Events\ConfigureConfig;

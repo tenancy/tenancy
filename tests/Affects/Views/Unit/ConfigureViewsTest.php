@@ -1,6 +1,6 @@
 <?php
 
-namespace Tenancy\Tests\Affects\Views\Feature;
+namespace Tenancy\Tests\Affects\Views\Unit;
 
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
