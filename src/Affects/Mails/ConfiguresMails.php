@@ -20,7 +20,7 @@ use Illuminate\Contracts\Mail\Mailer;
 use Tenancy\Affects\Affect;
 use Tenancy\Concerns\DispatchesEvents;
 
-class ConfiguresMail extends Affect
+class ConfiguresMails extends Affect
 {
     use DispatchesEvents;
 
