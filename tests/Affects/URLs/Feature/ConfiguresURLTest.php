@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\Affects\AffectsTestCase;
+use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 use Tenancy\Tests\Affects\Traits\ShouldBeUndone;
 
-class ConfiguresURLTest extends AffectsTestCase
+class ConfiguresURLTest extends AffectsFeatureTestCase
 {
     use ShouldBeUndone;
 
@@ -36,7 +36,7 @@ class ConfiguresURLTest extends AffectsTestCase
         });
     }
 
-    protected function isAffected(Tenant $tenant)
+    protected function isAffected(Tenant $tenant): bool
     {
         return $tenant->name . '.tenant' === URL::current();
     }

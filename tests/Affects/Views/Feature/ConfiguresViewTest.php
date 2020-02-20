@@ -20,9 +20,9 @@ use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\Affects\AffectsTestCase;
+use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfiguresViewsNewTest extends AffectsTestCase
+class ConfiguresViewsNewTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 
@@ -33,7 +33,7 @@ class ConfiguresViewsNewTest extends AffectsTestCase
         });
     }
 
-    protected function isAffected(Tenant $tenant)
+    protected function isAffected(Tenant $tenant): bool
     {
         /** @var Factory $views */
         $views = $this->app->make(Factory::class);

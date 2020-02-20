@@ -6,9 +6,9 @@ use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\Affects\AffectsTestCase;
+use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfiguresRoutesTest extends AffectsTestCase
+class ConfiguresRoutesTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 
@@ -19,7 +19,7 @@ class ConfiguresRoutesTest extends AffectsTestCase
         });
     }
 
-    protected function isAffected(Tenant $tenant)
+    protected function isAffected(Tenant $tenant): bool
     {
         /** @var Router $router */
         $router = $this->app->make(Router::class);

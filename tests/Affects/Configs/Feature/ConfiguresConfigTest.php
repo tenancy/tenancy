@@ -5,9 +5,9 @@ namespace Tenancy\Tests\Affects\Configs\Feature;
 use Tenancy\Affects\Configs\Events\ConfigureConfig;
 use Tenancy\Affects\Configs\Provider;
 use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\Affects\AffectsTestCase;
+use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfiguresConfigTest extends AffectsTestCase
+class ConfiguresConfigTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 
@@ -18,7 +18,7 @@ class ConfiguresConfigTest extends AffectsTestCase
         });
     }
 
-    protected function isAffected(Tenant $tenant)
+    protected function isAffected(Tenant $tenant): bool
     {
         return config('tenant') === $tenant->getTenantKey();
     }

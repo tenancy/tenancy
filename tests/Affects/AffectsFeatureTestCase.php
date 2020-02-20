@@ -6,7 +6,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
-abstract class AffectsTestCase extends TestCase
+abstract class AffectsFeatureTestCase extends TestCase
 {
     /** @var Tenant */
     protected $tenant;
@@ -16,7 +16,7 @@ abstract class AffectsTestCase extends TestCase
         $this->tenant = $this->mockTenant();
     }
 
-    abstract protected function isAffected(Tenant $tenant);
+    abstract protected function isAffected(Tenant $tenant) : bool;
 
     abstract protected function registerAffecting();
 
