@@ -1,8 +1,8 @@
 <?php
 
-namespace Tenancy\Tests\Affects\Traits;
+namespace Tenancy\Tests\Affects;
 
-trait ShouldBeUndone
+trait AffectShouldBeUndone
 {
     /** @test */
     public function affects_can_be_undone()

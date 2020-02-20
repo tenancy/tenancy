@@ -8,7 +8,7 @@ use Tenancy\Affects\Routes\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfiguresRoutesTest extends AffectsFeatureTestCase
+class ConfiguresRoutesFromFileTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 

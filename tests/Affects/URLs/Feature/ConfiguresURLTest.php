@@ -21,11 +21,11 @@ use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
-use Tenancy\Tests\Affects\Traits\ShouldBeUndone;
+use Tenancy\Tests\Affects\AffectShouldBeUndone;
 
 class ConfiguresURLTest extends AffectsFeatureTestCase
 {
-    use ShouldBeUndone;
+    use AffectShouldBeUndone;
 
     protected $additionalProviders = [Provider::class];
 
