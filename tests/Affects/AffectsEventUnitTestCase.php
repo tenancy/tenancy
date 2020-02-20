@@ -19,6 +19,10 @@ abstract class AffectsEventUnitTestCase extends TestCase
     /** @var string */
     protected $affectsProvider;
 
+    /** @var array */
+    protected $eventContains = [];
+
+    /** @var array */
     private $defaultContent = [
         'event' => Switched::class
     ];

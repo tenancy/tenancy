@@ -21,7 +21,7 @@ use Swift_Mailer;
 use Swift_Transport;
 use Tenancy\Identification\Events\Switched;
 
-class ConfigureMail
+class ConfigureMails
 {
     /**
      * @var Switched

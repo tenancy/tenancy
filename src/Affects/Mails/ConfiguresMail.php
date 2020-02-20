@@ -26,11 +26,11 @@ class ConfiguresMail extends Affect
 
     public function fire(): void
     {
-        /** @var Mailer $mailer */
-        $mailer = resolve(Mailer::class);
-
         if ($this->event->tenant) {
-            $this->events()->dispatch(new Events\ConfigureMail($this->event, $mailer));
+            /** @var Mailer $mailer */
+            $mailer = resolve(Mailer::class);
+
+            $this->events()->dispatch(new Events\ConfigureMails($this->event, $mailer));
         }
     }
 }
