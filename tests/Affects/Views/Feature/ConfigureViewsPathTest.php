@@ -22,14 +22,14 @@ use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
-class ConfigureViewsNamespaceTest extends AffectsFeatureTestCase
+class ConfigureViewsPathTest extends AffectsFeatureTestCase
 {
     protected $additionalProviders = [Provider::class];
 
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addNamespace($this->getViewsPath());
+            $event->addPath($this->getViewsPath());
         });
     }
 
@@ -38,7 +38,7 @@ class ConfigureViewsNamespaceTest extends AffectsFeatureTestCase
         /** @var Factory $views */
         $views = $this->app->make(Factory::class);
 
-        return $views->exists('tenant::test');
+        return $views->exists('test');
     }
 
     private function getViewsPath()
