@@ -18,7 +18,7 @@ namespace Tenancy\Testing;
 
 use Illuminate\Foundation\Testing;
 
-class TestCase extends Testing\TestCase
+abstract class TestCase extends Testing\TestCase
 {
     use Concerns\CreatesApplication;
     use Concerns\InteractsWithTenants;

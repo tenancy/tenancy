@@ -24,16 +24,6 @@ use Tenancy\Tests\Affects\AffectsTestCase;
 
 class ConfiguresViewsNewTest extends AffectsTestCase
 {
-    /**
-     * @var bool
-     */
-    protected $forwardCallTest = false;
-
-    /**
-     * @var bool
-     */
-    protected $undoTest = false;
-
     protected $additionalProviders = [Provider::class];
 
     protected function registerAffecting()

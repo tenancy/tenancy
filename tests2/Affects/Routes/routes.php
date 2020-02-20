@@ -15,5 +15,4 @@ declare(strict_types=1);
  */
 
 Route::get('/foo', function () {
-
 })->name('bar');
