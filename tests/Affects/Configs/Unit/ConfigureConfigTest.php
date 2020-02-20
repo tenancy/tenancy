@@ -9,7 +9,7 @@ use Tenancy\Tests\Affects\AffectsEventUnitTestCase;
 
 class ConfigureConfigTest extends AffectsEventUnitTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected $affectsProvider = Provider::class;
 
     protected $event = ConfigureConfig::class;
 

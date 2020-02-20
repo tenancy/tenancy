@@ -16,6 +16,9 @@ abstract class AffectsEventUnitTestCase extends TestCase
     /** @var string */
     protected $event;
 
+    /** @var string */
+    protected $affectsProvider;
+
     private $defaultContent = [
         'event' => Switched::class
     ];
@@ -36,8 +39,20 @@ abstract class AffectsEventUnitTestCase extends TestCase
     }
 
     /** @test */
+    public function the_event_is_not_triggered_without_provider()
+    {
+        Event::fake($this->event);
+
+        Tenancy::setTenant($this->tenant);
+
+        Event::assertNotDispatched($this->event);
+    }
+
+    /** @test */
     public function the_event_is_triggered()
     {
+        $this->app->register($this->affectsProvider);
+
         Event::fake($this->event);
 
         Tenancy::setTenant($this->tenant);
@@ -48,6 +63,8 @@ abstract class AffectsEventUnitTestCase extends TestCase
     /** @test */
     public function the_event_contains_the_right_data()
     {
+        $this->app->register($this->affectsProvider);
+
         $this->events->listen($this->event, function ($event) {
             foreach($this->getContents() as $key => $instance){
                 $this->assertInstanceOf($instance, $event->{$key});

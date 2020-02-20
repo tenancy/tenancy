@@ -9,7 +9,7 @@ use Tenancy\Tests\Affects\AffectsEventUnitTestCase;
 
 class ConfigureURLTest extends AffectsEventUnitTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected $affectsProvider = Provider::class;
 
     protected $event = ConfigureURL::class;
 
