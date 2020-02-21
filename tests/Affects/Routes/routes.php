@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Tenancy\Facades\Tenancy;
+
 /*
  * This file is part of the tenancy/tenancy package.
  *
@@ -15,5 +17,5 @@ declare(strict_types=1);
  */
 
 Route::get('/foo', function () {
-
+    return optional(Tenancy::getTenant())->getTenantKey();
 })->name('bar');
