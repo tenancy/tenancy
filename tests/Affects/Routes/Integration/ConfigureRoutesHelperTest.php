@@ -2,7 +2,6 @@
 
 namespace Tenancy\Tests\Affects\Routes\Integration;
 
-use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
