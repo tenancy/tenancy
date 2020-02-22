@@ -81,7 +81,7 @@ class AffectResolverTest extends TestCase
     }
 
     /** @test */
-    public function sets_affects()
+    public function it_sets_affects()
     {
         /** @var ResolvesAffects $resolver */
         $resolver = resolve(ResolvesAffects::class);
