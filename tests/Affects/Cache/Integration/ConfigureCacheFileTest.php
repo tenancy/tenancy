@@ -1,0 +1,44 @@
+<?php
+
+namespace Tenancy\Tests\Affects\Cache\Integration;
+
+use Illuminate\Support\Facades\Cache;
+use Tenancy\Affects\Cache\Provider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\Cache\UsesFileDriver;
+
+class ConfigureCacheFileTest extends AffectsIntegrationTest
+{
+    use UsesFileDriver;
+
+    protected $additionalProviders = [Provider::class];
+
+    /** @test */
+    public function it_can_store_data()
+    {
+        Tenancy::setTenant($this->tenant);
+
+        Cache::driver('tenant')->set('tenant_test', $this->tenant->getTenantKey());
+
+        $this->assertEquals(
+            $this->tenant->getTenantKey(),
+            Cache::driver('tenant')->get('tenant_test')
+        );
+    }
+
+    /** @test */
+    public function data_is_not_shared_across_tenants()
+    {
+        Tenancy::setTenant($this->tenant);
+
+        Cache::driver('tenant')->set('tenant_test', $this->tenant->getTenantKey());
+
+        Tenancy::setTenant($this->mockTenant());
+
+        $this->assertNotEquals(
+            $this->tenant->getTenantKey(),
+            Cache::driver('tenant')->get('tenant_test')
+        );
+    }
+}

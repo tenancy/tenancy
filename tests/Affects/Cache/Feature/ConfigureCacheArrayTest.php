@@ -8,9 +8,12 @@ use Tenancy\Affects\Cache\Events\ConfigureCache;
 use Tenancy\Affects\Cache\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
+use Tenancy\Tests\Affects\AffectShouldBeUndone;
 
 class ConfigureCacheArrayTest extends AffectsFeatureTestCase
 {
+    use AffectShouldBeUndone;
+
     protected $additionalProviders = [Provider::class];
 
     protected function registerAffecting()
