@@ -1,6 +1,6 @@
 <?php
 
-namespace Tenancy\Tests\Affects\Configs\Unit;
+namespace Tenancy\Tests\Affects\Broadcasts\Unit;
 
 use Tenancy\Affects\Broadcasts\Events\ConfigureBroadcast;
 use Tenancy\Affects\Broadcasts\Provider;

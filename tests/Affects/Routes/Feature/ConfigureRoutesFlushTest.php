@@ -1,6 +1,6 @@
 <?php
 
-namespace Tenancy\Tests\Affects\Configs\Feature;
+namespace Tenancy\Tests\Affects\Routes\Feature;
 
 use Illuminate\Routing\Router;
 use Tenancy\Affects\Routes\Events\ConfigureRoutes;

@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Views;
+namespace Tenancy\Tests\Affects\Views\Feature;
 
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
