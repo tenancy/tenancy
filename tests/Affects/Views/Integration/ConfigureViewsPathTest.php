@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Views\Integration;
 
 use Illuminate\Contracts\View\Factory;
-use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTest;
@@ -30,10 +29,11 @@ class ConfigureViewsPathTest extends AffectsIntegrationTest
     protected $additionalProviders = [Provider::class];
 
     /** @test */
-    public function it_can_render_the_loaded_views()
+    public function registered_views_can_be_rendered()
     {
         Tenancy::setTenant($this->tenant);
 
+        /** @var Factory */
         $factory = $this->app->make(Factory::class);
 
         $this->assertStringContainsString(
