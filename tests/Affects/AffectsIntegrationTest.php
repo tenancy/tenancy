@@ -2,6 +2,7 @@
 
 namespace Tenancy\Tests\Affects;
 
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
 abstract class AffectsIntegrationTest extends TestCase

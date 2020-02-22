@@ -7,23 +7,19 @@ use Tenancy\Affects\Configs\Events\ConfigureConfig;
 use Tenancy\Affects\Configs\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
+use Tenancy\Tests\Affects\Configs\ThroughConfig;
 
 class ConfigureConfigThroughConfigTest extends AffectsFeatureTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    use ThroughConfig;
 
-    protected function registerAffecting()
-    {
-        $this->events->listen(ConfigureConfig::class, function (ConfigureConfig $event) {
-            $event->config->set('testing', 'tenancy');
-        });
-    }
+    protected $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {
         /** @var Repository */
         $repository = $this->app->make(Repository::class);
 
-        return $repository->get('testing') === 'tenancy';
+        return !is_null($repository->get('testing'));
     }
 }
