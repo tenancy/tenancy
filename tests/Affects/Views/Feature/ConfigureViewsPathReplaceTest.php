@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Views\Feature;
 
 use Illuminate\Contracts\View\Factory;
-use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
