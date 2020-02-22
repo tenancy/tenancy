@@ -2,13 +2,15 @@
 
 namespace Tenancy\Tests\Affects\Routes\Integration;
 
-use Tenancy\Affects\Routes\Events\ConfigureRoutes;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\Routes\AddsFromFile;
 
 class ConfigureRoutesHelperTest extends AffectsIntegrationTest
 {
+    use AddsFromFile;
+
     protected $additionalProviders = [Provider::class];
 
     /** @test */
@@ -17,8 +19,8 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTest
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            "http://localhost/foo",
-            route('bar')
+            "http://localhost/test",
+            route('test')
         );
     }
 
@@ -28,7 +30,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTest
         Tenancy::setTenant($this->tenant);
 
         $this
-            ->get(route('bar'))
+            ->get(route('test'))
             ->assertOk();
     }
 
@@ -38,14 +40,38 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTest
         Tenancy::setTenant($this->tenant);
 
         $this
-            ->get(route('bar'))
-            ->assertSeeText($this->tenant->getTenantKey());
+            ->get(route('test'))
+            ->assertSeeText('test');
     }
 
-    protected function registerAffecting()
+    /** @test */
+    public function registered_nested_routes_are_loaded()
     {
-        $this->events->listen(ConfigureRoutes::class, function (ConfigureRoutes $event) {
-            $event->fromFile([], __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .  'routes.php');
-        });
+        Tenancy::setTenant($this->tenant);
+
+        $this->assertEquals(
+            "http://localhost/nested/test",
+            route('nested.test')
+        );
+    }
+
+    /** @test */
+    public function registered_nested_routes_can_be_accessed()
+    {
+        Tenancy::setTenant($this->tenant);
+
+        $this
+            ->get(route('nested.test'))
+            ->assertOk();
+    }
+
+    /** @test */
+    public function registered_nested_routes_have_the_right_data()
+    {
+        Tenancy::setTenant($this->tenant);
+
+        $this
+            ->get(route('nested.test'))
+            ->assertSeeText('nested.test');
     }
 }
