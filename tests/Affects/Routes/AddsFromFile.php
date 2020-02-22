@@ -31,8 +31,18 @@ trait AddsFromFile
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureRoutes::class, function (ConfigureRoutes $event) {
-            $event->fromFile([], $this->getTestRoutesPath());
+            $event->fromFile($this->getRouteAttributes(), $this->getTestRoutesPath());
         });
+    }
+
+    /**
+     * Gets the route attributes for the file that is loaded.
+     *
+     * @return array
+     */
+    protected function getRouteAttributes()
+    {
+        return [];
     }
 
     /**
