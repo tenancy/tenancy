@@ -14,17 +14,17 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Views;
+namespace Tenancy\Tests;
 
 trait UsesViews
 {
     /**
-     * Returns the path of the views used for this trait.
+     * Returns the path of the mock views.
      *
      * @return string
      */
     protected function getViewsPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'views';
+        return __DIR__ . DIRECTORY_SEPARATOR . 'Mocks' . DIRECTORY_SEPARATOR . 'Views';
     }
 }

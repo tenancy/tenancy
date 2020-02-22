@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Views;
 
 use Tenancy\Affects\Views\Events\ConfigureViews;
+use Tenancy\Tests\UsesViews;
 
 trait AddsPaths
 {

@@ -21,17 +21,13 @@ use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
+use Tenancy\Tests\Affects\Views\ReplacesPaths;
 
 class ConfigureViewsPathReplaceTest extends AffectsFeatureTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    use ReplacesPaths;
 
-    protected function registerAffecting()
-    {
-        $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addPath($this->getViewsPath(), true);
-        });
-    }
+    protected $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {
@@ -39,10 +35,5 @@ class ConfigureViewsPathReplaceTest extends AffectsFeatureTestCase
         $views = $this->app->make(Factory::class);
 
         return $views->exists('test') && $views->exists('welcome');
-    }
-
-    private function getViewsPath()
-    {
-        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'views';
     }
 }

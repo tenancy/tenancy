@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Affects\Views;
 use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Tests\UsesViews;
 
-trait AddsNamespaces
+trait ReplacesPaths
 {
     use UsesViews;
 
@@ -31,7 +31,7 @@ trait AddsNamespaces
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureViews::class, function (ConfigureViews $event) {
-            $event->addNamespace($this->getViewsPath());
+            $event->addPath($this->getViewsPath(), true);
         });
     }
 }

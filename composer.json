@@ -28,6 +28,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tenancy\\Testing\\": "src/Testing",
+            "Tenancy\\Tests\\": "tests/",
             "Tenancy\\Tests\\Framework\\": "tests/Tenancy",
             "Tenancy\\Tests\\Affects\\": "tests/Affects",
             "Tenancy\\Tests\\Database\\": "tests/Database",
