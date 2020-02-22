@@ -14,26 +14,31 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Views\Feature;
+namespace Tenancy\Tests\Affects\Views\Integration;
 
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Events\ConfigureViews;
 use Tenancy\Affects\Views\Provider;
-use Tenancy\Identification\Contracts\Tenant;
-use Tenancy\Tests\Affects\AffectsFeatureTestCase;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Tests\Affects\AffectsIntegrationTest;
 use Tenancy\Tests\Affects\Views\AddsPaths;
 
-class ConfigureViewsPathTest extends AffectsFeatureTestCase
+class ConfigureViewsPathTest extends AffectsIntegrationTest
 {
     use AddsPaths;
 
     protected $additionalProviders = [Provider::class];
 
-    protected function isAffected(Tenant $tenant): bool
+    /** @test */
+    public function it_can_render_the_loaded_views()
     {
-        /** @var Factory $views */
-        $views = $this->app->make(Factory::class);
+        Tenancy::setTenant($this->tenant);
 
-        return $views->exists('test');
+        $factory = $this->app->make(Factory::class);
+
+        $this->assertStringContainsString(
+            "Testing",
+            $factory->make('test')->render()
+        );
     }
 }
