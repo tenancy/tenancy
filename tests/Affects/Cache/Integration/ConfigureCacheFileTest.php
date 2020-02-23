@@ -5,10 +5,10 @@ namespace Tenancy\Tests\Affects\Cache\Integration;
 use Illuminate\Support\Facades\Cache;
 use Tenancy\Affects\Cache\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 use Tenancy\Tests\Affects\Cache\UsesFileDriver;
 
-class ConfigureCacheFileTest extends AffectsIntegrationTest
+class ConfigureCacheFileTest extends AffectsIntegrationTestCase
 {
     use UsesFileDriver;
 

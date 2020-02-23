@@ -4,10 +4,10 @@ namespace Tenancy\Tests\Affects\Routes\Integration;
 
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 use Tenancy\Tests\Affects\Routes\AddsFromFile;
 
-class ConfigureRoutesHelperTest extends AffectsIntegrationTest
+class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
 {
     use AddsFromFile;
 

@@ -5,7 +5,7 @@ namespace Tenancy\Tests\Affects;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
-abstract class AffectsIntegrationTest extends TestCase
+abstract class AffectsIntegrationTestCase extends TestCase
 {
     /** @var Tenant */
     protected $tenant;

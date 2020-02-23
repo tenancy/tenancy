@@ -5,9 +5,9 @@ namespace Tenancy\Tests\Affects\URLs\Integration;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 
-class ConfiguresURLHelperTest extends AffectsIntegrationTest
+class ConfiguresURLHelperTest extends AffectsIntegrationTestCase
 {
     protected $additionalProviders = [Provider::class];
 

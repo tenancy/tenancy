@@ -4,10 +4,10 @@ namespace Tenancy\Tests\Affects\Configs\Integration;
 
 use Tenancy\Affects\Configs\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 use Tenancy\Tests\Affects\Configs\ThroughConfig;
 
-class ThroughConfigTest extends AffectsIntegrationTest
+class ThroughConfigTest extends AffectsIntegrationTestCase
 {
     use ThroughConfig;
 

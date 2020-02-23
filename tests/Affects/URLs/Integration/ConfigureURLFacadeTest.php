@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\URL;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 
-class ConfiguresURLFacadeTest extends AffectsIntegrationTest
+class ConfiguresURLFacadeTest extends AffectsIntegrationTestCase
 {
     protected $additionalProviders = [Provider::class];
 

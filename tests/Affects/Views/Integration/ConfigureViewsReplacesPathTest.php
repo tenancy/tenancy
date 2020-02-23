@@ -19,10 +19,10 @@ namespace Tenancy\Tests\Affects\Views\Integration;
 use Illuminate\Contracts\View\Factory;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Tests\Affects\AffectsIntegrationTest;
+use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 use Tenancy\Tests\Affects\Views\ReplacesPaths;
 
-class ConfigureViewsReplacesPathTest extends AffectsIntegrationTest
+class ConfigureViewsReplacesPathTest extends AffectsIntegrationTestCase
 {
     use ReplacesPaths;
 
