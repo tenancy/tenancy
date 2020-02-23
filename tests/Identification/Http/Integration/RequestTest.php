@@ -1,9 +1,8 @@
 <?php
 
-namespace Tenancy\Tests\Identification\Http;
+namespace Tenancy\Tests\Identification\Http\Integration;
 
 use Tenancy\Environment;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
