@@ -18,14 +18,22 @@ namespace Tenancy\Identification\Drivers\Console\Providers;
 
 use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Events\CommandStarting;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Console\Listeners\GlobalTenantAwareness;
 use Tenancy\Identification\Drivers\Console\Listeners\IdentifyByConsole;
 use Tenancy\Identification\Drivers\Console\Middleware\EagerIdentification;
 use Tenancy\Identification\Events\Resolving;
+use Tenancy\Providers\Provides\ProvidesListeners;
+use Tenancy\Support\DriverProvider;
 
-class IdentificationProvider extends EventServiceProvider
+class IdentificationProvider extends DriverProvider
 {
+    use ProvidesListeners;
+
+    protected $drivers = [
+        IdentifiesByConsole::class,
+    ];
+
     protected $listen = [
         ArtisanStarting::class => [
             GlobalTenantAwareness::class,
