@@ -4,7 +4,6 @@ namespace Tenancy\Tests\Identification\Console\Integration;
 
 use Illuminate\Foundation\Console\Kernel;
 use Tenancy\Environment;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
