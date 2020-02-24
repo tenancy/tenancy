@@ -7,14 +7,14 @@ use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Event;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Mocks\Jobs\OverrideableJob;
+use Tenancy\Tests\Mocks\Jobs\SimpleJob;
 
-class OverrideableJobTest extends TestCase
+class JobTest extends TestCase
 {
     protected $additionalProviders = [IdentificationProvider::class];
 
     /** @test */
-    public function it_does_not_contain_the_tenant_when_none_identified()
+    public function jobs_do_not_contain_the_tenant_when_none_identified()
     {
         Event::listen([JobProcessing::class, JobProcessed::class], function ($event) {
             $payload = json_decode($event->job->getRawBody(), true);
@@ -23,11 +23,11 @@ class OverrideableJobTest extends TestCase
             $this->assertArrayNotHasKey('tenant_key', $payload);
         });
 
-        dispatch(new OverrideableJob());
+        dispatch(new SimpleJob());
     }
 
     /** @test */
-    public function it_does_contain_the_tenant_by_default()
+    public function jobs_do_contain_the_tenant_when_one_is_identified()
     {
         $tenant = $this->mockTenant();
 
@@ -40,6 +40,6 @@ class OverrideableJobTest extends TestCase
             $this->assertEquals($tenant->getTenantKey(), $payload['tenant_key']);
         });
 
-        dispatch(new OverrideableJob());
+        dispatch(new SimpleJob());
     }
 }
