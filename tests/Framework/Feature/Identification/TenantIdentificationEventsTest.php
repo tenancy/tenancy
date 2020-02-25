@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Framework\Feature\Providers;
+namespace Tenancy\Tests\Framework\Feature\Identification;
 
 use Tenancy\Identification\Events\Identified;
 use Tenancy\Identification\Events\NothingIdentified;
