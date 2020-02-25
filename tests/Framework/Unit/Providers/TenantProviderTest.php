@@ -1,8 +1,7 @@
 <?php
 
-namespace Tenancy\Tests\Framework\Unit;
+namespace Tenancy\Tests\Framework\Unit\Providers;
 
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Providers\TenantProvider;
 use Tenancy\Testing\TestCase;
 

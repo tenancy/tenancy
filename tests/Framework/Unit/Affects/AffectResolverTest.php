@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Framework\Unit;
+namespace Tenancy\Tests\Framework\Unit\Affects;
 
 use InvalidArgumentException;
 use Tenancy\Affects\AffectResolver;
@@ -24,12 +24,20 @@ use Tenancy\Tests\Mocks\Affects;
 
 class AffectResolverTest extends TestCase
 {
+    /** @var ResolvesAffects */
+    private $resolver;
+
+    protected function afterSetUp()
+    {
+        $this->resolver = $this->app->make(ResolvesAffects::class);
+    }
+
     /** @test */
     public function by_default_the_affects_resolver_is_registered()
     {
         $this->assertInstanceOf(
             AffectResolver::class,
-            $this->app->make(ResolvesAffects::class)
+            $this->resolver
         );
     }
 
@@ -37,23 +45,23 @@ class AffectResolverTest extends TestCase
     public function by_default_no_affects_are_registered()
     {
         $this->assertEmpty(
-            $this->app->make(ResolvesAffects::class)->getAffects()
+            $this->resolver->getAffects()
         );
     }
 
     /** @test */
     public function it_is_registered_as_singleton()
     {
-        $resolver = $this->app->make(ResolvesAffects::class);
+        $resolver = $this->resolver;
         $resolver->addAffect(Affects\ValidAffect::class);
 
         $this->assertEquals(
             $resolver,
-            $this->app->make(ResolvesAffects::class)
+            $this->resolver
         );
 
         $this->assertNotEmpty(
-            $this->app->make(ResolvesAffects::class)->getAffects()
+            $this->resolver->getAffects()
         );
     }
 
@@ -63,7 +71,7 @@ class AffectResolverTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         /** @var ResolvesAffects $resolver */
-        $resolver = $this->app->make(ResolvesAffects::class);
+        $resolver = $this->resolver;
         $resolver->addAffect(Affects\InvalidAffect::class);
     }
 
@@ -71,7 +79,7 @@ class AffectResolverTest extends TestCase
     public function it_adds_affects()
     {
         /** @var ResolvesAffects $resolver */
-        $resolver = $this->app->make(ResolvesAffects::class);
+        $resolver = $this->resolver;
         $resolver->addAffect(Affects\ValidAffect::class);
 
         $this->assertContains(
@@ -83,22 +91,19 @@ class AffectResolverTest extends TestCase
     /** @test */
     public function it_sets_affects()
     {
-        /** @var ResolvesAffects $resolver */
-        $resolver = resolve(ResolvesAffects::class);
-
-        $resolver->setAffects([]);
+        $this->resolver->setAffects([]);
         $this->assertEquals(
             [],
-            $resolver->getAffects()
+            $this->resolver->getAffects()
         );
 
-        $resolver->setAffects([
+        $this->resolver->setAffects([
             Affects\ValidAffect::class,
         ]);
 
         $this->assertEquals(
             [Affects\ValidAffect::class],
-            $resolver->getAffects()
+            $this->resolver->getAffects()
         );
     }
 }
