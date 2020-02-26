@@ -28,7 +28,7 @@ class TenanyTest extends TestCase
     }
 
     /** @test */
-    public function can_proxy_environment_calls()
+    public function it_can_proxy_environment_calls_right()
     {
         $this->assertNull(Tenancy::identifyTenant());
 

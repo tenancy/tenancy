@@ -1,6 +1,6 @@
 <?php
 
-namespace Tenancy\Tests\Framework\Unit\Identification;
+namespace Tenancy\Tests\Framework\Feature\Identification;
 
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Support\TenantModelCollection;
