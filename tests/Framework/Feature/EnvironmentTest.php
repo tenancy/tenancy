@@ -36,4 +36,42 @@ class EnvironmentTest extends TestCase
             $this->environment->getTenant()
         );
     }
+
+    /** @test */
+    public function it_can_set_the_tenant()
+    {
+        $tenant = $this->mockTenant();
+
+        $this->environment->setTenant($tenant);
+
+        $this->assertEquals(
+            $tenant,
+            $this->environment->getTenant()
+        );
+    }
+
+    /** @test */
+    public function setting_identified_ignores_auto_identification()
+    {
+        $this->resolveTenant($this->mockTenant());
+
+        $this->environment->setIdentified(true);
+
+        $this->assertNull($this->environment->identifyTenant());
+
+        $this->environment->setIdentified(false);
+
+        $this->assertNotNull($this->environment->identifyTenant());
+    }
+
+    /** @test */
+    public function refreshing_loads_new_tenant()
+    {
+        $this->assertNull($this->environment->identifyTenant());
+
+        $this->resolveTenant($this->mockTenant());
+
+        $this->assertNull($this->environment->getTenant());
+        $this->assertNotNull($this->environment->identifyTenant(true));
+    }
 }
