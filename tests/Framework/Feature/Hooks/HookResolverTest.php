@@ -45,6 +45,7 @@ class HookResolverTest extends TestCase
     public function sets_hooks()
     {
         $this->resolver->setHooks([]);
+
         $this->assertEquals(
             [],
             $this->resolver->getHooks()
