@@ -41,8 +41,5 @@ class IdentificationProvider extends DriverProvider
         CommandStarting::class => [
             EagerIdentification::class,
         ],
-        Resolving::class => [
-            IdentifyByConsole::class,
-        ],
     ];
 }
