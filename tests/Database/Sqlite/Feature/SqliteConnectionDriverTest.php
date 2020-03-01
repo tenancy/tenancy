@@ -6,7 +6,7 @@ use Tenancy\Database\Drivers\Sqlite\Provider;
 use Tenancy\Tests\Database\DatabaseFeatureTestCase;
 use Tenancy\Tests\UsesConnections;
 
-class SqliteDriverTest extends DatabaseFeatureTestCase
+class SqliteConnectionDriverTest extends DatabaseFeatureTestCase
 {
     use UsesConnections;
 
@@ -14,8 +14,10 @@ class SqliteDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
+        config(['database.connections.sqlite', include $this->getSqliteConfigurationPath()]);
+
         $this->configureBoth(function ($event) {
-            $event->useConfig($this->getSqliteConfigurationPath(), [
+            $event->useConnection('sqlite', [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
         });

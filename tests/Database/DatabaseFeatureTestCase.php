@@ -54,6 +54,8 @@ abstract class DatabaseFeatureTestCase extends TestCase
             \PDO::class,
             $this->getTenantConnection()->getPdo()
         );
+
+        $this->cleanDatabase($this->tenant);
     }
 
     /** @test */
@@ -68,6 +70,8 @@ abstract class DatabaseFeatureTestCase extends TestCase
             \PDO::class,
             $this->getTenantConnection()->getPdo()
         );
+
+        $this->cleanDatabase($this->tenant);
     }
 
     /** @test */
@@ -99,5 +103,16 @@ abstract class DatabaseFeatureTestCase extends TestCase
         Tenancy::identifyTenant();
 
         return $this->db->connection(Tenancy::getTenantConnectionName());
+    }
+
+    protected function cleanDatabase(Tenant $tenant = null)
+    {
+        $this->db->purge(Tenancy::getTenantConnectionName());
+
+        if ($tenant == null) {
+            $tenant = $this->tenant;
+        }
+
+        $this->events->dispatch(new Events\Deleted($tenant));
     }
 }
