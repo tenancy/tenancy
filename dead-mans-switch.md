@@ -2,7 +2,7 @@
 
 Hi,
 
-My name is Daniël Klabbers, also known as @luceos, I am the owner
+My name is Arlon Antonius, also known as @ArlonAntonius, I am the owner
 of project Tenancy. This document guarantees the survival of the Tenancy project by
 transferring ownership to a valid successor in case I am no longer able to fulfil my
 obligations in maintaining this package due to unforeseen circumstances (eg death).
@@ -10,7 +10,6 @@ obligations in maintaining this package due to unforeseen circumstances (eg deat
 Ownership is transferred to the candidate appointed by his peers
 or last active candidate on the project of the following list:
 
-- Arlon Antonius (NLD), @arlonantonius
 - Eric Fletcher (USA), @fletch3555
 - Bertrand Kintanar (PHIL), @bkintanar
 
@@ -32,6 +31,6 @@ and appoint at least two new Candidates.
 
 Hereby signed and committed as a legally binding agreement,
 
-Daniël Klabbers
+Arlon Antonius
 
-_NIJMEGEN (NLD), August 8th, 2019_
+_Utrecht (NLD), March 2nd, 2020_
