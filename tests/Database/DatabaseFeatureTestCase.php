@@ -3,24 +3,30 @@
 namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\QueryException;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\ConnectionListener;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Affects\Connections\Provider as ConnectionProvider;
-use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Contracts\Tenant as TenantContract;
 use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Tenant\Events;
+use Tenancy\Testing\Mocks\Tenant;
 
 abstract class DatabaseFeatureTestCase extends TestCase
 {
     /** @var DatabaseManager */
     protected $db;
 
-    /** @var Tenant */
+    /** @var TenantContract */
     protected $tenant;
+
+    /** @var string */
+    protected $tenantModel = Tenant::class;
+
+    /** @var string */
+    protected $exception = \PDOException::class;
 
     use InteractsWithDatabases;
     use InteractsWithConnections;
@@ -28,7 +34,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
     protected function afterSetUp()
     {
         $this->db = $this->app->make(DatabaseManager::class);
-        $this->tenant = $this->createMockTenant();
+        $this->tenant = factory($this->tenantModel)->create();
         $this->tenant->unguard();
 
         $this->resolveTenant($this->tenant);
@@ -74,6 +80,27 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
+
+    /** @test */
+    public function updating_the_same_tenant_does_not_change_the_connection ()
+    {
+        $this->events->dispatch(new Events\Created($this->tenant));
+
+        $this->assertInstanceOf(
+            \PDO::class,
+            $this->getTenantConnection()->getPdo()
+        );
+
+        $this->events->dispatch(new Events\Updated($this->tenant));
+
+        $this->assertInstanceOf(
+            \PDO::class,
+            $this->getTenantConnection()->getPdo()
+        );
+
+        $this->cleanDatabase($this->tenant);
+    }
+
     /** @test */
     public function it_deletes_the_database()
     {
@@ -88,7 +115,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
         $this->events->dispatch(new Events\Deleted($this->tenant));
 
-        $this->expectException(QueryException::class);
+        $this->expectException($this->exception);
         $this->getTenantConnection()->getPdo();
     }
 
