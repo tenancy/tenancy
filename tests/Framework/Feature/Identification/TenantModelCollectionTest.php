@@ -29,14 +29,26 @@ class TenantModelCollectionTest extends TestCase
     public function it_can_filter_based_on_contract()
     {
         $this->collection->add(Tenant::class);
+
+        $this->assertCount(0, $this->collection->filterByContract(IdentifiesByConsole::class));
+        $this->assertCount(0, $this->collection->filterByContract(IdentifiesByEnvironment::class));
+        $this->assertCount(0, $this->collection->filterByContract(IdentifiesByHttp::class));
+        $this->assertCount(0, $this->collection->filterByContract(IdentifiesByQueue::class));
+
         $this->collection->add(NullConsoleTenant::class);
         $this->collection->add(NullEnvironmentTenant::class);
         $this->collection->add(NullHttpTenant::class);
         $this->collection->add(NullQueueTenant::class);
+
+        $this->assertCount(1, $this->collection->filterByContract(IdentifiesByConsole::class));
+        $this->assertCount(1, $this->collection->filterByContract(IdentifiesByEnvironment::class));
+        $this->assertCount(1, $this->collection->filterByContract(IdentifiesByHttp::class));
+        $this->assertCount(1, $this->collection->filterByContract(IdentifiesByQueue::class));
+
         $this->collection->add(NullMixedTenant::class);
 
         $this->assertCount(2, $this->collection->filterByContract(IdentifiesByConsole::class));
-        $this->assertCount(1, $this->collection->filterByContract(IdentifiesByEnvironment::class));
+        $this->assertCount(2, $this->collection->filterByContract(IdentifiesByEnvironment::class));
         $this->assertCount(2, $this->collection->filterByContract(IdentifiesByHttp::class));
         $this->assertCount(2, $this->collection->filterByContract(IdentifiesByQueue::class));
     }

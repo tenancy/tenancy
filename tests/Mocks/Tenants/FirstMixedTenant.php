@@ -12,7 +12,7 @@ use Tenancy\Identification\Contracts\Tenant as TenantContract;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 
-class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByConsole, IdentifiesByQueue, IdentifiesByEnvironment
+class FirstMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByConsole, IdentifiesByQueue, IdentifiesByEnvironment
 {
 
     public function tenantIdentificationByHttp(Request $request): ?TenantContract
@@ -20,7 +20,9 @@ class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByCo
         event('mock.tenant.identification.http', [
             'tenant' => $this
         ]);
-        return null;
+        return $this
+            ->newQuery()
+            ->first();
     }
 
     public function tenantIdentificationByQueue(Processing $event): ?TenantContract
@@ -28,7 +30,9 @@ class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByCo
         event('mock.tenant.identification.queue', [
             'tenant' => $this
         ]);
-        return null;
+        return $this
+            ->newQuery()
+            ->first();
     }
 
     public function tenantIdentificationByConsole(InputInterface $input): ?TenantContract
@@ -36,7 +40,9 @@ class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByCo
         event('mock.tenant.identification.console', [
             'tenant' => $this
         ]);
-        return null;
+        return $this
+            ->newQuery()
+            ->first();
     }
 
     public function tenantIdentificationByEnvironment(): ?TenantContract
@@ -44,6 +50,8 @@ class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByCo
         event('mock.tenant.identification.environment', [
             'tenant' => $this
         ]);
-        return null;
+        return $this
+            ->newQuery()
+            ->first();
     }
 }
