@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use Faker\Generator as Faker;
-use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Tests\Mocks\Tenants\MysqlTenant;
 use Tenancy\Tests\Mocks\Tenants\NullConsoleTenant;
 use Tenancy\Tests\Mocks\Tenants\NullEnvironmentTenant;

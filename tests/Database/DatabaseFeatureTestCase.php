@@ -8,11 +8,17 @@ use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\ConnectionListener;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Affects\Connections\Provider as ConnectionProvider;
+use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
+use Tenancy\Hooks\Migration\Provider as MigrationProvider;
+use Tenancy\Hooks\Migration\Support\InteractsWithMigrations;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
 use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Tenant\Events;
 use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Tests\Mocks\Models\TenantModel;
+use Tenancy\Tests\UsesMigrations;
+use Tenancy\Tests\UsesModels;
 
 abstract class DatabaseFeatureTestCase extends TestCase
 {
@@ -30,6 +36,9 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     use InteractsWithDatabases;
     use InteractsWithConnections;
+    use InteractsWithMigrations;
+    use UsesMigrations;
+    use UsesModels;
 
     protected function afterSetUp()
     {
@@ -98,6 +107,49 @@ abstract class DatabaseFeatureTestCase extends TestCase
             $this->getTenantConnection()->getPdo()
         );
 
+        $this->cleanDatabase($this->tenant);
+    }
+
+    /** @test */
+    public function updating_keeps_the_data()
+    {
+        $this->app->register(MigrationProvider::class);
+        $this->registerModelFactories();
+        $this->registerMigrationsPath($this->getMigrationsPath());
+        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event){
+            if($event->event instanceof Events\Deleted){
+                $event->disable();
+            }
+        });
+
+        $this->events->dispatch(new Events\Created($this->tenant));
+
+        $this->assertTrue(
+            $this->getTenantConnection()
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
+        );
+
+        factory(TenantModel::class, 10)->create();
+        $mocks = TenantModel::all();
+
+        $this->db->purge(Tenancy::getTenantConnectionName());
+
+        $this->tenant->id = 1997;
+        $this->events->dispatch(new Events\Updated($this->tenant));
+
+        Tenancy::setTenant($this->tenant);
+
+        $this->assertTrue(
+            $this->getTenantConnection()
+                ->getSchemaBuilder()
+                ->hasTable('mocks')
+        );
+
+        $this->assertEquals(
+            $mocks,
+            TenantModel::all()
+        );
         $this->cleanDatabase($this->tenant);
     }
 
