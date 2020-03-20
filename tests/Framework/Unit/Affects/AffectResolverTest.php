@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Affects;
 
-use InvalidArgumentException;
 use Tenancy\Affects\AffectResolver;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Testing\TestCase;

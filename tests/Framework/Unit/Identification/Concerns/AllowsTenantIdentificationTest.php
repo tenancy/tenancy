@@ -22,7 +22,7 @@ use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
-class AllowTenantIdentificationTest extends TestCase
+class AllowsTenantIdentificationTest extends TestCase
 {
     protected $class;
 

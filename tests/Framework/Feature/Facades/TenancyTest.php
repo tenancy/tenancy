@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Framework\Feature\Facades;
 
 use Tenancy\Environment;
@@ -7,7 +21,7 @@ use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
 
-class TenanyTest extends TestCase
+class TenancyTest extends TestCase
 {
     /** @var Tenant */
     private $tenant;
@@ -20,7 +34,7 @@ class TenanyTest extends TestCase
     /** @test */
     public function it_proxies_calls_to_the_environment()
     {
-        $this->mock(Environment::class, function ($mock){
+        $this->mock(Environment::class, function ($mock) {
             $mock
                 ->shouldReceive('isIdentified');
         });

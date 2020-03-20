@@ -20,9 +20,7 @@ use Illuminate\Console\Events\ArtisanStarting;
 use Illuminate\Console\Events\CommandStarting;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Console\Listeners\GlobalTenantAwareness;
-use Tenancy\Identification\Drivers\Console\Listeners\IdentifyByConsole;
 use Tenancy\Identification\Drivers\Console\Middleware\EagerIdentification;
-use Tenancy\Identification\Events\Resolving;
 use Tenancy\Providers\Provides\ProvidesListeners;
 use Tenancy\Support\DriverProvider;
 

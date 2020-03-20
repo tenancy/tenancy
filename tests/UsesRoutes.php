@@ -25,7 +25,7 @@ trait UsesRoutes
      */
     protected function getRoutesPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'Mocks' . DIRECTORY_SEPARATOR . 'Routes';
+        return __DIR__.DIRECTORY_SEPARATOR.'Mocks'.DIRECTORY_SEPARATOR.'Routes';
     }
 
     /**
@@ -35,7 +35,7 @@ trait UsesRoutes
      */
     protected function getTenantRoutesPath()
     {
-        return $this->getRoutesPath() . DIRECTORY_SEPARATOR . 'tenant.php';
+        return $this->getRoutesPath().DIRECTORY_SEPARATOR.'tenant.php';
     }
 
     /**
@@ -45,6 +45,6 @@ trait UsesRoutes
      */
     protected function getNormalRoutesPath()
     {
-        return $this->getRoutesPath() . DIRECTORY_SEPARATOR . 'routes.php';
+        return $this->getRoutesPath().DIRECTORY_SEPARATOR.'routes.php';
     }
 }

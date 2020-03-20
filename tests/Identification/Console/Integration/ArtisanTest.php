@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Identification\Console\Integration;
 
 use Illuminate\Foundation\Console\Kernel;
@@ -24,7 +38,7 @@ class ArtisanTest extends TestCase
     /** @test */
     public function it_checks_if_a_tenant_is_identified()
     {
-        $this->mock(Environment::class, function ($mock){
+        $this->mock(Environment::class, function ($mock) {
             $mock
                 ->shouldReceive('isIdentified')
                 ->once();
@@ -37,7 +51,7 @@ class ArtisanTest extends TestCase
     /** @test */
     public function it_does_not_trigger_identification_when_a_tenant_is_already_identified()
     {
-        $this->mock(Environment::class, function ($mock){
+        $this->mock(Environment::class, function ($mock) {
             $mock
                 ->shouldReceive('isIdentified')
                 ->andReturn(true);
@@ -49,7 +63,7 @@ class ArtisanTest extends TestCase
     /** @test */
     public function it_triggers_console_identification()
     {
-        $this->mock(Environment::class, function ($mock){
+        $this->mock(Environment::class, function ($mock) {
             $mock
                 ->shouldReceive('identifyTenant')
                 ->withArgs([false, IdentifiesByConsole::class])

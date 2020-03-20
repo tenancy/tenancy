@@ -1,21 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\DatabaseManager;
-use Tenancy\Facades\Tenancy;
-use Tenancy\Testing\TestCase;
-use Tenancy\Tests\Mocks\ConnectionListener;
-use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Affects\Connections\Provider as ConnectionProvider;
+use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Provider as DatabaseProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migration\Provider as MigrationProvider;
 use Tenancy\Hooks\Migration\Support\InteractsWithMigrations;
 use Tenancy\Identification\Contracts\Tenant as TenantContract;
+use Tenancy\Tenant\Events;
 use Tenancy\Testing\Concerns\InteractsWithConnections;
 use Tenancy\Testing\Concerns\InteractsWithDatabases;
-use Tenancy\Tenant\Events;
 use Tenancy\Testing\Mocks\Tenant;
+use Tenancy\Testing\TestCase;
+use Tenancy\Tests\Mocks\ConnectionListener;
 use Tenancy\Tests\Mocks\Models\TenantModel;
 use Tenancy\Tests\UsesMigrations;
 use Tenancy\Tests\UsesModels;
@@ -59,7 +73,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     abstract protected function registerDatabaseListener();
 
-
     /** @test */
     public function it_creates_the_database()
     {
@@ -89,9 +102,8 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
-
     /** @test */
-    public function updating_the_same_tenant_does_not_change_the_connection ()
+    public function updating_the_same_tenant_does_not_change_the_connection()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
 
@@ -116,8 +128,8 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->app->register(MigrationProvider::class);
         $this->registerModelFactories();
         $this->registerMigrationsPath($this->getMigrationsPath());
-        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event){
-            if($event->event instanceof Events\Deleted){
+        $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
+            if ($event->event instanceof Events\Deleted) {
                 $event->disable();
             }
         });

@@ -37,7 +37,7 @@ class ConfigureViewsNamespaceTest extends AffectsIntegrationTestCase
         $factory = $this->app->make(Factory::class);
 
         $this->assertStringContainsString(
-            "Testing",
+            'Testing',
             $factory->make('tenant::test')->render()
         );
     }
