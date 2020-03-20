@@ -75,7 +75,7 @@ class TenantResolverTest extends TestCase
     /** @test */
     public function find_model_returns_null()
     {
-        $this->assertNull($this->resolver->findModel(-100));
+        $this->assertNull($this->resolver->findModel(NotATenant::class));
     }
 
     /** @test */
