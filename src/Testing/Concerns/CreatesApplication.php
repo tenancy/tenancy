@@ -53,10 +53,6 @@ trait CreatesApplication
         $appPaths = [];
         $app = null;
 
-        if (getenv('CI_PROJECT_DIR')) {
-            $appPaths[] = realpath(getenv('CI_PROJECT_DIR').'/vendor/laravel/laravel');
-        }
-
         // inside vendor
         $appPaths[] = realpath(__DIR__.'/../../framework/');
         // as a framework
@@ -66,8 +62,6 @@ trait CreatesApplication
             $bootstrap = "$path/bootstrap/app.php";
 
             if (file_exists($bootstrap)) {
-                $this->injectServiceProvider($path);
-
                 $app = require $bootstrap;
                 break;
             }
@@ -84,6 +78,7 @@ trait CreatesApplication
 
     protected function bootTenancy()
     {
+        $this->app->register(TenancyProvider::class);
         foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
@@ -92,10 +87,6 @@ trait CreatesApplication
         $factory = resolve(Factory::class);
         $factory->load(__DIR__.'/../Mocks/factories/');
 
-        foreach ($this->additionalMocks as $mock) {
-            $factory->load($mock);
-        }
-
         $this->environment = resolve(Environment::class);
         $this->events = resolve(Dispatcher::class);
     }
@@ -103,21 +94,5 @@ trait CreatesApplication
     protected function tearDownTenancy()
     {
         // ..
-    }
-
-    protected function createSystemTable(string $table, \Closure $callback)
-    {
-        $this->getConnection()->getSchemaBuilder()->create($table, $callback);
-    }
-
-    protected function injectServiceProvider(string $base)
-    {
-        $config = include "$base/config/app.php";
-
-        if (!in_array(TenancyProvider::class, $config['providers'])) {
-            array_unshift($config['providers'], TenancyProvider::class);
-
-            file_put_contents("$base/config/app.php", sprintf('<?php return %s;', var_export($config, true)));
-        }
     }
 }

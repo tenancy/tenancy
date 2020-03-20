@@ -46,6 +46,9 @@ jobs:
               with:
                   php-version: '${{ matrix.php }}'
 
+            - name: Start required services
+              run: sudo systemctl start mysql
+
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
 

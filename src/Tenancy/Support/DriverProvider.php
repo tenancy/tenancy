@@ -21,6 +21,7 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 abstract class DriverProvider extends Provider
 {
     use Concerns\PublishesConfigs;
+
     /**
      * Identification driver registered by the Service Provider.
      *
