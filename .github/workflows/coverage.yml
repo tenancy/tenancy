@@ -25,8 +25,12 @@ jobs:
                   php-version: '7.3'
                   coverage: xdebug
 
+            - name: Start required services
+              run: sudo systemctl start mysql
+
             - name: Create MySQL User
               run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
+
             - name: Create MySQL Database
               run: mysql -uroot -proot -e "create database testing;" --port 13306
 
