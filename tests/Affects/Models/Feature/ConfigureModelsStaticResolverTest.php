@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Affects\Models\Feature;
 
 use Tenancy\Affects\Models\Events\ConfigureModels;
@@ -17,7 +31,7 @@ class ConfigureModelsStaticResolverTest extends AffectsFeatureTestCase
 
     protected function registerAffecting()
     {
-        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event){
+        $this->events->listen(ConfigureModels::class, function (ConfigureModels $event) {
             ConfigureModels::setConnectionResolver(
                 $this->model,
                 new ConnectionResolver('sqlite', resolve('db'))
@@ -27,6 +41,6 @@ class ConfigureModelsStaticResolverTest extends AffectsFeatureTestCase
 
     protected function isAffected(Tenant $tenant): bool
     {
-        return (new $this->model)->getConnectionResolver() instanceof ConnectionResolver;
+        return (new $this->model())->getConnectionResolver() instanceof ConnectionResolver;
     }
 }

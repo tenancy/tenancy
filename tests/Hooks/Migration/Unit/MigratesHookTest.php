@@ -1,12 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Hooks\Migration\Unit;
 
 use Illuminate\Support\Facades\Event;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migration\Hooks\MigratesHook;
-use Tenancy\Hooks\Migration\Provider;
 use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Testing\TestCase;
 
@@ -43,7 +56,7 @@ class MigratesHookTest extends TestCase
         $this->hook->for(new Tenant\Created($this->mockTenant()));
 
         $this->assertEquals(
-            "run",
+            'run',
             $this->hook->action
         );
     }
@@ -54,7 +67,7 @@ class MigratesHookTest extends TestCase
         $this->hook->for(new Tenant\Updated($this->mockTenant()));
 
         $this->assertEquals(
-            "run",
+            'run',
             $this->hook->action
         );
     }
@@ -65,7 +78,7 @@ class MigratesHookTest extends TestCase
         $this->hook->for(new Tenant\Deleted($this->mockTenant()));
 
         $this->assertEquals(
-            "reset",
+            'reset',
             $this->hook->action
         );
     }

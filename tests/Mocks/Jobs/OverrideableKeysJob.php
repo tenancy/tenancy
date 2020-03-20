@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Mocks\Jobs;
 
 use Illuminate\Bus\Queueable;
@@ -13,7 +27,10 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class OverrideableKeysJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /** @var mixed */
     public $tenant_key;
@@ -50,7 +67,6 @@ class OverrideableKeysJob implements ShouldQueue
         $this->publicCollection = $collection;
         $this->protectedCollection = $collection;
         $this->priveCollection = $collection;
-
 
         $this->anotherPublicCollection = $anotherCollection;
         $this->anotherProtectedCollection = $anotherCollection;

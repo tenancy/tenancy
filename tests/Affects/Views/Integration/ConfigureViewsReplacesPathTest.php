@@ -35,7 +35,7 @@ class ConfigureViewsReplacesPathTest extends AffectsIntegrationTestCase
         $factory = $this->app->make(Factory::class);
 
         $this->assertStringNotContainsString(
-            "Welcome",
+            'Welcome',
             $factory->make('welcome')->render(),
             "Laravel's default template contains welcome already"
         );
@@ -43,7 +43,7 @@ class ConfigureViewsReplacesPathTest extends AffectsIntegrationTestCase
         Tenancy::setTenant($this->tenant);
 
         $this->assertStringContainsString(
-            "Welcome",
+            'Welcome',
             $factory->make('welcome')->render()
         );
     }

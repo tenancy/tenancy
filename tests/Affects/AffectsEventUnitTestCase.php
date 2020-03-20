@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Affects;
 
 use Illuminate\Support\Facades\Event;
@@ -24,7 +38,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
 
     /** @var array */
     private $defaultContent = [
-        'event' => Switched::class
+        'event' => Switched::class,
     ];
 
     protected function afterSetUp()
@@ -33,7 +47,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
     }
 
     /**
-     * Gets the combined contents the event should have
+     * Gets the combined contents the event should have.
      *
      * @return array
      */
@@ -70,7 +84,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
         $this->app->register($this->affectsProvider);
 
         $this->events->listen($this->event, function ($event) {
-            foreach($this->getContents() as $key => $instance){
+            foreach ($this->getContents() as $key => $instance) {
                 $this->assertInstanceOf($instance, $event->{$key});
             }
         });

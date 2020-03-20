@@ -1,15 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Framework\Feature\Identification;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
-use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Support\TenantModelCollection;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
@@ -112,7 +123,7 @@ class TenantResolverTest extends TestCase
 
         Event::fake([
             'mock.tenant.identification.http',
-            'mock.tenant.identification.environment'
+            'mock.tenant.identification.environment',
         ]);
 
         $this->resolver->__invoke();
