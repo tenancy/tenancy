@@ -1,0 +1,28 @@
+{
+    "name": "tenancy/db-driver-postgres",
+    "description": "The tenancy/tenancy database driver for postgres",
+    "keywords": ["database", "tenancy", "postgres"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*",
+        "tenancy/hooks-database": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Database\\Drivers\\Postgres\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Erik Gaal",
+            "email": "me@erikgaal.nl",
+        },
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Database\\Drivers\\Postgres\\Provider"
+            ]
+        }
+    }
+}

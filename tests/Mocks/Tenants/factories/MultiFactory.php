@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 use Faker\Generator as Faker;
 use Tenancy\Tests\Mocks\Tenants\MysqlTenant;
+use Tenancy\Tests\Mocks\Tenants\PostgresTenant;
 use Tenancy\Tests\Mocks\Tenants\NullConsoleTenant;
 use Tenancy\Tests\Mocks\Tenants\NullEnvironmentTenant;
 use Tenancy\Tests\Mocks\Tenants\NullHttpTenant;
@@ -36,6 +37,7 @@ use Tenancy\Tests\Mocks\Tenants\SimpleQueueTenant;
 */
 foreach ([
     MysqlTenant::class,
+    PostgresTenant::class,
     NullConsoleTenant::class,
     NullEnvironmentTenant::class,
     NullHttpTenant::class,
