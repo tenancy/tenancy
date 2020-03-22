@@ -31,6 +31,7 @@ git subsplit publish --heads="master" src/Identification/Queue:git@github.com:te
 # Database drivers
 git subsplit publish --heads="master" src/Database/Mysql:git@github.com:tenancy/db-driver-mysql.git
 git subsplit publish --heads="master" src/Database/Sqlite:git@github.com:tenancy/db-driver-sqlite.git
+git subsplit publish --heads="master" src/Database/Postgres:git@github.com:tenancy/db-driver-postgres.git
 
 # Testing
 git subsplit publish --heads="master" src/Testing:git@github.com:tenancy/testing.git
