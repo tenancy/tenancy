@@ -19,6 +19,18 @@ namespace Tenancy\Facades;
 use Illuminate\Support\Facades\Facade;
 use Tenancy\Environment;
 
+/**
+ * @method static \Tenancy\Identification\Contracts\Tenant|null identifyTenant(bool $refresh = false, string $contract = null)
+ * @method static bool isIdentified()
+ * @method static \Tenancy\Identification\Contracts\Tenant|null getTenant()
+ * @method static bool hasMacro(string $name)
+ * @method static void macro(string $name, object|callable $macro)
+ * @method static void mixin(object $mixin, bool $replace = true)
+ * @method static void setIdentified(bool $identified)
+ * @method static void setTenant(\Tenancy\Identification\Contracts\Tenant $tenant = null)
+ *
+ * @see \Tenancy\Environment
+ */
 class Tenancy extends Facade
 {
     protected static function getFacadeAccessor()
