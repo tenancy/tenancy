@@ -22,12 +22,12 @@
             "Tenancy\\Affects\\": "src/Affects",
             "Tenancy\\Database\\Drivers\\": "src/Database",
             "Tenancy\\Hooks\\": "src/Hooks",
-            "Tenancy\\Identification\\Drivers\\": "src/Identification"
+            "Tenancy\\Identification\\Drivers\\": "src/Identification",
+            "Tenancy\\Testing\\": "src/Testing"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tenancy\\Testing\\": "src/Testing",
             "Tenancy\\Tests\\": "tests/",
             "Tenancy\\Tests\\Framework\\": "tests/Tenancy",
             "Tenancy\\Tests\\Affects\\": "tests/Affects",
