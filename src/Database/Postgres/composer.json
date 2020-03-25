@@ -15,8 +15,8 @@
     "authors": [
         {
             "name": "Erik Gaal",
-            "email": "me@erikgaal.nl",
-        },
+            "email": "me@erikgaal.nl"
+        }
     ],
     "extra": {
         "laravel": {
