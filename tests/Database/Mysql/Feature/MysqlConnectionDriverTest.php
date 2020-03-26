@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Database\Mysql\Feature;
 
 use Doctrine\DBAL\Driver\PDOException;
 use Tenancy\Database\Drivers\Mysql\Provider;
+use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Tests\Database\DatabaseFeatureTestCase;
 use Tenancy\Tests\Mocks\Tenants\MysqlTenant;
 use Tenancy\Tests\UsesConnections;
@@ -47,7 +48,7 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
         $this->configureBoth(function ($event) {
             $event->useConnection('mysql', $event->configuration);
 
-            if ($event instanceof \Tenancy\Hooks\Database\Events\Drivers\Configuring) {
+            if ($event instanceof Configuring) {
                 $event->configuration['host'] = '%';
             }
         });
