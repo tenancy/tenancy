@@ -41,4 +41,16 @@ trait UsesConnections
             .DIRECTORY_SEPARATOR.'Connections'
             .DIRECTORY_SEPARATOR.'mysql.php';
     }
+
+    /**
+     * Gets the path to the mysql database configuration.
+     *
+     * @return string
+     */
+    protected function getPgsqlConfigurationPath()
+    {
+        return __DIR__.DIRECTORY_SEPARATOR.'Mocks'
+            .DIRECTORY_SEPARATOR.'Connections'
+            .DIRECTORY_SEPARATOR.'pgsql.php';
+    }
 }

@@ -21,6 +21,7 @@ use Tenancy\Tests\Mocks\Tenants\NullEnvironmentTenant;
 use Tenancy\Tests\Mocks\Tenants\NullHttpTenant;
 use Tenancy\Tests\Mocks\Tenants\NullMixedTenant;
 use Tenancy\Tests\Mocks\Tenants\NullQueueTenant;
+use Tenancy\Tests\Mocks\Tenants\PgsqlTenant;
 use Tenancy\Tests\Mocks\Tenants\SimpleConsoleTenant;
 use Tenancy\Tests\Mocks\Tenants\SimpleQueueTenant;
 
@@ -41,6 +42,7 @@ foreach ([
     NullHttpTenant::class,
     NullMixedTenant::class,
     NullQueueTenant::class,
+    PgsqlTenant::class,
     SimpleConsoleTenant::class,
     SimpleQueueTenant::class,
 ] as $tenant) {
