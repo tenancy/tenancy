@@ -74,7 +74,7 @@ class Mysql implements ProvidesDatabase
         ], $tableStatements);
 
         // Add database drop statement as last statement
-        $tableStatements['delete-db'] = "DROP DATABASE `{$config['oldUsername']}`";
+        $statements['delete-db'] = "DROP DATABASE `{$config['oldUsername']}`";
 
         return $this->processAndDispatch(Events\Updated::class, $tenant, $statements);
     }
