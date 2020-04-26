@@ -23,7 +23,9 @@ trait UsesArrayDriver
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureCache::class, function (ConfigureCache $event) {
-            $event->config['driver'] = 'array';
+            if($event->event->tenant){
+                $event->config['driver'] = 'array';
+            }
         });
     }
 }

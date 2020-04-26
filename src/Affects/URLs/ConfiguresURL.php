@@ -28,11 +28,8 @@ class ConfiguresURL extends Affect
     {
         /** @var UrlGenerator $url */
         $url = resolve(UrlGenerator::class);
+        $url->forceRootUrl(null);
 
-        if ($this->event->tenant) {
-            $this->events()->dispatch(new Events\ConfigureURL($this->event, $url));
-        } else {
-            $url->forceRootUrl(null);
-        }
+        $this->events()->dispatch(new Events\ConfigureURL($this->event, $url));
     }
 }

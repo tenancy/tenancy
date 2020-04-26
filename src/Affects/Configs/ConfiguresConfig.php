@@ -26,11 +26,9 @@ class ConfiguresConfig extends Affect
 
     public function fire(): void
     {
-        if ($this->event->tenant) {
-            /** @var Repository $config */
-            $config = resolve(Repository::class);
+        /** @var Repository $config */
+        $config = resolve(Repository::class);
 
-            $this->events()->dispatch(new Events\ConfigureConfig($this->event, $config));
-        }
+        $this->events()->dispatch(new Events\ConfigureConfig($this->event, $config));
     }
 }

@@ -29,11 +29,9 @@ class ConfiguresLogs extends Affect
         /** @var Repository $config */
         $config = resolve(Repository::class);
 
-        if ($this->event->tenant) {
-            $logConfig = [];
+        $logConfig = [];
 
-            $this->events()->dispatch(new Events\ConfigureLogs($this->event, $logConfig));
-        }
+        $this->events()->dispatch(new Events\ConfigureLogs($this->event, $logConfig));
 
         // Configure the tenant log channel.
         $config->set('logging.channels.tenant', $logConfig ?? null);

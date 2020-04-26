@@ -26,11 +26,9 @@ class ConfiguresViews extends Affect
 
     public function fire(): void
     {
-        if ($this->event->tenant) {
-            /** @var Factory $view */
-            $view = resolve(Factory::class);
+        /** @var Factory $view */
+        $view = resolve(Factory::class);
 
-            $this->events()->dispatch(new Events\ConfigureViews($this->event, $view));
-        }
+        $this->events()->dispatch(new Events\ConfigureViews($this->event, $view));
     }
 }

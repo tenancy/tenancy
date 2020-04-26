@@ -32,7 +32,9 @@ class ConfigureURLTest extends AffectsFeatureTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot($event->event->tenant->name.'.tenant');
+            if($event->event->tenant){
+                $event->changeRoot($event->event->tenant->name.'.tenant');
+            }
         });
     }
 

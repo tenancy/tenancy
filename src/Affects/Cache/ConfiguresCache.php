@@ -33,11 +33,9 @@ class ConfiguresCache extends Affect
         /** @var Repository $config */
         $config = resolve(Repository::class);
 
-        if ($this->event->tenant) {
-            $cacheConfig = [];
+        $cacheConfig = [];
 
-            $this->events()->dispatch(new Events\ConfigureCache($this->event, $cacheConfig));
-        }
+        $this->events()->dispatch(new Events\ConfigureCache($this->event, $cacheConfig));
 
         $config->set('cache.stores.tenant', $cacheConfig ?? null);
 
