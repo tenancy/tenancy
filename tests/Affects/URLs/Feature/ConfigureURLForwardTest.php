@@ -32,7 +32,7 @@ class ConfigureURLForwardTest extends AffectsFeatureTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            if($event->event->tenant){
+            if ($event->event->tenant) {
                 $event->forceRootUrl($event->event->tenant->name.'.tenant');
             }
         });
