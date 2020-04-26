@@ -40,8 +40,6 @@ class Configuring
 
     public function __construct(Tenant $tenant, array &$configuration, ProvidesConfiguration $provider)
     {
-        $configuration = $this->defaults($tenant, $configuration);
-
         $this->tenant = $tenant;
         $this->configuration = &$configuration;
         $this->provider = $provider;
@@ -71,15 +69,15 @@ class Configuring
         return $this;
     }
 
-    protected function defaults(Tenant $tenant, array &$configuration): array
+    public function defaults(Tenant $tenant, array $configuration): array
     {
         if ($tenant->isDirty($tenant->getTenantKeyName())) {
             $configuration['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
         }
 
-        $configuration['username'] = $configuration['username'] ?? $tenant->getTenantKey();
-        $configuration['database'] = $configuration['database'] ?? $configuration['username'];
-        $configuration['password'] = $configuration['password'] ?? resolve(ProvidesPassword::class)->__invoke($tenant);
+        $configuration['username'] = $tenant->getTenantKey();
+        $configuration['database'] = $configuration['username'];
+        $configuration['password'] = resolve(ProvidesPassword::class)->__invoke($tenant);
 
         return $configuration;
     }
