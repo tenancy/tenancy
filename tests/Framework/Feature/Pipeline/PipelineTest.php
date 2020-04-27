@@ -1,14 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Framework\Feature\Pipeline;
 
 use Illuminate\Support\Facades\Event;
 use Tenancy\Pipeline\Contracts\Step;
+use Tenancy\Pipeline\Events;
 use Tenancy\Pipeline\Pipeline;
 use Tenancy\Pipeline\Steps;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Pipeline\SimpleStep;
-use Tenancy\Pipeline\Events;
 
 class PipelineTest extends TestCase
 {
@@ -16,7 +30,7 @@ class PipelineTest extends TestCase
     public function it_can_be_constructed_with_steps()
     {
         $steps = new Steps([
-            new SimpleStep
+            new SimpleStep(),
         ]);
 
         $pipeline = new Pipeline($steps);
@@ -32,11 +46,11 @@ class PipelineTest extends TestCase
     {
         $pipeline = new Pipeline();
 
-        $pipeline->setSteps([new SimpleStep]);
+        $pipeline->setSteps([new SimpleStep()]);
 
         $this->assertNotEmpty($pipeline->getSteps());
 
-        $pipeline->getSteps()->each(function (Step $step){
+        $pipeline->getSteps()->each(function (Step $step) {
             $this->assertInstanceOf(SimpleStep::class, $step);
         });
     }
@@ -44,12 +58,12 @@ class PipelineTest extends TestCase
     /** @test */
     public function it_forwards_calls_to_steps()
     {
-        $prioritizedStep = new SimpleStep;
+        $prioritizedStep = new SimpleStep();
         $prioritizedStep->priority = -100;
 
         $steps = new Steps([
-            new SimpleStep,
-            $prioritizedStep
+            new SimpleStep(),
+            $prioritizedStep,
         ]);
 
         $pipeline = new Pipeline($steps);
@@ -67,21 +81,21 @@ class PipelineTest extends TestCase
         Event::fake([
             Events\Processing::class,
             Events\Resolved::class,
-            Events\Fired::class
+            Events\Fired::class,
         ]);
 
         $pipeline = new Pipeline();
 
-        $pipeline->handle("TestEvent");
+        $pipeline->handle('TestEvent');
 
-        Event::assertDispatched(Events\Processing::class, function ($event){
-            return $event->event === "TestEvent";
+        Event::assertDispatched(Events\Processing::class, function ($event) {
+            return $event->event === 'TestEvent';
         });
-        Event::assertDispatched(Events\Resolved::class, function ($event){
-            return $event->event === "TestEvent";
+        Event::assertDispatched(Events\Resolved::class, function ($event) {
+            return $event->event === 'TestEvent';
         });
-        Event::assertDispatched(Events\Fired::class, function ($event){
-            return $event->event === "TestEvent";
+        Event::assertDispatched(Events\Fired::class, function ($event) {
+            return $event->event === 'TestEvent';
         });
     }
 }

@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Framework\Feature\Pipeline\Events;
 
 use Tenancy\Pipeline\Events\Resolving;
@@ -16,10 +30,10 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step = new SimpleStep;
+        $step = new SimpleStep();
         $step->priority = -100;
 
-        $event = new $event("TestEvent", new Pipeline());
+        $event = new $event('TestEvent', new Pipeline());
         $event->step($step);
 
         $this->assertEquals(
@@ -33,10 +47,10 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step = new SimpleStep;
+        $step = new SimpleStep();
         $step->priority = -100;
 
-        $event = new $event("TestEvent", new Pipeline());
+        $event = new $event('TestEvent', new Pipeline());
         $event->step($step);
 
         $this->assertEquals(
@@ -57,10 +71,10 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step = new SimpleStep;
+        $step = new SimpleStep();
         $step->priority = -100;
 
-        $event = new $event("TestEvent", new Pipeline());
+        $event = new $event('TestEvent', new Pipeline());
         $event->step($step);
 
         $event->remove();
