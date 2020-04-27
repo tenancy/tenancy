@@ -69,8 +69,10 @@ class Configuring
         return $this;
     }
 
-    public function defaults(Tenant $tenant, array $configuration): array
+    public function defaults(Tenant $tenant): array
     {
+        $configuration = [];
+
         if ($tenant->isDirty($tenant->getTenantKeyName())) {
             $configuration['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
         }

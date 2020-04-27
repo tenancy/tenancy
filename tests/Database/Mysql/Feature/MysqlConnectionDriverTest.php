@@ -46,8 +46,7 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
         config(['database.connections.mysql' => include $this->getMysqlConfigurationPath()]);
 
         $this->configureBoth(function ($event) {
-            $event->useConnection('mysql', $event->configuration);
-            $event->configuration = $event->defaults($event->tenant, $event->configuration);
+            $event->useConnection('mysql', $event->defaults($event->tenant));
 
             if ($event instanceof Configuring) {
                 $event->configuration['host'] = '%';
