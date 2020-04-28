@@ -20,5 +20,4 @@ use Tenancy\Lifecycle\ConfigurableHook;
 
 class HostnamesHook extends ConfigurableHook
 {
-
 }

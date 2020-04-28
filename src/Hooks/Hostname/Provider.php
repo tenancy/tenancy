@@ -26,10 +26,10 @@ class Provider extends HooksProvider
     use ProvidesBindings;
 
     protected $hooks = [
-        HostnamesHook::class
+        HostnamesHook::class,
     ];
 
     public $singletons = [
-        ResolvesHostnames::class => HostnameResolver::class
+        ResolvesHostnames::class => HostnameResolver::class,
     ];
 }

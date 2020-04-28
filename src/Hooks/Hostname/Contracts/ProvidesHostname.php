@@ -21,6 +21,8 @@ use Tenancy\Identification\Contracts\Tenant;
 interface ProvidesHostname
 {
     public function create(Tenant $tenant): void;
+
     public function update(Tenant $tenant): void;
+
     public function delete(Tenant $tenant): void;
 }
