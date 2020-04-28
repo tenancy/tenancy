@@ -46,7 +46,6 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
     /** @test */
     public function the_event_can_delegate_to_mailer()
     {
-
         $this->app->register($this->affectsProvider);
 
         $this->events->listen($this->event, function (ConfigureMails $e) {
