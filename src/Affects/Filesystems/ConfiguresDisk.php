@@ -34,11 +34,9 @@ class ConfiguresDisk extends Affect
         /** @var Repository $config */
         $config = resolve(Repository::class);
 
-        if ($this->event->tenant) {
-            $diskConfig = [];
+        $diskConfig = [];
 
-            $this->events()->dispatch(new Events\ConfigureDisk($this->event, $diskConfig));
-        }
+        $this->events()->dispatch(new Events\ConfigureDisk($this->event, $diskConfig));
 
         // Configure the tenant disk.
         $config->set('filesystems.disks.tenant', $diskConfig ?? null);

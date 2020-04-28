@@ -33,11 +33,9 @@ class ConfiguresBroadcasts extends Affect
         /** @var Repository $config */
         $config = resolve(Repository::class);
 
-        if ($this->event->tenant) {
-            $broadcastConfig = [];
+        $broadcastConfig = [];
 
-            $this->events()->dispatch(new Events\ConfigureBroadcast($this->event, $broadcastConfig));
-        }
+        $this->events()->dispatch(new Events\ConfigureBroadcast($this->event, $broadcastConfig));
 
         $config->set('broadcasting.connections.tenant', $broadcastConfig ?? null);
 

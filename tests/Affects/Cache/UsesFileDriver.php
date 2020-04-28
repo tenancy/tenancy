@@ -23,8 +23,10 @@ trait UsesFileDriver
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureCache::class, function (ConfigureCache $event) {
-            $event->config['driver'] = 'file';
-            $event->config['path'] = '.tmp'.DIRECTORY_SEPARATOR.$event->event->tenant->getTenantKey();
+            if ($event->event->tenant) {
+                $event->config['driver'] = 'file';
+                $event->config['path'] = '.tmp'.DIRECTORY_SEPARATOR.$event->event->tenant->getTenantKey();
+            }
         });
     }
 }

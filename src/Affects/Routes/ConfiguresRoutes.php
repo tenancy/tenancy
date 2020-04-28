@@ -29,9 +29,7 @@ class ConfiguresRoutes extends Affect
         /** @var Router $router */
         $router = resolve(Router::class);
 
-        if ($this->event->tenant) {
-            $this->events()->dispatch(new Events\ConfigureRoutes($this->event, $router));
-        }
+        $this->events()->dispatch(new Events\ConfigureRoutes($this->event, $router));
 
         $router->getRoutes()->refreshNameLookups();
         $router->getRoutes()->refreshActionLookups();
