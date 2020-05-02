@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Hostname\Contracts;
 
-use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Tenant\Events\Event;
 
-interface ResolvesHostnames
+interface HostnameHandler
 {
-    public function __invoke(Tenant $tenant): ?ProvidesHostname;
+    public function handle(Event $event): void;
 }

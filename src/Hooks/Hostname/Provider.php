@@ -16,20 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Hostname;
 
-use Tenancy\Hooks\Hostname\Contracts\ResolvesHostnames;
 use Tenancy\Hooks\Hostname\Hooks\HostnamesHook;
-use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    use ProvidesBindings;
-
     protected $hooks = [
         HostnamesHook::class,
-    ];
-
-    public $singletons = [
-        ResolvesHostnames::class => HostnameResolver::class,
     ];
 }

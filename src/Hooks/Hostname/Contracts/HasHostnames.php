@@ -16,13 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Hostname\Contracts;
 
-use Tenancy\Identification\Contracts\Tenant;
-
-interface ProvidesHostname
+interface HasHostnames
 {
-    public function create(Tenant $tenant): void;
-
-    public function update(Tenant $tenant): void;
-
-    public function delete(Tenant $tenant): void;
+    public function getHostnames(): array;
 }
