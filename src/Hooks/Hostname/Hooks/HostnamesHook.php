@@ -33,7 +33,7 @@ class HostnamesHook extends ConfigurableHook
     {
         parent::for($event);
 
-        if(in_array(HasHostnames::class, class_implements($event->tenant))){
+        if (in_array(HasHostnames::class, class_implements($event->tenant))) {
             $this->fires = true;
 
             event(new ConfigureHostnames($event, $this));
@@ -56,7 +56,7 @@ class HostnamesHook extends ConfigurableHook
 
     public function fire(): void
     {
-        foreach($this->handlers as $handler) {
+        foreach ($this->handlers as $handler) {
             $handler->handle($this->event);
         }
     }
