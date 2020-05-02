@@ -41,7 +41,7 @@ class DatabaseMutation extends ConfigurableHook
     {
         parent::for($event);
 
-        if(Arr::has($this->mapping, get_class($this->event))){
+        if (Arr::has($this->mapping, get_class($this->event))) {
             $this->fires = true;
 
             event(new ConfigureDatabaseMutation($event, $this));
