@@ -160,7 +160,9 @@ class TenantResolver implements ResolvesTenants
                     foreach ($this->retrieveDriverMethods($driver) as $method) {
                         try {
                             $tenant = app()->call("$item@{$method->getName()}");
+                            // @codeCoverageIgnoreStart
                         } catch (BindingResolutionException $e) {
+                            // @codeCoverageIgnoreEnd
                             // Prevent trying to find a tenant when bindings aren't working for them.
                         }
 
@@ -226,7 +228,9 @@ class TenantResolver implements ResolvesTenants
                 foreach ($methods as $method) {
                     try {
                         $tenant = app()->call("$item@{$method->getName()}");
+                        // @codeCoverageIgnoreStart
                     } catch (BindingResolutionException $e) {
+                        // @codeCoverageIgnoreEnd
                         // Prevent trying to find a tenant when bindings aren't working for them.
                     }
 
