@@ -1,15 +1,14 @@
 {
-    "name": "tenancy/hooks-migration",
-    "description": "The tenancy/tenancy migration mutations",
-    "keywords": ["hooks", "tenancy", "migration"],
+    "name": "tenancy/hooks-hostname",
+    "description": "The tenancy/tenancy hostname mutations",
+    "keywords": ["hooks", "tenancy", "hostname"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*",
-        "tenancy/affects-connections": "*"
+        "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Hooks\\Migration\\": ""
+            "Tenancy\\Hooks\\Hostname\\": ""
         }
     },
     "authors": [
@@ -27,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Hooks\\Migration\\Provider"
+                "Tenancy\\Hooks\\Hostname\\Provider"
             ]
         }
     }
