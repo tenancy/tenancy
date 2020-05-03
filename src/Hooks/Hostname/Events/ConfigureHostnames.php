@@ -31,6 +31,20 @@ class ConfigureHostnames
         $this->hook = $hook;
     }
 
+    public function disable()
+    {
+        $this->hook->fires = false;
+
+        return $this;
+    }
+
+    public function priority(int $priority = -50)
+    {
+        $this->hook->priority = $priority;
+
+        return $this;
+    }
+
     public function __call($name, $arguments)
     {
         return call_user_func_array([$this->hook, $name], $arguments);

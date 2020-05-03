@@ -24,7 +24,7 @@ use Tenancy\Lifecycle\ConfigurableHook;
 class HostnamesHook extends ConfigurableHook
 {
     /** @var array */
-    private $handlers;
+    private $handlers = [];
 
     /** @var bool */
     public $fires = false;

@@ -44,7 +44,7 @@ abstract class ConfigureHookTestCase extends TestCase
             $event->disable();
         });
 
-        $this->hook->for(new $tenantEvent($this->mockTenant()));
+        $this->hook->for(new $tenantEvent($this->getMockedTenant()));
 
         $this->assertFalse($this->hook->fires);
     }
@@ -61,7 +61,7 @@ abstract class ConfigureHookTestCase extends TestCase
             $event->priority(-10000);
         });
 
-        $this->hook->for(new $tenantEvent($this->mockTenant()));
+        $this->hook->for(new $tenantEvent($this->getMockedTenant()));
 
         $this->assertNotEquals(
             $original,
@@ -76,5 +76,10 @@ abstract class ConfigureHookTestCase extends TestCase
             [Tenant\Updated::class],
             [Tenant\Deleted::class],
         ];
+    }
+
+    public function getMockedTenant()
+    {
+        return $this->mockTenant();
     }
 }
