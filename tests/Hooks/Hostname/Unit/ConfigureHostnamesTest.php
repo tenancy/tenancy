@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Hooks\Hostname\Unit;
 
 use Illuminate\Support\Facades\Event;
@@ -21,6 +35,7 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
     public function getMockedTenant()
     {
         $this->createMockTenant();
+
         return HostnameTenant::first();
     }
 
@@ -30,7 +45,7 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
      * @test */
     public function it_can_forwards_call_to_the_hook($tenantEvent)
     {
-        Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event){
+        Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
             $this->assertIsArray($event->getHandlers());
         });
 
@@ -43,7 +58,7 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
      * @test */
     public function it_can_register_handlers($tenantEvent)
     {
-        Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event){
+        Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
             $this->assertEmpty($event->getHandlers());
 
             $event->registerHandler(new SimpleHandler());
