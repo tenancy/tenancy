@@ -12,6 +12,16 @@
             "Tenancy\\Hooks\\Migration\\": ""
         }
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
             "name": "Arlon Antonius",
