@@ -52,7 +52,9 @@ class HookResolver extends Pipeline implements ResolvesHooks
             $hooks->each(function (LifecycleHook $hook) {
                 if ($hook->queued()) {
                     dispatch(function () use ($hook) {
+                        // @codeCoverageIgnoreStart
                         $hook->fire();
+                        // @codeCoverageIgnoreEnd
                     })->onQueue($hook->queue());
                 } else {
                     $hook->fire();

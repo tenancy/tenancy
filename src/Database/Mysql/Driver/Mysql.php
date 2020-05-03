@@ -111,8 +111,10 @@ class Mysql implements ProvidesDatabase
         foreach ($statements as $statement) {
             try {
                 $success = $this->system($tenant)->statement($statement);
+                // @codeCoverageIgnoreStart
             } catch (QueryException $e) {
                 $this->system($tenant)->rollBack();
+                // @codeCoverageIgnoreEnd
             } finally {
                 if (!$success) {
                     throw $e;
