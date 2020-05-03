@@ -16,13 +16,18 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database\Unit;
 
+use Illuminate\Support\Facades\Event;
+use Tenancy\Hooks\Database\Events\ConfigureDatabaseMutation;
 use Tenancy\Hooks\Database\Hooks\DatabaseMutation;
+use Tenancy\Hooks\Database\Provider;
 use Tenancy\Identification\Events\Switched;
 use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Testing\TestCase;
 
 class DatabaseMutationTest extends TestCase
 {
+    protected $additionalProviders = [Provider::class];
+
     protected function afterSetUp()
     {
         $this->hook = $this->app->make(DatabaseMutation::class);
@@ -66,5 +71,27 @@ class DatabaseMutationTest extends TestCase
         $this->assertTrue(
             $this->hook->fires()
         );
+    }
+
+    /** @test */
+    public function it_fires_configure_database_mutation_for_tenant_events()
+    {
+        Event::fake([ConfigureDatabaseMutation::class]);
+
+        $this->hook->for(new Tenant\Created($this->mockTenant()));
+        $this->hook->for(new Tenant\Updated($this->mockTenant()));
+        $this->hook->for(new Tenant\Deleted($this->mockTenant()));
+
+        Event::assertDispatchedTimes(ConfigureDatabaseMutation::class, 3);
+    }
+
+    /** @test */
+    public function it_does_not_fire_configure_database_mutation_for_other_events()
+    {
+        Event::fake([ConfigureDatabaseMutation::class]);
+
+        $this->hook->for(new Switched($this->mockTenant()));
+
+        Event::assertNotDispatched(ConfigureDatabaseMutation::class);
     }
 }

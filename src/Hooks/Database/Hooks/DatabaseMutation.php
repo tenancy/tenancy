@@ -17,7 +17,9 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Database\Hooks;
 
 use Illuminate\Support\Arr;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
+use Tenancy\Hooks\Database\Events\ConfigureDatabaseMutation;
 use Tenancy\Lifecycle\ConfigurableHook;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Tenant\Events\Deleted;
@@ -27,28 +29,42 @@ class DatabaseMutation extends ConfigurableHook
 {
     public $priority = -100;
 
+    /** @var bool */
+    public $fires = false;
+
+    /** @var ProvidesDatabase */
+    protected $driver;
+
     protected $mapping = [
         Created::class => 'create',
         Updated::class => 'update',
         Deleted::class => 'delete',
     ];
 
-    public function fires(): bool
+    public function for($event)
     {
-        return Arr::has($this->mapping, get_class($this->event));
+        parent::for($event);
+
+        if (Arr::has($this->mapping, get_class($this->event))) {
+            $this->fires = true;
+
+            event(new ConfigureDatabaseMutation($event, $this));
+
+            /** @var ResolvesDatabases $resolver */
+            $resolver = resolve(ResolvesDatabases::class);
+
+            $this->driver = $resolver($this->event->tenant);
+        }
+
+        return $this;
     }
 
     public function fire(): void
     {
-        /** @var ResolvesDatabases $resolver */
-        $resolver = resolve(ResolvesDatabases::class);
-
-        $driver = $resolver($this->event->tenant);
-
         $action = $this->mapping[get_class($this->event)];
 
-        if ($driver && config("tenancy.database.auto-$action")) {
-            $driver->{$action}($this->event->tenant);
+        if ($this->driver) {
+            $this->driver->{$action}($this->event->tenant);
         }
     }
 }
