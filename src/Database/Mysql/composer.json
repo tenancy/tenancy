@@ -14,16 +14,21 @@
             "Tenancy\\Database\\Drivers\\Mysql\\": ""
         }
     },
-    "authors": [
+    "funding": [
         {
-            "name": "Daniël Klabbers",
-            "email": "daniel@klabbers.email",
-            "homepage": "http://luceos.com"
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
         },
         {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
+    "authors": [
+        {
             "name": "Arlon Antonius",
-            "email": "opensource@arlonantonius.com",
-            "homepage": "https://arlonantonius.com"
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
         }
     ],
     "extra": {
