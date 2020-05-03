@@ -58,6 +58,16 @@
         "tenancy/identification-driver-environment": "self.version",
         "tenancy/identification-driver-http": "self.version"
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
             "name": "Arlon Antonius",
