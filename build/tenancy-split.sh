@@ -20,6 +20,7 @@ git subsplit publish --heads="master" src/Affects/Views:git@github.com:tenancy/a
 
 # Lifecycle Hooks
 git subsplit publish --heads="master" src/Hooks/Database:git@github.com:tenancy/hooks-database.git
+git subsplit publish --heads="master" src/Hooks/Hostname:git@github.com:tenancy/hooks-hostname.git
 git subsplit publish --heads="master" src/Hooks/Migration:git@github.com:tenancy/hooks-migration.git
 
 # Identification drivers
