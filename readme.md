@@ -14,7 +14,7 @@ backing its development over at [OpenCollective](https://opencollective.com/tena
 
 > Before you start, we highly recommend you to read the extensive [online documentation](https://tenancy.dev/docs/tenancy/1.x).
 
-# installation
+# Installation
 
 To give this package a spin, install all components at once:
 
@@ -35,7 +35,7 @@ After that you'll need to decide on and configure:
 - [affects](https://tenancy.dev/docs/tenancy/1.x/affects)
 - [hooks](https://tenancy.dev/docs/tenancy/1.x/hooks)
 
-# contributions
+# Contributions
 
 This repository is used for developing all tenancy packages.
 
