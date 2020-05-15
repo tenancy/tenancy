@@ -19,14 +19,12 @@ namespace Tenancy\Affects\Connections;
 use Illuminate\Database\DatabaseManager;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Environment;
-use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Providers\Provides\ProvidesConfigs;
 use Tenancy\Providers\Provides\ProvidesListeners;
 use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
-    use ProvidesBindings;
     use ProvidesConfigs;
     use ProvidesListeners;
 

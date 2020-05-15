@@ -17,13 +17,10 @@ declare(strict_types=1);
 namespace Tenancy\Hooks\Database;
 
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
-use Tenancy\Providers\Provides\ProvidesBindings;
 use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    use ProvidesBindings;
-
     protected $hooks = [
         Hooks\DatabaseMutation::class,
     ];
