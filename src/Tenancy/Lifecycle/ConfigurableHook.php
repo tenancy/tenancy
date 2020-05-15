@@ -36,7 +36,7 @@ abstract class ConfigurableHook extends Hook
 
     public function queue(): ?string
     {
-        return $this->queue;
+        return $this->queue ?: null;
     }
 
     public function priority(): int
