@@ -1,30 +1,35 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * (c) Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see http://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/tenancy
  */
 
 namespace Tenancy\Identification;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionMethod;
 use Tenancy\Concerns\DispatchesEvents;
-use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Support\TenantModelCollection;
 
 class TenantResolver implements ResolvesTenants
 {
-    use DispatchesEvents,
-        Macroable;
+    use DispatchesEvents;
+    use Macroable;
 
     /**
      * The tenant models.
@@ -42,12 +47,16 @@ class TenantResolver implements ResolvesTenants
         $this->configure();
     }
 
-    public function __invoke(): ?Tenant
+    public function __invoke(string $contract = null): ?Tenant
     {
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
 
-        if (! $tenant && count($this->drivers) > 0) {
+        if (!$tenant && !is_null($contract)) {
+            return $this->identifyByContract($contract);
+        }
+
+        if (!$tenant && count($this->drivers) > 0) {
             $tenant = $this->resolveFromDrivers($models);
         }
 
@@ -56,11 +65,11 @@ class TenantResolver implements ResolvesTenants
         }
 
         // Provide a debug log entry when no tenant was identified, possibly because no identification driver is active.
-        if (! $tenant && count($this->drivers) === 0) {
+        if (!$tenant && count($this->drivers) === 0) {
             logger('No tenant was identified, a possible cause being that no identification drivers are available.');
         }
 
-        if (! $tenant) {
+        if (!$tenant) {
             $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }
 
@@ -76,8 +85,8 @@ class TenantResolver implements ResolvesTenants
 
     public function addModel(string $class)
     {
-        if (! in_array(Tenant::class, class_implements($class))) {
-            throw new InvalidArgumentException("$class has to implement " . Tenant::class);
+        if (!in_array(Tenant::class, class_implements($class))) {
+            throw new InvalidArgumentException("$class has to implement ".Tenant::class);
         }
 
         $this->models->push($class);
@@ -109,6 +118,7 @@ class TenantResolver implements ResolvesTenants
      * Updates the tenant model collection.
      *
      * @param TenantModelCollection $collection
+     *
      * @return $this
      */
     public function setModels(TenantModelCollection $collection)
@@ -120,18 +130,19 @@ class TenantResolver implements ResolvesTenants
 
     /**
      * @param string $contract
-     * @param string $method
+     *
      * @return $this
      */
-    public function registerDriver(string $contract, string $method)
+    public function registerDriver(string $contract)
     {
-        $this->drivers[$contract] = $method;
+        $this->drivers[] = $contract;
 
         return $this;
     }
 
     /**
      * @param TenantModelCollection $models
+     *
      * @return Tenant
      */
     protected function resolveFromDrivers(TenantModelCollection $models): ?Tenant
@@ -139,14 +150,89 @@ class TenantResolver implements ResolvesTenants
         $tenant = null;
 
         $models
-            ->filterByContract(array_keys($this->drivers))
+            ->filterByContract($this->drivers)
             ->each(function (string $item) use (&$tenant) {
                 $implements = class_implements($item);
-                $drivers    = array_intersect($implements, array_keys($this->drivers));
+                $drivers = array_intersect($implements, $this->drivers);
 
                 foreach ($drivers as $driver) {
-                    $method = $this->drivers[$driver];
-                    $tenant = app()->call("$item@$method");
+                    /** @var ReflectionMethod $method */
+                    foreach ($this->retrieveDriverMethods($driver) as $method) {
+                        try {
+                            $tenant = app()->call("$item@{$method->getName()}");
+                            // @codeCoverageIgnoreStart
+                        } catch (BindingResolutionException $e) {
+                            // @codeCoverageIgnoreEnd
+                            // Prevent trying to find a tenant when bindings aren't working for them.
+                        }
+
+                        if ($tenant) {
+                            return false;
+                        }
+                    }
+                }
+            });
+
+        return $tenant;
+    }
+
+    /**
+     * @param string $driver
+     *
+     * @return array|ReflectionMethod[]
+     */
+    protected function retrieveDriverMethods(string $driver): array
+    {
+        return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
+    }
+
+    protected function identifyByContract(string $contract)
+    {
+        // Provide a debug log entry when no the specific identification driver has not been installed.
+        if (!in_array($contract, $this->drivers)) {
+            logger('Identification driver '.$contract.' was not available');
+
+            return;
+        }
+
+        $tenant = $this->resolveFromDriver($this->getModels(), $contract);
+
+        if ($tenant) {
+            $this->events()->dispatch(new Events\Identified($tenant));
+        }
+
+        if (!$tenant) {
+            $this->events()->dispatch(new Events\NothingIdentified($tenant));
+        }
+
+        $this->events()->dispatch(new Events\Resolved($tenant));
+
+        return $tenant;
+    }
+
+    /**
+     * @param TenantModelCollection $models
+     * @param string|array          $contract
+     *
+     * @return Tenant|null
+     */
+    protected function resolveFromDriver(TenantModelCollection $models, string $contract): ?Tenant
+    {
+        $tenant = null;
+
+        $methods = $this->retrieveDriverMethods($contract);
+
+        $models
+            ->filterByContract($contract)
+            ->each(function (string $item) use (&$tenant, $methods) {
+                foreach ($methods as $method) {
+                    try {
+                        $tenant = app()->call("$item@{$method->getName()}");
+                        // @codeCoverageIgnoreStart
+                    } catch (BindingResolutionException $e) {
+                        // @codeCoverageIgnoreEnd
+                        // Prevent trying to find a tenant when bindings aren't working for them.
+                    }
 
                     if ($tenant) {
                         return false;

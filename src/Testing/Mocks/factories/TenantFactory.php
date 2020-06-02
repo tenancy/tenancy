@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * (c) Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see http://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/tenancy
  */
 
@@ -27,10 +29,10 @@ use Tenancy\Testing\Mocks\Tenant;
 */
 $factory->define(Tenant::class, function (Faker $faker) {
     return [
-        'id' => $faker->unixTime,
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'id'             => $faker->unixTime,
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'remember_token' => $faker->slug(2),
     ];
 });

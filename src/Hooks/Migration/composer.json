@@ -1,0 +1,39 @@
+{
+    "name": "tenancy/hooks-migration",
+    "description": "The tenancy/tenancy migration mutations",
+    "keywords": ["hooks", "tenancy", "migration"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*",
+        "tenancy/affects-connections": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Hooks\\Migration\\": ""
+        }
+    },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Hooks\\Migration\\Provider"
+            ]
+        }
+    }
+}

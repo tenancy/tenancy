@@ -11,7 +11,7 @@
 >
     <testsuites>
         <testsuite name="Test Suite">
-            <directory suffix="Test.php">./tests/unit/</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -32,5 +32,8 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
+        <env name="TENANCY_DB" value="testing"/>
+        <env name="TENANCY_USERNAME" value="testing"/>
+        <env name="TENANCY_PASSWORD" value="testing"/>
     </php>
 </phpunit>

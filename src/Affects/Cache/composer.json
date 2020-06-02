@@ -11,17 +11,27 @@
             "Tenancy\\Affects\\Cache\\": ""
         }
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
-            "name": "Daniël Klabbers",
-            "email": "daniel@klabbers.email",
-            "homepage": "http://luceos.com"
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
         }
     ],
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider"
+                "Tenancy\\Affects\\Cache\\Provider"
             ]
         }
     }

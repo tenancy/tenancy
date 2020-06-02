@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * (c) Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see http://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/tenancy
  */
 
@@ -24,7 +26,9 @@ use Tenancy\Providers\TenancyProvider;
 trait CreatesApplication
 {
     protected $additionalProviders = [];
+
     protected $additionalMocks = [];
+
     protected $tenantModels = [];
 
     /**
@@ -49,27 +53,21 @@ trait CreatesApplication
         $appPaths = [];
         $app = null;
 
-        if (getenv('CI_PROJECT_DIR')) {
-            $appPaths[] = realpath(getenv('CI_PROJECT_DIR') . '/vendor/laravel/laravel');
-        }
-
         // inside vendor
-        $appPaths[] = realpath(__DIR__ . '/../../framework/');
+        $appPaths[] = realpath(__DIR__.'/../../framework/');
         // as a framework
-        $appPaths[] = realpath(__DIR__ . '/../../../vendor/laravel/laravel');
+        $appPaths[] = realpath(__DIR__.'/../../../vendor/laravel/laravel');
 
         foreach ($appPaths as $path) {
             $bootstrap = "$path/bootstrap/app.php";
 
             if (file_exists($bootstrap)) {
-                $this->injectServiceProvider($path);
-
                 $app = require $bootstrap;
                 break;
             }
         }
 
-        if (! $app) {
+        if (!$app) {
             throw new RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
         }
 
@@ -80,17 +78,14 @@ trait CreatesApplication
 
     protected function bootTenancy()
     {
+        $this->app->register(TenancyProvider::class);
         foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
 
         /** @var Factory $factory */
         $factory = resolve(Factory::class);
-        $factory->load(__DIR__ . '/../Mocks/factories/');
-
-        foreach ($this->additionalMocks as $mock) {
-            $factory->load($mock);
-        }
+        $factory->load(__DIR__.'/../Mocks/factories/');
 
         $this->environment = resolve(Environment::class);
         $this->events = resolve(Dispatcher::class);
@@ -99,21 +94,5 @@ trait CreatesApplication
     protected function tearDownTenancy()
     {
         // ..
-    }
-
-    protected function createSystemTable(string $table, \Closure $callback)
-    {
-        $this->getConnection()->getSchemaBuilder()->create($table, $callback);
-    }
-
-    protected function injectServiceProvider(string $base)
-    {
-        $config = include "$base/config/app.php";
-
-        if (!in_array(TenancyProvider::class, $config['providers'])) {
-            array_unshift($config['providers'], TenancyProvider::class);
-
-            file_put_contents("$base/config/app.php", sprintf('<?php return %s;', var_export($config, true)));
-        }
     }
 }

@@ -1,36 +1,32 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * (c) Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see http://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/tenancy
  */
 
 namespace Tenancy\Database\Drivers\Sqlite\Driver;
 
-use Tenancy\Database\Contracts\ProvidesDatabase;
-use Tenancy\Database\Events\Drivers\Configuring;
+use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
+use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Sqlite implements ProvidesDatabase
 {
     public function configure(Tenant $tenant): array
     {
-        if ($name = config('tenancy.db-driver-sqlite.use-connection')) {
-            return config("database.connections.$name");
-        }
+        $config = [];
 
-        $config = config('tenancy.db-driver-sqlite.preset', []);
-
-        $config['database'] = database_path($tenant->getTenantKey());
-
-        event(new Configuring($tenant, $config, $this));
+        event(new Events\Configuring($tenant, $config, $this));
 
         return $config;
     }
@@ -39,7 +35,13 @@ class Sqlite implements ProvidesDatabase
     {
         $config = $this->configure($tenant);
 
-        return touch($config['database']);
+        event(new Events\Creating($tenant, $config, $this));
+
+        $result = touch($config['database']);
+
+        event(new Events\Created($tenant, $this, $result));
+
+        return $result;
     }
 
     public function update(Tenant $tenant): bool
@@ -50,20 +52,32 @@ class Sqlite implements ProvidesDatabase
 
         $config = $this->configure($tenant);
 
+        event(new Events\Updating($tenant, $config, $this));
+
+        $result = false;
+
         if ($previous['database'] !== $config['database']) {
-            return rename(
+            $result = rename(
                 $previous['database'],
                 $config['database']
             );
         }
 
-        return false;
+        event(new Events\Updated($tenant, $this, $result));
+
+        return $result;
     }
 
     public function delete(Tenant $tenant): bool
     {
         $config = $this->configure($tenant);
 
-        return unlink($config['database']);
+        event(new Events\Deleting($tenant, $config, $this));
+
+        $result = unlink($config['database']);
+
+        event(new Events\Deleted($tenant, $this, $result));
+
+        return $result;
     }
 }

@@ -4,24 +4,35 @@
     "keywords": ["database", "tenancy", "sqlite"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*"
+        "tenancy/framework": "*",
+        "tenancy/hooks-database": "*"
     },
     "autoload": {
         "psr-4": {
             "Tenancy\\Database\\Drivers\\Sqlite\\": ""
         }
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
-            "name": "Daniël Klabbers",
-            "email": "daniel@klabbers.email",
-            "homepage": "http://luceos.com"
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
         }
     ],
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Database\\Drivers\\Sqlite\\Providers\\ServiceProvider"
+                "Tenancy\\Database\\Drivers\\Sqlite\\Provider"
             ]
         }
     }

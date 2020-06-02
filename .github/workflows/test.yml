@@ -1,0 +1,70 @@
+name: Tests
+
+on:
+    push:
+    pull_request:
+    schedule:
+        - cron: '0 */12 * * *'
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                php: [7.2, 7.3, 7.4]
+                service: ['mysql:8', 'mysql:5.7', mariadb]
+
+                include:
+                    - service: 'mysql:8'
+                      db: MySQL8
+                    - service: 'mysql:5.7'
+                      db: MySQL5
+                    - service: mariadb
+                      db: MariaDB
+
+        services:
+            mysql:
+                image: ${{ matrix.service }}
+                env:
+                    MYSQL_DATABASE: testing
+                    MYSQL_USER: testing
+                    MYSQL_PASSWORD: testing
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                    MYSQL_ROOT_HOST: "%"
+                ports:
+                    - 13306:3306
+
+        name: 'PHP ${{ matrix.php }} / ${{ matrix.db }}'
+
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Select PHP version
+              uses: shivammathur/setup-php@master
+              with:
+                  php-version: '${{ matrix.php }}'
+
+            - name: Start required services
+              run: sudo systemctl start mysql
+
+            - name: Create MySQL User
+              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
+
+            - name: Create MySQL Database
+              run: mysql -uroot -proot -e "create database testing;" --port 13306
+
+            - name: Grant MySQL permissions
+              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+
+            - name: Install Composer dependencies
+              run: composer install
+
+            - name: Run tests
+              run: ./vendor/bin/phpunit
+              env:
+                  TENANCY_DB: testing
+                  TENANCY_USERNAME: testing
+                  TENANCY_PASSWORD: testing
+                  APP_KEY: deela5kinohw0haekoothahSh8eexach

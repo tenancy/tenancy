@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the tenancy/tenancy package.
  *
- * (c) Daniël Klabbers <daniel@klabbers.email>
+ * Copyright Tenancy for Laravel
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @see http://laravel-tenancy.com
+ * @see https://tenancy.dev
  * @see https://github.com/tenancy
  */
 
@@ -18,6 +20,7 @@ use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Tenancy\Environment;
+use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 
 class EagerIdentification
 {
@@ -36,9 +39,9 @@ class EagerIdentification
         /** @var Environment $tenancy */
         $tenancy = $this->app->make(Environment::class);
 
-        if (! $tenancy->isIdentified()) {
+        if (!$tenancy->isIdentified()) {
             $this->app->instance(InputInterface::class, $event->input);
-            $tenancy->getTenant();
+            $tenancy->identifyTenant(false, IdentifiesByConsole::class);
         }
     }
 }

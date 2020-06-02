@@ -4,17 +4,17 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.8.*",
-        "psr/container": "^1.0.0"
+        "laravel/framework": "^7.0",
+        "doctrine/dbal": "^2.9"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.7",
-        "laravel/laravel": "5.8.*",
+        "laravel/laravel": "^7.0",
         "phpunit/phpunit": "^8.0",
         "mockery/mockery": "^1.0",
         "squizlabs/php_codesniffer": "^3.3",
-        "psalm/plugin-laravel": "^0.0.5",
-        "zendframework/zend-diactoros": "^1.0"
+        "psalm/plugin-laravel": "^1.1",
+        "laminas/laminas-diactoros": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -28,34 +28,51 @@
     "autoload-dev": {
         "psr-4": {
             "Tenancy\\Testing\\": "src/Testing",
-            "Tenancy\\Tests\\": "tests/unit/Tenancy",
-            "Tenancy\\Tests\\Affects\\": "tests/unit/Affects",
-            "Tenancy\\Tests\\Database\\Drivers\\": "tests/unit/Database",
-            "Tenancy\\Tests\\Hooks\\": "tests/unit/Hooks",
-            "Tenancy\\Tests\\Identification\\Drivers\\": "tests/unit/Identification"
+            "Tenancy\\Tests\\": "tests/",
+            "Tenancy\\Tests\\Framework\\": "tests/Tenancy",
+            "Tenancy\\Tests\\Affects\\": "tests/Affects",
+            "Tenancy\\Tests\\Database\\": "tests/Database",
+            "Tenancy\\Tests\\Hooks\\": "tests/Hooks",
+            "Tenancy\\Tests\\Identification\\": "tests/Identification"
         }
     },
     "replace": {
         "tenancy/framework": "self.version",
         "tenancy/testing": "self.version",
+        "tenancy/affects-broadcasts": "self.version",
         "tenancy/affects-cache": "self.version",
-        "tenancy/affects-config": "self.version",
-        "tenancy/affects-filesystem": "self.version",
+        "tenancy/affects-configs": "self.version",
+        "tenancy/affects-connections": "self.version",
+        "tenancy/affects-filesystems": "self.version",
         "tenancy/affects-logs": "self.version",
+        "tenancy/affects-mails": "self.version",
         "tenancy/affects-models": "self.version",
         "tenancy/affects-routes": "self.version",
+        "tenancy/affects-urls": "self.version",
         "tenancy/affects-views": "self.version",
-        "tenancy/database-driver-mysql": "self.version",
-        "tenancy/database-driver-sqlite": "self.version",
+        "tenancy/hooks-database": "self.version",
+        "tenancy/hooks-migration": "self.version",
+        "tenancy/db-driver-mysql": "self.version",
+        "tenancy/db-driver-sqlite": "self.version",
         "tenancy/identification-driver-console": "self.version",
         "tenancy/identification-driver-environment": "self.version",
         "tenancy/identification-driver-http": "self.version"
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
-            "name": "Daniël Klabbers",
-            "email": "daniel@klabbers.email",
-            "homepage": "http://luceos.com"
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
         }
     ],
     "scripts": {
@@ -67,20 +84,24 @@
         "laravel": {
             "providers": [
                 "Tenancy\\Providers\\TenancyProvider",
-                "Tenancy\\Affects\\Cache\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Config\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Filesystem\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Logs\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Models\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Routes\\Providers\\ServiceProvider",
-                "Tenancy\\Affects\\Views\\Providers\\ServiceProvider",
+                "Tenancy\\Affects\\Broadcasts\\Provider",
+                "Tenancy\\Affects\\Cache\\Provider",
+                "Tenancy\\Affects\\Configs\\Provider",
+                "Tenancy\\Affects\\Connections\\Provider",
+                "Tenancy\\Affects\\Filesystems\\Provider",
+                "Tenancy\\Affects\\Logs\\Provider",
+                "Tenancy\\Affects\\Mails\\Provider",
+                "Tenancy\\Affects\\Models\\Provider",
+                "Tenancy\\Affects\\Routes\\Provider",
+                "Tenancy\\Affects\\URLs\\Provider",
+                "Tenancy\\Affects\\Views\\Provider",
                 "Tenancy\\Identification\\Drivers\\Console\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Environment\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Http\\Providers\\IdentificationProvider",
                 "Tenancy\\Identification\\Drivers\\Queue\\Providers\\IdentificationProvider"
             ],
             "aliases": {
-                "Tenancy": "Tenancy\\Facades\\TenancyFacade"
+                "Tenancy": "Tenancy\\Facades\\Tenancy"
             }
         }
     }

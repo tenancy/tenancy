@@ -4,19 +4,28 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.8.*",
-        "psr/container": "^1.0.0"
+        "laravel/framework": "^7.0"
     },
     "autoload": {
         "psr-4": {
             "Tenancy\\": ""
         }
     },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
     "authors": [
         {
-            "name": "Daniël Klabbers",
-            "email": "daniel@klabbers.email",
-            "homepage": "http://luceos.com"
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
         }
     ],
     "scripts": {
@@ -30,7 +39,7 @@
                 "Tenancy\\Providers\\TenancyProvider"
             ],
             "aliases": {
-                "Tenancy": "Tenancy\\Facades\\TenancyFacade"
+                "Tenancy": "Tenancy\\Facades\\Tenancy"
             }
         }
     },
