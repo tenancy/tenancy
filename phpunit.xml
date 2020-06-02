@@ -35,9 +35,10 @@
         <env name="TENANCY_DB" value="testing"/>
         <env name="TENANCY_USERNAME" value="testing"/>
         <env name="TENANCY_PASSWORD" value="testing"/>
-        
+
         <env name="TENANCY_MYSQL_HOST" value="mysql"/>
         <env name="TENANCY_MYSQL_PORT" value="3306"/>
+        <env name="TENANCY_MYSQL_DB" value="default"/>
         <env name="TENANCY_MYSQL_USERNAME" value="root"/>
         <env name="TENANCY_MYSQL_PASSWORD" value="root"/>
     </php>
