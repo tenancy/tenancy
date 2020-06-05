@@ -42,5 +42,27 @@
         <env name="TENANCY_MYSQL_DB" value="default"/>
         <env name="TENANCY_MYSQL_USERNAME" value="root"/>
         <env name="TENANCY_MYSQL_PASSWORD" value="root"/>
+
+        <env name="TENANCY_MARIADB_HOST" value="mariadb"/>
+        <env name="TENANCY_MARIADB_PORT" value="3306"/>
+        <env name="TENANCY_MARIADB_DB" value="default"/>
+        <env name="TENANCY_MARIADB_USERNAME" value="default"/>
+        <env name="TENANCY_MARIADB_PASSWORD" value="secret"/>
+
+        <env name="TENANCY_POSTGRES_HOST" value="postgres"/>
+        <env name="TENANCY_POSTGRES_PORT" value="5432"/>
+        <env name="TENANCY_POSTGRES_DB" value="default"/>
+        <env name="TENANCY_POSTGRES_USERNAME" value="default"/>
+        <env name="TENANCY_POSTGRES_PASSWORD" value="secret"/>
+
+        <env name="TENANCY_MSSQL_HOST" value="mssql"/>
+        <env name="TENANCY_MSSQL_PORT" value="1433"/>
+        <env name="TENANCY_MSSQL_DB" value="master"/>
+        <env name="TENANCY_MSSQL_USERNAME" value="sa"/>
+        <env name="TENANCY_MSSQL_PASSWORD" value="yourStrong(!)Password"/>
+
+        <env name="TENANCY_REDIS_HOST" value="redis"/>
+        <env name="TENANCY_REDIS_PORT" value="6379"/>
+
     </php>
 </phpunit>
