@@ -1,0 +1,46 @@
+{
+    "name": "tenancy/sdk",
+    "description": "Software Development Kit for Tenancy",
+    "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "sdk"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\SDK\\": ""
+        }
+    },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
+        }
+    ],
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit"
+        ]
+    },
+    "require-dev": {
+    },
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\SDK\\Providers\\SDKProvider"
+            ]
+        }
+    }
+}
