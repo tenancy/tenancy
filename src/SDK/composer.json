@@ -39,7 +39,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\SDK\\Providers\\SDKProvider"
+                "Tenancy\\SDK\\Providers\\SDKProvider",
+                "Tenancy\\SDK\\Providers\\TenantProvider"
             ]
         }
     }

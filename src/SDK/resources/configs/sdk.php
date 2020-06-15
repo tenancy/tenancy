@@ -5,6 +5,9 @@ use Tenancy\SDK\Identification\Console\Mode as Console;
 
 return [
     'identification' => [
+        'tenants' => [
+            // \App\Tenant::class,
+        ],
         'http' => [
             /**
              * The mode used for HTTP identification.
