@@ -28,14 +28,6 @@
             "homepage": "https://arlon.dev"
         }
     ],
-    "scripts": {
-        "test": [
-            "vendor/bin/phpunit"
-        ]
-    },
-    "require-dev": {
-    },
-
     "extra": {
         "laravel": {
             "providers": [
