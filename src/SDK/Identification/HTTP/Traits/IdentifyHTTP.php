@@ -80,15 +80,15 @@ trait IdentifyHTTP {
     }
 
     /**
-     * Identifies the tenant based on a host key on the tenant.
+     * Identifies the tenant based on subdomain as the tenant key on the tenant.
      *
      * @param Request $request
      *
      * @return Tenant|null
      */
-    protected function httpIdentifyTenantSubdomain(Request $request) {
+    protected function httpIdentifyTenantSubdomainKey(Request $request) {
         return $this->newQuery()
-            ->where('subdomain', Str::before($request->getHost(), '.'))
+            ->where($this->getTenantKeyName(), Str::before($request->getHost(), '.'))
             ->first();
     }
 }

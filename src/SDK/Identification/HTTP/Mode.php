@@ -9,5 +9,5 @@ class Mode extends BaseMode{
     const TENANTHOST  = 'tenantHost';
 
     /** @var string */
-    const TENANTSUBDOMAIN = 'tenantSubdomain';
+    const TENANTSUBDOMAINKEY = 'tenantSubdomainKey';
 }

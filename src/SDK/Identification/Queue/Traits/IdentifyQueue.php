@@ -65,4 +65,58 @@ trait IdentifyQueue
 
         return null;
     }
+
+    /**
+     * Identifies the tenant based on the id key
+     *
+     * @param Processing $event
+     *
+     * @return Tenant|null
+     */
+    protected function queueIdentifyKey(Processing $event) {
+        return $this->newQuery()->where($this->getTenantKeyName(), $event->tenant_key)->first();
+    }
+
+    /**
+     * Identifies the tenant based on the combination of keys
+     *
+     * @param Processing $event
+     *
+     * @return Tenant|null
+     */
+    protected function queueIdentifyCombination(Processing $event) {
+        if($this->getTenantIdentifier() != $event->tenant_identifier) {
+            return null;
+        }
+
+        return $this->queueIdentifyKey($event);
+    }
+
+    /**
+     * Identifies the tenant based on the provided tenant
+     *
+     * @param Processing $event
+     *
+     * @return Tenant|null
+     */
+    protected function queueIdentifyModel(Processing $event) {
+        return $event->tenant;
+    }
+
+    /**
+     * Identifies the tenant based on the provided tenant or a combination.
+     *
+     * @param Processing $event
+     *
+     * @return Tenant|null
+     */
+    protected function queueIdentifyPreferModel(Processing $event) {
+        $possibleTenant = $this->queueIdentifyModel($event);
+
+        if ($possibleTenant) {
+            return $possibleTenant;
+        }
+
+        return $this->queueIdentifyCombination($event);
+    }
 }
