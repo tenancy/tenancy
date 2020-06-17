@@ -2,6 +2,7 @@
 
 use Tenancy\SDK\Identification\HTTP\Mode as HTTP;
 use Tenancy\SDK\Identification\Console\Mode as Console;
+use Tenancy\SDK\Identification\Queue\Mode as Queue;
 
 return [
     'identification' => [
@@ -19,6 +20,9 @@ return [
              * The mode for console identification
              */
             'mode' => Console::DUMP,
+        ]
+        'queue' => [
+            'mode' => Queue::DUMP,
         ]
     ]
 ];
