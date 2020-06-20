@@ -1,11 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\SDK\Providers;
 
 use Tenancy\SDK\Provider;
 
-class SDKProvider extends Provider {
+class SDKProvider extends Provider
+{
     protected $configs = [
-        __DIR__ . '/../resources/configs/sdk.php'
+        __DIR__.'/../resources/configs/sdk.php',
     ];
 }

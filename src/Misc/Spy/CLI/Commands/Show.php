@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Spy\CLI\Commands;
 
 use Illuminate\Console\Command;
@@ -35,19 +49,19 @@ class Show extends Command
     {
         $packages = App::make(ResolvesPackages::class)->getPackages();
 
-        if($this->option('installed')){
+        if ($this->option('installed')) {
             $packages = $packages->filter(function (Package $package) {
                 return $package->isInstalled();
             });
         }
 
-        if($this->option('registered')){
+        if ($this->option('registered')) {
             $packages = $packages->filter(function (Package $package) {
                 return $package->isRegistered();
             });
         }
 
-        if($this->option('configured')){
+        if ($this->option('configured')) {
             $packages = $packages->filter(function (Package $package) {
                 return $package->isConfigured();
             });
@@ -55,7 +69,7 @@ class Show extends Command
 
         $this->table(
             ['Package', 'Installed?', 'Registered?', 'Configured?'],
-            $packages->map(function (Package $package){
+            $packages->map(function (Package $package) {
                 return [
                     $package->getName(),
                     $package->isInstalled() ? '<fg=green>✓</>' : '<fg=red>X</>',

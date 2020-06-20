@@ -1,18 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Help;
 
 use Tenancy\Misc\Help\Contracts\ResolvesPackages;
-use Tenancy\Support\Provider as SupportProvider;
-use Tenancy\Misc\Help\Data\Packages as Main;
 use Tenancy\Misc\Help\Data\Packages\Affects;
-use Tenancy\Misc\Help\Data\Packages\Hooks;
+use Tenancy\Misc\Help\Data\Packages as Main;
 use Tenancy\Misc\Help\Data\Packages\Database;
+use Tenancy\Misc\Help\Data\Packages\Hooks;
+use Tenancy\Support\Provider as SupportProvider;
 
 class Provider extends SupportProvider
 {
     public $singletons = [
-        ResolvesPackages::class => PackageResolver::class
+        ResolvesPackages::class => PackageResolver::class,
     ];
 
     public function register()

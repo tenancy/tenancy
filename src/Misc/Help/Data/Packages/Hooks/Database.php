@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Help\Data\Packages\Hooks;
 
 use Tenancy\Misc\Help\Data\Packages\HooksPackage;
@@ -8,7 +22,7 @@ class Database extends HooksPackage
 {
     /** @var array */
     protected $hooks = [
-        "DatabaseMutation"
+        'DatabaseMutation',
     ];
 
     /** @var array */
@@ -17,17 +31,17 @@ class Database extends HooksPackage
         'Events\\Identified',
         'Events\\Resolved',
         'Events\\Resolving',
-        'Events\\Drivers\\Configuring'
+        'Events\\Drivers\\Configuring',
     ];
 
     /** @var array */
     protected $requiredEvents = [
         'Events\\Resolving',
-        'Events\\Drivers\\Configuring'
+        'Events\\Drivers\\Configuring',
     ];
 
     /** @var array */
     protected $recommendedEvents = [
-        'Events\\ConfigureDatabaseMutation'
+        'Events\\ConfigureDatabaseMutation',
     ];
 }

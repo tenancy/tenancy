@@ -1,12 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\SDK\Identification\HTTP\Traits;
 
 use Illuminate\Http\Request;
-use Tenancy\Identification\Contracts\Tenant;
 use Illuminate\Support\Str;
+use Tenancy\Identification\Contracts\Tenant;
 
-trait IdentifyHTTP {
+trait IdentifyHTTP
+{
     /**
      * Identifies the tenant through the mode specified in the config.
      *
@@ -14,20 +29,22 @@ trait IdentifyHTTP {
      *
      * @return Tenant|null
      */
-    public function tenantIdentificationByHttp(Request $request): ?Tenant {
-        $function = 'httpIdentify' . config('tenancy.sdk.identification.http.mode');
+    public function tenantIdentificationByHttp(Request $request): ?Tenant
+    {
+        $function = 'httpIdentify'.config('tenancy.sdk.identification.http.mode');
 
         return $this->{$function}($request);
     }
 
     /**
-     * Always identifies as null
+     * Always identifies as null.
      *
      * @param Request $request
      *
      * @return null
      */
-    protected function httpIdentifyNone(Request $request) {
+    protected function httpIdentifyNone(Request $request)
+    {
         return null;
     }
 
@@ -38,7 +55,8 @@ trait IdentifyHTTP {
      *
      * @return null
      */
-    protected function httpIdentifyFirst(Request $request) {
+    protected function httpIdentifyFirst(Request $request)
+    {
         return $this->newQuery()->first();
     }
 
@@ -49,18 +67,20 @@ trait IdentifyHTTP {
      *
      * @return void
      */
-    protected function httpIdentifyDie(Request $request) {
+    protected function httpIdentifyDie(Request $request)
+    {
         dd($request);
     }
 
     /**
-     * Dumps the response and returns null
+     * Dumps the response and returns null.
      *
      * @param Request $request
      *
      * @return null
      */
-    protected function httpIdentifyDump(Request $request) {
+    protected function httpIdentifyDump(Request $request)
+    {
         dump($request);
 
         return null;
@@ -73,7 +93,8 @@ trait IdentifyHTTP {
      *
      * @return Tenant|null
      */
-    protected function httpIdentifyTenantHost(Request $request) {
+    protected function httpIdentifyTenantHost(Request $request)
+    {
         return $this->newQuery()
             ->where('host', $request->getHost())
             ->first();
@@ -86,7 +107,8 @@ trait IdentifyHTTP {
      *
      * @return Tenant|null
      */
-    protected function httpIdentifyTenantSubdomainKey(Request $request) {
+    protected function httpIdentifyTenantSubdomainKey(Request $request)
+    {
         return $this->newQuery()
             ->where($this->getTenantKeyName(), Str::before($request->getHost(), '.'))
             ->first();

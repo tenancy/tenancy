@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Help\Data\Packages;
 
 use Illuminate\Contracts\Events\Dispatcher;
@@ -16,7 +30,7 @@ abstract class SubPackage extends ComposerPackage
 
     public function getName(): string
     {
-        return 'tenancy/' . Str::kebab($this->getSubsection() . $this->getPurpose());
+        return 'tenancy/'.Str::kebab($this->getSubsection().$this->getPurpose());
     }
 
     public function getPurpose()
@@ -26,7 +40,7 @@ abstract class SubPackage extends ComposerPackage
 
     public function getNamespace()
     {
-        return parent::getNamespace() . '\\' . $this->getSubsection() . '\\' . $this->getPurpose();
+        return parent::getNamespace().'\\'.$this->getSubsection().'\\'.$this->getPurpose();
     }
 
     public function getEvents()
@@ -36,8 +50,8 @@ abstract class SubPackage extends ComposerPackage
 
     public function formatEvents(array $events)
     {
-        return array_map(function (string $event){
-            return $this->getNamespace() . '\\' . $event;
+        return array_map(function (string $event) {
+            return $this->getNamespace().'\\'.$event;
         }, $events);
     }
 
@@ -45,7 +59,7 @@ abstract class SubPackage extends ComposerPackage
     {
         $events = $this->getRequiredEvents();
 
-        if(!empty($this->recommendedEvents)){
+        if (!empty($this->recommendedEvents)) {
             $events = $this->recommendedEvents;
         }
 
@@ -56,7 +70,7 @@ abstract class SubPackage extends ComposerPackage
     {
         $events = $this->events;
 
-        if(!empty($this->requiredEvents)){
+        if (!empty($this->requiredEvents)) {
             $events = $this->requiredEvents;
         }
 
@@ -66,7 +80,7 @@ abstract class SubPackage extends ComposerPackage
     public function getProviders()
     {
         return [
-            $this->getNamespace() . '\\Provider'
+            $this->getNamespace().'\\Provider',
         ];
     }
 
@@ -74,11 +88,12 @@ abstract class SubPackage extends ComposerPackage
     {
         $dispatcher = App::make(Dispatcher::class);
 
-        foreach($this->getRequiredEvents() as $event){
-            if(!$dispatcher->hasListeners($event)){
+        foreach ($this->getRequiredEvents() as $event) {
+            if (!$dispatcher->hasListeners($event)) {
                 return false;
             }
         }
+
         return true;
     }
 }

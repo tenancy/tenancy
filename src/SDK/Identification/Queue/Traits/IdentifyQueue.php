@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\SDK\Identification\Queue\Traits;
 
 use Tenancy\Identification\Contracts\Tenant;
@@ -14,20 +28,22 @@ trait IdentifyQueue
      *
      * @return Tenant|null
      */
-    public function tenantIdentificationByQueue(Processing $event): ?Tenant{
-        $function = 'queueIdentify' . config('tenancy.sdk.identification.queue.mode');
+    public function tenantIdentificationByQueue(Processing $event): ?Tenant
+    {
+        $function = 'queueIdentify'.config('tenancy.sdk.identification.queue.mode');
 
         return $this->{$function}($event);
     }
 
     /**
-     * Always identifies as null
+     * Always identifies as null.
      *
      * @param Processing $event
      *
      * @return null
      */
-    protected function queueIdentifyNone(Processing $event) {
+    protected function queueIdentifyNone(Processing $event)
+    {
         return null;
     }
 
@@ -38,7 +54,8 @@ trait IdentifyQueue
      *
      * @return null
      */
-    protected function queueIdentifyFirst(Processing $event) {
+    protected function queueIdentifyFirst(Processing $event)
+    {
         return $this->newQuery()->first();
     }
 
@@ -49,43 +66,47 @@ trait IdentifyQueue
      *
      * @return void
      */
-    protected function queueIdentifyDie(Processing $event) {
+    protected function queueIdentifyDie(Processing $event)
+    {
         dd($event);
     }
 
     /**
-     * Dumps the event and returns null
+     * Dumps the event and returns null.
      *
      * @param Processing $event
      *
      * @return null
      */
-    protected function queueIdentifyDump(Processing $event) {
+    protected function queueIdentifyDump(Processing $event)
+    {
         dump($event);
 
         return null;
     }
 
     /**
-     * Identifies the tenant based on the id key
+     * Identifies the tenant based on the id key.
      *
      * @param Processing $event
      *
      * @return Tenant|null
      */
-    protected function queueIdentifyKey(Processing $event) {
+    protected function queueIdentifyKey(Processing $event)
+    {
         return $this->newQuery()->where($this->getTenantKeyName(), $event->tenant_key)->first();
     }
 
     /**
-     * Identifies the tenant based on the combination of keys
+     * Identifies the tenant based on the combination of keys.
      *
      * @param Processing $event
      *
      * @return Tenant|null
      */
-    protected function queueIdentifyCombination(Processing $event) {
-        if($this->getTenantIdentifier() != $event->tenant_identifier) {
+    protected function queueIdentifyCombination(Processing $event)
+    {
+        if ($this->getTenantIdentifier() != $event->tenant_identifier) {
             return null;
         }
 
@@ -93,13 +114,14 @@ trait IdentifyQueue
     }
 
     /**
-     * Identifies the tenant based on the provided tenant
+     * Identifies the tenant based on the provided tenant.
      *
      * @param Processing $event
      *
      * @return Tenant|null
      */
-    protected function queueIdentifyModel(Processing $event) {
+    protected function queueIdentifyModel(Processing $event)
+    {
         return $event->tenant;
     }
 
@@ -110,7 +132,8 @@ trait IdentifyQueue
      *
      * @return Tenant|null
      */
-    protected function queueIdentifyPreferModel(Processing $event) {
+    protected function queueIdentifyPreferModel(Processing $event)
+    {
         $possibleTenant = $this->queueIdentifyModel($event);
 
         if ($possibleTenant) {
