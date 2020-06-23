@@ -42,8 +42,9 @@ class PaginatedTable
         $this->query = $query;
         $this->output = $output;
         $this->table = new Table($this->output);
-        $this->updateTable();
+
         $this->table->setHeaderTitle(Str::pluralStudly(class_basename($this->query->first())));
+        $this->updateTable();
     }
 
     /**
