@@ -8,11 +8,11 @@
     },
     "autoload": {
         "psr-4": {
+            "Tenancy\\Misc\\Help\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tenancy\\Misc\\Spy\\": ""
         }
     },
     "funding": [
