@@ -188,7 +188,7 @@ class ListCommand extends Command
      */
     protected function interactPage(string $interaction)
     {
-        $page = strval($interaction);
+        $page = intval($interaction);
 
         $this->table->changePage($page);
     }
