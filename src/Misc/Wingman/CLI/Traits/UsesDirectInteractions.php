@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Wingman\CLI\Traits;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +26,10 @@ trait UsesDirectInteractions
     /**
      * Uses the Symfony Question Helper in order to ask a question.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
-     * @param string $question
-     * @param mixed $default
+     * @param string          $question
+     * @param mixed           $default
      *
      * @return mixed
      */
@@ -33,13 +47,13 @@ trait UsesDirectInteractions
     }
 
     /**
-     * Prompts the user with a choice
+     * Prompts the user with a choice.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
-     * @param string $question
-     * @param array $choices
-     * @param mixed $default
+     * @param string          $question
+     * @param array           $choices
+     * @param mixed           $default
      *
      * @return mixed
      */
