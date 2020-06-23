@@ -43,7 +43,26 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
         $this->assertContains(
             __DIR__,
-            $this->hook->migrator->paths()
+            $this->hook->paths
+        );
+    }
+
+    /**
+     * @dataProvider tenantEventsProvider
+     *
+     * @test */
+    public function it_can_clear_paths_from_the_migrator($tenantEvent)
+    {
+        $this->events->listen($this->eventClass, function ($event) {
+            $event->path(__DIR__);
+            $event->flush();
+        });
+
+        $this->hook->for(new $tenantEvent($this->mockTenant()));
+
+        $this->assertNotContains(
+            __DIR__,
+            $this->hook->paths
         );
     }
 }
