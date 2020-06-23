@@ -1,0 +1,42 @@
+{
+    "name": "tenancy/misc-wingman",
+    "description": "The tenancy/tenancy wingman package",
+    "keywords": ["misc", "tenancy", "wingman"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Misc\\Wingman\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "funding": [
+        {
+            "type": "opencollective",
+            "url": "https://opencollective.com/tenancy"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tenancy"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Arlon Antonius",
+            "email": "opensource@arlon.dev",
+            "homepage": "https://arlon.dev"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Misc\\Wingman\\Provider"
+            ]
+        }
+    }
+}
