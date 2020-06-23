@@ -20,7 +20,7 @@ return [
              * The mode for console identification
              */
             'mode' => Console::DUMP,
-        ]
+        ],
         'queue' => [
             'mode' => Queue::DUMP,
         ]
