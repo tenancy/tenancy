@@ -54,6 +54,7 @@ class ListCommand extends Command
     {
         parent::__construct();
         $this->resolver = $resolver;
+        $this->setInteractions([new Quit(), new Next(), new Previous(), new Page()]);
     }
 
     /**
@@ -63,7 +64,6 @@ class ListCommand extends Command
      */
     public function handle()
     {
-        $this->setInteractions([new Quit(), new Next(), new Previous(), new Page()]);
         $query = $this->getTenantQuery($this->resolver);
 
         $tableSection = $this->createSection();
@@ -72,7 +72,6 @@ class ListCommand extends Command
         $this->table = new PaginatedTable($query, $tableSection);
 
         while(!(new Quit())->shouldReact($this->getInteraction())) {
-
             $interactionSection->clear();
 
             $this->table->render();
