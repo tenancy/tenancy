@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Wingman\CLI\Traits;
 
 use Tenancy\Misc\Wingman\CLI\Contracts\Interaction;
@@ -16,7 +30,7 @@ trait UsesInteractions
      * Registers an interaction into the class.
      *
      * @param Interaction $interaction
-     * @param string $function
+     * @param string      $function
      *
      * @return void
      */
@@ -26,7 +40,7 @@ trait UsesInteractions
     }
 
     /**
-     * Sets the interactions
+     * Sets the interactions.
      *
      * @param array $interactions
      *
@@ -38,7 +52,7 @@ trait UsesInteractions
     }
 
     /**
-     * Gets the function that should be used based on the interaction
+     * Gets the function that should be used based on the interaction.
      *
      * @param string $interaction
      *
@@ -46,16 +60,17 @@ trait UsesInteractions
      */
     protected function getInteractionFunction(string $interaction)
     {
-        foreach($this->interactions as $interactionInstance){
-            if($interactionInstance->shouldReact($interaction)){
-                return 'interact' . $interactionInstance->getName();
+        foreach ($this->interactions as $interactionInstance) {
+            if ($interactionInstance->shouldReact($interaction)) {
+                return 'interact'.$interactionInstance->getName();
             }
         }
+
         return null;
     }
 
     /**
-     * Interacts based on the provided interaction
+     * Interacts based on the provided interaction.
      *
      * @param string $interaction
      *
@@ -65,11 +80,11 @@ trait UsesInteractions
     {
         $function = $this->getInteractionFunction($interaction);
 
-        if(is_null($function)){
+        if (is_null($function)) {
             return;
         }
 
-        if(!method_exists($this, $function)){
+        if (!method_exists($this, $function)) {
             return;
         }
 
@@ -77,7 +92,7 @@ trait UsesInteractions
     }
 
     /**
-     * Returns the interaction
+     * Returns the interaction.
      *
      * @return string
      */
@@ -87,7 +102,7 @@ trait UsesInteractions
     }
 
     /**
-     * Sets the interaction
+     * Sets the interaction.
      *
      * @param string $interaction
      *
@@ -95,18 +110,18 @@ trait UsesInteractions
      */
     protected function setInteraction(string $interaction = '')
     {
-        $this->interaction  = $interaction;
+        $this->interaction = $interaction;
     }
 
     /**
-     * Gets the interactions as human readable array
+     * Gets the interactions as human readable array.
      *
      * @return array
      */
     protected function getInteractionsAsHuman()
     {
-        return array_map(function (Interaction $interaction){
-            return $interaction->getShortcut() . ': ' . $interaction->getName();
+        return array_map(function (Interaction $interaction) {
+            return $interaction->getShortcut().': '.$interaction->getName();
         }, $this->interactions);
     }
 }

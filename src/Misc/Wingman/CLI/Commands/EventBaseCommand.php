@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Wingman\CLI\Commands;
 
 use Illuminate\Console\Command;
@@ -21,9 +35,9 @@ abstract class EventBaseCommand extends Command
     protected $resolver;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
      *
-     * @param Dispatcher $dispatcher
+     * @param Dispatcher      $dispatcher
      * @param ResolvesTenants $resolver
      */
     public function __construct(Dispatcher $dispatcher, ResolvesTenants $resolver)
@@ -34,30 +48,30 @@ abstract class EventBaseCommand extends Command
     }
 
     /**
-     * Performs the command
+     * Performs the command.
      *
      * @return void
      */
     public function handle()
     {
         $this->resolver->getModels()->each(function (string $class) {
-            $model = (new $class);
+            $model = (new $class());
 
-            if($this->option('tenant-identifier') && !in_array($model->getTenantIdentifier(), $this->parseArrayOption('tenant-identifiers'))){
+            if ($this->option('tenant-identifier') && !in_array($model->getTenantIdentifier(), $this->parseArrayOption('tenant-identifiers'))) {
                 return;
             }
 
-            $this->info("Triggering creation for tenants with identifier: " . $model->getTenantIdentifier());
+            $this->info('Triggering creation for tenants with identifier: '.$model->getTenantIdentifier());
 
-            $model->newQuery()->orderBy($model->getTenantKeyName())->chunk($this->option('chunk'), function (Collection $tenants){
+            $model->newQuery()->orderBy($model->getTenantKeyName())->chunk($this->option('chunk'), function (Collection $tenants) {
                 $tenants->each(function (Tenant $tenant) {
-                    if($this->option('tenants')) {
-                        if(!in_array($tenant->getTenantKey(), $this->parseArrayOption('tenants'))){
+                    if ($this->option('tenants')) {
+                        if (!in_array($tenant->getTenantKey(), $this->parseArrayOption('tenants'))) {
                             return;
                         }
                     }
 
-                    $this->info("Triggering creation for tenant with key: " . $tenant->getTenantKey());
+                    $this->info('Triggering creation for tenant with key: '.$tenant->getTenantKey());
                     $event = $this->event;
                     $this->dispatcher->dispatch(new $event($tenant));
                 });
@@ -66,7 +80,7 @@ abstract class EventBaseCommand extends Command
     }
 
     /**
-     * Parses the given option key to an array
+     * Parses the given option key to an array.
      *
      * @param string $key
      *

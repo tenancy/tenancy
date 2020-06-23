@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Misc\Wingman\CLI\Commands;
 
 use Illuminate\Console\Command;
@@ -12,9 +26,9 @@ use Tenancy\Misc\Wingman\CLI\Interactions\Page;
 use Tenancy\Misc\Wingman\CLI\Interactions\Previous;
 use Tenancy\Misc\Wingman\CLI\Interactions\Quit;
 use Tenancy\Misc\Wingman\CLI\PaginatedTable;
+use Tenancy\Misc\Wingman\CLI\Traits\UsesDirectInteractions;
 use Tenancy\Misc\Wingman\CLI\Traits\UsesInteractions;
 use Tenancy\Misc\Wingman\CLI\Traits\UsesSections;
-use Tenancy\Misc\Wingman\CLI\Traits\UsesDirectInteractions;
 use Tenancy\Misc\Wingman\CLI\Traits\WorksWithSymfony;
 
 class ListCommand extends Command
@@ -46,7 +60,7 @@ class ListCommand extends Command
     private $table;
 
     /**
-     * Constructs a new instance
+     * Constructs a new instance.
      *
      * @param ResolvesTenants $resolver
      */
@@ -71,7 +85,7 @@ class ListCommand extends Command
 
         $this->table = new PaginatedTable($query, $tableSection);
 
-        while(!(new Quit())->shouldReact($this->getInteraction())) {
+        while (!(new Quit())->shouldReact($this->getInteraction())) {
             $interactionSection->clear();
 
             $this->table->render();
@@ -81,7 +95,7 @@ class ListCommand extends Command
     }
 
     /**
-     * Prompts the user for an interaction
+     * Prompts the user for an interaction.
      *
      * @param OutputInterface $output
      *
@@ -92,14 +106,14 @@ class ListCommand extends Command
         $this->setInteraction($this->promptQuestion(
             $this->symfonyInput,
             $output,
-            "What action would you like to perform?",
+            'What action would you like to perform?',
         ));
 
         return $this->getInteraction();
     }
 
     /**
-     * Transforms a class string into an instance
+     * Transforms a class string into an instance.
      *
      * @param string $class
      *
@@ -107,11 +121,11 @@ class ListCommand extends Command
      */
     private function classToInstance(string $class)
     {
-        return (new $class);
+        return new $class();
     }
 
     /**
-     * Sets up the tenant query
+     * Sets up the tenant query.
      *
      * @param ResolvesTenants $resolver
      *
@@ -121,18 +135,19 @@ class ListCommand extends Command
     {
         $tenantClasses = $resolver->getModels();
 
-        if($tenantClasses->isEmpty()){
-            $this->error("No Tenants registered");
+        if ($tenantClasses->isEmpty()) {
+            $this->error('No Tenants registered');
+
             return;
         }
 
         $tenantClass = $tenantClasses->first();
 
-        if($tenantClasses->count() > 1){
+        if ($tenantClasses->count() > 1) {
             $tenantClass = $this->promptChoice(
                 $this->symfonyInput,
                 $this->symfonyOutput,
-                "What class would you like to use?",
+                'What class would you like to use?',
                 $tenantClasses->toArray()
             );
         }
@@ -141,7 +156,7 @@ class ListCommand extends Command
     }
 
     /**
-     * Forces the table to the next page
+     * Forces the table to the next page.
      *
      * @param string $interaction
      *
@@ -153,7 +168,7 @@ class ListCommand extends Command
     }
 
     /**
-     * Forces the table to the previous page
+     * Forces the table to the previous page.
      *
      * @param string $interaction
      *
@@ -165,7 +180,7 @@ class ListCommand extends Command
     }
 
     /**
-     * Forces the table to a specific page
+     * Forces the table to a specific page.
      *
      * @param string $interaction
      *
