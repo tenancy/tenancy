@@ -18,8 +18,8 @@ namespace Tenancy\Misc\Spy\CLI\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
-use Tenancy\Misc\Help\Contracts\Package;
 use Tenancy\Misc\Help\Contracts\ResolvesPackages;
+use Tenancy\Misc\Help\Data\Contracts\Package;
 
 class Show extends Command
 {

@@ -38,5 +38,5 @@ class Updated extends EventBaseCommand
      *
      * @var string
      */
-    protected $description = 'Triggers the updated of tenants on all tenant models';
+    protected $description = 'Triggers the updating of tenants on all tenant models';
 }

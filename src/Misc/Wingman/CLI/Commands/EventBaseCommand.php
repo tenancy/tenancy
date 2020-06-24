@@ -61,7 +61,7 @@ abstract class EventBaseCommand extends Command
                 return;
             }
 
-            $this->info('Triggering creation for tenants with identifier: '.$model->getTenantIdentifier());
+            $this->info('Triggering event for tenants with identifier: '.$model->getTenantIdentifier());
 
             $model->newQuery()->orderBy($model->getTenantKeyName())->chunk($this->option('chunk'), function (Collection $tenants) {
                 $tenants->each(function (Tenant $tenant) {
@@ -71,7 +71,7 @@ abstract class EventBaseCommand extends Command
                         }
                     }
 
-                    $this->info('Triggering creation for tenant with key: '.$tenant->getTenantKey());
+                    $this->info('Triggering event for tenant with key: '.$tenant->getTenantKey());
                     $event = $this->event;
                     $this->dispatcher->dispatch(new $event($tenant));
                 });
