@@ -19,6 +19,7 @@
     "autoload": {
         "psr-4": {
             "Tenancy\\": "src/Tenancy",
+            "Tenancy\\Misc\\": "src/Tenancy/Misc",
             "Tenancy\\Affects\\": "src/Affects",
             "Tenancy\\Database\\Drivers\\": "src/Database",
             "Tenancy\\Hooks\\": "src/Hooks",
