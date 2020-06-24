@@ -29,6 +29,12 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
     protected $eventClass = ConfigureMigrations::class;
 
+    protected function afterSetUp()
+    {
+        resolve('migrator')->path(__DIR__);
+        parent::afterSetUp();
+    }
+
     /**
      * @dataProvider tenantEventsProvider
      *
@@ -36,13 +42,13 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
     public function it_can_add_paths_to_the_migrator($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->path(__DIR__);
+            $event->path(realpath(__DIR__.'/..'));
         });
 
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $this->assertContains(
-            __DIR__,
+            realpath(__DIR__.'/..'),
             $this->hook->paths
         );
     }
@@ -54,7 +60,6 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
     public function it_can_clear_paths_from_the_migrator($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->path(__DIR__);
             $event->flush();
         });
 

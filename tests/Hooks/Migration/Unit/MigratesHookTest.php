@@ -29,6 +29,7 @@ class MigratesHookTest extends TestCase
 
     protected function afterSetUp()
     {
+        resolve('migrator')->path(__DIR__);
         $this->hook = $this->app->make(MigratesHook::class);
     }
 
@@ -37,6 +38,15 @@ class MigratesHookTest extends TestCase
     {
         $this->assertTrue(
             $this->hook->fires
+        );
+    }
+
+    /** @test */
+    public function it_initializes_paths_correctly()
+    {
+        $this->assertContains(
+            __DIR__,
+            $this->hook->paths
         );
     }
 
