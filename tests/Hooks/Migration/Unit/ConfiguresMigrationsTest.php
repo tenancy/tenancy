@@ -59,6 +59,11 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
      * @test */
     public function it_can_clear_paths_from_the_migrator($tenantEvent)
     {
+        $this->assertContains(
+            __DIR__,
+            $this->hook->paths
+        );
+        
         $this->events->listen($this->eventClass, function ($event) {
             $event->flush();
         });
