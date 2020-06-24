@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Misc\Help\Contracts;
+namespace Tenancy\Misc\Help\Data\Contracts;
 
 interface Package
 {

@@ -18,7 +18,7 @@ namespace Tenancy\Misc\Help\Data\Packages;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Tenancy\Misc\Help\Contracts\Package;
+use Tenancy\Misc\Help\Data\Contracts\Package;
 
 abstract class ComposerPackage implements Package
 {

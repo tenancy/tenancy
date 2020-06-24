@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Misc\Help\Contracts;
 
 use Illuminate\Support\Collection;
+use Tenancy\Misc\Help\Data\Contracts\Package;
 
 interface ResolvesPackages
 {
