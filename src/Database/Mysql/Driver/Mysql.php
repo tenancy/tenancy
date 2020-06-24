@@ -17,17 +17,26 @@ declare(strict_types=1);
 namespace Tenancy\Database\Drivers\Mysql\Driver;
 
 use Illuminate\Database\ConnectionInterface;
-use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Facades\Tenancy;
+use Tenancy\Hooks\Database\Contracts\ProcessesQueries;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Events\Drivers as Events;
+use Tenancy\Hooks\Database\Support\QueryManager;
 use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
 {
+    protected $queryManager;
+
+    public function __construct()
+    {
+        $this->queryManager = App::make(QueryManager::class);
+    }
+
     public function configure(Tenant $tenant): array
     {
         $config = [];
@@ -43,11 +52,17 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Creating($tenant, $config, $this));
 
-        return $this->processAndDispatch(Events\Created::class, $tenant, [
-            'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
-            'database' => "CREATE DATABASE `{$config['database']}`",
-            'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
-        ]);
+        $result = $this->queryManager->setConnection($this->system($tenant))
+            ->processTransaction(function () use ($config) {
+                $this->statement("CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'");
+                $this->statement("CREATE DATABASE `{$config['database']}`");
+                $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
+            })
+            ->getStatus();
+
+        event(new Events\Created($tenant, $this, $result));
+
+        return $result;
     }
 
     public function update(Tenant $tenant): bool
@@ -60,23 +75,27 @@ class Mysql implements ProvidesDatabase
             return false;
         }
 
-        $tableStatements = [];
+        $tables = $this->retrieveTables($tenant);
 
-        foreach ($this->retrieveTables($tenant) as $table) {
-            $tableStatements['move-table-'.$table] = "RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}";
-        }
+        $result = $this->queryManager->setConnection($this->system($tenant))
+            ->processTransaction(function () use ($config, $tables) {
+                $this->statement("RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'");
+                $this->statement("ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'");
+                $this->statement("CREATE DATABASE `{$config['database']}`");
+                $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
 
-        $statements = array_merge([
-            'user'     => "RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'",
-            'password' => "ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'",
-            'database' => "CREATE DATABASE `{$config['database']}`",
-            'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
-        ], $tableStatements);
+                foreach ($tables as $table) {
+                    $this->statement("RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}");
+                }
 
-        // Add database drop statement as last statement
-        $statements['delete-db'] = "DROP DATABASE `{$config['oldUsername']}`";
+                // Add database drop statement as last statement
+                $this->statement("DROP DATABASE `{$config['oldUsername']}`");
+            })
+            ->getStatus();
 
-        return $this->processAndDispatch(Events\Updated::class, $tenant, $statements);
+        event(new Events\Updated($tenant, $this, $result));
+
+        return $result;
     }
 
     public function delete(Tenant $tenant): bool
@@ -85,10 +104,16 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Deleting($tenant, $config, $this));
 
-        return $this->processAndDispatch(Events\Deleted::class, $tenant, [
-            'user'     => "DROP USER `{$config['username']}`@'{$config['host']}'",
-            'database' => "DROP DATABASE IF EXISTS `{$config['database']}`",
-        ]);
+        $result = $this->queryManager->setConnection($this->system($tenant))
+            ->processTransaction(function () use ($config) {
+                $this->statement("DROP USER `{$config['username']}`@'{$config['host']}'");
+                $this->statement("DROP DATABASE IF EXISTS `{$config['database']}`");
+            })
+            ->getStatus();
+
+        event(new Events\Deleted($tenant, $this, $result));
+
+        return $result;
     }
 
     protected function system(Tenant $tenant): ConnectionInterface
@@ -100,31 +125,6 @@ class Mysql implements ProvidesDatabase
         }
 
         return DB::connection($connection);
-    }
-
-    protected function process(Tenant $tenant, array $statements): bool
-    {
-        $success = false;
-
-        $this->system($tenant)->beginTransaction();
-
-        foreach ($statements as $statement) {
-            try {
-                $success = $this->system($tenant)->statement($statement);
-                // @codeCoverageIgnoreStart
-            } catch (QueryException $e) {
-                $this->system($tenant)->rollBack();
-                // @codeCoverageIgnoreEnd
-            } finally {
-                if (!$success) {
-                    throw $e;
-                }
-            }
-        }
-
-        $this->system($tenant)->commit();
-
-        return $success;
     }
 
     /**
@@ -146,23 +146,5 @@ class Mysql implements ProvidesDatabase
         $resolver(null, Tenancy::getTenantConnectionName());
 
         return $tables;
-    }
-
-    /**
-     * Processes the provided statements and dispatches an event.
-     *
-     * @param string $event
-     * @param Tenant $tenant
-     * @param array  $statements
-     *
-     * @return bool
-     */
-    private function processAndDispatch(string $event, Tenant $tenant, array $statements)
-    {
-        $result = $this->process($tenant, $statements);
-
-        event((new $event($tenant, $this, $result)));
-
-        return $result;
     }
 }
