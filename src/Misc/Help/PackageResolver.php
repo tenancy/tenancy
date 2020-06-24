@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Misc\Help;
 
-use Tenancy\Misc\Help\Contracts\Package;
 use Tenancy\Misc\Help\Contracts\ResolvesPackages;
+use Tenancy\Misc\Help\Data\Contracts\Package;
 
 class PackageResolver implements ResolvesPackages
 {
