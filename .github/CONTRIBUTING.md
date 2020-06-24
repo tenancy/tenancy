@@ -22,7 +22,7 @@ Feel free to drop the issueId reference for smaller tasks/commits.
 
 # Contributor License Agreement
 
-By contributing your code to tenancy you grant Daniël Klabbers and the Tenancy team a non-exclusive, irrevocable, worldwide, 
+By contributing your code to tenancy you grant Arlon Antonius and the Tenancy team a non-exclusive, irrevocable, worldwide, 
 royalty-free, sublicensable, transferable license under all of Your relevant intellectual property rights 
 (including copyright, patent, and any other rights), to use, copy, prepare derivative works of, distribute 
 and publicly perform and display the Contributions on any licensing terms, including without limitation: 
@@ -39,7 +39,7 @@ person claims, or has the right to claim, any right in any invention or patent r
 You also represent that You are not legally obligated, whether by entering into an agreement or otherwise, 
 in any way that conflicts with the terms of this license.
 
-Daniël Klabbers acknowledges that, except as explicitly described in this Agreement, any Contribution which 
+Arlon Antonius acknowledges that, except as explicitly described in this Agreement, any Contribution which 
 you provide is on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
 INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR 
 FITNESS FOR A PARTICULAR PURPOSE.
