@@ -42,8 +42,9 @@ class BaseInteraction implements Interaction
 
         dump([
             $class,
-            $basename
+            $basename,
         ]);
+
         return $basename;
     }
 
