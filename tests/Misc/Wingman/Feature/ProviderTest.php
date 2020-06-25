@@ -1,9 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Misc\Wingman\Feature;
 
 use Illuminate\Support\Facades\Artisan;
-use Tenancy\Misc\Wingman\CLI\Commands\Created;
 use Tenancy\Misc\Wingman\CLI\Commands;
 use Tenancy\Misc\Wingman\Provider;
 use Tenancy\Testing\TestCase;
@@ -16,7 +29,7 @@ class ProviderTest extends TestCase
     /** @test */
     public function the_commands_are_registered()
     {
-        foreach([
+        foreach ([
             Commands\Created::class,
             Commands\Updated::class,
             Commands\Deleted::class,
@@ -27,7 +40,7 @@ class ProviderTest extends TestCase
     }
 
     /**
-     * Checks if a command is registered
+     * Checks if a command is registered.
      *
      * @param string $commandClass
      *
@@ -35,11 +48,12 @@ class ProviderTest extends TestCase
      */
     private function commandExists(string $commandClass)
     {
-        foreach(Artisan::all() as $command){
-            if(get_class($command) == $commandClass){
+        foreach (Artisan::all() as $command) {
+            if (get_class($command) == $commandClass) {
                 return true;
             }
         }
+
         return false;
     }
 }

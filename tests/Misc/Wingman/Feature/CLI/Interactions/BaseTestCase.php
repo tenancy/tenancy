@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Misc\Wingman\Feature\CLI\Interactions;
 
 use Tenancy\Testing\TestCase;
@@ -19,7 +33,6 @@ abstract class BaseTestCase extends TestCase
     {
         $this->interaction = new $this->class();
     }
-
 
     /** @test */
     public function the_shortcut_is_right()
@@ -60,7 +73,7 @@ abstract class BaseTestCase extends TestCase
     /** @test */
     public function it_reacts_to_the_right_things()
     {
-        foreach($this->interaction->getOptions() as $option){
+        foreach ($this->interaction->getOptions() as $option) {
             $this->assertTrue(
                 $this->interaction->shouldReact($option)
             );
