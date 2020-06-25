@@ -4,7 +4,8 @@
     "keywords": ["misc", "tenancy", "spy"],
     "license": "MIT",
     "require": {
-        "tenancy/framework": "*"
+        "tenancy/framework": "*",
+        "tenancy/misc-help": "*"
     },
     "autoload": {
         "psr-4": {
