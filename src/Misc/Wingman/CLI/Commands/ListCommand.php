@@ -103,11 +103,13 @@ class ListCommand extends Command
      */
     private function promptInteraction(ConsoleSectionOutput $output)
     {
-        $this->setInteraction($this->promptQuestion(
-            $this->symfonyInput,
-            $output,
-            'What action would you like to perform?',
-        ));
+        $this->setInteraction(
+            $this->promptQuestion(
+                $this->symfonyInput,
+                $output,
+                'What action would you like to perform?'
+            )
+        );
 
         return $this->getInteraction();
     }
