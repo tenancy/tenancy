@@ -37,15 +37,7 @@ class BaseInteraction implements Interaction
      */
     public function getName(): string
     {
-        $class = get_class($this);
-        $basename = basename($class);
-
-        dump([
-            $class,
-            $basename,
-        ]);
-
-        return $basename;
+        return (new \ReflectionClass($this))->getShortName();
     }
 
     /**
