@@ -40,7 +40,7 @@ class PageTest extends BaseTestCase
             );
         }
 
-        $validInteractions = ['1', 1, '21', 21];
+        $validInteractions = ['1','21'];
 
         foreach ($validInteractions as $interaction) {
             $this->assertTrue(
