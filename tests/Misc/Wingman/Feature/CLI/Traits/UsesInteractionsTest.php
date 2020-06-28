@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Misc\Wingman\Feature\CLI\Traits;
 
+use Tenancy\Misc\Wingman\CLI\Interactions\Previous;
 use Tenancy\Misc\Wingman\CLI\Interactions\Quit;
 use Tenancy\Misc\Wingman\CLI\Traits\UsesInteractions;
 use Tenancy\Testing\TestCase;
@@ -83,6 +84,41 @@ class UsesInteractionsTest extends TestCase
         $this->registerInteraction(new Quit());
 
         $this->triggerInteraction('Quit');
+    }
+
+    /** @test */
+    public function grabbing_the_interaction_function_returns_null_when_unknown()
+    {
+        $this->assertNull($this->getInteractionFunction('This does not exist'));
+    }
+
+    /** @test */
+    public function if_the_interaction_function_is_null_no_function_is_called()
+    {
+        $this->triggerInteraction('Fake');
+
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function triggering_an_interaction_without_having_a_function_wont_cause_errors()
+    {
+        $this->registerInteraction(new Previous());
+
+        $this->triggerInteraction('Previous');
+        $this->assertTrue(true);
+    }
+
+    /**
+     * Triggered when the interact function fake is called. This should never happen.
+     *
+     * @param string $interaction
+     *
+     * @return void
+     */
+    protected function interactFake(string $interaction)
+    {
+        $this->assertTrue(false);
     }
 
     /**

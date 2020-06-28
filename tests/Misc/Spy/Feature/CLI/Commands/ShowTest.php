@@ -29,4 +29,31 @@ class ShowTest extends TestCase
         $this->artisan('spy:show')
             ->assertExitCode(0);
     }
+
+    /** @test */
+    public function it_can_be_called_with_installed()
+    {
+        $this->artisan('spy:show', [
+            '--installed' => true
+        ])
+            ->assertExitCode(0);
+    }
+
+    /** @test */
+    public function it_can_be_called_with_registered()
+    {
+        $this->artisan('spy:show', [
+            '--registered' => true
+        ])
+            ->assertExitCode(0);
+    }
+
+    /** @test */
+    public function it_can_be_called_with_configured()
+    {
+        $this->artisan('spy:show', [
+            '--configured' => true
+        ])
+            ->assertExitCode(0);
+    }
 }
