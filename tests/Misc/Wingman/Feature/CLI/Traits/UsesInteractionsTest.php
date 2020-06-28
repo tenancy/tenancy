@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the tenancy/tenancy package.
+ *
+ * Copyright Tenancy for Laravel
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://tenancy.dev
+ * @see https://github.com/tenancy
+ */
+
 namespace Tenancy\Tests\Misc\Wingman\Feature\CLI\Traits;
 
 use Tenancy\Misc\Wingman\CLI\Interactions\Quit;
@@ -24,7 +38,7 @@ class UsesInteractionsTest extends TestCase
     public function it_can_set_interactions()
     {
         $this->setInteractions([
-            'Example'
+            'Example',
         ]);
 
         $this->assertEquals(['Example'], $this->interactions);
@@ -47,7 +61,7 @@ class UsesInteractionsTest extends TestCase
         $this->interaction = 'ExampleInteraction';
 
         $this->assertEquals(
-            "ExampleInteraction",
+            'ExampleInteraction',
             $this->getInteraction()
         );
     }
@@ -72,7 +86,7 @@ class UsesInteractionsTest extends TestCase
     }
 
     /**
-     * Triggers the quit interaction, simply confirm that it is ran
+     * Triggers the quit interaction, simply confirm that it is ran.
      *
      * @param string $interaction
      *
