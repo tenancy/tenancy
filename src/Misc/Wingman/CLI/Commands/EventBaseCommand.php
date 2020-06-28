@@ -57,7 +57,7 @@ abstract class EventBaseCommand extends Command
         $this->resolver->getModels()->each(function (string $class) {
             $model = (new $class());
 
-            if ($this->option('tenant-identifier') && !in_array($model->getTenantIdentifier(), $this->parseArrayOption('tenant-identifiers'))) {
+            if ($this->option('tenant-identifiers') && !in_array($model->getTenantIdentifier(), $this->parseArrayOption('tenant-identifiers'))) {
                 return;
             }
 
