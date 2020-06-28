@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Factory;
 
 trait UsesTenants
 {
-    protected function registerFactories()
+    protected function registerTenantFactories()
     {
         /** @var Factory $factory */
         $factory = resolve(Factory::class);
