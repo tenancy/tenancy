@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Misc\Spy;
 
+use Tenancy\Misc\Help\Provider as HelpProvider;
 use Tenancy\Misc\Spy\CLI\Commands;
 use Tenancy\Support\Provider as SupportProvider;
 
@@ -23,6 +24,8 @@ class Provider extends SupportProvider
 {
     public function register()
     {
+        $this->app->register(HelpProvider::class);
+
         parent::register();
 
         $this->commands([

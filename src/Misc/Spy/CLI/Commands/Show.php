@@ -28,7 +28,7 @@ class Show extends Command
      *
      * @var string
      */
-    protected $signature = 'tenancy-spy:show
+    protected $signature = 'spy:show
                             {--installed : Filter to only show installed packages}
                             {--registered : Filter to only show registered packages}
                             {--configured : Filter to only show configured packages}';
