@@ -59,14 +59,14 @@ abstract class EventCommandTestCase extends TestCase
         Event::fake();
 
         $this->artisan($this->command, [
-            '--tenants' => [$tenantOne->getTenantKey()]
+            '--tenants' => [$tenantOne->getTenantKey()],
         ]);
 
-        Event::assertDispatched($this->event, function($event) use ($tenantOne){
+        Event::assertDispatched($this->event, function ($event) use ($tenantOne) {
             return $event->tenant->getTenantKey() === $tenantOne->getTenantKey();
         });
 
-        Event::assertNotDispatched($this->event, function ($event) use ($tenantTwo){
+        Event::assertNotDispatched($this->event, function ($event) use ($tenantTwo) {
             return $event->tenant->getTenantKey() === $tenantTwo->getTenantKey();
         });
     }
@@ -81,10 +81,10 @@ abstract class EventCommandTestCase extends TestCase
         Event::fake();
 
         $this->artisan($this->command, [
-            '--tenants' => $tenantOne->getTenantKey() . ',' . $tenantTwo->getTenantKey()
+            '--tenants' => $tenantOne->getTenantKey().','.$tenantTwo->getTenantKey(),
         ]);
 
-        Event::assertDispatched($this->event, function($event) use ($tenantThree){
+        Event::assertDispatched($this->event, function ($event) use ($tenantThree) {
             return $event->tenant->getTenantKey() != $tenantThree->getTenantKey();
         });
     }
@@ -97,10 +97,10 @@ abstract class EventCommandTestCase extends TestCase
         Event::fake();
 
         $this->artisan($this->command, [
-            '--tenant-identifiers' => ['ThisDoesNotExist']
+            '--tenant-identifiers' => ['ThisDoesNotExist'],
         ]);
 
-        Event::assertNotDispatched($this->event, function($event) use ($tenantOne){
+        Event::assertNotDispatched($this->event, function ($event) use ($tenantOne) {
             return $event->tenant->getTenantIdentifier() === $tenantOne->getTenantIdentifier();
         });
     }
