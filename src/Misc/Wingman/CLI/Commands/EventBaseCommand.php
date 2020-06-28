@@ -88,6 +88,10 @@ abstract class EventBaseCommand extends Command
      */
     private function parseArrayOption(string $key)
     {
-        return Arr::wrap(explode(',', $this->option($key)));
+        $option = $this->option($key);
+        if(is_array($option)){
+            return $option;
+        }
+        return Arr::wrap(explode(',', $option));
     }
 }

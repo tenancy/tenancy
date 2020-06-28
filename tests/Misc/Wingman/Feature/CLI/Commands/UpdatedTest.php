@@ -16,29 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Misc\Wingman\Feature\CLI\Commands;
 
-use Illuminate\Support\Facades\Event;
-use Tenancy\Identification\Contracts\ResolvesTenants;
-use Tenancy\Misc\Wingman\Provider;
 use Tenancy\Tenant\Events\Updated;
-use Tenancy\Testing\Mocks\Tenant;
-use Tenancy\Testing\TestCase;
 
-class UpdatedTest extends TestCase
+class UpdatedTest extends EventCommandTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected $command = 'wingman:updated';
 
-    /** @test */
-    public function it_fires_updated_events_for_tenants()
-    {
-        $resolver = $this->app->make(ResolvesTenants::class);
-        $resolver->addModel(Tenant::class);
-
-        factory(Tenant::class)->create();
-
-        Event::fake();
-
-        $this->artisan('wingman:updated');
-
-        Event::assertDispatched(Updated::class);
-    }
+    protected $event = Updated::class;
 }
