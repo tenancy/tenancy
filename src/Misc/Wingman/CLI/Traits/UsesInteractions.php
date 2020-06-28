@@ -112,16 +112,4 @@ trait UsesInteractions
     {
         $this->interaction = $interaction;
     }
-
-    /**
-     * Gets the interactions as human readable array.
-     *
-     * @return array
-     */
-    protected function getInteractionsAsHuman()
-    {
-        return array_map(function (Interaction $interaction) {
-            return $interaction->getShortcut().': '.$interaction->getName();
-        }, $this->interactions);
-    }
 }

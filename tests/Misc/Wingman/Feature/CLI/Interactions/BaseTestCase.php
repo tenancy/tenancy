@@ -46,7 +46,6 @@ abstract class BaseTestCase extends TestCase
     /** @test */
     public function the_name_is_right()
     {
-        dump($this->interaction->getName());
         $this->assertEquals(
             $this->name,
             $this->interaction->getName()
