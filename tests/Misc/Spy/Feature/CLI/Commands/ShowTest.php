@@ -34,7 +34,7 @@ class ShowTest extends TestCase
     public function it_can_be_called_with_installed()
     {
         $this->artisan('spy:show', [
-            '--installed' => true
+            '--installed' => true,
         ])
             ->assertExitCode(0);
     }
@@ -43,7 +43,7 @@ class ShowTest extends TestCase
     public function it_can_be_called_with_registered()
     {
         $this->artisan('spy:show', [
-            '--registered' => true
+            '--registered' => true,
         ])
             ->assertExitCode(0);
     }
@@ -52,7 +52,7 @@ class ShowTest extends TestCase
     public function it_can_be_called_with_configured()
     {
         $this->artisan('spy:show', [
-            '--configured' => true
+            '--configured' => true,
         ])
             ->assertExitCode(0);
     }
