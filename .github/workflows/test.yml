@@ -45,8 +45,11 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: '${{ matrix.php }}'
-            - name: Echo information
+
+            - name: Echo PHP Information
               run: php -v
+
+            - name: Echo Composer Information
               run: composer --version
 
             - name: Start required services
