@@ -45,6 +45,9 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: '${{ matrix.php }}'
+            - name: Echo information
+              run: php -v
+              run: composer --version
 
             - name: Start required services
               run: sudo systemctl start mysql
