@@ -34,7 +34,9 @@ class IdentificationProvider extends DriverProvider
             $queue->createPayloadUsing($this->app->make(Middleware\SaveTenantOnQueuePayload::class));
 
             // Resolve any tenant related meta data on job and allow resolving of tenant.
-            $queue->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
+            //$queue->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
         });
+
+        $this->app['queue']->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
     }
 }
