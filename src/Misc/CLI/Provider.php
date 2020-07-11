@@ -14,9 +14,9 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Misc\Wingman;
+namespace Tenancy\Misc\CLI;
 
-use Tenancy\Misc\Wingman\CLI\Commands;
+use Tenancy\Misc\CLI\Commands;
 use Tenancy\Support\Provider as SupportProvider;
 
 class Provider extends SupportProvider
@@ -29,7 +29,6 @@ class Provider extends SupportProvider
             Commands\Created::class,
             Commands\Updated::class,
             Commands\Deleted::class,
-            Commands\ListCommand::class,
         ]);
     }
 }

@@ -14,11 +14,11 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Misc\Wingman\Feature;
+namespace Tenancy\Tests\Misc\CLI\Feature;
 
 use Illuminate\Support\Facades\Artisan;
-use Tenancy\Misc\Wingman\CLI\Commands;
-use Tenancy\Misc\Wingman\Provider;
+use Tenancy\Misc\CLI\Commands;
+use Tenancy\Misc\CLI\Provider;
 use Tenancy\Testing\TestCase;
 
 class ProviderTest extends TestCase
@@ -33,7 +33,6 @@ class ProviderTest extends TestCase
             Commands\Created::class,
             Commands\Updated::class,
             Commands\Deleted::class,
-            Commands\ListCommand::class,
         ] as $commandClass) {
             $this->assertTrue($this->commandExists($commandClass));
         }
