@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Misc\CLI;
 
-use Tenancy\Misc\CLI\Commands;
 use Tenancy\Support\Provider as SupportProvider;
 
 class Provider extends SupportProvider
