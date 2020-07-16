@@ -1,14 +1,14 @@
 {
-    "name": "tenancy/misc-wingman",
-    "description": "The tenancy/tenancy wingman package",
-    "keywords": ["misc", "tenancy", "wingman"],
+    "name": "tenancy/misc-cli",
+    "description": "The tenancy/tenancy cli package",
+    "keywords": ["misc", "tenancy", "cli"],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"
     },
     "autoload": {
         "psr-4": {
-            "Tenancy\\Misc\\Wingman\\": ""
+            "Tenancy\\Misc\\CLI\\": ""
         }
     },
     "autoload-dev": {
@@ -35,7 +35,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tenancy\\Misc\\Wingman\\Provider"
+                "Tenancy\\Misc\\CLI\\Provider"
             ]
         }
     }

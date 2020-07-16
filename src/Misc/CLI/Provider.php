@@ -14,12 +14,20 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Misc\Wingman\CLI\Traits;
+namespace Tenancy\Misc\CLI;
 
-trait UsesSections
+use Tenancy\Support\Provider as SupportProvider;
+
+class Provider extends SupportProvider
 {
-    public function createSection()
+    public function register()
     {
-        return $this->symfonyOutput->section();
+        parent::register();
+
+        $this->commands([
+            Commands\Created::class,
+            Commands\Updated::class,
+            Commands\Deleted::class,
+        ]);
     }
 }

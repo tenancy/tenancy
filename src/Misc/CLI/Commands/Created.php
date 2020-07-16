@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Misc\Wingman\CLI\Commands;
+namespace Tenancy\Misc\CLI\Commands;
 
 use Tenancy\Tenant\Events\Created as Event;
 
