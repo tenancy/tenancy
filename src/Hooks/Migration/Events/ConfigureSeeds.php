@@ -37,9 +37,15 @@ class ConfigureSeeds
         $this->hook = $hook;
     }
 
-    public function seed(string $class)
+    /**
+     * @param string string $class
+     * @param mixed ...$args
+     *
+     * @return $this
+     */
+    public function seed(string $class, ...$args)
     {
-        $this->hook->seeds[] = $class;
+        $this->hook->seeds[] = [$class, $args];
 
         return $this;
     }

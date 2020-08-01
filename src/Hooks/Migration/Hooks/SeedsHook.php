@@ -66,12 +66,13 @@ class SeedsHook extends ConfigurableHook
         $this->resolver->__invoke($this->event->tenant, $this->connection);
         $db->setDefaultConnection($this->connection);
 
-        foreach ($this->seeds as $seed) {
+        foreach ($this->seeds as $seeder) {
+            $seed = $seeder[0];
             /** @var Seeder $seed */
             $seed = resolve($seed);
             $seed = $seed->setContainer(app());
 
-            $seed();
+            call_user_func_array([$seed, 'run'], $seeder[1]);
         }
 
         $this->resolver->__invoke(null, $this->connection);

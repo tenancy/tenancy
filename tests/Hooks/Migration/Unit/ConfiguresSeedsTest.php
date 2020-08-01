@@ -36,14 +36,18 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
     public function it_can_add_seeds($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->seed(__DIR__);
+            $event->seed(__DIR__, $event->event->tenant, 'b');
         });
 
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
+        $this->assertCount(
+            1,
+            $this->hook->seeds
+        );
         $this->assertContains(
             __DIR__,
-            $this->hook->seeds
+            $this->hook->seeds[0]
         );
     }
 }
