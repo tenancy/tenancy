@@ -72,7 +72,7 @@ class SeedsHook extends ConfigurableHook
             $seed = resolve($seed);
             $seed = $seed->setContainer(app());
 
-            call_user_func_array([$seed, 'run'], $seeder[1]);
+            $seed($seeder[1]);
         }
 
         $this->resolver->__invoke(null, $this->connection);
