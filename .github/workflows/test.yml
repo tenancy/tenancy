@@ -37,7 +37,7 @@ jobs:
                 ports:
                     - 13306:3306
 
-        name: 'PHP ${{ matrix.php }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
 
         steps:
             - uses: actions/checkout@master
@@ -50,7 +50,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
             - name: Start required services
               run: sudo systemctl start mysql
