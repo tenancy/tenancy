@@ -21,7 +21,7 @@ use Tenancy\Testing\Mocks\Tenant;
 
 class TenantFactory extends Factory
 {
-    protected static $namespace = '\Tenancy\Testing\Mocks\Factories';
+    protected static $namespace = 'Tenancy\\Testing\\Mocks\\Factories';
 
     protected $model = Tenant::class;
     
