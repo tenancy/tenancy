@@ -47,7 +47,6 @@ abstract class TestCase extends Testing\TestCase
         $this->bootTenancy();
         $this->bootFactories();
         $this->afterSetUp();
-        dd(class_exists("Tenancy\\Testing\\Mocks\\Factories\\TenantFactory"));
     }
 
     protected function tearDown(): void
