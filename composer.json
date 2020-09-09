@@ -58,7 +58,8 @@
         "tenancy/db-driver-sqlite": "self.version",
         "tenancy/identification-driver-console": "self.version",
         "tenancy/identification-driver-environment": "self.version",
-        "tenancy/identification-driver-http": "self.version"
+        "tenancy/identification-driver-http": "self.version",
+        "tenancy/identification-driver-queue": "self.version"
     },
     "funding": [
         {
