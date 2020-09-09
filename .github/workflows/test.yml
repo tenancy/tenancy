@@ -13,8 +13,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                laravel: [7.*, 8.*]
-                php: [7.2, 7.3, 7.4]
+                laravel: [8.*]
+                php: [7.3, 7.4]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
 
                 include:

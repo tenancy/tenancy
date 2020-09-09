@@ -18,7 +18,6 @@ namespace Tenancy\Testing\Concerns;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Factory;
 use RuntimeException;
 use Tenancy\Environment;
 use Tenancy\Providers\TenancyProvider;
@@ -82,10 +81,6 @@ trait CreatesApplication
         foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
-
-        /** @var Factory $factory */
-        $factory = resolve(Factory::class);
-        $factory->load(__DIR__.'/../Mocks/factories/');
 
         $this->environment = resolve(Environment::class);
         $this->events = resolve(Dispatcher::class);

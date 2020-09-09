@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing\Mocks;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant as Contract;
@@ -28,6 +29,8 @@ use Tenancy\Identification\Contracts\Tenant as Contract;
  */
 class Tenant extends Model implements Contract
 {
+    use HasFactory;
+
     protected $table = 'users';
 
     use AllowsTenantIdentification;

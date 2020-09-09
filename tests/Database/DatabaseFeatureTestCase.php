@@ -30,9 +30,9 @@ use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\ConnectionListener;
+use Tenancy\Tests\Mocks\Models\Factories\TenantModelFactory;
 use Tenancy\Tests\Mocks\Models\TenantModel;
 use Tenancy\Tests\UsesMigrations;
-use Tenancy\Tests\UsesModels;
 
 abstract class DatabaseFeatureTestCase extends TestCase
 {
@@ -52,12 +52,11 @@ abstract class DatabaseFeatureTestCase extends TestCase
     use InteractsWithConnections;
     use InteractsWithMigrations;
     use UsesMigrations;
-    use UsesModels;
 
     protected function afterSetUp()
     {
         $this->db = $this->app->make(DatabaseManager::class);
-        $this->tenant = factory($this->tenantModel)->create();
+        $this->tenant = $this->tenantModel::factory()->create();
         $this->tenant->unguard();
 
         $this->resolveTenant($this->tenant);
@@ -126,7 +125,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     public function updating_keeps_the_data()
     {
         $this->app->register(MigrationProvider::class);
-        $this->registerModelFactories();
         $this->registerMigrationsPath($this->getMigrationsPath());
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             if ($event->event instanceof Events\Deleted) {
@@ -142,7 +140,10 @@ abstract class DatabaseFeatureTestCase extends TestCase
                 ->hasTable('mocks')
         );
 
-        factory(TenantModel::class, 10)->create();
+        $this->app->make(TenantModelFactory::class)
+            ->count(10)
+            ->create();
+            
         $mocks = TenantModel::all();
 
         $this->db->purge(Tenancy::getTenantConnectionName());

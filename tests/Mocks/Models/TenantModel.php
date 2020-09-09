@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Mocks\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Affects\Connections\Support\Traits\OnTenant;
 
 class TenantModel extends Model
 {
+    use HasFactory;
     use OnTenant;
 
     public $table = 'mocks';

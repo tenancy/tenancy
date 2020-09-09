@@ -16,26 +16,44 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing\Concerns;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Resolving;
+use Tenancy\Testing\Mocks\Factories\TenantFactory;
 use Tenancy\Testing\Mocks\Tenant as Mock;
+use Illuminate\Support\Str;
 
 trait InteractsWithTenants
 {
     protected function createMockTenant(array $attributes = [])
     {
-        return factory(Mock::class)->create($attributes);
+        return Mock::factory()->create($attributes);
     }
 
     protected function mockTenant(array $attributes = []): Mock
     {
-        return factory(Mock::class)->make($attributes);
+        return Mock::factory()->make($attributes);
     }
 
     protected function resolveTenant(Tenant $tenant = null)
     {
         $this->events->listen(Resolving::class, function (Resolving $event) use ($tenant) {
             return $tenant;
+        });
+    }
+
+    protected function bootFactories()
+    {
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            if(is_subclass_of((new $modelName), Tenant::class)) {
+                return TenantFactory::class;
+            }
+            
+            $modelName = Str::startsWith($modelName, 'App\\Models\\')
+                ? Str::after($modelName, 'App\\Models\\')
+                : Str::after($modelName, 'App\\');
+
+            return self::$namespace.$modelName.'Factory';
         });
     }
 }

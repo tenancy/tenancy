@@ -48,7 +48,7 @@ class HandlesTest extends TestCase
 
     private function getHostnameTenant()
     {
-        factory(Tenant::class)->create();
+        Tenant::factory()->create();
 
         return HostnameTenant::first();
     }

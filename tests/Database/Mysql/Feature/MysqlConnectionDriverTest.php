@@ -22,11 +22,9 @@ use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Tests\Database\DatabaseFeatureTestCase;
 use Tenancy\Tests\Mocks\Tenants\MysqlTenant;
 use Tenancy\Tests\UsesConnections;
-use Tenancy\Tests\UsesTenants;
 
 class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
 {
-    use UsesTenants;
     use UsesConnections;
 
     protected $additionalProviders = [Provider::class];
@@ -34,12 +32,6 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
     protected $exception = PDOException::class;
 
     protected $tenantModel = MysqlTenant::class;
-
-    protected function afterSetUp()
-    {
-        $this->registerFactories();
-        parent::afterSetUp();
-    }
 
     protected function registerDatabaseListener()
     {

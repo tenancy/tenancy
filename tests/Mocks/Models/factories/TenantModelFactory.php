@@ -14,12 +14,20 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-use Faker\Generator as Faker;
+namespace Tenancy\Tests\Mocks\Models\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Tenancy\Tests\Mocks\Models\TenantModel;
 
-$factory->define(TenantModel::class, function (Faker $faker) {
-    return [
-        'id'   => $faker->unixTime,
-        'name' => $faker->name,
-    ];
-});
+class TenantModelFactory extends Factory
+{
+    protected $model = TenantModel::class;
+
+    public function definition()
+    {
+        return [
+            'id'   => $this->faker->unixTime,
+            'name' => $this->faker->name,
+        ];
+    }
+}
