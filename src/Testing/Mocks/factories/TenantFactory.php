@@ -24,7 +24,7 @@ class TenantFactory extends Factory
     protected static $namespace = 'Tenancy\\Testing\\Mocks\\Factories';
 
     protected $model = Tenant::class;
-    
+
     public function definition()
     {
         return [
