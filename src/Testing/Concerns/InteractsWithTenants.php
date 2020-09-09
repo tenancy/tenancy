@@ -17,11 +17,11 @@ declare(strict_types=1);
 namespace Tenancy\Testing\Concerns;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Resolving;
-use Tenancy\Testing\Mocks\Factories\TenantFactory;
+use Tenancy\Testing\Mocks\Factory\TenantFactory;
 use Tenancy\Testing\Mocks\Tenant as Mock;
-use Illuminate\Support\Str;
 
 trait InteractsWithTenants
 {
@@ -48,7 +48,7 @@ trait InteractsWithTenants
             if(is_subclass_of((new $modelName), Tenant::class)) {
                 return TenantFactory::class;
             }
-            
+
             $modelName = Str::startsWith($modelName, 'App\\Models\\')
                 ? Str::after($modelName, 'App\\Models\\')
                 : Str::after($modelName, 'App\\');

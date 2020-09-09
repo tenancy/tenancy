@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Testing\Mocks\Factories;
+namespace Tenancy\Testing\Mocks\Factory;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tenancy\Testing\Mocks\Tenant;
