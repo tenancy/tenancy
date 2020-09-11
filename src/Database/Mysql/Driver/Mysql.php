@@ -108,6 +108,7 @@ class Mysql implements ProvidesDatabase
 
         $this->system($tenant)->beginTransaction();
 
+        dump($statements);
         foreach ($statements as $statement) {
             try {
                 $success = $this->system($tenant)->statement($statement);
