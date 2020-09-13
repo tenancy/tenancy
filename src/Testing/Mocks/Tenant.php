@@ -34,4 +34,16 @@ class Tenant extends Model implements Contract
     protected $table = 'users';
 
     use AllowsTenantIdentification;
+
+    /**
+     * Goes from the current class to a different class assuming they have the same key.
+     * 
+     * @param string $class
+     * 
+     * @return Model
+     */
+    public function as(string $class)
+    {
+        return $class::findOrFail($this->getKey());
+    }
 }

@@ -56,7 +56,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
     protected function afterSetUp()
     {
         $this->db = $this->app->make(DatabaseManager::class);
-        $this->tenant = $this->tenantModel::factory()->create();
+        $this->tenant = $this->tenantModel::factory()->create()->as($this->tenantModel);
         $this->tenant->unguard();
 
         $this->resolveTenant($this->tenant);
