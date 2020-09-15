@@ -47,11 +47,6 @@ jobs:
               with:
                   php-version: '${{ matrix.php }}'
 
-
-            - name: Install dependencies
-              run: |
-                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-
             - name: Start required services
               run: sudo systemctl start mysql
 
@@ -63,6 +58,10 @@ jobs:
 
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+
+            - name: Install Version Specific Dependencies
+              run: |
+                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
             - name: Install Composer dependencies
               run: composer install --no-ansi --no-interaction
