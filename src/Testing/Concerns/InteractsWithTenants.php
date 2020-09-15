@@ -16,11 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing\Concerns;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Resolving;
-use Tenancy\Testing\Mocks\Factories\TenantFactory;
 use Tenancy\Testing\Mocks\Tenant as Mock;
 
 trait InteractsWithTenants

@@ -24,7 +24,8 @@ trait UsesTenants
             /** @var \Illuminate\Database\Eloquent\Factory $factory */
             $factory = resolve(\Illuminate\Database\Eloquent\Factory::class);
 
-            $factory->load(__DIR__.DIRECTORY_SEPARATOR.
+            $factory->load(
+                __DIR__.DIRECTORY_SEPARATOR.
                 'Mocks'.DIRECTORY_SEPARATOR.
                 'Tenants'.DIRECTORY_SEPARATOR.
                 'Factories'.DIRECTORY_SEPARATOR.
