@@ -27,10 +27,9 @@ class TenantModel extends Model
 
     public $table = 'mocks';
 
-    
     public static function factory(...$parameters)
     {
-        if(function_exists('factory')){
+        if (function_exists('factory')) {
             return factory(get_called_class(), $parameters);
         }
 
