@@ -47,6 +47,11 @@ jobs:
               with:
                   php-version: '${{ matrix.php }}'
 
+
+            - name: Install dependencies
+              run: |
+                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
             - name: Start required services
               run: sudo systemctl start mysql
 
