@@ -33,7 +33,7 @@ git subsplit publish --heads="master" src/Identification/Queue:git@github.com:te
 git subsplit publish --heads="master" src/Database/Mysql:git@github.com:tenancy/db-driver-mysql.git
 git subsplit publish --heads="master" src/Database/Sqlite:git@github.com:tenancy/db-driver-sqlite.git
 
-# Testing
-git subsplit publish --heads="master" src/Testing:git@github.com:tenancy/testing.git
+# Testing (Abandoned)
+# git subsplit publish --heads="master" src/Testing:git@github.com:tenancy/testing.git
 
 rm -rf .subsplit/

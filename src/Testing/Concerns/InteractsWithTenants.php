@@ -41,19 +41,4 @@ trait InteractsWithTenants
             return $tenant;
         });
     }
-
-    protected function bootFactories()
-    {
-        Factory::guessFactoryNamesUsing(function (string $modelName) {
-            if(is_subclass_of((new $modelName), Tenant::class)) {
-                return TenantFactory::class;
-            }
-
-            $modelName = Str::startsWith($modelName, 'App\\Models\\')
-                ? Str::after($modelName, 'App\\Models\\')
-                : Str::after($modelName, 'App\\');
-
-            return self::$namespace.$modelName.'Factory';
-        });
-    }
 }

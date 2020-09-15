@@ -45,7 +45,6 @@ abstract class TestCase extends Testing\TestCase
 
         $this->beforeBoot();
         $this->bootTenancy();
-        $this->bootFactories();
         $this->afterSetUp();
     }
 

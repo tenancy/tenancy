@@ -33,9 +33,12 @@ use Tenancy\Tests\Mocks\ConnectionListener;
 use Tenancy\Tests\Mocks\Models\Factories\TenantModelFactory;
 use Tenancy\Tests\Mocks\Models\TenantModel;
 use Tenancy\Tests\UsesMigrations;
+use Tenancy\Tests\UsesModels;
 
 abstract class DatabaseFeatureTestCase extends TestCase
 {
+    use UsesModels;
+    
     /** @var DatabaseManager */
     protected $db;
 
@@ -125,6 +128,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
     public function updating_keeps_the_data()
     {
         $this->app->register(MigrationProvider::class);
+        $this->registerModelFactories();
         $this->registerMigrationsPath($this->getMigrationsPath());
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) {
             if ($event->event instanceof Events\Deleted) {
