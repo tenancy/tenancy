@@ -66,14 +66,6 @@ jobs:
             - name: Get Composer Cache Directory
               run: |
                 echo "::set-output name=dir::$(composer config cache-files-dir)"
-                
-            - name: Cache Composer Downloads
-              uses: actions/cache@v1
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                    ${{ runner.os }}-composer-
 
             - name: Install Version Specific Dependencies
               run: |
@@ -81,6 +73,14 @@ jobs:
 
             - name: Install Composer dependencies
               run: composer install --no-ansi --no-interaction
+              
+            - name: Cache Composer Downloads
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                    ${{ runner.os }}-composer-
       
             - name: Cache PHP dependencies
               uses: actions/cache@v1
