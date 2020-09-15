@@ -64,6 +64,7 @@ jobs:
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Get Composer Cache Directory
+              id: composer-cache
               run: |
                 echo "::set-output name=dir::$(composer config cache-files-dir)"
 
