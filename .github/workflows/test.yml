@@ -24,6 +24,10 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
+                
+                exclude:
+                  - laravel: 8.*
+                    php: 7.2
 
         services:
             mysql:
