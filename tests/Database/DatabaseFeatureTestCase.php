@@ -30,7 +30,6 @@ use Tenancy\Testing\Concerns\InteractsWithDatabases;
 use Tenancy\Testing\Mocks\Tenant;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\ConnectionListener;
-use Tenancy\Tests\Mocks\Models\Factories\TenantModelFactory;
 use Tenancy\Tests\Mocks\Models\TenantModel;
 use Tenancy\Tests\UsesMigrations;
 use Tenancy\Tests\UsesModels;

@@ -95,7 +95,7 @@ trait CreatesApplication
         if (class_exists(\Illuminate\Database\Eloquent\Factory::class)) {
             /** @var \Illuminate\Database\Eloquent\Factory */
             $factory = $this->app->make(\Illuminate\Database\Eloquent\Factory::class);
-            $factory->load(__DIR__ . '/../Mocks/Factories/Legacy');
+            $factory->load(__DIR__.'/../Mocks/Factories/Legacy');
 
             return;
         }
