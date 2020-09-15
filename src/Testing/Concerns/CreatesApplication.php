@@ -96,7 +96,7 @@ trait CreatesApplication
             /** @var \Illuminate\Database\Eloquent\Factory */
             $factory = $this->app->make(\Illuminate\Database\Eloquent\Factory::class);
 
-            $factory->load(__DIR__ . '/../Mocks/Factories/Old');
+            $factory->load(__DIR__ . '/../Mocks/Factories/Legacy');
             return;
         }
 

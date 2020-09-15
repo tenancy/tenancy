@@ -144,8 +144,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
                 ->hasTable('mocks')
         );
 
-        $this->app->make(TenantModelFactory::class)
-            ->count(10)
+        TenantModel::factory(10)
             ->create();
 
         $mocks = TenantModel::all();
