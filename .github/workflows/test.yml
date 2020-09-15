@@ -63,29 +63,23 @@ jobs:
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
+            - name: Install Version Specific Dependencies
+              run: |
+                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
             - name: Get Composer Cache Directory
               id: composer-cache
               run: |
                 echo "::set-output name=dir::$(composer config cache-files-dir)"
               
             - name: Cache Composer Downloads
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-
+                  key: ${{ runner.os }}-composer--${{ hashFiles('**/composer.json') }}
                   restore-keys: |
                     ${{ runner.os }}-composer-
-      
-            - name: Cache PHP dependencies
-              uses: actions/cache@v1
-              with:
-                  path: vendor
-                  key: ${{ runner.OS }}-build-
-
-            - name: Install Version Specific Dependencies
-              run: |
-                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-
+  
             - name: Install Composer dependencies
               run: composer install --no-ansi --no-interaction
 
