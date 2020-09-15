@@ -25,10 +25,11 @@ trait UsesModels
         if (class_exists(\Illuminate\Database\Eloquent\Factory::class)) {
             /** @var \Illuminate\Database\Eloquent\Factory $factory */
             $factory = resolve(\Illuminate\Database\Eloquent\Factory::class);
-            
+
             /** @var Factory $factory */
             $factory = resolve(Factory::class);
-            $factory->load(__DIR__.DIRECTORY_SEPARATOR.
+            $factory->load(
+                __DIR__.DIRECTORY_SEPARATOR.
                 'Mocks'.DIRECTORY_SEPARATOR.
                 'Models'.DIRECTORY_SEPARATOR.
                 'Factories'.DIRECTORY_SEPARATOR.

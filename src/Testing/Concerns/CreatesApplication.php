@@ -83,7 +83,7 @@ trait CreatesApplication
         foreach ($this->additionalProviders as $provider) {
             $this->app->register($provider);
         }
-        
+
         $this->environment = resolve(Environment::class);
         $this->events = resolve(Dispatcher::class);
 
@@ -95,17 +95,17 @@ trait CreatesApplication
         if (class_exists(\Illuminate\Database\Eloquent\Factory::class)) {
             /** @var \Illuminate\Database\Eloquent\Factory */
             $factory = $this->app->make(\Illuminate\Database\Eloquent\Factory::class);
-
             $factory->load(__DIR__ . '/../Mocks/Factories/Legacy');
+
             return;
         }
 
         \Illuminate\Database\Eloquent\Factories\Factory::guessFactoryNamesUsing(function (string $modelName) {
-            if(is_subclass_of((new $modelName), Tenant::class) || $modelName === Tenant::class) {
+            if (is_subclass_of((new $modelName()), Tenant::class) || $modelName === Tenant::class) {
                 return TenantFactory::class;
             }
 
-            throw new \InvalidArgumentException("This is only meant to be used by Tenancy");
+            throw new \InvalidArgumentException('This is only meant to be used by Tenancy');
         });
     }
 

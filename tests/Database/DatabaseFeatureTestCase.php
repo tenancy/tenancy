@@ -38,7 +38,7 @@ use Tenancy\Tests\UsesModels;
 abstract class DatabaseFeatureTestCase extends TestCase
 {
     use UsesModels;
-    
+
     /** @var DatabaseManager */
     protected $db;
 
