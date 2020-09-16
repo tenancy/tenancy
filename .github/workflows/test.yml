@@ -76,9 +76,7 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer--${{ hashFiles('**/composer.json') }}
-                  restore-keys: |
-                    ${{ runner.os }}-composer-
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
   
             - name: Install Composer dependencies
               run: composer install --no-ansi --no-interaction
