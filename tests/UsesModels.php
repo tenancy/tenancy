@@ -24,7 +24,6 @@ trait UsesModels
             /** @var \Illuminate\Database\Eloquent\Factory $factory */
             $factory = resolve(\Illuminate\Database\Eloquent\Factory::class);
 
-            /** @var Factory $factory */
             $factory->load(
                 __DIR__.DIRECTORY_SEPARATOR.
                 'Mocks'.DIRECTORY_SEPARATOR.
