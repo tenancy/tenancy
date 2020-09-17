@@ -16,12 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database\Support;
 
-use Carbon\Exceptions\UnknownMethodException;
 use Closure;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Traits\Macroable;
-use Tenancy\Hooks\Database\Contracts\ProcessesQueries;
 
 class QueryManager
 {

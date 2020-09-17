@@ -13,6 +13,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
+                laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
 
@@ -23,6 +24,10 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
+                
+                exclude:
+                  - laravel: 8.*
+                    php: 7.2
 
         services:
             mysql:
@@ -36,7 +41,7 @@ jobs:
                 ports:
                     - 13306:3306
 
-        name: 'PHP ${{ matrix.php }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
 
         steps:
             - uses: actions/checkout@master
@@ -58,8 +63,25 @@ jobs:
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
+            - name: Install Version Specific Dependencies
+              run: |
+                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: |
+                echo "::set-output name=dir::$(composer config cache-files-dir)"
+              
+            - name: Cache Composer Downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
+                  restore-keys: |
+                    ${{ runner.os }}-composer-
+  
             - name: Install Composer dependencies
-              run: composer install
+              run: composer install --no-ansi --no-interaction
 
             - name: Run tests
               run: ./vendor/bin/phpunit

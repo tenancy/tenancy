@@ -24,12 +24,12 @@ trait InteractsWithTenants
 {
     protected function createMockTenant(array $attributes = [])
     {
-        return factory(Mock::class)->create($attributes);
+        return Mock::factory()->create($attributes);
     }
 
     protected function mockTenant(array $attributes = []): Mock
     {
-        return factory(Mock::class)->make($attributes);
+        return Mock::factory()->make($attributes);
     }
 
     protected function resolveTenant(Tenant $tenant = null)

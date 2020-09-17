@@ -27,5 +27,6 @@
             "email": "opensource@arlon.dev",
             "homepage": "https://arlon.dev"
         }
-    ]
+    ],
+    "abandoned": true
 }

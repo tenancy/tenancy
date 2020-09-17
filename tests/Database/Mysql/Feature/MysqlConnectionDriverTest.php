@@ -38,6 +38,7 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
     protected function afterSetUp()
     {
         $this->registerFactories();
+
         parent::afterSetUp();
     }
 

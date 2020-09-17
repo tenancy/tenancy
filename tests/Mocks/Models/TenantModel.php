@@ -17,11 +17,24 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Mocks\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Tenancy\Affects\Connections\Support\Traits\OnTenant;
+use Tenancy\Tests\Mocks\Models\Factories\TenantModelFactory;
 
 class TenantModel extends Model
 {
     use OnTenant;
 
     public $table = 'mocks';
+
+    public static function factory(...$parameters)
+    {
+        if (function_exists('factory')) {
+            return factory(get_called_class(), $parameters);
+        }
+
+        return App::make(TenantModelFactory::class)
+                    ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
+                    ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
+    }
 }

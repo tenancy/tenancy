@@ -36,6 +36,8 @@ use Tenancy\Tests\UsesModels;
 
 abstract class DatabaseFeatureTestCase extends TestCase
 {
+    use UsesModels;
+
     /** @var DatabaseManager */
     protected $db;
 
@@ -52,12 +54,11 @@ abstract class DatabaseFeatureTestCase extends TestCase
     use InteractsWithConnections;
     use InteractsWithMigrations;
     use UsesMigrations;
-    use UsesModels;
 
     protected function afterSetUp()
     {
         $this->db = $this->app->make(DatabaseManager::class);
-        $this->tenant = factory($this->tenantModel)->create();
+        $this->tenant = $this->tenantModel::factory()->create()->as($this->tenantModel);
         $this->tenant->unguard();
 
         $this->resolveTenant($this->tenant);
@@ -142,7 +143,9 @@ abstract class DatabaseFeatureTestCase extends TestCase
                 ->hasTable('mocks')
         );
 
-        factory(TenantModel::class, 10)->create();
+        TenantModel::factory(10)
+            ->create();
+
         $mocks = TenantModel::all();
 
         $this->db->purge(Tenancy::getTenantConnectionName());

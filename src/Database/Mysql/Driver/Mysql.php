@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\DB;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Facades\Tenancy;
-use Tenancy\Hooks\Database\Contracts\ProcessesQueries;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Hooks\Database\Support\QueryManager;
