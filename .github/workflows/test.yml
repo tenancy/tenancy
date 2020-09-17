@@ -67,6 +67,19 @@ jobs:
               run: |
                 composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: |
+                echo "::set-output name=dir::$(composer config cache-files-dir)"
+              
+            - name: Cache Composer Downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
+                  restore-keys: |
+                    ${{ runner.os }}-composer-
+  
             - name: Install Composer dependencies
               run: composer install --no-ansi --no-interaction
 
