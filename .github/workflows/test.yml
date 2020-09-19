@@ -15,10 +15,8 @@ jobs:
             fail-fast: false
             matrix:
                 laravel: [7.*, 8.*]
-                php: [7.2, 7.3, 7.4]
+                php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
-
-                experimental: [false]
 
                 include:
                     - service: 'mysql:8'
@@ -27,8 +25,6 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
-                    - php: 8.0
-                      experimental: true
 
                 exclude:
                   - laravel: 8.*
