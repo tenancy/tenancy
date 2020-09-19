@@ -91,7 +91,7 @@ jobs:
 
             - name: Install Composer dependencies (ignore-platform-req)
               if: matrix.php == '8.0'
-              run: composer install --no-ansi --no-interaction --ignore-platform-req=php
+              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
 
             - name: Run tests
               run: ./vendor/bin/phpunit
