@@ -65,8 +65,12 @@ jobs:
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Version Specific Dependencies
-              run: |
-                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+              if: matrix.php != '8.0'
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+            - name: Install Version Specific Dependencies(ignore-platform-req)
+              if: matrix.php == '8.0'
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-req=php
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -82,7 +86,12 @@ jobs:
                     ${{ runner.os }}-composer-
   
             - name: Install Composer dependencies
+              if: matrix.php != '8.0'
               run: composer install --no-ansi --no-interaction
+
+            - name: Install Composer dependencies (ignore-platform-req)
+              if: matrix.php == '8.0'
+              run: composer install --no-ansi --no-interaction --ignore-platform-req=php
 
             - name: Run tests
               run: ./vendor/bin/phpunit
