@@ -68,9 +68,9 @@ jobs:
               if: matrix.php != '8.0'
               run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
-            - name: Install Version Specific Dependencies(ignore-platform-req)
+            - name: Install Version Specific Dependencies (ignore-platform-req)
               if: matrix.php == '8.0'
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-req=php
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
 
             - name: Get Composer Cache Directory
               id: composer-cache
