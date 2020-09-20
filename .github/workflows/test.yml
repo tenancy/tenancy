@@ -17,7 +17,7 @@ jobs:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
-                experimental: [false]
+                experimental: [false, true]
 
                 include:
                     - service: 'mysql:8'
@@ -26,12 +26,18 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
-                    - php: 8.0
-                      experimental: true
 
                 exclude:
-                  - laravel: 8.*
-                    php: 7.2
+                    - laravel: 8.*
+                      php: 7.2
+                    - php: 7.2
+                      experimental: true
+                    - php: 7.3
+                      experimental: true
+                    - php: 7.4
+                      experimental: true
+                    - php: 8.0
+                      experimental: false
 
         services:
             mysql:
