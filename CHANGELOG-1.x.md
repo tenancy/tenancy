@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.1.1...1.x)
 
 
-## [1.1.0 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.0...v1.1.1)
+## [1.1.1 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.0...v1.1.1)
 - FIXED: Laravel 8 support for tenancy/framework
 
 ## [1.1.0 (2020-09-17)](https://github.com/tenancy/tenancy/compare/v1.0.3...v1.1.0)
