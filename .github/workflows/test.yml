@@ -51,59 +51,59 @@ jobs:
                 ports:
                     - 13306:3306
 
-        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }} / ${{ matrix.experimental }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
 
         steps:
             - uses: actions/checkout@master
 
-#            - name: Select PHP version
-#              uses: shivammathur/setup-php@master
-#              with:
-#                  php-version: '${{ matrix.php }}'
-#
-#            - name: Start required services
-#              run: sudo systemctl start mysql
-#
-#            - name: Create MySQL User
-#              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
-#
-#            - name: Create MySQL Database
-#              run: mysql -uroot -proot -e "create database testing;" --port 13306
-#
-#            - name: Grant MySQL permissions
-#              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
-#
-#            - name: Install Version Specific Dependencies
-#              if: ${{ ! matrix.experimental }}
-#              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-#
-#            - name: Install Version Specific Dependencies (ignore-platform-req)
-#              if: ${{ matrix.experimental }}
-#              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
-#
-#            - name: Get Composer Cache Directory
-#              id: composer-cache
-#              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-#
-#            - name: Cache Composer Downloads
-#              uses: actions/cache@v2
-#              with:
-#                  path: ${{ steps.composer-cache.outputs.dir }}
-#                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
-#                  restore-keys: ${{ runner.os }}-composer-
-#
-#            - name: Install Composer dependencies
-#              if: ${{ ! matrix.experimental }}
-#              run: composer install --no-ansi --no-interaction
-#
-#            - name: Install Composer dependencies (ignore-platform-req)
-#              if: ${{ matrix.experimental }}
-#              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
-#
-#            - name: Run tests
-#              run: ./vendor/bin/phpunit
-#              env:
-#                  TENANCY_DB: testing
-#                  TENANCY_USERNAME: testing
-#                  TENANCY_PASSWORD: testing
-#                  APP_KEY: deela5kinohw0haekoothahSh8eexach
+            - name: Select PHP version
+              uses: shivammathur/setup-php@master
+              with:
+                  php-version: '${{ matrix.php }}'
+
+            - name: Start required services
+              run: sudo systemctl start mysql
+
+            - name: Create MySQL User
+              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
+
+            - name: Create MySQL Database
+              run: mysql -uroot -proot -e "create database testing;" --port 13306
+
+            - name: Grant MySQL permissions
+              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+
+            - name: Install Version Specific Dependencies
+              if: ${{ ! matrix.experimental }}
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+            - name: Install Version Specific Dependencies (ignore-platform-req)
+              if: ${{ matrix.experimental }}
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache Composer Downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install Composer dependencies
+              if: ${{ ! matrix.experimental }}
+              run: composer install --no-ansi --no-interaction
+
+            - name: Install Composer dependencies (ignore-platform-req)
+              if: ${{ matrix.experimental }}
+              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
+
+            - name: Run tests
+              run: ./vendor/bin/phpunit
+              env:
+                  TENANCY_DB: testing
+                  TENANCY_USERNAME: testing
+                  TENANCY_PASSWORD: testing
+                  APP_KEY: deela5kinohw0haekoothahSh8eexach
