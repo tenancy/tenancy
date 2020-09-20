@@ -17,6 +17,7 @@ jobs:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
+                experimental: [false]
 
                 include:
                     - service: 'mysql:8'
@@ -25,6 +26,8 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
+                    - php: 8.0
+                      experimental: true
 
                 exclude:
                   - laravel: 8.*
@@ -65,11 +68,11 @@ jobs:
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Version Specific Dependencies
-              if: matrix.php != '8.0'
+              if: ! matrix.experimental
               run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
             - name: Install Version Specific Dependencies (ignore-platform-req)
-              if: matrix.php == '8.0'
+              if: matrix.experimental
               run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
 
             - name: Get Composer Cache Directory
@@ -86,11 +89,11 @@ jobs:
                     ${{ runner.os }}-composer-
   
             - name: Install Composer dependencies
-              if: matrix.php != '8.0'
+              if: ! matrix.experimental
               run: composer install --no-ansi --no-interaction
 
             - name: Install Composer dependencies (ignore-platform-req)
-              if: matrix.php == '8.0'
+              if: matrix.experimental
               run: composer install --no-ansi --no-interaction --ignore-platform-reqs
 
             - name: Run tests
