@@ -53,6 +53,8 @@ jobs:
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
 
+        continue-on-error: ${{ matrix.experimental }}
+
         steps:
             - uses: actions/checkout@master
 
