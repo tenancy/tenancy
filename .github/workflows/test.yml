@@ -26,18 +26,12 @@ jobs:
                       db: MySQL5
                     - service: mariadb
                       db: MariaDB
+                    - php: 8.0
+                      experimental: true
 
                 exclude:
                     - laravel: 8.*
                       php: 7.2
-                    - php: 7.2
-                      experimental: true
-                    - php: 7.3
-                      experimental: true
-                    - php: 7.4
-                      experimental: true
-                    - php: 8.0
-                      experimental: false
 
         services:
             mysql:
