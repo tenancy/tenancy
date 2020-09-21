@@ -15,8 +15,9 @@ jobs:
             fail-fast: false
             matrix:
                 laravel: [7.*, 8.*]
-                php: [7.2, 7.3, 7.4]
+                php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
+                experimental: [false, true]
 
                 include:
                     - service: 'mysql:8'
@@ -27,8 +28,16 @@ jobs:
                       db: MariaDB
 
                 exclude:
-                  - laravel: 8.*
-                    php: 7.2
+                    - laravel: 8.*
+                      php: 7.2
+                    - php: 7.2
+                      experimental: true
+                    - php: 7.3
+                      experimental: true
+                    - php: 7.4
+                      experimental: true
+                    - php: 8.0
+                      experimental: false
 
         services:
             mysql:
@@ -43,6 +52,8 @@ jobs:
                     - 13306:3306
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
+
+        continue-on-error: ${{ matrix.experimental }}
 
         steps:
             - uses: actions/checkout@master
@@ -65,24 +76,31 @@ jobs:
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
             - name: Install Version Specific Dependencies
-              run: |
-                composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+              if: ${{ ! matrix.experimental }}
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
+            - name: Install Version Specific Dependencies (ignore-platform-req)
+              if: ${{ matrix.experimental }}
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
 
             - name: Get Composer Cache Directory
               id: composer-cache
-              run: |
-                echo "::set-output name=dir::$(composer config cache-files-dir)"
-              
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
             - name: Cache Composer Downloads
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
-                  restore-keys: |
-                    ${{ runner.os }}-composer-
-  
+                  restore-keys: ${{ runner.os }}-composer-
+
             - name: Install Composer dependencies
+              if: ${{ ! matrix.experimental }}
               run: composer install --no-ansi --no-interaction
+
+            - name: Install Composer dependencies (ignore-platform-req)
+              if: ${{ matrix.experimental }}
+              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
 
             - name: Run tests
               run: ./vendor/bin/phpunit
