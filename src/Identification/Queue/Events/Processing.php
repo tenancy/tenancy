@@ -68,10 +68,6 @@ class Processing
         $tenant_key = $job->getTenantKey();
         $tenant_identifier = $job->getTenantIdentifier();
 
-        if ($tenant) {
-            $tenant = $this->restoreModel($tenant);
-        }
-
         $this->tenant = $tenant ?? null;
         $this->tenant_key = $tenant_key ?? $payload['tenant_key'] ?? null;
         $this->tenant_identifier = $tenant_identifier ?? $payload['tenant_identifier'] ?? null;
@@ -91,22 +87,5 @@ class Processing
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 
         return unserialize($stdClassObj, ['allowed_classes' => [TenancyJob::class]]);
-    }
-
-    /**
-     * Returns a property from an unserialized job if it exists on the object.
-     *
-     * @param object $job
-     * @param string $key
-     *
-     * @return mixed
-     */
-    private function getJobProperty(object $job, string $key)
-    {
-        if (property_exists($job, $key)) {
-            return $job->{$key};
-        }
-
-        return null;
     }
 }
