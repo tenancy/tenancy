@@ -63,7 +63,7 @@ class Processing
         if ($command = Arr::get($payload, 'data.command')) {
             $job = $this->unserializeToJob($command);
         }
-        
+
         $tenant = $job->getTenant();
         $tenant_key = $job->getTenantKey();
         $tenant_identifier = $job->getTenantIdentifier();
