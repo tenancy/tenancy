@@ -32,7 +32,7 @@ class Job
 
     public function getTenant()
     {
-        return $this->tenant;
+        return $this->restoreValue($this->tenant);
     }
 
     public function getTenantIdentifier()
@@ -48,8 +48,6 @@ class Job
     public function __unserialize(array $values)
     {
         $properties = (new ReflectionClass($this))->getProperties();
-
-        $class = get_class($this);
 
         foreach ($properties as $property) {
             if (!in_array($property->getName(), ['tenant', 'tenant_identifier', 'tenant_key'])) {
@@ -71,6 +69,7 @@ class Job
     protected function restoreValue($value)
     {
         $value = unserialize(serialize($value));
+
         if ($value instanceof ModelIdentifier) {
             return $this->restoreModel($value);
         }
