@@ -71,7 +71,7 @@ class Job
     protected function restoreValue($value)
     {
         $value = unserialize(serialize($value));
-        if($value instanceof ModelIdentifier){
+        if ($value instanceof ModelIdentifier) {
             return $this->restoreModel($value);
         }
 
