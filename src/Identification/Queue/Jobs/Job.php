@@ -16,10 +16,14 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Jobs;
 
+use Illuminate\Contracts\Database\ModelIdentifier;
+use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use ReflectionClass;
 
 class Job
 {
+    use SerializesAndRestoresModelIdentifiers;
+
     protected $tenant;
 
     protected $tenant_identifier;
@@ -52,7 +56,7 @@ class Job
                 continue;
             }
 
-            $name = "\0*\0{$property->getName()}";
+            $name = $property->getName();
 
             if (!array_key_exists($name, $values)) {
                 continue;
@@ -60,7 +64,17 @@ class Job
 
             $property->setAccessible(true);
 
-            $property->setValue($this, unserialize(serialize($values[$name])));
+            $property->setValue($this, $this->restoreValue($values[$name]));
         }
+    }
+
+    protected function restoreValue($value)
+    {
+        $value = unserialize(serialize($value));
+        if($value instanceof ModelIdentifier){
+            return $this->restoreModel($value);
+        }
+
+        return $value;
     }
 }
