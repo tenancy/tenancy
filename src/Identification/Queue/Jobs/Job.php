@@ -18,6 +18,7 @@ namespace Tenancy\Identification\Drivers\Queue\Jobs;
 
 use Illuminate\Contracts\Database\ModelIdentifier;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
+use ReflectionClass;
 
 class Job
 {
