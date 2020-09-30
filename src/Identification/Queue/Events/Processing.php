@@ -21,6 +21,7 @@ use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Arr;
 use Tenancy\Identification\Contracts\Tenant;
+use Tenancy\Identification\Drivers\Queue\Jobs\Job as TenancyJob;
 
 class Processing
 {
@@ -63,13 +64,9 @@ class Processing
             $job = $this->unserializeToJob($command);
         }
 
-        $tenant = $this->getJobProperty($job, 'tenant');
-        $tenant_key = $this->getJobProperty($job, 'tenant_key');
-        $tenant_identifier = $this->getJobProperty($job, 'tenant_identifier');
-
-        if ($tenant) {
-            $tenant = $this->restoreModel($tenant);
-        }
+        $tenant = $job->getTenant();
+        $tenant_key = $job->getTenantKey();
+        $tenant_identifier = $job->getTenantIdentifier();
 
         $this->tenant = $tenant ?? null;
         $this->tenant_key = $tenant_key ?? $payload['tenant_key'] ?? null;
@@ -87,25 +84,8 @@ class Processing
      */
     private function unserializeToJob(string $object)
     {
-        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen('stdClass').':"stdClass"', $object);
+        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 
-        return unserialize($stdClassObj);
-    }
-
-    /**
-     * Returns a property from an unserialized job if it exists on the object.
-     *
-     * @param object $job
-     * @param string $key
-     *
-     * @return mixed
-     */
-    private function getJobProperty(object $job, string $key)
-    {
-        if (property_exists($job, $key)) {
-            return $job->{$key};
-        }
-
-        return null;
+        return unserialize($stdClassObj, ['allowed_classes' => [TenancyJob::class]]);
     }
 }
