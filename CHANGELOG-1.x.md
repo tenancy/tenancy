@@ -1,7 +1,9 @@
 # Release Notes for 1.x
 
-## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.1.1...1.x)
+## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.1.2...1.x)
 
+## [1.1.2 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.1...v1.1.2)
+- FIXED: Queue identification serialization ([#202](https://github.com/tenancy/tenancy/pull/202))
 
 ## [1.1.1 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.0...v1.1.1)
 - FIXED: Laravel 8 support for tenancy/framework ([#200](https://github.com/tenancy/tenancy/pull/200))
