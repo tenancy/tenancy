@@ -97,11 +97,11 @@ jobs:
 
             - name: Install Composer dependencies
               if: ${{ ! matrix.experimental }}
-              run: composer install --no-ansi --no-interaction --${{ matrix.dependency-version }}
+              run: composer update --no-ansi --no-interaction --${{ matrix.dependency-version }}
 
             - name: Install Composer dependencies (ignore-platform-req)
               if: ${{ matrix.experimental }}
-              run: composer install --no-ansi --no-interaction --ignore-platform-reqs --${{ matrix.dependency-version }}
+              run: composer update --no-ansi --no-interaction --ignore-platform-reqs --${{ matrix.dependency-version }}
 
             - name: Run tests
               run: ./vendor/bin/phpunit
