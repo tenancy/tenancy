@@ -84,9 +84,6 @@ jobs:
               if: ${{ matrix.experimental }}
               run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
 
-            - name: Finish dependencies
-              run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
-
             - name: Get Composer Cache Directory
               id: composer-cache
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -100,11 +97,11 @@ jobs:
 
             - name: Install Composer dependencies
               if: ${{ ! matrix.experimental }}
-              run: composer install --no-ansi --no-interaction
+              run: composer install --no-ansi --no-interaction --${{ matrix.dependency-version }}
 
             - name: Install Composer dependencies (ignore-platform-req)
               if: ${{ matrix.experimental }}
-              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
+              run: composer install --no-ansi --no-interaction --ignore-platform-reqs --${{ matrix.dependency-version }}
 
             - name: Run tests
               run: ./vendor/bin/phpunit
