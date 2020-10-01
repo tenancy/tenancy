@@ -17,6 +17,7 @@ jobs:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
+                dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
 
                 include:
@@ -51,7 +52,7 @@ jobs:
                 ports:
                     - 13306:3306
 
-        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / ${{ matrix.db }}'
 
         continue-on-error: ${{ matrix.experimental }}
 
@@ -99,11 +100,11 @@ jobs:
 
             - name: Install Composer dependencies
               if: ${{ ! matrix.experimental }}
-              run: composer install --no-ansi --no-interaction
+              run: composer update --no-ansi --no-interaction --${{ matrix.dependency-version }}
 
             - name: Install Composer dependencies (ignore-platform-req)
               if: ${{ matrix.experimental }}
-              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
+              run: composer update --no-ansi --no-interaction --ignore-platform-reqs --${{ matrix.dependency-version }}
 
             - name: Run tests
               run: ./vendor/bin/phpunit
