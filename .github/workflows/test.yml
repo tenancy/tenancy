@@ -77,11 +77,11 @@ jobs:
 
             - name: Install Version Specific Dependencies
               if: ${{ ! matrix.experimental }}
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
             - name: Install Version Specific Dependencies (ignore-platform-req)
               if: ${{ matrix.experimental }}
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
+              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
 
             - name: Get Composer Cache Directory
               id: composer-cache
