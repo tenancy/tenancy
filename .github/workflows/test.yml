@@ -79,6 +79,10 @@ jobs:
               if: ${{ ! matrix.experimental }}
               run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
 
+            - name: Install Version Specific Dependencies (ignore-platform-req)
+              if: ${{ matrix.experimental }}
+              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
+
             - name: Get Composer Cache Directory
               id: composer-cache
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -87,12 +91,11 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ matrix.laravel }}-${{ matrix.db }}
-                  restore-keys: ${{ runner.os }}-composer-
-
-            - name: Install Version Specific Dependencies (ignore-platform-req)
-              if: ${{ matrix.experimental }}
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
+                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-
+                      ${{ runner.os }}-composer-
 
             - name: Install Composer dependencies
               if: ${{ ! matrix.experimental }}
