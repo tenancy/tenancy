@@ -9,7 +9,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9",
-        "laravel/laravel": "^7.0 | ^8.0",
+        "laravel/laravel": "*",
         "phpunit/phpunit": "^8.0",
         "mockery/mockery": "^1.3"
     },
