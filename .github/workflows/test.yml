@@ -92,8 +92,12 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-
+                      ${{ runner.os }}-composer-
 
             - name: Install Composer dependencies
               if: ${{ ! matrix.experimental }}
