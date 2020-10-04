@@ -30,6 +30,8 @@ class MigratesHook extends ConfigurableHook
      */
     public $migrator;
 
+    public $paths = [];
+
     public $connection;
 
     public $action;
@@ -39,6 +41,7 @@ class MigratesHook extends ConfigurableHook
     public function __construct()
     {
         $this->migrator = resolve('migrator');
+        $this->paths = $this->migrator->paths();
         $this->connection = Tenancy::getTenantConnectionName();
         $this->resolver = resolve(ResolvesConnections::class);
     }
@@ -65,9 +68,19 @@ class MigratesHook extends ConfigurableHook
         if (!$this->migrator->repositoryExists()) {
             $this->migrator->getRepository()->createRepository();
         }
-        call_user_func([$this->migrator, $this->action], $this->migrator->paths());
+        call_user_func([$this->migrator, $this->action], $this->paths);
 
         $this->resolver->__invoke(null, $this->connection);
         $db->setDefaultConnection($default);
+    }
+
+    public function path(string $path)
+    {
+        $this->paths[] = $path;
+    }
+
+    public function setPaths(array $paths)
+    {
+        $this->paths = $paths;
     }
 }

@@ -43,7 +43,7 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
         $this->assertContains(
             __DIR__,
-            $this->hook->migrator->paths()
+            $this->hook->paths
         );
     }
 }
