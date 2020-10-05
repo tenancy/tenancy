@@ -39,7 +39,14 @@ class ConfigureMigrations
 
     public function path(string $path)
     {
-        $this->hook->migrator->path($path);
+        $this->hook->paths[] = $path;
+
+        return $this;
+    }
+
+    public function flush()
+    {
+        $this->hook->paths = [];
 
         return $this;
     }
