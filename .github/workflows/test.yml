@@ -56,6 +56,9 @@ jobs:
 
         continue-on-error: ${{ matrix.experimental }}
 
+        env:
+            COMPOSER_ARGS: ''
+
         steps:
             - uses: actions/checkout@master
 
@@ -76,8 +79,12 @@ jobs:
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
+            - name: Setup Composer args
+              if: ${{ matrix.experimental }}
+              run: echo "COMPOSER_ARGS=--ignore-platform-reqs" >> $GITHUB_ENV
+
             - name: Install Version Specific Dependencies
-              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ matrix.experimental && "--ignore-platform-reqs" || "" }}
+              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -95,7 +102,7 @@ jobs:
                       ${{ runner.os }}-composer-
 
             - name: Install Composer dependencies
-              run: composer update --no-ansi --no-interaction ${{ matrix.experimental && "--ignore-platform-reqs" || "" }}
+              run: composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
 
             - name: Run tests
               run: ./vendor/bin/phpunit
