@@ -63,7 +63,7 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
             __DIR__,
             $this->hook->paths
         );
-        
+
         $this->events->listen($this->eventClass, function ($event) {
             $event->flush();
         });
