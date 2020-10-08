@@ -1,7 +1,6 @@
 # Release Notes for 1.x
 
 ## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.1.2...1.x)
-- Fix: Ability to flush all migration paths including those registered by other packages ([#210](https://github.com/tenancy/tenancy/pull/210))
 - Added: Migration paths are now strictly assigned by the Migration Hook ([#208](https://github.com/tenancy/tenancy/pull/208))
 
 ## [1.1.2 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.1...v1.1.2)
