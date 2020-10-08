@@ -1,7 +1,7 @@
 # Release Notes for 1.x
 
 ## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.1.2...1.x)
-- Added: Ability to flush all migration paths including those registered by other packages ([#210](https://github.com/tenancy/tenancy/pull/210))
+- ADDED: Ability to flush all migration paths including those registered by other packages ([#210](https://github.com/tenancy/tenancy/pull/210))
 
 ## [1.1.2 (2020-09-20)](https://github.com/tenancy/tenancy/compare/v1.1.1...v1.1.2)
 - FIXED: Queue identification serialization ([#202](https://github.com/tenancy/tenancy/pull/202))
