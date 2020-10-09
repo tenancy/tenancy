@@ -36,11 +36,16 @@ class MigratesHook extends ConfigurableHook
 
     public $priority = -50;
 
+    /** @var array */
+    public $paths;
+
     public function __construct()
     {
         $this->migrator = resolve('migrator');
         $this->connection = Tenancy::getTenantConnectionName();
         $this->resolver = resolve(ResolvesConnections::class);
+
+        $this->paths = $this->migrator->paths();
     }
 
     public function for($event)
@@ -65,7 +70,7 @@ class MigratesHook extends ConfigurableHook
         if (!$this->migrator->repositoryExists()) {
             $this->migrator->getRepository()->createRepository();
         }
-        call_user_func([$this->migrator, $this->action], $this->migrator->paths());
+        call_user_func([$this->migrator, $this->action], $this->paths);
 
         $this->resolver->__invoke(null, $this->connection);
         $db->setDefaultConnection($default);

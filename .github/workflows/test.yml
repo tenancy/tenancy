@@ -17,6 +17,7 @@ jobs:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
                 service: ['mysql:8', 'mysql:5.7', mariadb]
+                dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
 
                 include:
@@ -51,9 +52,12 @@ jobs:
                 ports:
                     - 13306:3306
 
-        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / ${{ matrix.db }}'
 
         continue-on-error: ${{ matrix.experimental }}
+
+        env:
+            COMPOSER_ARGS: ''
 
         steps:
             - uses: actions/checkout@master
@@ -75,13 +79,12 @@ jobs:
             - name: Grant MySQL permissions
               run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
 
-            - name: Install Version Specific Dependencies
-              if: ${{ ! matrix.experimental }}
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-
-            - name: Install Version Specific Dependencies (ignore-platform-req)
+            - name: Setup Composer args
               if: ${{ matrix.experimental }}
-              run: composer require "laravel/laravel:${{ matrix.laravel }}" "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-reqs
+              run: echo "COMPOSER_ARGS=--ignore-platform-reqs" >> $GITHUB_ENV
+
+            - name: Install Version Specific Dependencies
+              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -91,16 +94,15 @@ jobs:
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ github.sha }}-${{ hashFiles('**/composer.json') }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-
+                      ${{ runner.os }}-composer-
 
             - name: Install Composer dependencies
-              if: ${{ ! matrix.experimental }}
-              run: composer install --no-ansi --no-interaction
-
-            - name: Install Composer dependencies (ignore-platform-req)
-              if: ${{ matrix.experimental }}
-              run: composer install --no-ansi --no-interaction --ignore-platform-reqs
+              run: composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
 
             - name: Run tests
               run: ./vendor/bin/phpunit
