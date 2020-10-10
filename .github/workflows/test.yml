@@ -106,6 +106,7 @@ jobs:
 
             - name: Run tests
               run: ./vendor/bin/phpunit
+              continue-on-error: ${{ matrix.experimental }}
               env:
                   TENANCY_DB: testing
                   TENANCY_USERNAME: testing
