@@ -56,8 +56,7 @@ class Pgsql implements ProvidesDatabase
                          $this->statement("CREATE USER \"{$config['username']}\" WITH PASSWORD '{$config['password']}'");
                          if ($config['schema'] == 'public') {
                              $this->statement("CREATE DATABASE \"{$config['database']}\" WITH OWNER = \"{$config['username']}\"");
-                         }
-                         else {
+                         } else {
                              $this->statement("CREATE SCHEMA IF NOT EXISTS \"{$config['schema']}\" AUTHORIZATION \"{$config['username']}\"");
                          }
                      })
@@ -89,8 +88,7 @@ class Pgsql implements ProvidesDatabase
                          if ($config['schema'] == 'public') {
                              $this->statement("ALTER DATABASE \"{$config['oldUsername']}\" RENAME TO \"{$config['database']}\"");
                              $this->statement("ALTER DATABASE \"{$config['database']}\" OWNER TO \"{$config['username']}\"");
-                         }
-                         else {
+                         } else {
                              $this->statement("ALTER SCHEMA \"{$config['oldUsername']}\" RENAME TO \"{$config['schema']}\"");
                              $this->statement("ALTER SCHEMA \"{$config['schema']}\" OWNER TO \"{$config['username']}\"");
                          }
@@ -112,8 +110,7 @@ class Pgsql implements ProvidesDatabase
             ->process(function () use ($config) {
                 if ($config['schema'] == 'public') {
                     $this->statement("DROP DATABASE \"{$config['database']}\"");
-                }
-                else {
+                } else {
                     $this->statement("DROP SCHEMA \"{$config['schema']}\" CASCADE");
                 }
                 $this->statement("DROP USER \"{$config['username']}\"");
