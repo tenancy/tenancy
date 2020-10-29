@@ -114,7 +114,7 @@ class Pgsql implements ProvidesDatabase
                     $this->statement("DROP DATABASE \"{$config['database']}\"");
                 }
                 else {
-                    $this->statement("DROP SCHEMA \"{$config['schema']}\"");
+                    $this->statement("DROP SCHEMA \"{$config['schema']}\" CASCADE");
                 }
                 $this->statement("DROP USER \"{$config['username']}\"");
             })

@@ -23,7 +23,7 @@ use Tenancy\Tests\Mocks\Tenants\PgsqlTenant;
 use Tenancy\Tests\UsesConnections;
 use Tenancy\Tests\UsesTenants;
 
-class PgsqlConnectionDriverTest extends DatabaseFeatureTestCase
+class PgsqlDatabaseConnectionDriverTest extends DatabaseFeatureTestCase
 {
     use UsesTenants;
     use UsesConnections;
