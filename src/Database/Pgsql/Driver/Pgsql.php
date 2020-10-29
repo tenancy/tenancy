@@ -54,7 +54,12 @@ class Pgsql implements ProvidesDatabase
         $result = $this->queryManager->setConnection($connection)
                      ->process(function () use ($config) {
                          $this->statement("CREATE USER \"{$config['username']}\" WITH PASSWORD '{$config['password']}'");
-                         $this->statement("CREATE DATABASE \"{$config['database']}\" WITH OWNER = \"{$config['username']}\"");
+                         if ($config['schema'] == 'public') {
+                             $this->statement("CREATE DATABASE \"{$config['database']}\" WITH OWNER = \"{$config['username']}\"");
+                         }
+                         else {
+                             $this->statement("CREATE SCHEMA IF NOT EXISTS \"{$config['schema']}\" AUTHORIZATION \"{$config['username']}\"");
+                         }
                      })
                      ->getStatus();
 
@@ -81,9 +86,14 @@ class Pgsql implements ProvidesDatabase
                          $this->statement("ALTER USER \"{$config['username']}\" WITH PASSWORD '{$config['password']}'");
                      })
                      ->process(function () use ($config) {
-                         $this->statement("CREATE DATABASE \"{$config['database']}\" WITH OWNER = \"{$config['username']}\" TEMPLATE = \"{$config['oldUsername']}\"");
-                         // Add database drop statement as last statement
-                         $this->statement("DROP DATABASE \"{$config['oldUsername']}\"");
+                         if ($config['schema'] == 'public') {
+                             $this->statement("ALTER DATABASE \"{$config['oldUsername']}\" RENAME TO \"{$config['database']}\"");
+                             $this->statement("ALTER DATABASE \"{$config['database']}\" OWNER TO \"{$config['username']}\"");
+                         }
+                         else {
+                             $this->statement("ALTER SCHEMA \"{$config['oldUsername']}\" RENAME TO \"{$config['schema']}\"");
+                             $this->statement("ALTER SCHEMA \"{$config['schema']}\" OWNER TO \"{$config['username']}\"");
+                         }
                      })
                      ->getStatus();
 
@@ -100,7 +110,12 @@ class Pgsql implements ProvidesDatabase
 
         $result = $this->queryManager->setConnection($this->system($tenant))
             ->process(function () use ($config) {
-                $this->statement("DROP DATABASE \"{$config['database']}\"");
+                if ($config['schema'] == 'public') {
+                    $this->statement("DROP DATABASE \"{$config['database']}\"");
+                }
+                else {
+                    $this->statement("DROP SCHEMA \"{$config['schema']}\"");
+                }
                 $this->statement("DROP USER \"{$config['username']}\"");
             })
             ->getStatus();
