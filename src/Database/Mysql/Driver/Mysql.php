@@ -52,7 +52,7 @@ class Mysql implements ProvidesDatabase
         event(new Events\Creating($tenant, $config, $this));
 
         $result = $this->queryManager->setConnection($this->system($tenant))
-            ->processTransaction(function () use ($config) {
+            ->process(function () use ($config) {
                 $this->statement("CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'");
                 $this->statement("CREATE DATABASE `{$config['database']}`");
                 $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
@@ -77,7 +77,7 @@ class Mysql implements ProvidesDatabase
         $tables = $this->retrieveTables($tenant);
 
         $result = $this->queryManager->setConnection($this->system($tenant))
-            ->processTransaction(function () use ($config, $tables) {
+            ->process(function () use ($config, $tables) {
                 $this->statement("RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'");
                 $this->statement("ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'");
                 $this->statement("CREATE DATABASE `{$config['database']}`");
@@ -104,7 +104,7 @@ class Mysql implements ProvidesDatabase
         event(new Events\Deleting($tenant, $config, $this));
 
         $result = $this->queryManager->setConnection($this->system($tenant))
-            ->processTransaction(function () use ($config) {
+            ->process(function () use ($config) {
                 $this->statement("DROP USER `{$config['username']}`@'{$config['host']}'");
                 $this->statement("DROP DATABASE IF EXISTS `{$config['database']}`");
             })
