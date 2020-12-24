@@ -44,9 +44,8 @@ class Mysql implements ProvidesDatabase
         event(new Events\Creating($tenant, $config, $this));
 
         return $this->processAndDispatch(Events\Created::class, $tenant, [
-            'database' => "CREATE DATABASE `{$config['database']}`",
             'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
-            
+            'database' => "CREATE DATABASE `{$config['database']}`",            
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
         ]);
     }
