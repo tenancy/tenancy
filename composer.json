@@ -8,7 +8,7 @@
         "doctrine/dbal": "^2.9"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.9",
+        "fakerphp/faker": "^1.9",
         "laravel/laravel": "*",
         "phpunit/phpunit": "^8.0",
         "mockery/mockery": "^1.3"
