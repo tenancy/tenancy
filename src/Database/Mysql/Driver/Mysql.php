@@ -44,8 +44,9 @@ class Mysql implements ProvidesDatabase
         event(new Events\Creating($tenant, $config, $this));
 
         return $this->processAndDispatch(Events\Created::class, $tenant, [
-            'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
             'database' => "CREATE DATABASE `{$config['database']}`",
+            'user'     => "CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'",
+            
             'grant'    => "GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'",
         ]);
     }
@@ -106,14 +107,11 @@ class Mysql implements ProvidesDatabase
     {
         $success = false;
 
-        $this->system($tenant)->beginTransaction();
-
         foreach ($statements as $statement) {
             try {
                 $success = $this->system($tenant)->statement($statement);
                 // @codeCoverageIgnoreStart
             } catch (QueryException $e) {
-                $this->system($tenant)->rollBack();
                 // @codeCoverageIgnoreEnd
             } finally {
                 if (!$success) {
@@ -121,8 +119,6 @@ class Mysql implements ProvidesDatabase
                 }
             }
         }
-
-        $this->system($tenant)->commit();
 
         return $success;
     }
