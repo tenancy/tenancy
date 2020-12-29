@@ -77,7 +77,7 @@ jobs:
               run: ./tenancy composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
 
             - name: Run tests
-              run: ./tenancy test
+              run: ./tenancy ci
               continue-on-error: ${{ matrix.experimental }}
               env:
                   TENANCY_DB: testing

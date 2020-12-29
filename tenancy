@@ -40,3 +40,8 @@ if [[ "$COMMAND" == "composer" ]]
 then
     docker-compose -f ./.dev/docker-compose.yml exec -T php composer ${@:2}
 fi
+
+if [[ "$COMMAND" == "ci" ]]
+then
+    docker-compose -f ./.dev/docker-compose.yml run -T php vendor/bin/phpunit
+fi
