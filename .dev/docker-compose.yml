@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+    php:
+        image: arlonwip/php:${PHP_VERSION}
+        volumes:
+            - '../:/var/www/html'
+        networks:
+            - application
+        depends_on:
+            - mysql
+        tty: true
+        stdin_open: true
+
+    mysql:
+        image: 'arlonwip/mysql:${MYSQL_VERSION}'
+
+        environment:
+            MYSQL_DATABASE: testing
+            MYSQL_USER: testing
+            MYSQL_PASSWORD: testing
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_ALLOW_EMPTY_PASSWORD: ''
+            MYSQL_ROOT_HOST: "%"
+
+        ports:
+            - 13306:3306
+        networks:
+            - application
+
+networks:
+    application:
+        driver: bridge

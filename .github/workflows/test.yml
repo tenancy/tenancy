@@ -16,7 +16,7 @@ jobs:
             matrix:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
-                service: ['mysql:8', 'mysql:5.7', mariadb]
+                service: ['mysql:8', 'mysql:5.7']
                 dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
 
@@ -25,8 +25,6 @@ jobs:
                       db: MySQL8
                     - service: 'mysql:5.7'
                       db: MySQL5
-                    - service: mariadb
-                      db: MariaDB
 
                 exclude:
                     - laravel: 8.*
@@ -62,29 +60,15 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Select PHP version
-              uses: shivammathur/setup-php@master
-              with:
-                  php-version: '${{ matrix.php }}'
-
-            - name: Start required services
-              run: sudo systemctl start mysql
-
-            - name: Create MySQL User
-              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
-
-            - name: Create MySQL Database
-              run: mysql -uroot -proot -e "create database testing;" --port 13306
-
-            - name: Grant MySQL permissions
-              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
+            - name: Start Environment
+              run: ./tenancy start ${{ matrix.php }} ${{ matrix.service }}
 
             - name: Setup Composer args
               if: ${{ matrix.experimental }}
               run: echo "COMPOSER_ARGS=--ignore-platform-reqs" >> $GITHUB_ENV
 
             - name: Install Version Specific Dependencies
-              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
+              run: ./tenancy composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -102,10 +86,10 @@ jobs:
                       ${{ runner.os }}-composer-
 
             - name: Install Composer dependencies
-              run: composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
+              run: ./tenancy composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
 
             - name: Run tests
-              run: ./vendor/bin/phpunit
+              run: ./tenancy test
               continue-on-error: ${{ matrix.experimental }}
               env:
                   TENANCY_DB: testing

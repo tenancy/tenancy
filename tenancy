@@ -1,0 +1,42 @@
+#!/bin/bash
+
+COMMAND=$1
+PHP_VERSION=7.4
+MYSQL_VERSION=8
+
+if [[ -z "$COMMAND" ]]
+then
+    echo "No command provided"
+fi
+
+if [[ "$COMMAND" == "start" ]]
+then
+    if [[ ! -z "$2" ]]
+    then
+        PHP_VERSION=$2
+    fi
+
+    if [[ ! -z "$3" ]]
+    then
+        MYSQL_VERSION=$3
+    fi
+
+    echo $PHP_VERSION
+    echo $MYSQL_VERSION
+    PHP_VERSION=$PHP_VERSION MYSQL_VERSION=$MYSQL_VERSION docker-compose -f ./.dev/docker-compose.yml up
+fi
+
+if [[ "$COMMAND" == "install" ]]
+then
+    docker-compose -f ./.dev/docker-compose.yml exec php composer install
+fi
+
+if [[ "$COMMAND" == "test" ]]
+then
+    docker-compose -f ./.dev/docker-compose.yml exec php vendor/bin/phpunit
+fi
+
+if [[ "$COMMAND" == "composer" ]]
+then
+    docker-compose -f ./.dev/docker-compose.yml exec php composer ${@:2}
+fi
