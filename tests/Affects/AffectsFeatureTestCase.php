@@ -54,7 +54,7 @@ abstract class AffectsFeatureTestCase extends TestCase
 
     protected function assertNotAffected(Tenant $tenant)
     {
-        $this->assertTrue(
+        $this->assertFalse(
             $this->isAffected($tenant),
             "Application is affected by {$tenant->getTenantKey()}"
         );
