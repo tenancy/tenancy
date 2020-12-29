@@ -43,5 +43,5 @@ fi
 
 if [[ "$COMMAND" == "ci" ]]
 then
-    docker-compose -f ./.dev/docker-compose.yml run -T php vendor/bin/phpunit
+    docker-compose -f ./.dev/docker-compose.yml run -T php vendor/bin/phpunit ${@:2}
 fi
