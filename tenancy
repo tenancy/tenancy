@@ -23,7 +23,7 @@ then
 
     echo $PHP_VERSION
     echo $MYSQL_VERSION
-    PHP_VERSION=$PHP_VERSION MYSQL_VERSION=$MYSQL_VERSION docker-compose -f ./.dev/docker-compose.yml up
+    PHP_VERSION=$PHP_VERSION MYSQL_VERSION=$MYSQL_VERSION docker-compose -f ./.dev/docker-compose.yml up -d
 fi
 
 if [[ "$COMMAND" == "install" ]]
