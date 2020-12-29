@@ -83,4 +83,6 @@ jobs:
                   TENANCY_DB: testing
                   TENANCY_USERNAME: testing
                   TENANCY_PASSWORD: testing
+                  PHP_VERSION: ${{ matrix.php }}
+                  MYSQL_VERSION: ${{ matrix.service }}
                   APP_KEY: deela5kinohw0haekoothahSh8eexach
