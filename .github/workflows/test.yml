@@ -16,14 +16,14 @@ jobs:
             matrix:
                 laravel: [7.*, 8.*]
                 php: [7.2, 7.3, 7.4, 8.0]
-                service: ['mysql:8', 'mysql:5.7']
+                service: ['5.7', '8']
                 dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
 
                 include:
-                    - service: 'mysql:8'
+                    - service: '8'
                       db: MySQL8
-                    - service: 'mysql:5.7'
+                    - service: '5.7'
                       db: MySQL5
 
                 exclude:
