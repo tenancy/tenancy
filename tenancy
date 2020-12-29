@@ -28,15 +28,15 @@ fi
 
 if [[ "$COMMAND" == "install" ]]
 then
-    docker-compose -f ./.dev/docker-compose.yml exec php composer install
+    docker-compose -f ./.dev/docker-compose.yml exec -T php composer install
 fi
 
 if [[ "$COMMAND" == "test" ]]
 then
-    docker-compose -f ./.dev/docker-compose.yml exec php vendor/bin/phpunit
+    docker-compose -f ./.dev/docker-compose.yml exec -T php vendor/bin/phpunit
 fi
 
 if [[ "$COMMAND" == "composer" ]]
 then
-    docker-compose -f ./.dev/docker-compose.yml exec php composer ${@:2}
+    docker-compose -f ./.dev/docker-compose.yml exec -T php composer ${@:2}
 fi
