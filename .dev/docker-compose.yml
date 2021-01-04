@@ -4,7 +4,7 @@ services:
     php:
         image: arlonwip/php:${PHP_VERSION}
         volumes:
-            - '../:/var/www/html'
+            - '${TENANCY_PATH-../}:/var/www/html'
         networks:
             - application
         depends_on:
