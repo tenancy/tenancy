@@ -3,7 +3,7 @@ name: Subsplit
 on:
     push:
         branches:
-            - master
+            - '*' # include all first-level branches (any without '/' in the name)
         tags:
             - 'v*'
 
