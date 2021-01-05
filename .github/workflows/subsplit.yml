@@ -23,7 +23,7 @@ jobs:
             - name: Install subsplit
               run: sudo cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
 
-            - uses: nelonoel/branch-name@v1
+            - uses: nelonoel/branch-name@v1.0.1
 
             - name: Subsplit
               run: bash build/tenancy-split.sh ${BRANCH_NAME}
