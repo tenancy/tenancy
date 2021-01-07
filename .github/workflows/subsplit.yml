@@ -3,7 +3,7 @@ name: Subsplit
 on:
     push:
         branches:
-            - master
+            - '*' # include all first-level branches (any without '/' in the name)
         tags:
             - 'v*'
 
@@ -23,5 +23,7 @@ jobs:
             - name: Install subsplit
               run: sudo cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
 
+            - uses: nelonoel/branch-name@v1.0.1
+
             - name: Subsplit
-              run: bash build/tenancy-split.sh
+              run: bash build/tenancy-split.sh ${BRANCH_NAME}
