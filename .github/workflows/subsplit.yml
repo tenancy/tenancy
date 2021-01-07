@@ -3,7 +3,7 @@ name: Subsplit
 on:
     push:
         branches:
-            - master
+            - '*' # include all first-level branches (any without '/' in the name)
         tags:
             - 'v*'
 
@@ -13,7 +13,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@master
-            - uses: webfactory/ssh-agent@v0.1.1
+            - uses: webfactory/ssh-agent@v0.4.1
               with:
                 ssh-private-key: ${{ secrets.SUBSPLIT_KEY }}
 
@@ -23,5 +23,7 @@ jobs:
             - name: Install subsplit
               run: sudo cp ~/subsplit/git-subsplit.sh "$(git --exec-path)"/git-subsplit
 
+            - uses: nelonoel/branch-name@v1.0.1
+
             - name: Subsplit
-              run: bash build/tenancy-split.sh
+              run: bash build/tenancy-split.sh ${BRANCH_NAME}
