@@ -16,7 +16,7 @@ jobs:
                     MYSQL_ROOT_HOST: "%"
                 ports:
                     - 13306:3306
-            psgql:
+            pgsql:
                 image: postgres
                 env:
                     POSTGRES_USER: testing
