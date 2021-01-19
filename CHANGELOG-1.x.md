@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/tenancy/tenancy/compare/v1.3.1...1.x)
 
 ## [1.3.1 (2021-01-20)](https://github.com/tenancy/tenancy/compare/v1.3.0...v1.3.1)
-- ADDED: PHP 8 Support ([#223](https://github.com/tenancy/tenancy/pull/223))
+- CHANGED: Supported Doctrine DBAL versions ([#223](https://github.com/tenancy/tenancy/pull/223))
 
 ## [1.3.0 (2020-12-29)](https://github.com/tenancy/tenancy/compare/v1.2.0...v1.3.0)
 - ADDED: PHP 8 Support ([#219](https://github.com/tenancy/tenancy/pull/219))
