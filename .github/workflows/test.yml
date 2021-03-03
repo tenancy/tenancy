@@ -8,7 +8,7 @@ on:
 
 jobs:
     test:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-18.04
         if: "!contains(github.event.head_commit.message, '[ci skip]')"
 
         strategy:
@@ -66,7 +66,6 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: '${{ matrix.php }}'
-                  extensions: sqlite3, bcmath, bz2, dba, enchant, FFI, gd, gmp, imap, ldap, odbc, PDO_ODBC, pdo_pgsql, pdo_sqlite ,pdo_dblib, PDO_Firebird, pgsql, pspell, snmp, soap, tidy, xmlrpc, zip
 
             - name: Start required services
               run: sudo systemctl start mysql
