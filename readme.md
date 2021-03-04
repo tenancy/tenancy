@@ -4,7 +4,7 @@ Enabling awesome Software as a Service with the Laravel framework.
 
 This is the successor of [hyn/multi-tenant](https://github.com/tenancy/multi-tenant). 
 Feel free to show support by starring the project
-following progress via [twitter](https://twitter.com/laraveltenancy) and
+following progress via [twitter](https://twitter.com/tenancydev) and
 backing its development over at [OpenCollective](https://opencollective.com/tenancy).
 
 ![Tests](https://github.com/tenancy/tenancy/workflows/Tests/badge.svg)
