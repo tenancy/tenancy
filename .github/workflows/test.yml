@@ -10,7 +10,7 @@ jobs:
     test:
         runs-on: ubuntu-18.04
         if: "!contains(github.event.head_commit.message, '[ci skip]')"
-        needs: build
+        needs: build-images
 
         strategy:
             fail-fast: false
@@ -55,76 +55,77 @@ jobs:
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
 
-  build:
-    needs: [build-php, build-mysql]
+    build-images:
+        runs-on: ubuntu-latest
+        needs: [build-php, build-mysql]
 
-  build-php:
-    runs-on: ubuntu-latest
-    if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
+    build-php:
+        runs-on: ubuntu-latest
+        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
 
-    strategy:
-      matrix:
-        version: ['7.2', '7.3', '7.4', '8.0']
-        
-    name: 'Docker PHP Release ${{ matrix.version }}'
+        strategy:
+            matrix:
+                version: ['7.2', '7.3', '7.4', '8.0']
+            
+        name: 'Docker PHP Release ${{ matrix.version }}'
 
-    steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        steps:
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v1
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Login to DockerHub
+              uses: docker/login-action@v1 
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Information
-        run: echo "Building Images for PHP ${{ matrix.version }}"
+            - name: Information
+              run: echo "Building Images for PHP ${{ matrix.version }}"
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: ./Docker/Images/PHP/Dockerfile
-          tags: |
-            arlonwip/php:${{ matrix.version }}
-          build-args: |
-            VERSION=${{ matrix.version }}
+            - name: Build and push
+              id: docker_build
+              uses: docker/build-push-action@v2
+              with:
+                  push: true
+                  file: ./Docker/Images/PHP/Dockerfile
+                  tags: |
+                    arlonwip/php:${{ matrix.version }}
+                  build-args: |
+                    VERSION=${{ matrix.version }}
 
-  build-mysql:
-    runs-on: ubuntu-latest
-    if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
+    build-mysql:
+        runs-on: ubuntu-latest
+        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
 
-    strategy:
-      matrix:
-        version: ['5.7', '8']
-        
-    name: 'Docker MySQL Release ${{ matrix.version }}'
+        strategy:
+            matrix:
+                version: ['5.7', '8']
+            
+        name: 'Docker MySQL Release ${{ matrix.version }}'
 
-    steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        steps:
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v1
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Login to DockerHub
+              uses: docker/login-action@v1 
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Information
-        run: echo "Building Images for MySQL ${{ matrix.version }}"
+            - name: Information
+              run: echo "Building Images for MySQL ${{ matrix.version }}"
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: ./Docker/Images/MySQL/Dockerfile
-          tags: arlonwip/mysql:${{ matrix.version }}
-          build-args: |
-            VERSION=${{ matrix.version }}
+            - name: Build and push
+              uses: docker/build-push-action@v2
+              with:
+                push: true
+                file: ./Docker/Images/MySQL/Dockerfile
+                tags: arlonwip/mysql:${{ matrix.version }}
+                build-args: |
+                  VERSION=${{ matrix.version }}
