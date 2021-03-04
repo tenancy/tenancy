@@ -95,7 +95,7 @@ jobs:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: 
+            - name: Information
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
               run: echo "Building Images for PHP ${{ matrix.version }}"
 
@@ -140,7 +140,7 @@ jobs:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: 
+            - name: Information
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
               run: echo "Building Images for PHP ${{ matrix.version }}"
 
