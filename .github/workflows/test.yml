@@ -80,7 +80,7 @@ jobs:
 
             - name: Analyze Changed Files
               id: analyze
-              run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+              run: echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
 
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
@@ -96,6 +96,9 @@ jobs:
 
             - name: Information
               run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }} - ${{ steps.analyze.outputs.files }}"
+
+            - name: Information
+              run: echo ${{ steps.analyze.outputs.files }}
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
@@ -124,7 +127,7 @@ jobs:
             
             - name: Analyze Changed Files
               id: analyze
-              run: echo "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
+              run: echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
             
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
@@ -140,6 +143,9 @@ jobs:
 
             - name: Information
               run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }} - ${{ steps.analyze.outputs.files }}"
+              
+            - name: Information
+              run: echo ${{ steps.analyze.outputs.files }}
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
