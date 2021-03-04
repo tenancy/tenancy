@@ -75,6 +75,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
+              fetch-depth: 0
 
             - name: Analyze Changed Files
               id: analyze
@@ -117,6 +118,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
+              fetch-depth: 0
             
             - name: Analyze Changed Files
               id: analyze
