@@ -61,11 +61,11 @@ jobs:
         needs: [build-php, build-mysql]
 
         steps:
-            - name: Show Changed Files
-              run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+            - uses: actions/checkout@v2
 
     build-php:
         runs-on: ubuntu-latest
+        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
 
         strategy:
             matrix:
@@ -104,6 +104,7 @@ jobs:
 
     build-mysql:
         runs-on: ubuntu-latest
+        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
 
         strategy:
             matrix:
