@@ -97,7 +97,7 @@ jobs:
               run: echo "Building Images for PHP ${{ matrix.version }}"
 
             - name: Build and push
-              if: Contains(steps.Analyze.outputs.files, 'Docker')
+              if: Contains(steps.Analyze.outputs.files, 'Docker') || Contains(steps.Analyze.outputs.files, '.github')
               uses: docker/build-push-action@v2
               with:
                   push: true
@@ -140,7 +140,7 @@ jobs:
               run: echo "Building Images for MySQL ${{ matrix.version }}"
 
             - name: Build and push
-              if: Contains(steps.Analyze.outputs.files, 'Docker')
+              if: Contains(steps.Analyze.outputs.files, 'Docker') || Contains(steps.Analyze.outputs.files, '.github')
               uses: docker/build-push-action@v2
               with:
                 push: true
