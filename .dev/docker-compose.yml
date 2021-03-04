@@ -28,6 +28,8 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: ''
             MYSQL_ROOT_HOST: "%"
 
+        command: --default-authentication-plugin=mysql_native_password
+
         ports:
             - 13306:3306
             
