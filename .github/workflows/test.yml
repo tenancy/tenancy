@@ -94,7 +94,7 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                   push: true
-                  file: ./Docker/Images/PHP/Dockerfile
+                  file: ./.dev/Docker/Images/PHP/Dockerfile
                   tags: |
                     arlonwip/php:${{ matrix.version }}
                   build-args: |
@@ -128,7 +128,7 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 push: true
-                file: ./Docker/Images/MySQL/Dockerfile
+                file: ./.dev/Docker/Images/MySQL/Dockerfile
                 tags: arlonwip/mysql:${{ matrix.version }}
                 build-args: |
                   VERSION=${{ matrix.version }}
