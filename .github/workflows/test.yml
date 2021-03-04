@@ -80,7 +80,7 @@ jobs:
 
             - name: Analyze Changed Files
               id: analyze
-              run: echo "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
+              run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
 
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
