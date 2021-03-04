@@ -26,5 +26,5 @@ RUNCOMMAND="${RUNCOMMAND} && composer require 'laravel/laravel:$LARAVEL_VERSION'
 RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction --$DEPENDENCY_VERSIONS"
 RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120 && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
 
-echo "${PREPENDCOMMAND} && ${RUNCOMMAND}"
-PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker-compose -f ./.dev/docker-compose.yml run -T --rm --service-ports --use-aliases php bash -c "${PREPENDCOMMAND} && ${RUNCOMMAND}"
+echo "${RUNCOMMAND}"
+PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker-compose -f ./.dev/docker-compose.yml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"
