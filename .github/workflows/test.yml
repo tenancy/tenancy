@@ -56,8 +56,9 @@ jobs:
               continue-on-error: ${{ matrix.experimental }}
 
     build-images:
+        name: Building Images
+
         runs-on: ubuntu-latest
-        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
         needs: [build-php, build-mysql]
 
         steps:
@@ -94,11 +95,9 @@ jobs:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: Information
-              run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }} - ${{ steps.analyze.outputs.files }}"
-
-            - name: Information
-              run: echo ${{ steps.analyze.outputs.files }}
+            - name: 
+              if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
+              run: echo "Building Images for PHP ${{ matrix.version }}"
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
@@ -141,11 +140,9 @@ jobs:
                 username: ${{ secrets.DOCKERHUB_USERNAME }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: Information
-              run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }} - ${{ steps.analyze.outputs.files }}"
-              
-            - name: Information
-              run: echo ${{ steps.analyze.outputs.files }}
+            - name: 
+              if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
+              run: echo "Building Images for PHP ${{ matrix.version }}"
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
