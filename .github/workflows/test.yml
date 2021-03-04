@@ -42,7 +42,7 @@ jobs:
 
 
 
-        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
         continue-on-error: ${{ matrix.experimental }}
 
