@@ -13,21 +13,8 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Start Environment
-              run: ./tenancy start ${{ matrix.php }} ${{ matrix.service }}
-
-            - name: Install dependencies
-              run: ./tenancy composer install
-
             - name: Run tests for coverage
-              run: ./tenancy ci --coverage-clover=coverage.xml
-              env:
-                  TENANCY_DB: testing
-                  TENANCY_USERNAME: testing
-                  TENANCY_PASSWORD: testing
-                  PHP_VERSION: ${{ env.PHP_VERSION }}
-                  DB_VERSION: ${{ env.DB_VERSION }}
-                  APP_KEY: deela5kinohw0haekoothahSh8eexach
+              run: ./test --php ${{ env.PHP_VERSION }} --laravel ${{ env.LARAVEL_VERSION }} --db ${{ env.DB_VERSION }} --coverage
 
             - name: Upload coverage
               run: bash <(curl -s https://codecov.io/bash)

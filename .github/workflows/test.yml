@@ -21,8 +21,11 @@ jobs:
                 experimental: [false, true]
 
                 exclude:
+                    ## Laravel specifically not supported PHP versions
                     - php: 7.2
                       laravel: 8.*
+
+                    # Disabled due to them not being experimental
                     - php: 7.2
                       experimental: true
                     - php: 7.3
@@ -40,14 +43,9 @@ jobs:
                       laravel: 8.*
                       dependency-version: prefer-lowest
 
-
-
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
         continue-on-error: ${{ matrix.experimental }}
-
-        env:
-            COMPOSER_ARGS: ''
 
         steps:
             - uses: actions/checkout@master
