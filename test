@@ -1,0 +1,26 @@
+#!/bin/bash
+
+COMMAND=$1
+PHP_VERSION=7.4
+DB_VERSION=8
+LARAVEL_VERSION=8.*
+DEPENDENCY_VERSIONS=prefer-lowest
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --php) PHP_VERSION="$2"; shift ;;
+        --db) DB_VERSION="$2"; shift ;;
+        --laravel) LARAVEL_VERSION="$2"; shift ;;
+        --dependencies) DEPENDENCY_VERSIONS="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
+RUNCOMMAND="${RUNCOMMAND} && composer require 'laravel/laravel:$LARAVEL_VERSION' --dev --no-interaction --no-update"
+RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction --$DEPENDENCY_VERSIONS"
+RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120 && vendor/bin/phpunit"
+
+echo ${RUNCOMMAND}
+PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker-compose -f ./.dev/docker-compose.yml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"

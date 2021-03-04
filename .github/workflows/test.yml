@@ -48,20 +48,6 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - name: Start Environment
-              run: ./tenancy start ${{ matrix.php }} ${{ matrix.service }}
-
-            - name: Setup Composer args
-              if: ${{ matrix.experimental }}
-              run: echo "COMPOSER_ARGS=--ignore-platform-reqs" >> $GITHUB_ENV
-
-            - name: Install Version Specific Dependencies
-              run: ./tenancy composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
-
-            - name: Get Composer Cache Directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
             - name: Cache Composer Downloads
               uses: actions/cache@v2
               with:
@@ -73,16 +59,17 @@ jobs:
                       ${{ runner.os }}-composer-${{ matrix.php }}-
                       ${{ runner.os }}-composer-
 
-            - name: Install Composer dependencies
-              run: ./tenancy composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
-
             - name: Run tests
-              run: ./tenancy ci
+              run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
-              env:
-                  TENANCY_DB: testing
-                  TENANCY_USERNAME: testing
-                  TENANCY_PASSWORD: testing
-                  PHP_VERSION: ${{ matrix.php }}
-                  MYSQL_VERSION: ${{ matrix.service }}
-                  APP_KEY: deela5kinohw0haekoothahSh8eexach
+
+            - name: Cache Composer Downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-
+                      ${{ runner.os }}-composer-${{ matrix.php }}-
+                      ${{ runner.os }}-composer-

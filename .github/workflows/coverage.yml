@@ -8,7 +8,7 @@ jobs:
 
         env:
           PHP_VERSION: '8.0'
-          MYSQL_VERSION: '8'
+          DB_VERSION: '8'
 
         steps:
             - uses: actions/checkout@master
@@ -26,7 +26,7 @@ jobs:
                   TENANCY_USERNAME: testing
                   TENANCY_PASSWORD: testing
                   PHP_VERSION: ${{ env.PHP_VERSION }}
-                  MYSQL_VERSION: ${{ env.MYSQL_VERSION }}
+                  DB_VERSION: ${{ env.DB_VERSION }}
                   APP_KEY: deela5kinohw0haekoothahSh8eexach
 
             - name: Upload coverage
