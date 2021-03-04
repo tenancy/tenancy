@@ -10,7 +10,7 @@ jobs:
     test:
         runs-on: ubuntu-18.04
         if: "!contains(github.event.head_commit.message, '[ci skip]')"
-        needs: build-images
+        needs: [requirement-images]
 
         strategy:
             fail-fast: false
@@ -55,8 +55,8 @@ jobs:
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
 
-    build-images:
-        name: Building Images
+    requirement-images:
+        name: "Requirement: Building Images"
 
         runs-on: ubuntu-latest
         needs: [build-php, build-mysql]
