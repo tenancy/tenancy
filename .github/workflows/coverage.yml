@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
     coverage:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-18.04
 
         env:
           PHP_VERSION: '8.0'
