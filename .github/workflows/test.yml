@@ -49,7 +49,17 @@ jobs:
 
         steps:
             - uses: actions/checkout@master
-            
+
+            - name: Cache Docker Downloads
+              uses: actions/cache@v2
+              with:
+                  path: /var/lib/docker
+                  key: ${{ runner.os }}-docker-${{ matrix.php }}-${{ matrix.service }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-docker-${{ matrix.php }}-${{ matrix.service }}-
+                      ${{ runner.os }}-docker-${{ matrix.php }}-
+                      ${{ runner.os }}-docker-
+
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
