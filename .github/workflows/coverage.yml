@@ -10,12 +10,13 @@ jobs:
           PHP_VERSION: '8.0'
           DB_VERSION: '8'
           LARAVEL_VERSION: '8.*'
+          DEPENDENCY_VERSION: 'prefer-stable'
 
         steps:
             - uses: actions/checkout@master
 
             - name: Run tests for coverage
-              run: ./test --php ${{ env.PHP_VERSION }} --laravel ${{ env.LARAVEL_VERSION }} --db ${{ env.DB_VERSION }} --coverage
+              run: ./test --php ${{ env.PHP_VERSION }} --laravel ${{ env.LARAVEL_VERSION }} --db ${{ env.DB_VERSION }} --dependencies ${{ env.DEPENDENCY_VERSION }} --coverage
 
             - name: Upload coverage
               run: bash <(curl -s https://codecov.io/bash)
