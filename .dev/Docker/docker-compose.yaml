@@ -2,11 +2,12 @@ version: '3'
 
 services:
     php:
-        build:
-            context: .
-            dockerfile: ./Images/PHP/Dockerfile
-            args:
-                VERSION: ${PHP_VERSION}
+        # build:
+        #     context: .
+        #     dockerfile: ./Images/PHP/Dockerfile
+        #     args:
+        #         VERSION: ${PHP_VERSION}
+        image: arlonwip/php:${PHP_VERSION}
 
         volumes:
             - '${TENANCY_PATH-../../}:/var/www/html'
@@ -22,11 +23,12 @@ services:
         stdin_open: true
 
     mysql:
-        build:
-            context: .
-            dockerfile: ./Images/MySQL/Dockerfile
-            args:
-                VERSION: ${DB_VERSION}
+        # build:
+        #     context: .
+        #     dockerfile: ./Images/MySQL/Dockerfile
+        #     args:
+        #         VERSION: ${DB_VERSION}
+        image: arlonwip/mysql:${DB_VERSION}
 
         environment:
             MYSQL_DATABASE: testing
