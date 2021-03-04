@@ -77,7 +77,7 @@ jobs:
             - uses: actions/checkout@v2
 
             - name: Analyze Changed Files
-              id: Analyze
+              id: analyze
               run: |
                 echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
 
@@ -97,7 +97,7 @@ jobs:
               run: echo "Building Images for PHP ${{ matrix.version }}"
 
             - name: Build and push
-              if: ${{ contains(steps.Analyze.outputs.files, 'Docker') || Contains(steps.Analyze.outputs.files, '.github') }}
+              if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
               uses: docker/build-push-action@v2
               with:
                   push: true
@@ -120,7 +120,7 @@ jobs:
             - uses: actions/checkout@v2
             
             - name: Analyze Changed Files
-              id: Analyze
+              id: analyze
               run: |
                 echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
             
@@ -140,7 +140,7 @@ jobs:
               run: echo "Building Images for MySQL ${{ matrix.version }}"
 
             - name: Build and push
-              if: ${{ contains(steps.Analyze.outputs.files, 'Docker') || Contains(steps.Analyze.outputs.files, '.github') }}
+              if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
               uses: docker/build-push-action@v2
               with:
                 push: true
