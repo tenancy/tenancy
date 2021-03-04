@@ -5,7 +5,7 @@ RUN apt update && apt upgrade -y && \
     apt install -y libxml2-dev wget
 
 # Copy over our script to check if the extension is already installed
-COPY ./Images/PHP/docker-php-ext-install-check.sh /opt/php-ext-check.sh
+COPY ./docker-php-ext-install-check.sh /opt/php-ext-check.sh
 
 RUN apt-get install -y \
     libzip-dev \
