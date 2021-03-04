@@ -128,7 +128,7 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 push: true
-                  context: ./.dev/Docker/Images/MySQL
+                context: ./.dev/Docker/Images/MySQL
                 tags: arlonwip/mysql:${{ matrix.version }}
                 build-args: |
                   VERSION=${{ matrix.version }}
