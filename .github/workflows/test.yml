@@ -71,10 +71,15 @@ jobs:
             matrix:
                 version: ['7.2', '7.3', '7.4', '8.0']
             
-        name: 'Docker PHP Release ${{ matrix.version }}'
+        name: 'Docker Image PHP Release ${{ matrix.version }}'
 
         steps:
             - uses: actions/checkout@v2
+
+            - name: Analyze Changed Files
+              id: Analyze
+              run: |
+                echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
 
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
@@ -92,7 +97,7 @@ jobs:
               run: echo "Building Images for PHP ${{ matrix.version }}"
 
             - name: Build and push
-              id: docker_build
+              if: Contains(steps.Analyze.outputs.files, 'Docker')
               uses: docker/build-push-action@v2
               with:
                   push: true
@@ -104,16 +109,20 @@ jobs:
 
     build-mysql:
         runs-on: ubuntu-latest
-        if: Contains($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}), 'Docker')
 
         strategy:
             matrix:
                 version: ['5.7', '8']
             
-        name: 'Docker MySQL Release ${{ matrix.version }}'
+        name: 'Docker Image MySQL Release ${{ matrix.version }}'
 
         steps:
             - uses: actions/checkout@v2
+            
+            - name: Analyze Changed Files
+              id: Analyze
+              run: |
+                echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
             
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
@@ -131,6 +140,7 @@ jobs:
               run: echo "Building Images for MySQL ${{ matrix.version }}"
 
             - name: Build and push
+              if: Contains(steps.Analyze.outputs.files, 'Docker')
               uses: docker/build-push-action@v2
               with:
                 push: true
