@@ -94,7 +94,7 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: Information
-              run: echo "Building Images for PHP ${{ matrix.version }}"
+              run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}"
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
@@ -137,7 +137,7 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: Information
-              run: echo "Building Images for MySQL ${{ matrix.version }}"
+              run: echo "Building Images for PHP ${{ matrix.version }} - ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}"
 
             - name: Build and push
               if: ${{ contains(steps.analyze.outputs.files, 'Docker') || Contains(steps.analyze.outputs.files, '.github') }}
