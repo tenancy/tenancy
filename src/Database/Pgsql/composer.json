@@ -1,0 +1,30 @@
+{
+    "name": "tenancy/db-driver-pgsql",
+    "description": "The tenancy/tenancy database driver for pgsql",
+    "keywords": ["database", "tenancy", "pgsql", "postgresql"],
+    "license": "MIT",
+    "require": {
+        "tenancy/framework": "*",
+        "tenancy/hooks-database": "*",
+        "tenancy/affects-connections": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tenancy\\Database\\Drivers\\Pgsql\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Eric Fletcher",
+            "email": "eric@thefletcher.net",
+            "homepage": "https://thefletcher.net"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tenancy\\Database\\Drivers\\Pgsql\\Provider"
+            ]
+        }
+    }
+}

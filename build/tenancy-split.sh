@@ -45,6 +45,7 @@ git subsplit publish "
 # Database drivers
 git subsplit publish "
     src/Database/Mysql:git@github.com:tenancy/db-driver-mysql.git
+    src/Database/Pgsql:git@github.com:tenancy/db-driver-pgsql.git
     src/Database/Sqlite:git@github.com:tenancy/db-driver-sqlite.git
 " --heads="$branch"
 
