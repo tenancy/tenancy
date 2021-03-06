@@ -51,17 +51,6 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
-            - name: Cache Composer Downloads
-              uses: actions/cache@v2
-              with:
-                  path: /home/runner/.cache/composer/files
-                  key: ${{ runner.os }}-composer-${{ matrix.laravel }}-${{ matrix.php }}-${{ matrix.dependency-version }}-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-${{ matrix.laravel }}-${{ matrix.php }}-${{ matrix.dependency-version }}-
-                      ${{ runner.os }}-composer-${{ matrix.laravel }}-${{ matrix.php }}-
-                      ${{ runner.os }}-composer-${{ matrix.laravel }}-
-                      ${{ runner.os }}-composer-
-
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
