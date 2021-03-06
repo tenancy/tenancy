@@ -66,6 +66,7 @@ jobs:
             - uses: actions/checkout@v2
 
     analyse:
+        runs-on: ubuntu-latest
         outputs:
             changed-files: ${{ steps.changed-files.outputs.files }}
 
