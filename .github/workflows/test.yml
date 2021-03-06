@@ -57,6 +57,7 @@ jobs:
 
     requirement-images:
         name: "Requirement: Building Images"
+        if: ${{ !contains(needs.build-php.result, 'failure') && !contains(needs.build-mysql.result, 'failure') }}
 
         runs-on: ubuntu-latest
         needs: [build-php, build-mysql]
