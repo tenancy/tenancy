@@ -4,6 +4,7 @@ on:
     push:
       branches: 
         - '*.x'
+        - 'master'
     pull_request:
     schedule:
         - cron: '0 */12 * * *'
