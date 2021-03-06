@@ -96,7 +96,7 @@ jobs:
               with:
                   fetch-depth: 0
             - name: Information
-              run: echo ${{ needs.analyse.outputs.changed-files}}
+              run: echo ${{ needs.analyse.outputs.changed-files }}
                   
             - name: Set up QEMU
               if: ${{ contains(needs.analyse.outputs.changed-files, 'Docker') || Contains(needs.analyse.outputs.changed-files, '.github') }}
