@@ -9,7 +9,7 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
-        if: ${{ always() && !contains(needs.requirement-images.result, 'failure') && !contains(github.event.head_commit.message, '[ci skip]') }}
+        if: ${{ always() && contains(needs.requirement-images.result, 'success') && !contains(github.event.head_commit.message, '[ci skip]') }}
         needs: [requirement-images]
 
         strategy:
