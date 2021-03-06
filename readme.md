@@ -44,4 +44,3 @@ are READ-ONLY and overwritten on each subsplit push.
 
 Please read our [Governance documentation](https://tenancy.dev/docs/governance/tenancy) in
 case you'd like to get involved.
-
