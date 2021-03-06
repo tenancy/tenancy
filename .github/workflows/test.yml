@@ -66,6 +66,7 @@ jobs:
             - uses: actions/checkout@v2
 
     analyse:
+      name: Analysing Commit
         runs-on: ubuntu-latest
         outputs:
             changed-files: ${{ steps.changed-files.outputs.files }}
@@ -91,6 +92,10 @@ jobs:
         name: 'Docker Image PHP Release ${{ matrix.version }}'
 
         steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+                  
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
 
@@ -127,7 +132,11 @@ jobs:
             
         name: 'Docker Image MySQL Release ${{ matrix.version }}'
 
-        steps:            
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
 
