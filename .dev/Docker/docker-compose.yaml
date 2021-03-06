@@ -6,7 +6,7 @@ services:
         #     context: ./Images/PHP/
         #     args:
         #         VERSION: ${PHP_VERSION}
-        image: arlonwip/php:${PHP_VERSION}
+        image: tenancy/tenancy-ci-php:${PHP_VERSION}
 
         volumes:
             - '${TENANCY_PATH-../../}:/var/www/html'
@@ -26,7 +26,7 @@ services:
         #     context: ./Images/MySQL/
         #     args:
         #         VERSION: ${DB_VERSION}
-        image: arlonwip/mysql:${DB_VERSION}
+        image: tenancy/tenancy-ci-mysql:${DB_VERSION}
 
         environment:
             MYSQL_DATABASE: testing

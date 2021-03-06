@@ -117,7 +117,7 @@ jobs:
                   push: true
                   context: .dev/Docker/Images/PHP
                   tags: |
-                    arlonwip/php:${{ matrix.version }}
+                    tenancy/tenancy-ci-php:${{ matrix.version }}
                   build-args: |
                     VERSION=${{ matrix.version }}
 
@@ -157,6 +157,6 @@ jobs:
               with:
                 push: true
                 context: .dev/Docker/Images/MySQL
-                tags: arlonwip/mysql:${{ matrix.version }}
+                tags: tenancy/tenancy-ci-mysql:${{ matrix.version }}
                 build-args: |
                   VERSION=${{ matrix.version }}
