@@ -6,6 +6,7 @@ services:
         #     context: ./Images/PHP/
         #     args:
         #         VERSION: ${PHP_VERSION}
+
         image: tenancy/tenancy-ci-php:${PHP_VERSION}
 
         volumes:
@@ -26,6 +27,7 @@ services:
         #     context: ./Images/MySQL/
         #     args:
         #         VERSION: ${DB_VERSION}
+
         image: tenancy/tenancy-ci-mysql:${DB_VERSION}
 
         environment:
