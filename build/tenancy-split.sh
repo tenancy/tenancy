@@ -7,7 +7,7 @@ fi
 
 git subsplit init git@github.com:tenancy/tenancy.git
 
-# Tenancy
+# Framework
 git subsplit publish "
     src/Tenancy:git@github.com:tenancy/framework.git
 " --heads="$branch"
