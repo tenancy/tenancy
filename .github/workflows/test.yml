@@ -67,9 +67,9 @@ jobs:
 
     analyse:
       name: Analysing Commit
-        runs-on: ubuntu-latest
-        outputs:
-            changed-files: ${{ steps.changed-files.outputs.files }}
+      runs-on: ubuntu-latest
+      outputs:
+          changed-files: ${{ steps.changed-files.outputs.files }}
 
         steps:
             - uses: actions/checkout@v2
