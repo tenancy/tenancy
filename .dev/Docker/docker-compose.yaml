@@ -4,7 +4,6 @@ services:
     php:
         # build:
         #     context: ./Images/PHP/
-        #     dockerfile: Dockerfile
         #     args:
         #         VERSION: ${PHP_VERSION}
         image: arlonwip/php:${PHP_VERSION}
@@ -25,7 +24,6 @@ services:
     mysql:
         # build:
         #     context: ./Images/MySQL/
-        #     dockerfile: Dockerfile
         #     args:
         #         VERSION: ${DB_VERSION}
         image: arlonwip/mysql:${DB_VERSION}
