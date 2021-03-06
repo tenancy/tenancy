@@ -10,7 +10,7 @@ backing its development over at [OpenCollective](https://opencollective.com/tena
 ![Tests](https://github.com/tenancy/tenancy/workflows/Tests/badge.svg)
 ![Code Style](https://github.com/tenancy/tenancy/workflows/Code%20Style/badge.svg)
 ![Subsplit](https://github.com/tenancy/tenancy/workflows/Subsplit/badge.svg)
-[![codecov](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
+[![Code Coverage](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
 
 > Before you start, we highly recommend you to read the extensive [online documentation](https://tenancy.dev/docs/tenancy/1.x).
 
