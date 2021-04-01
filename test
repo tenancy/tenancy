@@ -16,7 +16,7 @@ while [[ "$#" -gt 0 ]]; do
         --db) DB_VERSION="$2"; shift ;;
         --laravel) LARAVEL_VERSION="$2"; shift ;;
         --dependencies) DEPENDENCY_VERSIONS="$2"; shift ;;
-        --coverage) PHPUNIT_APPEND="${PHPUNIT_APPEND} --coverage-clover=coverage.xml" PHPUNIT_PREPEND="${PHPUNIT_PREPEND} XDEBUG_MODE=coverage"; shift ;;
+        --coverage) PHPUNIT_APPEND="${PHPUNIT_APPEND} --coverage-clover=coverage.xml" PHPUNIT_PREPEND="${PHPUNIT_PREPEND} XDEBUG_MODE=coverage";;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
