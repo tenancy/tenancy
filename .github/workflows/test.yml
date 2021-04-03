@@ -57,9 +57,9 @@ jobs:
                 DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                 DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
               with:
-                username: ${{ secrets.DOCKERHUB_USERNAME }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }}
-              if: ${{ env.DOCKERHUB_USERNAME }} != 0 && ${{ env.DOCKERHUB_TOKEN }} != 0
+                username: ${{ env.DOCKERHUB_USERNAME }}
+                password: ${{ env.DOCKERHUB_TOKEN }}
+              if: ${{ env.DOCKERHUB_USERNAME }} != '' && ${{ env.DOCKERHUB_TOKEN }} != ''
 
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
