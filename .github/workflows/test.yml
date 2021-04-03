@@ -51,6 +51,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
+            - name: Login to Docker Hub
+              run: docker login --username {{ secrets.DOCKERHUB_USERNAME }} --password {{ secrets.DOCERKHUB_TOKEN }}
+
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
