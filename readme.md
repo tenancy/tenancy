@@ -44,3 +44,10 @@ are READ-ONLY and overwritten on each subsplit push.
 
 Please read our [Governance documentation](https://tenancy.dev/docs/governance/tenancy) in
 case you'd like to get involved.
+
+## Local Testing
+Testing the ecosystem locally is possible when:
+- You have Docker (and docker-compose) installed
+- You have Bash installed
+
+When you have those requirements, you can simply run `./test` in order to run the test in Docker containers. By default they will run the most recent versions of all our dependencies 
