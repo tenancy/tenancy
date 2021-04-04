@@ -2,113 +2,66 @@ name: Tests
 
 on:
     push:
+      branches: 
+        - '*.x'
+        - 'master'
     pull_request:
     schedule:
         - cron: '0 */12 * * *'
 
 jobs:
     test:
-        runs-on: ubuntu-18.04
-        if: "!contains(github.event.head_commit.message, '[ci skip]')"
-
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
+                php: ['7.2', '7.3', '7.4', '8.0']
                 laravel: [7.*, 8.*]
-                php: [7.2, 7.3, 7.4, 8.0]
-                service: ['mysql:8', 'mysql:5.7', mariadb]
+                service: ['5.7', '8']
                 dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
 
-                include:
-                    - service: 'mysql:8'
-                      db: MySQL8
-                    - service: 'mysql:5.7'
-                      db: MySQL5
-                    - service: mariadb
-                      db: MariaDB
-
                 exclude:
-                    - laravel: 8.*
-                      php: 7.2
-                    - php: 7.2
+                    ## Laravel specifically not supported PHP versions
+                    - php: '7.2'
+                      laravel: 8.*
+
+                    # Disabled due to them not being experimental
+                    - php: '7.2'
                       experimental: true
-                    - php: 7.3
+                    - php: '7.3'
                       experimental: true
-                    - php: 7.4
+                    - php: '7.4'
                       experimental: true
-                    - php: 8.0
+                    - php: '8.0'
                       experimental: true
 
-        services:
-            mysql:
-                image: ${{ matrix.service }}
-                env:
-                    MYSQL_DATABASE: testing
-                    MYSQL_USER: testing
-                    MYSQL_PASSWORD: testing
-                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    MYSQL_ROOT_HOST: "%"
-                ports:
-                    - 13306:3306
+                    # Do not work due to deprecated function
+                    - php: '8.0'
+                      laravel: 7.*
+                      dependency-version: prefer-lowest
+                    - php: '8.0'
+                      laravel: 8.*
+                      dependency-version: prefer-lowest
 
-        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / ${{ matrix.db }}'
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
         continue-on-error: ${{ matrix.experimental }}
 
         env:
-            COMPOSER_ARGS: ''
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
         steps:
-            - uses: actions/checkout@master
+            - uses: actions/checkout@v2
 
-            - name: Select PHP version
-              uses: shivammathur/setup-php@master
+            - name: Login to DockerHub
+              uses: docker/login-action@v1
               with:
-                  php-version: '${{ matrix.php }}'
-
-            - name: Start required services
-              run: sudo systemctl start mysql
-
-            - name: Create MySQL User
-              run: mysql -uroot -proot -e "create user 'testing'@'%' identified by 'testing';" --port 13306
-
-            - name: Create MySQL Database
-              run: mysql -uroot -proot -e "create database testing;" --port 13306
-
-            - name: Grant MySQL permissions
-              run: mysql -uroot -proot -e "grant all privileges on *.* to 'testing'@'%' with grant option;" --port 13306
-
-            - name: Setup Composer args
-              if: ${{ matrix.experimental }}
-              run: echo "COMPOSER_ARGS=--ignore-platform-reqs" >> $GITHUB_ENV
-
-            - name: Install Version Specific Dependencies
-              run: composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update ${{ env.COMPOSER_ARGS }}
-
-            - name: Get Composer Cache Directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache Composer Downloads
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-${{ matrix.dependency-version }}-
-                      ${{ runner.os }}-composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}-
-                      ${{ runner.os }}-composer-${{ matrix.php }}-
-                      ${{ runner.os }}-composer-
-
-            - name: Install Composer dependencies
-              run: composer update --no-ansi --no-interaction ${{ env.COMPOSER_ARGS }}
+                username: ${{ env.DOCKERHUB_USERNAME }}
+                password: ${{ env.DOCKERHUB_TOKEN }}
+              if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
 
             - name: Run tests
-              run: ./vendor/bin/phpunit
+              run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
               continue-on-error: ${{ matrix.experimental }}
-              env:
-                  TENANCY_DB: testing
-                  TENANCY_USERNAME: testing
-                  TENANCY_PASSWORD: testing
-                  APP_KEY: deela5kinohw0haekoothahSh8eexach

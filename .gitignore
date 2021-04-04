@@ -2,4 +2,4 @@
 .subsplit
 composer.lock
 vendor/
-.tmp
+.tmp/
