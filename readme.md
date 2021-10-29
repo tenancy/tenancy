@@ -1,16 +1,17 @@
-# ![Tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=25&v=4) Tenancy for Laravel
+# ![Tenancy logo](https://avatars3.githubusercontent.com/u/33319474?s=25&v=4) Tenancy Ecosystem (for Laravel)
 
 Enabling awesome Software as a Service with the Laravel framework.
 
 This is the successor of [hyn/multi-tenant](https://github.com/tenancy/multi-tenant). 
+
 Feel free to show support by starring the project
 following progress via [twitter](https://twitter.com/tenancydev) and
-backing its development over at [OpenCollective](https://opencollective.com/tenancy).
+backing its development over at [OpenCollective](https://opencollective.com/tenancy) or [GitHub Sponsors](https://github.com/sponsors/tenancy).
 
 ![Tests](https://github.com/tenancy/tenancy/workflows/Tests/badge.svg)
 ![Code Style](https://github.com/tenancy/tenancy/workflows/Code%20Style/badge.svg)
-![Subsplit](https://github.com/tenancy/tenancy/workflows/Subsplit/badge.svg)
 [![Code Coverage](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
+![Subsplit](https://github.com/tenancy/tenancy/workflows/Subsplit/badge.svg)
 
 > Before you start, we highly recommend you to read the extensive [online documentation](https://tenancy.dev/docs/tenancy/1.x).
 
@@ -30,10 +31,10 @@ $ composer require tenancy/framework
 
 After that you'll need to decide on and configure:
 
-- [database drivers](https://tenancy.dev/docs/tenancy/1.x/database-drivers)
-- [identification drivers](https://tenancy.dev/docs/tenancy/1.x/identification-drivers)
-- [affects](https://tenancy.dev/docs/tenancy/1.x/affects)
-- [hooks](https://tenancy.dev/docs/tenancy/1.x/hooks)
+- [Database drivers](https://tenancy.dev/docs/tenancy/1.x/database-drivers)
+- [Identification drivers](https://tenancy.dev/docs/tenancy/1.x/identification-drivers)
+- [Affects](https://tenancy.dev/docs/tenancy/1.x/affects)
+- [Hooks](https://tenancy.dev/docs/tenancy/1.x/hooks)
 
 # Contributions
 
