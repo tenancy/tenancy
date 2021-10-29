@@ -6,7 +6,7 @@ services:
 
         volumes:
             - '${TENANCY_PATH-../../}:/var/www/html'
-            - '${TENANCY_PATH-../../}.dev/Docker/Partials/:/ops/'
+            - '${TENANCY_PATH-../../}.dev/docker/partials/:/ops/'
             
         networks:
             - application
