@@ -20,6 +20,7 @@ use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Arr;
+use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Queue\Jobs\Job as TenancyJob;
 
@@ -64,7 +65,12 @@ class Processing
             $job = $this->unserializeToJob($command);
         }
 
-        $tenant = $job->getTenant();
+        if ($event->connectionName == "sync" && !is_null(Tenancy::getTenant())) {
+            $tenant = Tenancy::getTenant();
+        } else {
+            $tenant = $job->getTenant();
+        }
+        
         $tenant_key = $job->getTenantKey();
         $tenant_identifier = $job->getTenantIdentifier();
 
