@@ -17,8 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Affects\Mails\Events;
 
 use Illuminate\Contracts\Mail\Mailer;
-use Swift_Mailer;
-use Swift_Transport;
+use Symfony\Component\Mailer\Transport\TransportInterface;
 use Tenancy\Identification\Events\Switched;
 
 class ConfigureMails
@@ -46,9 +45,10 @@ class ConfigureMails
      *
      * @return self
      */
-    public function replaceSwiftMailer(Swift_Transport $transport)
+    public function replaceSymfonyTransport(TransportInterface $transport)
     {
-        $this->mailer->setSwiftMailer(new Swift_Mailer($transport));
+
+        $this->mailer->setSymfonyTransport($transport);
 
         return $this;
     }
