@@ -15,34 +15,11 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ['7.2', '7.3', '7.4', '8.0']
-                laravel: [7.*, 8.*]
+                php: ['8.0']
+                laravel: [9.*]
                 service: ['5.7', '8']
                 dependency-version: [prefer-lowest, prefer-stable]
                 experimental: [false, true]
-
-                exclude:
-                    ## Laravel specifically not supported PHP versions
-                    - php: '7.2'
-                      laravel: 8.*
-
-                    # Disabled due to them not being experimental
-                    - php: '7.2'
-                      experimental: true
-                    - php: '7.3'
-                      experimental: true
-                    - php: '7.4'
-                      experimental: true
-                    - php: '8.0'
-                      experimental: true
-
-                    # Do not work due to deprecated function
-                    - php: '8.0'
-                      laravel: 7.*
-                      dependency-version: prefer-lowest
-                    - php: '8.0'
-                      laravel: 8.*
-                      dependency-version: prefer-lowest
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 

@@ -9,7 +9,7 @@ jobs:
         env:
           PHP_VERSION: '8.0'
           DB_VERSION: '8'
-          LARAVEL_VERSION: '8.*'
+          LARAVEL_VERSION: '9.*'
           DEPENDENCY_VERSION: 'prefer-stable'
 
         steps:
