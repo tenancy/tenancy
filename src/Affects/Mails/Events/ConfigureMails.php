@@ -27,7 +27,7 @@ class ConfigureMails
         public Mailer $mailer
     ) {}
 
-    public function replaceSwiftMailer(TransportInterface $transport): static
+    public function replaceSymfonyTransport(TransportInterface $transport): static
     {
         $this->mailer->setSymfonyTransport($transport);
 

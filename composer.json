@@ -10,7 +10,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.9",
         "laravel/laravel": "*",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.0",
         "mockery/mockery": "^1.3"
     },
     "autoload": {

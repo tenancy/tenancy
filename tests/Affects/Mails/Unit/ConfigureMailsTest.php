@@ -30,14 +30,14 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
     protected $event = ConfigureMails::class;
 
     /** @test */
-    public function the_event_can_replace_swiftmailer()
+    public function the_event_can_replace_symfony_transport()
     {
         $this->app->register($this->affectsProvider);
 
         $this->events->listen($this->event, function (ConfigureMails $event) {
-            $event->replaceSwiftMailer(new ArrayTransport());
+            $event->replaceSymfonyTransport(new ArrayTransport());
 
-            $this->assertInstanceOf(ArrayTransport::class, $event->mailer->getSwiftMailer()->getTransport());
+            $this->assertInstanceOf(ArrayTransport::class, $event->mailer->getSymfonyTransport());
         });
 
         Tenancy::setTenant($this->tenant);
