@@ -20,23 +20,23 @@ use Tenancy\Pipeline\Step;
 
 class Resolving extends Event
 {
-    public $step;
+    public ?Step $step;
 
-    public function step(Step &$step)
+    public function step(Step &$step): static
     {
         $this->step = &$step;
 
         return $this;
     }
 
-    public function replace(Step $with)
+    public function replace(Step $with): static
     {
         $this->step = $with;
 
         return $this;
     }
 
-    public function remove()
+    public function remove(): static
     {
         $this->step = null;
 

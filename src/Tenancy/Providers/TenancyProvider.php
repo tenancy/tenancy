@@ -33,7 +33,7 @@ class TenancyProvider extends ServiceProvider
 {
     use Provides\ProvidesListeners;
 
-    public $singletons = [
+    public array $singletons = [
         Environment::class         => Environment::class,
         ResolvesHooks::class       => HookResolver::class,
         ResolvesAffects::class     => AffectResolver::class,
@@ -41,7 +41,7 @@ class TenancyProvider extends ServiceProvider
         ProvidesPassword::class    => PasswordGenerator::class,
     ];
 
-    protected $listen = [
+    protected array $listen = [
         Event\Created::class => [
             ResolvesHooks::class,
         ],
@@ -79,7 +79,7 @@ class TenancyProvider extends ServiceProvider
         }
     }
 
-    public function provides()
+    public function provides(): array
     {
         return [
             Environment::class,

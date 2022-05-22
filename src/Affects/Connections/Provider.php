@@ -28,17 +28,17 @@ class Provider extends AffectsProvider
     use ProvidesConfigs;
     use ProvidesListeners;
 
-    protected $configs = [
+    protected array $configs = [
         __DIR__.'/resources/config/connections.php',
     ];
 
-    protected $affects = [ConfiguresConnection::class];
+    protected array $affects = [ConfiguresConnection::class];
 
-    public $singletons = [
+    public array $singletons = [
         ResolvesConnections::class => ConnectionResolver::class,
     ];
 
-    public $listen = [
+    public array $listen = [
         Events\Resolved::class => [
             Listeners\SetConnection::class,
         ],

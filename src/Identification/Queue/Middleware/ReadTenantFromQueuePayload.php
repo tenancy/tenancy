@@ -25,21 +25,10 @@ use Tenancy\Identification\Drivers\Queue\Events\Processing;
 
 class ReadTenantFromQueuePayload
 {
-    /**
-     * @var Application
-     */
-    private $app;
-
-    /**
-     * @var ResolvesTenants
-     */
-    private $resolver;
-
-    public function __construct(Application $app, ResolvesTenants $resolver)
-    {
-        $this->app = $app;
-        $this->resolver = $resolver;
-    }
+    public function __construct(
+        private Application $app,
+        private ResolvesTenants $resolver
+    ) {}
 
     public function __invoke(JobProcessing $event)
     {

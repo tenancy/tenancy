@@ -21,12 +21,7 @@ use Illuminate\Support\Collection;
 
 class TenantModelCollection extends Collection
 {
-    /**
-     * @param string|array $contracts
-     *
-     * @return static
-     */
-    public function filterByContract($contracts)
+    public function filterByContract(string|array $contracts): static
     {
         $contracts = Arr::wrap($contracts);
 

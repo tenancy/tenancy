@@ -28,11 +28,11 @@ class IdentificationProvider extends DriverProvider
 {
     use ProvidesListeners;
 
-    protected $drivers = [
+    protected array $drivers = [
         IdentifiesByConsole::class,
     ];
 
-    protected $listen = [
+    protected array $listen = [
         ArtisanStarting::class => [
             GlobalTenantAwareness::class,
         ],

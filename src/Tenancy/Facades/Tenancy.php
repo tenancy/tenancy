@@ -28,12 +28,13 @@ use Tenancy\Environment;
  * @method static void mixin(object $mixin, bool $replace = true)
  * @method static void setIdentified(bool $identified)
  * @method static void setTenant(\Tenancy\Identification\Contracts\Tenant $tenant = null)
+ * @method static string getTenantConnectionName()
  *
  * @see \Tenancy\Environment
  */
 class Tenancy extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Environment::class;
     }

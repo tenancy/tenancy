@@ -21,19 +21,8 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Identified
 {
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
-
-    /**
-     * @var ProvidesDatabase
-     */
-    public $provider;
-
-    public function __construct(Tenant $tenant = null, ProvidesDatabase &$provider)
-    {
-        $this->tenant = $tenant;
-        $this->provider = &$provider;
-    }
+    public function __construct(
+        public ?Tenant $tenant = null,
+        public ProvidesDatabase &$provider
+    ) {}
 }

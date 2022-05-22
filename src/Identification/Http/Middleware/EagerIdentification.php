@@ -17,18 +17,13 @@ declare(strict_types=1);
 namespace Tenancy\Identification\Drivers\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 
 class EagerIdentification
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param Closure                  $next
-     *
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         /** @var Environment $tenancy */
         $tenancy = resolve(Environment::class);

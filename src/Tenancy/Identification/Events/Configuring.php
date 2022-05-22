@@ -20,13 +20,7 @@ use Tenancy\Identification\Contracts\ResolvesTenants;
 
 class Configuring
 {
-    /**
-     * @var ResolvesTenants
-     */
-    public $resolver;
-
-    public function __construct(ResolvesTenants &$resolver)
-    {
-        $this->resolver = &$resolver;
-    }
+    public function __construct(
+        public ResolvesTenants &$resolver
+    ) {}
 }

@@ -21,25 +21,9 @@ use Tenancy\Identification\Contracts\Tenant;
 
 abstract class ResultEvent
 {
-    /**
-     * @var Tenant
-     */
-    public $tenant;
-
-    /**
-     * @var ProvidesDatabase
-     */
-    public $provider;
-
-    /**
-     * @var bool
-     */
-    public $result;
-
-    public function __construct(Tenant $tenant, ProvidesDatabase $provider, bool $result)
-    {
-        $this->tenant = $tenant;
-        $this->provider = $provider;
-        $this->result = $result;
-    }
+    public function __construct(
+        public Tenant $tenant,
+        public ProvidesDatabase $provider,
+        public bool $result
+    ) {}
 }

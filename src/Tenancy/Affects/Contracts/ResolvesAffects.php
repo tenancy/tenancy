@@ -18,11 +18,11 @@ namespace Tenancy\Affects\Contracts;
 
 interface ResolvesAffects
 {
-    public function addAffect($affect);
+    public function addAffect($affect): static;
 
     public function handle($event, callable $fire = null);
 
     public function getAffects(): array;
 
-    public function setAffects(array $hooks);
+    public function setAffects(array $hooks): static;
 }

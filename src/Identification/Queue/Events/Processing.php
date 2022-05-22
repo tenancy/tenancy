@@ -27,36 +27,17 @@ class Processing
 {
     use SerializesAndRestoresModelIdentifiers;
 
-    /**
-     * @var JobProcessing
-     */
-    public $event;
+    public ?Tenant $tenant;
 
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
+    public ?string $tenant_key;
 
-    /**
-     * @var string|null
-     */
-    public $tenant_key;
+    public ?string $tenant_identifier;
 
-    /**
-     * @var string|null
-     */
-    public $tenant_identifier;
+    public Job $job;
 
-    /**
-     * @var Job
-     */
-    public $job;
-
-    public function __construct(JobProcessing $event)
-    {
-        $this->event = $event;
-
-        /** @var array $payload */
+    public function __construct(
+        public JobProcessing $event
+    ) {
         $payload = $event->job->payload();
         $job = null;
 
@@ -75,14 +56,7 @@ class Processing
         $this->job = $command;
     }
 
-    /**
-     * Unserializes the job to a simple job.
-     *
-     * @param string $object
-     *
-     * @return object
-     */
-    private function unserializeToJob(string $object)
+    private function unserializeToJob(string $object): object
     {
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 

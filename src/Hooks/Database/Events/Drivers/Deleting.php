@@ -21,25 +21,9 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Deleting
 {
-    /**
-     * @var Tenant
-     */
-    public $tenant;
-
-    /**
-     * @var array
-     */
-    public $configuration;
-
-    /**
-     * @var ProvidesDatabase
-     */
-    public $provider;
-
-    public function __construct(Tenant $tenant, array &$configuration, ProvidesDatabase $provider)
-    {
-        $this->tenant = $tenant;
-        $this->configuration = &$configuration;
-        $this->provider = $provider;
-    }
+    public function __construct(
+        public Tenant $tenant,
+        public array &$configuration,
+        public ProvidesDatabase $provider
+    ) {}
 }

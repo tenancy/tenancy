@@ -21,7 +21,7 @@ use Tenancy\Pipeline\Contracts\Step;
 
 class Steps extends Collection
 {
-    public function resolve($event, Pipeline $pipeline)
+    public function resolve($event, Pipeline $pipeline): Steps|Collection
     {
         return $this->map(function ($step) use ($event, $pipeline) {
             /** @var Step $hook */
@@ -36,14 +36,14 @@ class Steps extends Collection
         ->filter();
     }
 
-    public function prioritized()
+    public function prioritized(): Steps
     {
         return $this->sortBy(function (Step $step) {
             return $step->priority();
         });
     }
 
-    public function fires()
+    public function fires(): Steps
     {
         return $this->filter(function (Step $step) {
             return $step->fires();

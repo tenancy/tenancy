@@ -21,25 +21,14 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureURL
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-
-    /**
-     * @var UrlGenerator
-     */
-    public $url;
-
-    public function __construct(Switched $event, UrlGenerator $url)
-    {
-        $this->event = $event;
-        $this->url = $url;
-    }
+    public function __construct(
+        public Switched $event,
+        public UrlGenerator $url
+    ) {}
 
     public function changeRoot(string $url)
     {
-        return $this->url->forceRootUrl($url);
+        $this->url->forceRootUrl($url);
     }
 
     public function __call($name, $arguments)

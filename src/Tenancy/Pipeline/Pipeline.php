@@ -20,7 +20,7 @@ use Tenancy\Pipeline\Contracts\Step;
 
 class Pipeline
 {
-    protected $steps;
+    protected Steps $steps;
 
     public function __construct(Steps $steps = null)
     {
@@ -32,11 +32,6 @@ class Pipeline
         return $this->steps;
     }
 
-    /**
-     * @param array|Step[] $steps
-     *
-     * @return Pipeline
-     */
     public function setSteps(array $steps): self
     {
         $this->steps = new Steps($steps);
@@ -44,7 +39,7 @@ class Pipeline
         return $this;
     }
 
-    public function handle($event, callable $fire = null)
+    public function handle($event, callable $fire = null): Steps
     {
         $steps = $this->steps;
 

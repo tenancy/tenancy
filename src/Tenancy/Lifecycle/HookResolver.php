@@ -23,7 +23,7 @@ use Tenancy\Pipeline\Pipeline;
 
 class HookResolver extends Pipeline implements ResolvesHooks
 {
-    public function addHook($hook)
+    public function addHook($hook): static
     {
         if (!in_array(LifecycleHook::class, class_implements($hook))) {
             throw new InvalidArgumentException("$hook has to implement ".LifecycleHook::class);
@@ -39,7 +39,7 @@ class HookResolver extends Pipeline implements ResolvesHooks
         return $this->getSteps()->toArray();
     }
 
-    public function setHooks(array $hooks)
+    public function setHooks(array $hooks): static
     {
         $this->setSteps($hooks);
 

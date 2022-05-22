@@ -20,24 +20,9 @@ use Tenancy\Identification\Contracts\Tenant;
 
 interface ProvidesDatabase
 {
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function create(Tenant $tenant): bool;
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function update(Tenant $tenant): bool;
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return bool
-     */
     public function delete(Tenant $tenant): bool;
 }

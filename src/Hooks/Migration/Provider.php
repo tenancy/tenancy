@@ -20,7 +20,7 @@ use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    protected $hooks = [
+    protected array $hooks = [
         Hooks\MigratesHook::class,
         Hooks\SeedsHook::class,
     ];

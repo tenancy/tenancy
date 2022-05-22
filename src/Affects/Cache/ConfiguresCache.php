@@ -27,7 +27,7 @@ class ConfiguresCache extends Affect
 
     public function fire(): void
     {
-        /** @var CacheManager $manager¸ */
+        /** @var CacheManager $manager */
         $manager = resolve(CacheManager::class);
 
         /** @var Repository $config */

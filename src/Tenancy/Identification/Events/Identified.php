@@ -20,13 +20,7 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Identified
 {
-    /**
-     * @var Tenant
-     */
-    public $tenant;
-
-    public function __construct(Tenant $tenant)
-    {
-        $this->tenant = $tenant;
-    }
+    public function __construct(
+        public Tenant $tenant
+    ) {}
 }

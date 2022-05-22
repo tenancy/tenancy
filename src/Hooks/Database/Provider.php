@@ -21,11 +21,11 @@ use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    protected $hooks = [
+    protected array $hooks = [
         Hooks\DatabaseMutation::class,
     ];
 
-    public $singletons = [
+    public array $singletons = [
         ResolvesDatabases::class => DatabaseResolver::class,
     ];
 }

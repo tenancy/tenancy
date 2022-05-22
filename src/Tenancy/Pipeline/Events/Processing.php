@@ -20,9 +20,9 @@ use Tenancy\Pipeline\Steps;
 
 class Processing extends Event
 {
-    public $steps;
+    public Steps $steps;
 
-    public function steps(Steps &$steps)
+    public function steps(Steps &$steps): static
     {
         $this->steps = &$steps;
 

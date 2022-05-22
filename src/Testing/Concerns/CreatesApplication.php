@@ -18,7 +18,9 @@ namespace Tenancy\Testing\Concerns;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use RuntimeException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Tenancy\Environment;
 use Tenancy\Providers\TenancyProvider;
 use Tenancy\Testing\Mocks\Factories\TenantFactory;
@@ -26,30 +28,22 @@ use Tenancy\Testing\Mocks\Tenant;
 
 trait CreatesApplication
 {
-    protected $additionalProviders = [];
+    protected array $additionalProviders = [];
 
-    protected $additionalMocks = [];
+    protected array $additionalMocks = [];
 
-    protected $tenantModels = [];
+    protected array $tenantModels = [];
 
-    /**
-     * @var Environment
-     */
-    protected $environment;
+    protected Environment $environment;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
+    protected Dispatcher $events;
 
     /**
      * Creates the application.
      *
      * Needs to be implemented by subclasses.
-     *
-     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
      */
-    public function createApplication()
+    public function createApplication(): HttpKernelInterface
     {
         $appPaths = [];
         $app = null;
@@ -77,7 +71,7 @@ trait CreatesApplication
         return $app;
     }
 
-    protected function bootTenancy()
+    protected function bootTenancy(): void
     {
         $this->app->register(TenancyProvider::class);
         foreach ($this->additionalProviders as $provider) {
@@ -100,7 +94,7 @@ trait CreatesApplication
             return;
         }
 
-        \Illuminate\Database\Eloquent\Factories\Factory::guessFactoryNamesUsing(function (string $modelName) {
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
             if (is_subclass_of((new $modelName()), Tenant::class) || $modelName === Tenant::class) {
                 return TenantFactory::class;
             }

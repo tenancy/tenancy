@@ -18,12 +18,7 @@ namespace Tenancy\Support\Concerns;
 
 trait PublishesConfigs
 {
-    /**
-     * Configuration files to publish.
-     *
-     * @var array
-     */
-    protected $configs = [];
+    protected array $configs = [];
 
     protected function publishConfigs()
     {

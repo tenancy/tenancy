@@ -22,7 +22,7 @@ use Tenancy\Support\Provider;
 
 abstract class DatabaseProvider extends Provider
 {
-    public function register()
+    public function register(): void
     {
         parent::register();
 

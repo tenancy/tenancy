@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class GlobalTenantAwareness
 {
-    public function handle(ArtisanStarting $event)
+    public function handle(ArtisanStarting $event): void
     {
         $definition = $event->artisan->getDefinition();
 

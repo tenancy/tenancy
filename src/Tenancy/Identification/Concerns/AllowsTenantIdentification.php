@@ -18,31 +18,16 @@ namespace Tenancy\Identification\Concerns;
 
 trait AllowsTenantIdentification
 {
-    /**
-     * The attribute of the Model to use for the key.
-     *
-     * @return string
-     */
     public function getTenantKeyName(): string
     {
         return $this->getKeyName();
     }
 
-    /**
-     * The actual value of the key for the tenant Model.
-     *
-     * @return string|int
-     */
-    public function getTenantKey()
+    public function getTenantKey(): int|string
     {
         return $this->getKey();
     }
 
-    /**
-     * A unique identifier, eg class or table to distinguish this tenant Model.
-     *
-     * @return string
-     */
     public function getTenantIdentifier(): string
     {
         $identifier = $this->getTable();

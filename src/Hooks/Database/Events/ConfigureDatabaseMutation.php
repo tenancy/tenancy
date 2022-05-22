@@ -21,24 +21,19 @@ use Tenancy\Tenant\Events\Event;
 
 class ConfigureDatabaseMutation
 {
-    public $hook;
+    public function __construct(
+        public Event $event,
+        public DatabaseMutation $hook
+    ) {}
 
-    public $event;
-
-    public function __construct(Event $event, DatabaseMutation $hook)
-    {
-        $this->event = $event;
-        $this->hook = $hook;
-    }
-
-    public function disable()
+    public function disable(): static
     {
         $this->hook->fires = false;
 
         return $this;
     }
 
-    public function priority(int $priority = -50)
+    public function priority(int $priority = -50): static
     {
         $this->hook->priority = $priority;
 

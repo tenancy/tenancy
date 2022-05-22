@@ -18,10 +18,5 @@ namespace Tenancy\Database\Drivers\Mysql\Concerns;
 
 interface ManagesSystemConnection
 {
-    /**
-     * Allows overriding the system connection used for the tenant.
-     *
-     * @return null|string
-     */
     public function getManagingSystemConnection(): ?string;
 }

@@ -21,5 +21,5 @@ use Tenancy\Hooks\Database\Support\DatabaseProvider;
 
 class Provider extends DatabaseProvider
 {
-    protected $listener = ConfiguresTenantDatabase::class;
+    protected string $listener = ConfiguresTenantDatabase::class;
 }

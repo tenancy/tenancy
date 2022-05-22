@@ -20,18 +20,10 @@ use Tenancy\Pipeline\Pipeline;
 
 abstract class Event
 {
-    public $event;
-
-    /**
-     * @var Pipeline
-     */
-    public $pipeline;
-
-    public function __construct($event, Pipeline $pipeline)
-    {
-        $this->event = $event;
-        $this->pipeline = $pipeline;
-    }
+    public function __construct(
+        public $event,
+        public Pipeline $pipeline
+    ) {}
 
     public function isForPipeline($pipeline): bool
     {

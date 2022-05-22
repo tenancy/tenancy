@@ -26,13 +26,15 @@ use Tenancy\Tenant\Events\Deleted;
 
 class SeedsHook extends ConfigurableHook
 {
-    public $connection;
+    public string $connection;
+
+    public ResolvesConnections $resolver;
 
     public $action;
 
-    public $priority = -40;
+    public int $priority = -40;
 
-    public $seeds = [];
+    public array $seeds = [];
 
     public function __construct()
     {
@@ -40,7 +42,7 @@ class SeedsHook extends ConfigurableHook
         $this->resolver = resolve(ResolvesConnections::class);
     }
 
-    public function for($event)
+    public function for($event): static
     {
         $this->action = $event instanceof Deleted ? 'reset' : 'run';
 
@@ -68,7 +70,7 @@ class SeedsHook extends ConfigurableHook
 
         foreach ($this->seeds as $seed) {
             /** @var Seeder $seed */
-            $seed = resolve($seed);
+            $seed = resolve($seed::class);
             $seed = $seed->setContainer(app());
 
             $seed();

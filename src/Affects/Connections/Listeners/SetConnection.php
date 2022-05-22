@@ -23,7 +23,7 @@ use Tenancy\Facades\Tenancy;
 
 class SetConnection
 {
-    public function handle(Resolved $event)
+    public function handle(Resolved $event): void
     {
         $connection = $event->connection ?? Tenancy::getTenantConnectionName();
         $existingConfig = config('database.connections.'.$connection);

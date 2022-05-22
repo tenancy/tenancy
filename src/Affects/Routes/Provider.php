@@ -20,5 +20,5 @@ use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
-    protected $affects = [ConfiguresRoutes::class];
+    protected array $affects = [ConfiguresRoutes::class];
 }

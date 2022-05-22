@@ -4,8 +4,8 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "^7.0 | ^8.0",
-        "doctrine/dbal": "^2.9"
+        "laravel/framework": "^9.0",
+        "doctrine/dbal": "^3.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

@@ -20,19 +20,8 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureDisk
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-
-    /**
-     * @var array
-     */
-    public $config;
-
-    public function __construct(Switched $event, array &$config = [])
-    {
-        $this->event = $event;
-        $this->config = &$config;
-    }
+    public function __construct(
+        public Switched $event,
+        public array &$config = []
+    ) {}
 }

@@ -21,25 +21,9 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Resolved
 {
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
-
-    /**
-     * @var ProvidesConfiguration|null
-     */
-    public $provider;
-
-    /**
-     * @var string|null
-     */
-    public $connection;
-
-    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesConfiguration &$provider = null)
-    {
-        $this->tenant = $tenant;
-        $this->connection = $connection;
-        $this->provider = &$provider;
-    }
+    public function __construct(
+        public ?Tenant $tenant = null,
+        public ?string $connection = null,
+        public ?ProvidesConfiguration &$provider = null
+    ) {}
 }

@@ -20,5 +20,5 @@ use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
-    protected $affects = [ConfiguresDisk::class];
+    protected array $affects = [ConfiguresDisk::class];
 }

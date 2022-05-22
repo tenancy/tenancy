@@ -23,11 +23,11 @@ use Tenancy\Support\DriverProvider;
 
 class IdentificationProvider extends DriverProvider
 {
-    protected $drivers = [
+    protected array $drivers = [
         IdentifiesByHttp::class,
     ];
 
-    protected $configs = [
+    protected array $configs = [
         __DIR__.'/../resources/config/identification-driver-http.php',
     ];
 

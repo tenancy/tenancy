@@ -18,11 +18,11 @@ namespace Tenancy\Lifecycle\Contracts;
 
 interface ResolvesHooks
 {
-    public function addHook($hook);
+    public function addHook($hook): static;
 
     public function handle($event, callable $fire = null);
 
     public function getHooks(): array;
 
-    public function setHooks(array $hooks);
+    public function setHooks(array $hooks): static;
 }

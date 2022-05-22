@@ -20,15 +20,7 @@ use Tenancy\Identification\Support\TenantModelCollection;
 
 class Resolving
 {
-    /**
-     * The tenant models.
-     *
-     * @var TenantModelCollection
-     */
-    public $models;
-
-    public function __construct(TenantModelCollection $models)
-    {
-        $this->models = $models;
-    }
+    public function __construct(
+        public TenantModelCollection $models
+    ) {}
 }
