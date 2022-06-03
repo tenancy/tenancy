@@ -23,7 +23,7 @@ use Tenancy\Tests\Hooks\ConfigureHookTestCase;
 
 class ConfigureDatabaseMutationTest extends ConfigureHookTestCase
 {
-    protected $additionalProviders = [DatabaseProvider::class];
+    protected array $additionalProviders = [DatabaseProvider::class];
 
     protected $hookClass = DatabaseMutation::class;
 

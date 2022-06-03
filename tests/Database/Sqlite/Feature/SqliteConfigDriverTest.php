@@ -25,7 +25,7 @@ class SqliteConfigDriverTest extends DatabaseFeatureTestCase
 {
     use UsesConnections;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected $exception = QueryException::class;
 

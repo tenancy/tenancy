@@ -26,7 +26,7 @@ class ConfigureViewsPathTest extends AffectsFeatureTestCase
 {
     use AddsPaths;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {

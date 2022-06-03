@@ -23,7 +23,7 @@ use Tenancy\Testing\TestCase;
 
 class RequestTest extends TestCase
 {
-    protected $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class];
 
     /** @test */
     public function it_triggers_identification_on_incoming_requests()

@@ -41,7 +41,7 @@ class MigratesTest extends TestCase
     use UsesConnections;
     use UsesMigrations;
 
-    protected $additionalProviders = [Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
+    protected array $additionalProviders = [Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
 
     /** @test */
     public function it_can_migrate_a_database()

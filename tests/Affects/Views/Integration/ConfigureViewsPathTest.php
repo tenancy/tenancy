@@ -26,7 +26,7 @@ class ConfigureViewsPathTest extends AffectsIntegrationTestCase
 {
     use AddsPaths;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function registered_views_can_be_rendered()

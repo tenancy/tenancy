@@ -28,7 +28,7 @@ class DatabaseResolverDispatchingTest extends TestCase
 {
     use InteractsWithDatabases;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @var Tenant */
     protected $tenant;

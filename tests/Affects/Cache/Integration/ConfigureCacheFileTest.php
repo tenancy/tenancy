@@ -26,7 +26,7 @@ class ConfigureCacheFileTest extends AffectsIntegrationTestCase
 {
     use UsesFileDriver;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function it_can_store_data()

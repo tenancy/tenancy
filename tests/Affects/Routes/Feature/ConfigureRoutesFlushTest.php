@@ -24,7 +24,7 @@ use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 
 class ConfigureRoutesFlushTest extends AffectsFeatureTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function registerAffecting()
     {

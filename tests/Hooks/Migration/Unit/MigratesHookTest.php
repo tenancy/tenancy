@@ -25,7 +25,7 @@ use Tenancy\Testing\TestCase;
 
 class MigratesHookTest extends TestCase
 {
-    protected $additionalProviders = [ConnectionsProvider::class];
+    protected array $additionalProviders = [ConnectionsProvider::class];
 
     protected function afterSetUp()
     {

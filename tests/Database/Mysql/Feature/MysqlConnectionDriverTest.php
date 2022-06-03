@@ -29,7 +29,7 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
     use UsesTenants;
     use UsesConnections;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected $exception = PDOException::class;
 

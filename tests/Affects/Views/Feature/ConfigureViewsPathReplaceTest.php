@@ -26,7 +26,7 @@ class ConfigureViewsPathReplaceTest extends AffectsFeatureTestCase
 {
     use ReplacesPaths;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {

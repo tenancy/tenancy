@@ -23,7 +23,7 @@ use Tenancy\Tests\Hooks\ConfigureHookTestCase;
 
 class ConfiguresSeedsTest extends ConfigureHookTestCase
 {
-    protected $additionalProviders = [ConnectionsProvider::class];
+    protected array $additionalProviders = [ConnectionsProvider::class];
 
     protected $hookClass = SeedsHook::class;
 

@@ -27,7 +27,7 @@ use Tenancy\Tests\Mocks\Tenants\HostnameTenant;
 
 class HandlesTest extends TestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function it_fires_the_handle_function_on_all_handlers()

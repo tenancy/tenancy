@@ -26,7 +26,7 @@ use Tenancy\Testing\TestCase;
 
 class DatabaseMutationTest extends TestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function afterSetUp()
     {

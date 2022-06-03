@@ -27,7 +27,7 @@ use Tenancy\Tests\Mocks\Tenants\SimpleQueueTenant;
 
 class SimpleQueueTenantTest extends TestCase
 {
-    protected $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
     {

@@ -25,7 +25,7 @@ use Tenancy\Tests\Mocks\Models\SimpleModel;
 
 class ConfigureModelsForwardResolverTest extends AffectsFeatureTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected $model = SimpleModel::class;
 

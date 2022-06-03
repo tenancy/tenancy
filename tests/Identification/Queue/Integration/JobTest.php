@@ -25,7 +25,7 @@ use Tenancy\Tests\Mocks\Jobs\SimpleJob;
 
 class JobTest extends TestCase
 {
-    protected $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class];
 
     /** @test */
     public function jobs_do_not_contain_the_tenant_when_none_identified()
