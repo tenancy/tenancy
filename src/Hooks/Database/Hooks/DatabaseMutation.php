@@ -31,7 +31,7 @@ class DatabaseMutation extends ConfigurableHook
 
     public bool $fires = false;
 
-    protected ProvidesDatabase $driver;
+    protected ?ProvidesDatabase $driver = null;
 
     protected array $mapping = [
         Created::class => 'create',
