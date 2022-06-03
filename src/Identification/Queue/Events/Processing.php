@@ -39,21 +39,16 @@ class Processing
         public JobProcessing $event
     ) {
         $payload = $event->job->payload();
-        $job = null;
 
-        if ($command = Arr::get($payload, 'data.command')) {
-            $job = $this->unserializeToJob($command);
-        }
+        $command = Arr::get($payload, 'data.command');
 
-        $tenant = $job->getTenant();
-        $tenant_key = $job->getTenantKey();
-        $tenant_identifier = $job->getTenantIdentifier();
+        /** @var TenancyJob|Job $job */
+        $job = $this->unserializeToJob($command);
 
-        $this->tenant = $tenant ?? null;
-        $this->tenant_key = $tenant_key ?? $payload['tenant_key'] ?? null;
-        $this->tenant_identifier = $tenant_identifier ?? $payload['tenant_identifier'] ?? null;
+        $this->tenant_key = $job?->getTenantKey() ?? $payload['tenant_key'] ?? null;
+        $this->tenant_identifier = $job?->getTenantIdentifier() ?? $payload['tenant_identifier'] ?? null;
 
-        $this->job = $command;
+        $this->job = $job;
     }
 
     private function unserializeToJob(string $object): object
