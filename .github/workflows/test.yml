@@ -19,25 +19,11 @@ jobs:
                 laravel: [9.*]
                 service: ['5.7', '8']
                 dependency-version: [prefer-lowest, prefer-stable]
-                experimental: [false, true]
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
-        continue-on-error: ${{ matrix.experimental }}
-
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-
         steps:
             - uses: actions/checkout@v2
-
-            - name: Login to DockerHub
-              uses: docker/login-action@v1
-              with:
-                username: ${{ env.DOCKERHUB_USERNAME }}
-                password: ${{ env.DOCKERHUB_TOKEN }}
-              if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
 
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
