@@ -29,7 +29,7 @@ class Environment
     use Concerns\ResolvesTenants;
     use Macroable;
 
-    protected ?Tenant $tenant;
+    protected ?Tenant $tenant = null;
 
     protected bool $identified = false;
 
