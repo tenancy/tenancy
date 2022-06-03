@@ -30,10 +30,11 @@ class SeedsHook extends ConfigurableHook
 
     public ResolvesConnections $resolver;
 
-    public $action;
+    public ?string $action = null;
 
     public int $priority = -40;
 
+    /** @var array|string[] */
     public array $seeds = [];
 
     public function __construct()
@@ -69,11 +70,11 @@ class SeedsHook extends ConfigurableHook
         $db->setDefaultConnection($this->connection);
 
         foreach ($this->seeds as $seed) {
-            /** @var Seeder $seed */
-            $seed = resolve($seed::class);
-            $seed = $seed->setContainer(app());
+            /** @var Seeder $seeder */
+            $seeder = resolve($seed);
+            $seeder = $seeder->setContainer(app());
 
-            $seed();
+            $seeder();
         }
 
         $this->resolver->__invoke(null, $this->connection);
