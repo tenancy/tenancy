@@ -41,7 +41,7 @@ class Job
         return $this->tenant_identifier;
     }
 
-    public function getTenantKey(): ?string
+    public function getTenantKey(): string|int|null
     {
         return $this->tenant_key;
     }
