@@ -29,7 +29,7 @@ class Processing
 
     public ?Tenant $tenant;
 
-    public ?string $tenant_key;
+    public int|string|null $tenant_key;
 
     public ?string $tenant_identifier;
 

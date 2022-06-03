@@ -32,10 +32,10 @@ class OverrideableKeysJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /** @var mixed */
+    /** @var int|string|null */
     public $tenant_key;
 
-    /** @var string */
+    /** @var string|null */
     public $tenant_identifier;
 
     /** @var Collection */
