@@ -33,7 +33,7 @@ class Processing
 
     public ?string $tenant_identifier;
 
-    public Job $job;
+    public Job|TenancyJob $job;
 
     public function __construct(
         public JobProcessing $event
