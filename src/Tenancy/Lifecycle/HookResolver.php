@@ -20,6 +20,7 @@ use InvalidArgumentException;
 use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Pipeline\Pipeline;
+use Tenancy\Pipeline\Steps;
 
 class HookResolver extends Pipeline implements ResolvesHooks
 {
@@ -46,9 +47,9 @@ class HookResolver extends Pipeline implements ResolvesHooks
         return $this;
     }
 
-    public function handle($event, callable $fire = null)
+    public function handle($event, callable $fire = null): Steps
     {
-        parent::handle($event, function ($hooks) {
+        return parent::handle($event, function ($hooks) {
             $hooks->each(function (LifecycleHook $hook) {
                 if ($hook->queued()) {
                     dispatch(function () use ($hook) {
