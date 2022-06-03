@@ -27,9 +27,9 @@ class Job
 
     protected ?Tenant $tenant = null;
 
-    protected int|string|null $tenant_key;
+    protected int|string|null $tenant_key = null;
 
-    protected ?string $tenant_identifier;
+    protected ?string $tenant_identifier = null;
 
     public function getTenant()
     {
