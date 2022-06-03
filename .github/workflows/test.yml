@@ -27,4 +27,3 @@ jobs:
 
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
-              continue-on-error: ${{ matrix.experimental }}
