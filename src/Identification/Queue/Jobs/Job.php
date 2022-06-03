@@ -25,7 +25,7 @@ class Job
 {
     use SerializesAndRestoresModelIdentifiers;
 
-    protected ?Tenant $tenant;
+    protected ?Tenant $tenant = null;
 
     protected ?string $tenant_identifier;
 
