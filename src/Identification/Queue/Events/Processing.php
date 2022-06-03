@@ -47,6 +47,7 @@ class Processing
 
         $this->tenant_key = $job?->getTenantKey() ?? $payload['tenant_key'] ?? null;
         $this->tenant_identifier = $job?->getTenantIdentifier() ?? $payload['tenant_identifier'] ?? null;
+        $this->tenant = $job?->getTenant();
 
         $this->job = $job;
     }
@@ -55,6 +56,6 @@ class Processing
     {
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 
-        return unserialize($stdClassObj, ['allowed_classes' => [TenancyJob::class]]);
+        return unserialize($stdClassObj, ['allowed_classes' => [Job::class, TenancyJob::class]]);
     }
 }
