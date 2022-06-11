@@ -75,7 +75,10 @@ trait CreatesApplication
     {
         $this->app->register(TenancyProvider::class);
         foreach ($this->additionalProviders as $provider) {
-            $this->app->register($provider);
+            if (class_exists($provider)) {
+                $this->app->register($provider);
+            }
+            
         }
 
         $this->environment = resolve(Environment::class);
