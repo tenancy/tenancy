@@ -23,5 +23,6 @@ class ConfigureLogs
     public function __construct(
         public Switched $event,
         public array &$config = []
-    ) {}
+    ) {
+    }
 }

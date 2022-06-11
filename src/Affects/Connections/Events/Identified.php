@@ -22,8 +22,9 @@ use Tenancy\Identification\Contracts\Tenant;
 class Identified
 {
     public function __construct(
-        public ?Tenant $tenant = null,
-        public ?string $connection = null,
+        public ?Tenant $tenant,
+        public ?string $connection,
         public ProvidesConfiguration &$provider
-    ) {}
+    ) {
+    }
 }

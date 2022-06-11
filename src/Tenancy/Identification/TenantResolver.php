@@ -78,7 +78,7 @@ class TenantResolver implements ResolvesTenants
         $this->events()->dispatch(new Events\Configuring($this));
     }
 
-    public function addModel(string $class): TenantResolver|static
+    public function addModel(string $class): self|static
     {
         if (!in_array(Tenant::class, class_implements($class))) {
             throw new InvalidArgumentException("$class has to implement ".Tenant::class);

@@ -25,5 +25,6 @@ abstract class ResultEvent
         public Tenant $tenant,
         public ProvidesDatabase $provider,
         public bool $result
-    ) {}
+    ) {
+    }
 }

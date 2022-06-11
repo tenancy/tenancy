@@ -23,7 +23,8 @@ class ConfigureModels
 {
     public function __construct(
         public Switched $event
-    ) {}
+    ) {
+    }
 
     public static function __callStatic($method, $parameters)
     {

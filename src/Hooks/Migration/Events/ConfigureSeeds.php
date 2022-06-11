@@ -24,7 +24,8 @@ class ConfigureSeeds
     public function __construct(
         public Event $event,
         public SeedsHook $hook
-    ) {}
+    ) {
+    }
 
     public function seed(string $class): static
     {

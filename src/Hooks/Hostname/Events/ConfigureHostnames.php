@@ -24,7 +24,8 @@ class ConfigureHostnames
     public function __construct(
         public Event $event,
         public HostnamesHook $hook
-    ) {}
+    ) {
+    }
 
     public function disable(): static
     {

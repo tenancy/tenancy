@@ -28,7 +28,8 @@ class ConnectionResolver implements ResolvesConnections
 
     public function __construct(
         protected Dispatcher $events
-    ) {}
+    ) {
+    }
 
     public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesConfiguration
     {

@@ -24,7 +24,8 @@ class ConfigureURL
     public function __construct(
         public Switched $event,
         public UrlGenerator $url
-    ) {}
+    ) {
+    }
 
     public function changeRoot(string $url)
     {

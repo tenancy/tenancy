@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Testing\Mocks\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use JetBrains\PhpStorm\ArrayShape;
 use Tenancy\Testing\Mocks\Tenant;
 
 class TenantFactory extends Factory
@@ -26,7 +25,6 @@ class TenantFactory extends Factory
 
     protected $model = Tenant::class;
 
-    #[ArrayShape(['id' => "int", 'name' => "string", 'email' => "string", 'password' => "string", 'remember_token' => "string"])]
     public function definition(): array
     {
         return [

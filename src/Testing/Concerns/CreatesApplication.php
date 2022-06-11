@@ -78,7 +78,6 @@ trait CreatesApplication
             if (class_exists($provider)) {
                 $this->app->register($provider);
             }
-            
         }
 
         $this->environment = resolve(Environment::class);
