@@ -23,7 +23,7 @@ use Tenancy\Testing\TestCase;
 
 class RequestTest extends TestCase
 {
-    protected array $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class, \Fruitcake\Cors\CorsServiceProvider::class];
 
     /** @test */
     public function it_triggers_identification_on_incoming_requests()
