@@ -20,13 +20,8 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Switched
 {
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
-
-    public function __construct(Tenant $tenant = null)
-    {
-        $this->tenant = $tenant;
+    public function __construct(
+        public ?Tenant $tenant = null
+    ) {
     }
 }

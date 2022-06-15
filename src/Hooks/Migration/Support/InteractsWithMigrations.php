@@ -21,14 +21,14 @@ use Tenancy\Hooks\Migration\Events\ConfigureSeeds;
 
 trait InteractsWithMigrations
 {
-    protected function registerMigrationsPath(string $path)
+    protected function registerMigrationsPath(string $path): void
     {
         $this->events->listen(ConfigureMigrations::class, function (ConfigureMigrations $event) use ($path) {
             $event->path($path);
         });
     }
 
-    protected function registerSeederFile(string $path)
+    protected function registerSeederFile(string $path): void
     {
         $this->events->listen(ConfigureSeeds::class, function (ConfigureSeeds $event) use ($path) {
             require_once $path;

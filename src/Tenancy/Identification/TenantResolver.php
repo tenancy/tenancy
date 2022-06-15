@@ -31,14 +31,9 @@ class TenantResolver implements ResolvesTenants
     use DispatchesEvents;
     use Macroable;
 
-    /**
-     * The tenant models.
-     *
-     * @var TenantModelCollection
-     */
-    protected $models;
+    protected TenantModelCollection $models;
 
-    protected $drivers = [];
+    protected array $drivers = [];
 
     public function __construct()
     {
@@ -83,7 +78,7 @@ class TenantResolver implements ResolvesTenants
         $this->events()->dispatch(new Events\Configuring($this));
     }
 
-    public function addModel(string $class)
+    public function addModel(string $class): self|static
     {
         if (!in_array(Tenant::class, class_implements($class))) {
             throw new InvalidArgumentException("$class has to implement ".Tenant::class);
@@ -114,37 +109,20 @@ class TenantResolver implements ResolvesTenants
         return $model;
     }
 
-    /**
-     * Updates the tenant model collection.
-     *
-     * @param TenantModelCollection $collection
-     *
-     * @return $this
-     */
-    public function setModels(TenantModelCollection $collection)
+    public function setModels(TenantModelCollection $collection): static
     {
         $this->models = $collection;
 
         return $this;
     }
 
-    /**
-     * @param string $contract
-     *
-     * @return $this
-     */
-    public function registerDriver(string $contract)
+    public function registerDriver(string $contract): static
     {
         $this->drivers[] = $contract;
 
         return $this;
     }
 
-    /**
-     * @param TenantModelCollection $models
-     *
-     * @return Tenant
-     */
     protected function resolveFromDrivers(TenantModelCollection $models): ?Tenant
     {
         $tenant = null;
@@ -176,23 +154,18 @@ class TenantResolver implements ResolvesTenants
         return $tenant;
     }
 
-    /**
-     * @param string $driver
-     *
-     * @return array|ReflectionMethod[]
-     */
     protected function retrieveDriverMethods(string $driver): array
     {
         return (new ReflectionClass($driver))->getMethods(ReflectionMethod::IS_PUBLIC);
     }
 
-    protected function identifyByContract(string $contract)
+    protected function identifyByContract(string $contract): ?Tenant
     {
         // Provide a debug log entry when no the specific identification driver has not been installed.
         if (!in_array($contract, $this->drivers)) {
             logger('Identification driver '.$contract.' was not available');
 
-            return;
+            return null;
         }
 
         $tenant = $this->resolveFromDriver($this->getModels(), $contract);
@@ -210,13 +183,7 @@ class TenantResolver implements ResolvesTenants
         return $tenant;
     }
 
-    /**
-     * @param TenantModelCollection $models
-     * @param string|array          $contract
-     *
-     * @return Tenant|null
-     */
-    protected function resolveFromDriver(TenantModelCollection $models, string $contract): ?Tenant
+    protected function resolveFromDriver(TenantModelCollection $models, string|array $contract): ?Tenant
     {
         $tenant = null;
 

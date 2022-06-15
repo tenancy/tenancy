@@ -20,7 +20,7 @@ use Tenancy\Environment;
 
 trait OnTenant
 {
-    public function getConnectionName()
+    public function getConnectionName(): string
     {
         return Environment::getTenantConnectionName();
     }

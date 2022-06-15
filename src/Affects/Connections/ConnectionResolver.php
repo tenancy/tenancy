@@ -26,14 +26,9 @@ class ConnectionResolver implements ResolvesConnections
 {
     use Macroable;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
-
-    public function __construct(Dispatcher $events)
-    {
-        $this->events = $events;
+    public function __construct(
+        protected Dispatcher $events
+    ) {
     }
 
     public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesConfiguration

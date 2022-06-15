@@ -27,65 +27,35 @@ class Processing
 {
     use SerializesAndRestoresModelIdentifiers;
 
-    /**
-     * @var JobProcessing
-     */
-    public $event;
+    public ?Tenant $tenant;
 
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
+    public int|string|null $tenant_key;
 
-    /**
-     * @var string|null
-     */
-    public $tenant_key;
+    public ?string $tenant_identifier;
 
-    /**
-     * @var string|null
-     */
-    public $tenant_identifier;
+    public Job|TenancyJob $job;
 
-    /**
-     * @var Job
-     */
-    public $job;
-
-    public function __construct(JobProcessing $event)
-    {
-        $this->event = $event;
-
-        /** @var array $payload */
+    public function __construct(
+        public JobProcessing $event
+    ) {
         $payload = $event->job->payload();
-        $job = null;
 
-        if ($command = Arr::get($payload, 'data.command')) {
-            $job = $this->unserializeToJob($command);
-        }
+        $command = Arr::get($payload, 'data.command');
 
-        $tenant = $job->getTenant();
-        $tenant_key = $job->getTenantKey();
-        $tenant_identifier = $job->getTenantIdentifier();
+        /** @var TenancyJob|Job $job */
+        $job = $this->unserializeToJob($command);
 
-        $this->tenant = $tenant ?? null;
-        $this->tenant_key = $tenant_key ?? $payload['tenant_key'] ?? null;
-        $this->tenant_identifier = $tenant_identifier ?? $payload['tenant_identifier'] ?? null;
+        $this->tenant_key = $job?->getTenantKey() ?? $payload['tenant_key'] ?? null;
+        $this->tenant_identifier = $job?->getTenantIdentifier() ?? $payload['tenant_identifier'] ?? null;
+        $this->tenant = $job?->getTenant();
 
-        $this->job = $command;
+        $this->job = $job;
     }
 
-    /**
-     * Unserializes the job to a simple job.
-     *
-     * @param string $object
-     *
-     * @return object
-     */
-    private function unserializeToJob(string $object)
+    private function unserializeToJob(string $object): object
     {
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 
-        return unserialize($stdClassObj, ['allowed_classes' => [TenancyJob::class]]);
+        return unserialize($stdClassObj, ['allowed_classes' => [Job::class, TenancyJob::class]]);
     }
 }

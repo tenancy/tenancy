@@ -21,46 +21,20 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureViews
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-
-    /**
-     * @var Factory|\Illuminate\View\Factory
-     */
-    public $view;
-
-    public function __construct(Switched $event, Factory $view)
-    {
-        $this->event = $event;
-        $this->view = $view;
+    public function __construct(
+        public Switched $event,
+        public Factory $view
+    ) {
     }
 
-    /**
-     * Configure a `tenant::` blade namespace.
-     *
-     * @param string $path
-     * @param string $namespace
-     *
-     * @return $this
-     */
-    public function addNamespace(string $path, string $namespace = 'tenant')
+    public function addNamespace(string $path, string $namespace = 'tenant'): static
     {
         $this->view->addNamespace($namespace, $path);
 
         return $this;
     }
 
-    /**
-     * Enable lookups for blade files from an additional path.
-     *
-     * @param string $path
-     * @param bool   $replace ; replace the existing global view directories.
-     *
-     * @return $this
-     */
-    public function addPath(string $path, bool $replace = false)
+    public function addPath(string $path, bool $replace = false): static
     {
         if ($replace) {
             config(['view.paths' => $path]);

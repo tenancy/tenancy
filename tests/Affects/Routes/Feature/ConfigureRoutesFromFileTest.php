@@ -26,7 +26,7 @@ class ConfigureRoutesFromFileTest extends AffectsFeatureTestCase
 {
     use AddsFromFile;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {

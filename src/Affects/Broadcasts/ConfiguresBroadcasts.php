@@ -27,7 +27,7 @@ class ConfiguresBroadcasts extends Affect
 
     public function fire(): void
     {
-        /** @var BroadcastManager $manager¸ */
+        /** @var BroadcastManager $manager */
         $manager = resolve(BroadcastManager::class);
 
         /** @var Repository $config */

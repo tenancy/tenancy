@@ -23,13 +23,11 @@ use Tenancy\Lifecycle\ConfigurableHook;
 
 class HostnamesHook extends ConfigurableHook
 {
-    /** @var array */
-    private $handlers = [];
+    private array $handlers = [];
 
-    /** @var bool */
-    public $fires = false;
+    public bool $fires = false;
 
-    public function for($event)
+    public function for($event): static
     {
         parent::for($event);
 
@@ -42,12 +40,12 @@ class HostnamesHook extends ConfigurableHook
         return $this;
     }
 
-    public function getHandlers()
+    public function getHandlers(): array
     {
         return $this->handlers;
     }
 
-    public function registerHandler(HostnameHandler $handler)
+    public function registerHandler(HostnameHandler $handler): static
     {
         $this->handlers[] = $handler;
 

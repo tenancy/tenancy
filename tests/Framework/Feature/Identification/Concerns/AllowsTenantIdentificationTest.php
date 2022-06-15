@@ -41,15 +41,6 @@ class AllowsTenantIdentificationTest extends TestCase
     }
 
     /** @test */
-    public function tenant_key_returns_the_model_key()
-    {
-        $this->assertEquals(
-            $this->class->getKey(),
-            $this->class->getTenantKey()
-        );
-    }
-
-    /** @test */
     public function tenant_identifier_contains_the_table()
     {
         $this->assertStringContainsString(

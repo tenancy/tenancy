@@ -26,7 +26,7 @@ class ConfigureViewsReplacesPathTest extends AffectsIntegrationTestCase
 {
     use ReplacesPaths;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function replaced_views_can_be_rendered()

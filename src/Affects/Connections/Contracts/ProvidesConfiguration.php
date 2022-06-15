@@ -20,10 +20,5 @@ use Tenancy\Identification\Contracts\Tenant;
 
 interface ProvidesConfiguration
 {
-    /**
-     * @param Tenant $tenant
-     *
-     * @return array
-     */
     public function configure(Tenant $tenant): array;
 }

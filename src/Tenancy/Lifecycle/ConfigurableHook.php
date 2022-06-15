@@ -18,16 +18,11 @@ namespace Tenancy\Lifecycle;
 
 abstract class ConfigurableHook extends Hook
 {
-    /**
-     * Queue connection to dispatch Hook on, or null for default.
-     *
-     * @var null|string|false
-     */
-    public $queue = false;
+    public null|string|bool $queue = false;
 
-    public $priority = 0;
+    public int $priority = 0;
 
-    public $fires = true;
+    public bool $fires = true;
 
     public function queued(): bool
     {

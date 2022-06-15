@@ -26,7 +26,7 @@ use Tenancy\Tests\Mocks\Tenants\HostnameTenant;
 
 class ConfigureHostnamesTest extends ConfigureHookTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected $hookClass = HostnamesHook::class;
 

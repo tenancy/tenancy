@@ -21,14 +21,9 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureModels
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-
-    public function __construct(Switched $event)
-    {
-        $this->event = $event;
+    public function __construct(
+        public Switched $event
+    ) {
     }
 
     public static function __callStatic($method, $parameters)

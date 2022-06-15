@@ -24,14 +24,9 @@ use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 
 class EagerIdentification
 {
-    /**
-     * @var Application
-     */
-    protected $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
+    public function __construct(
+        protected Application $app
+    ) {
     }
 
     public function handle(CommandStarting $event)

@@ -19,28 +19,29 @@ namespace Tenancy\Identification\Drivers\Queue\Jobs;
 use Illuminate\Contracts\Database\ModelIdentifier;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use ReflectionClass;
+use Tenancy\Identification\Contracts\Tenant;
 
 class Job
 {
     use SerializesAndRestoresModelIdentifiers;
 
-    protected $tenant;
+    protected ?Tenant $tenant = null;
 
-    protected $tenant_identifier;
+    protected int|string|null $tenant_key = null;
 
-    protected $tenant_key;
+    protected ?string $tenant_identifier = null;
 
     public function getTenant()
     {
         return $this->restoreValue($this->tenant);
     }
 
-    public function getTenantIdentifier()
+    public function getTenantIdentifier(): ?string
     {
         return $this->tenant_identifier;
     }
 
-    public function getTenantKey()
+    public function getTenantKey(): string|int|null
     {
         return $this->tenant_key;
     }
@@ -66,7 +67,7 @@ class Job
         }
     }
 
-    protected function restoreValue($value)
+    protected function restoreValue($value): mixed
     {
         $value = unserialize(serialize($value));
 

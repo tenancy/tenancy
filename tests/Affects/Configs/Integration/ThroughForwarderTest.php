@@ -25,7 +25,7 @@ class ThroughForwarderTest extends AffectsIntegrationTestCase
 {
     use ThroughForwarder;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function by_default_the_helper_result_has_no_value()

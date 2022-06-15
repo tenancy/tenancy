@@ -20,10 +20,11 @@ use InvalidArgumentException;
 use Tenancy\Contracts\LifecycleHook;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Pipeline\Pipeline;
+use Tenancy\Pipeline\Steps;
 
 class HookResolver extends Pipeline implements ResolvesHooks
 {
-    public function addHook($hook)
+    public function addHook($hook): static
     {
         if (!in_array(LifecycleHook::class, class_implements($hook))) {
             throw new InvalidArgumentException("$hook has to implement ".LifecycleHook::class);
@@ -39,16 +40,16 @@ class HookResolver extends Pipeline implements ResolvesHooks
         return $this->getSteps()->toArray();
     }
 
-    public function setHooks(array $hooks)
+    public function setHooks(array $hooks): static
     {
         $this->setSteps($hooks);
 
         return $this;
     }
 
-    public function handle($event, callable $fire = null)
+    public function handle($event, callable $fire = null): Steps
     {
-        parent::handle($event, function ($hooks) {
+        return parent::handle($event, function ($hooks) {
             $hooks->each(function (LifecycleHook $hook) {
                 if ($hook->queued()) {
                     dispatch(function () use ($hook) {

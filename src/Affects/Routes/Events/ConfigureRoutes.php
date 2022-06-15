@@ -22,43 +22,20 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureRoutes
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-
-    /**
-     * @var Router
-     */
-    public $router;
-
-    public function __construct(Switched $event, Router $router)
-    {
-        $this->event = $event;
-        $this->router = $router;
+    public function __construct(
+        public Switched $event,
+        public Router $router
+    ) {
     }
 
-    /**
-     * Flush all tenant routes for this request.
-     *
-     * @return $this
-     */
-    public function flush()
+    public function flush(): static
     {
         $this->router->setRoutes(new RouteCollection());
 
         return $this;
     }
 
-    /**
-     * Adds routes from a routes.php file to the current request.
-     *
-     * @param array  $attributes
-     * @param string $path
-     *
-     * @return $this
-     */
-    public function fromFile(array $attributes, string $path)
+    public function fromFile(array $attributes, string $path): static
     {
         $this->router->group($attributes, $path);
 

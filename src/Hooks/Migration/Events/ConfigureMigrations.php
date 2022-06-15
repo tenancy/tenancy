@@ -21,44 +21,34 @@ use Tenancy\Tenant\Events\Event;
 
 class ConfigureMigrations
 {
-    /**
-     * @var Event
-     */
-    public $event;
-
-    /**
-     * @var MigratesHook
-     */
-    public $hook;
-
-    public function __construct(Event $event, MigratesHook $hook)
-    {
-        $this->event = $event;
-        $this->hook = $hook;
+    public function __construct(
+        public Event $event,
+        public MigratesHook $hook
+    ) {
     }
 
-    public function path(string $path)
+    public function path(string $path): static
     {
         $this->hook->paths[] = $path;
 
         return $this;
     }
 
-    public function flush()
+    public function flush(): static
     {
         $this->hook->paths = [];
 
         return $this;
     }
 
-    public function disable()
+    public function disable(): static
     {
         $this->hook->fires = false;
 
         return $this;
     }
 
-    public function priority(int $priority = -50)
+    public function priority(int $priority = -50): static
     {
         $this->hook->priority = $priority;
 

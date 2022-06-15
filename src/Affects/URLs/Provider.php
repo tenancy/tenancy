@@ -20,5 +20,5 @@ use Tenancy\Support\AffectsProvider;
 
 class Provider extends AffectsProvider
 {
-    protected $affects = [ConfiguresURL::class];
+    protected array $affects = [ConfiguresURL::class];
 }

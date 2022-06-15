@@ -29,7 +29,7 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Mysql implements ProvidesDatabase
 {
-    protected $queryManager;
+    protected QueryManager $queryManager;
 
     public function __construct()
     {

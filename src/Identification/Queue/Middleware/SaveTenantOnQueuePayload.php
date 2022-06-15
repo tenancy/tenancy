@@ -20,7 +20,7 @@ use Tenancy\Facades\Tenancy;
 
 class SaveTenantOnQueuePayload
 {
-    public function __invoke(string $connection, string $queue = null, array $payload = [])
+    public function __invoke(string $connection, string $queue = null, array $payload = []): array
     {
         $tenant = Tenancy::getTenant();
 

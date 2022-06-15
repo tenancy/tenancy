@@ -24,7 +24,7 @@ use Tenancy\Tests\Mocks\Tenants\SimpleConsoleTenant;
 
 class SimpleConsoleTenantTest extends TestCase
 {
-    protected $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
     {

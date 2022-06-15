@@ -26,7 +26,7 @@ class ConfigureViewsNamespaceTest extends AffectsIntegrationTestCase
 {
     use AddsNamespaces;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function registered_views_can_be_rendered()

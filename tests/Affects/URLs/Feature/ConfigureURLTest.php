@@ -27,7 +27,7 @@ class ConfigureURLTest extends AffectsFeatureTestCase
 {
     use AffectShouldBeUndone;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function registerAffecting()
     {

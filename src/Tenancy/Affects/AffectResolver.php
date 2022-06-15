@@ -23,7 +23,7 @@ use Tenancy\Pipeline\Pipeline;
 
 class AffectResolver extends Pipeline implements ResolvesAffects
 {
-    public function addAffect($affect)
+    public function addAffect($affect): static
     {
         if (!in_array(AffectsApp::class, class_implements($affect))) {
             throw new InvalidArgumentException("$affect has to implement ".AffectsApp::class);
@@ -39,7 +39,7 @@ class AffectResolver extends Pipeline implements ResolvesAffects
         return $this->getSteps()->toArray();
     }
 
-    public function setAffects(array $affects)
+    public function setAffects(array $affects): static
     {
         $this->setSteps($affects);
 

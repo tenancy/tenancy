@@ -26,7 +26,7 @@ abstract class DriverTest extends AffectsFeatureTestCase
 {
     use AffectShouldBeUndone;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {

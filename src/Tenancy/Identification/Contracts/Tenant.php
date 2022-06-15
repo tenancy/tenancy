@@ -18,24 +18,9 @@ namespace Tenancy\Identification\Contracts;
 
 interface Tenant
 {
-    /**
-     * The attribute of the Model to use for the key.
-     *
-     * @return string
-     */
     public function getTenantKeyName(): string;
 
-    /**
-     * The actual value of the key for the tenant Model.
-     *
-     * @return string|int
-     */
-    public function getTenantKey();
+    public function getTenantKey(): int|string;
 
-    /**
-     * A unique identifier, eg class or table to distinguish this tenant Model.
-     *
-     * @return string
-     */
     public function getTenantIdentifier(): string;
 }

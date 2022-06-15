@@ -22,12 +22,12 @@ use Tenancy\Affects\Connections\Events\Resolving;
 
 trait InteractsWithConnections
 {
-    protected function resolveConnection(Closure $callback)
+    protected function resolveConnection(Closure $callback): void
     {
         $this->events->listen(Resolving::class, $callback);
     }
 
-    protected function configureConnection(Closure $callback)
+    protected function configureConnection(Closure $callback): void
     {
         $this->events->listen(Configuring::class, $callback);
     }

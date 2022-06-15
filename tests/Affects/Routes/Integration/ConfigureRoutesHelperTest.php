@@ -25,7 +25,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
 {
     use AddsFromFile;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class, \Fruitcake\Cors\CorsServiceProvider::class];
 
     /** @test */
     public function registered_routes_are_loaded()

@@ -21,19 +21,10 @@ use Tenancy\Identification\Events\Switched;
 
 class ConfigureConfig
 {
-    /**
-     * @var Switched
-     */
-    public $event;
-    /**
-     * @var Repository
-     */
-    public $config;
-
-    public function __construct(Switched $event, Repository $config)
-    {
-        $this->event = $event;
-        $this->config = $config;
+    public function __construct(
+        public Switched $event,
+        public Repository $config
+    ) {
     }
 
     public function __call($name, $arguments)

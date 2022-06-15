@@ -43,7 +43,7 @@ class SeedsTest extends TestCase
     use UsesMigrations;
     use UsesSeeders;
 
-    protected $additionalProviders = [MigrationProvider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
+    protected array $additionalProviders = [MigrationProvider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
 
     /** @test */
     public function it_can_migrate_a_database()

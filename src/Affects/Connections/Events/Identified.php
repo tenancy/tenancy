@@ -21,25 +21,10 @@ use Tenancy\Identification\Contracts\Tenant;
 
 class Identified
 {
-    /**
-     * @var Tenant|null
-     */
-    public $tenant;
-
-    /**
-     * @var ProvidesConfiguration
-     */
-    public $provider;
-
-    /**
-     * @var string|null
-     */
-    public $connection;
-
-    public function __construct(Tenant $tenant = null, string $connection = null, ProvidesConfiguration &$provider)
-    {
-        $this->tenant = $tenant;
-        $this->connection = $connection;
-        $this->provider = &$provider;
+    public function __construct(
+        public ?Tenant $tenant,
+        public ?string $connection,
+        public ProvidesConfiguration &$provider
+    ) {
     }
 }

@@ -25,11 +25,9 @@ class QueryManager
 {
     use Macroable;
 
-    /** @var ConnectionInterface */
-    protected $connection;
+    protected ConnectionInterface $connection;
 
-    /** @var bool */
-    protected $status = true;
+    protected bool $status = true;
 
     public function setConnection(ConnectionInterface $connection): self
     {
@@ -64,7 +62,7 @@ class QueryManager
         return $this;
     }
 
-    protected function statement($sql)
+    protected function statement($sql): void
     {
         $this->status = $this->status && $this->connection->statement($sql);
     }

@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Database\Mysql\Feature;
 
-use Doctrine\DBAL\Driver\PDOException;
+use PDOException;
 use Tenancy\Database\Drivers\Mysql\Provider;
 use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Tests\Database\DatabaseFeatureTestCase;
@@ -29,7 +29,7 @@ class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
     use UsesTenants;
     use UsesConnections;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected $exception = PDOException::class;
 

@@ -21,7 +21,7 @@ use Tenancy\Support\HooksProvider;
 
 class Provider extends HooksProvider
 {
-    protected $hooks = [
+    protected array $hooks = [
         HostnamesHook::class,
     ];
 }

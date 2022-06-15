@@ -20,10 +20,5 @@ use Tenancy\Identification\Contracts\Tenant;
 
 interface ProvidesPassword
 {
-    /**
-     * @param Tenant $tenant
-     *
-     * @return string
-     */
     public function __invoke(Tenant $tenant): string;
 }

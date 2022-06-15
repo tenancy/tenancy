@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Testing\Mocks;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant as Contract;
@@ -32,13 +33,13 @@ class Tenant extends Model implements Contract
 
     use AllowsTenantIdentification;
 
-    public static function factory(...$parameters)
+    public static function factory(...$parameters): Factory
     {
         if (function_exists('factory')) {
             return factory(get_called_class(), $parameters);
         }
 
-        return \Illuminate\Database\Eloquent\Factories\Factory::factoryForModel(get_called_class())
+        return Factory::factoryForModel(get_called_class())
                     ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
                     ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
     }
@@ -50,7 +51,7 @@ class Tenant extends Model implements Contract
      *
      * @return Model
      */
-    public function as(string $class)
+    public function as(string $class): Model
     {
         return $class::findOrFail($this->getKey());
     }

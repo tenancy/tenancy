@@ -24,7 +24,7 @@ use Tenancy\Testing\TestCase;
 
 class ArtisanTest extends TestCase
 {
-    protected $additionalProviders = [IdentificationProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
     {

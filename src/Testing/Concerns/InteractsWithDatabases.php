@@ -22,12 +22,12 @@ use Tenancy\Hooks\Database\Events\Resolving;
 
 trait InteractsWithDatabases
 {
-    protected function resolveDatabase(Closure $callback)
+    protected function resolveDatabase(Closure $callback): void
     {
         $this->events->listen(Resolving::class, $callback);
     }
 
-    protected function configureDatabase(Closure $callback)
+    protected function configureDatabase(Closure $callback): void
     {
         $this->events->listen(Configuring::class, $callback);
     }

@@ -26,7 +26,7 @@ class ConfigureViewsNamespaceDefaultTest extends AffectsFeatureTestCase
 {
     use AddsNamespaces;
 
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     protected function isAffected(Tenant $tenant): bool
     {

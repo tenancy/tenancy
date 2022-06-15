@@ -37,7 +37,7 @@ class TenantProvider extends ServiceProvider implements DeferrableProvider
         });
     }
 
-    public function provides()
+    public function provides(): array
     {
         return [
             Tenant::class,

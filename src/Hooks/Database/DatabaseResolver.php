@@ -26,10 +26,7 @@ class DatabaseResolver implements ResolvesDatabases
 {
     use Macroable;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
+    protected Dispatcher $events;
 
     public function __construct(Dispatcher $events)
     {

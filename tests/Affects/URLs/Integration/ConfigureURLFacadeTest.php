@@ -24,7 +24,7 @@ use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 
 class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function by_default_the_url_facade_is_not_affected()

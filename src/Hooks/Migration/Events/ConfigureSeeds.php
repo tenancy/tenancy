@@ -21,37 +21,27 @@ use Tenancy\Tenant\Events\Event;
 
 class ConfigureSeeds
 {
-    /**
-     * @var Event
-     */
-    public $event;
-
-    /**
-     * @var SeedsHook
-     */
-    public $hook;
-
-    public function __construct(Event $event, SeedsHook $hook)
-    {
-        $this->event = $event;
-        $this->hook = $hook;
+    public function __construct(
+        public Event $event,
+        public SeedsHook $hook
+    ) {
     }
 
-    public function seed(string $class)
+    public function seed(string $class): static
     {
         $this->hook->seeds[] = $class;
 
         return $this;
     }
 
-    public function disable()
+    public function disable(): static
     {
         $this->hook->fires = false;
 
         return $this;
     }
 
-    public function priority(int $priority = -40)
+    public function priority(int $priority = -40): static
     {
         $this->hook->priority = $priority;
 

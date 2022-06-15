@@ -21,7 +21,7 @@ use Tenancy\Support\DriverProvider;
 
 class IdentificationProvider extends DriverProvider
 {
-    protected $drivers = [
+    protected array $drivers = [
         IdentifiesByEnvironment::class,
     ];
 }

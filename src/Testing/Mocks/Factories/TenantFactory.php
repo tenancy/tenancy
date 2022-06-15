@@ -25,7 +25,7 @@ class TenantFactory extends Factory
 
     protected $model = Tenant::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'id'             => $this->faker->unixTime,

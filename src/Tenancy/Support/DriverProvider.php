@@ -22,12 +22,7 @@ abstract class DriverProvider extends Provider
 {
     use Concerns\PublishesConfigs;
 
-    /**
-     * Identification driver registered by the Service Provider.
-     *
-     * @var array
-     */
-    protected $drivers = [];
+    protected array $drivers = [];
 
     public function register()
     {

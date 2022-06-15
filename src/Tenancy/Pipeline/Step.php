@@ -22,11 +22,11 @@ abstract class Step implements Contract
 {
     public $event;
 
-    public $priority = 0;
+    public int $priority = 0;
 
-    public $fires = true;
+    public bool $fires = true;
 
-    public function for($event)
+    public function for($event): static
     {
         $this->event = $event;
 

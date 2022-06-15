@@ -27,21 +27,19 @@ use Tenancy\Tenant\Events\Updated;
 
 class DatabaseMutation extends ConfigurableHook
 {
-    public $priority = -100;
+    public int $priority = -100;
 
-    /** @var bool */
-    public $fires = false;
+    public bool $fires = false;
 
-    /** @var ProvidesDatabase */
-    protected $driver;
+    protected ?ProvidesDatabase $driver = null;
 
-    protected $mapping = [
+    protected array $mapping = [
         Created::class => 'create',
         Updated::class => 'update',
         Deleted::class => 'delete',
     ];
 
-    public function for($event)
+    public function for($event): static
     {
         parent::for($event);
 
@@ -63,8 +61,6 @@ class DatabaseMutation extends ConfigurableHook
     {
         $action = $this->mapping[get_class($this->event)];
 
-        if ($this->driver) {
-            $this->driver->{$action}($this->event->tenant);
-        }
+        $this->driver?->{$action}($this->event->tenant);
     }
 }

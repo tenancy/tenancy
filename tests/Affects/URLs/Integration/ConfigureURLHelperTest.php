@@ -23,7 +23,7 @@ use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
 
 class ConfigureURLHelperTest extends AffectsIntegrationTestCase
 {
-    protected $additionalProviders = [Provider::class];
+    protected array $additionalProviders = [Provider::class];
 
     /** @test */
     public function by_default_the_url_helper_is_not_affected()
