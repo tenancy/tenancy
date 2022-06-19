@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Mails\Events;
 
-use Illuminate\Mail\Mailer;
+use Illuminate\Contracts\Mail\Mailer;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use Tenancy\Identification\Events\Switched;
 
