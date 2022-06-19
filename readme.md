@@ -31,10 +31,10 @@ $ composer require tenancy/framework
 
 After that you'll need to decide on and configure:
 
-- [Database drivers](https://tenancy.dev/docs/tenancy/1.x/database-drivers)
-- [Identification drivers](https://tenancy.dev/docs/tenancy/1.x/identification-drivers)
-- [Affects](https://tenancy.dev/docs/tenancy/1.x/affects)
-- [Hooks](https://tenancy.dev/docs/tenancy/1.x/hooks)
+- [Database drivers](https://tenancy.dev/docs/tenancy/2.x/database-drivers)
+- [Identification drivers](https://tenancy.dev/docs/tenancy/2.x/identification-drivers)
+- [Affects](https://tenancy.dev/docs/tenancy/2.x/affects)
+- [Hooks](https://tenancy.dev/docs/tenancy/2.x/hooks)
 
 # Contributions
 
