@@ -68,6 +68,8 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
     {
         Mail::fake();
 
+        $this->app->register($this->affectsProvider);
+
         Mail::to('test@example.com')->send(new TestMail());
 
         Mail::assertSent(TestMail::class, function (TestMail $mail) {
