@@ -17,13 +17,11 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Mails\Unit;
 
 use Illuminate\Mail\Transport\ArrayTransport;
-use Illuminate\Support\Facades\Mail;
 use Mockery;
 use Tenancy\Affects\Mails\Events\ConfigureMails;
 use Tenancy\Affects\Mails\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsEventUnitTestCase;
-use Tenancy\Tests\Affects\Mails\TestMail;
 
 class ConfigureMailsTest extends AffectsEventUnitTestCase
 {
@@ -58,22 +56,6 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
             $e->to('test@example.com');
 
             $mailerSpy->shouldHaveReceived()->to('test@example.com');
-        });
-
-        Tenancy::setTenant($this->tenant);
-    }
-
-    /** @test */
-    public function mailer_can_be_faked()
-    {
-        Mail::fake();
-
-        $this->app->register($this->affectsProvider);
-
-        Mail::to('test@example.com')->send(new TestMail());
-
-        Mail::assertSent(TestMail::class, function (TestMail $mail) {
-            return $mail->hasTo('test@example.com');
         });
 
         Tenancy::setTenant($this->tenant);
