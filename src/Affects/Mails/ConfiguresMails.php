@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Affects\Mails;
 
-use Illuminate\Mail\Mailer;
+use Illuminate\Contracts\Mail\Mailer;
 use Tenancy\Affects\Affect;
 use Tenancy\Concerns\DispatchesEvents;
 
