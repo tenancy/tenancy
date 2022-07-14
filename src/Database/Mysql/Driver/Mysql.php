@@ -54,7 +54,11 @@ class Mysql implements ProvidesDatabase
         $result = $this->queryManager->setConnection($this->system($tenant))
             ->process(function () use ($config) {
                 $this->statement("CREATE USER IF NOT EXISTS `{$config['username']}`@'{$config['host']}' IDENTIFIED BY '{$config['password']}'");
-                $this->statement("CREATE DATABASE `{$config['database']}`");
+                if (!empty($config['collation']) && !empty($config['charset'])) {
+                    $this->statement("CREATE DATABASE `{$config['database']}` COLLATE `{$config['collation']}` CHARACTER SET `{$config['charset']}`");
+                } else {
+                    $this->statement("CREATE DATABASE `{$config['database']}`");
+                }
                 $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
             })
             ->getStatus();
