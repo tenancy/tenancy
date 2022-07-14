@@ -80,7 +80,13 @@ class Mysql implements ProvidesDatabase
             ->process(function () use ($config, $tables) {
                 $this->statement("RENAME USER `{$config['oldUsername']}`@'{$config['host']}' TO `{$config['username']}`@'{$config['host']}'");
                 $this->statement("ALTER USER `{$config['username']}`@`{$config['host']}` IDENTIFIED BY '{$config['password']}'");
-                $this->statement("CREATE DATABASE `{$config['database']}`");
+
+                if (!empty($config['collation']) && !empty($config['charset'])) {
+                    $this->statement("CREATE DATABASE `{$config['database']}` COLLATE `{$config['collation']}` CHARACTER SET `{$config['charset']}`");
+                } else {
+                    $this->statement("CREATE DATABASE `{$config['database']}`");
+                }
+
                 $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
 
                 foreach ($tables as $table) {
