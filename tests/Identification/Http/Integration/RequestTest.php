@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Identification\Http\Integration;
 
 use Tenancy\Environment;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
@@ -32,13 +33,15 @@ class RequestTest extends TestCase
             $mock
                 ->shouldReceive('isIdentified')
                 ->andReturn(false);
-            $mock
+            $tenant = $mock
                 ->shouldReceive('identifyTenant')
                 ->once()
                 ->withArgs([
                     false,
                     IdentifiesByHttp::class,
                 ]);
+
+            $this->assertInstanceOf(Tenant::class, $tenant);
         });
 
         $this->get('/');
