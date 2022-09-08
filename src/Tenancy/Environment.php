@@ -35,9 +35,11 @@ class Environment
 
     public function setTenant(Tenant $tenant = null): static
     {
+        $oldTenant = $this->tenant;
+
         $this->tenant = $tenant;
 
-        $this->events()->dispatch(new Switched($tenant));
+        $this->events()->dispatch(new Switched($tenant, $oldTenant));
 
         if (!$this->identified) {
             $this->identified = true;
