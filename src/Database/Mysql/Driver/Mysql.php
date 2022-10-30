@@ -70,7 +70,7 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Updating($tenant, $config, $this));
 
-        if (!isset($config['oldUsername'])) {
+        if (!isset($config['oldUsername']) && !isset($config['oldDatabase'])) {
             return false;
         }
 
