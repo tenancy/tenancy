@@ -7,9 +7,9 @@ jobs:
         runs-on: ubuntu-latest
 
         env:
-          PHP_VERSION: '8.1'
+          PHP_VERSION: '8.2'
           DB_VERSION: '8'
-          LARAVEL_VERSION: '9.*'
+          LARAVEL_VERSION: '10.*'
           DEPENDENCY_VERSION: 'prefer-stable'
 
         steps:

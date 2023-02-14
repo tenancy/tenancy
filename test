@@ -25,6 +25,7 @@ done
 RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer require 'laravel/laravel:$LARAVEL_VERSION' --dev --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction --$DEPENDENCY_VERSIONS"
+RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction nesbot/carbon"
 RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120 && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
 
 echo "${RUNCOMMAND}"
