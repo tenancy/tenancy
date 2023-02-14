@@ -19,6 +19,9 @@ jobs:
                 laravel: [9.*, 10.*]
                 service: ['5.7', '8']
                 dependency-version: [prefer-lowest, prefer-stable]
+                exclude:
+                    - php: '8.0'
+                      laravel: 10.*
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
