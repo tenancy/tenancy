@@ -35,6 +35,10 @@ class Environment
 
     public function setTenant(Tenant $tenant = null): static
     {
+        if ($tenant === $this->tenant) {
+            return $this;
+        }
+
         $oldTenant = $this->tenant;
 
         $this->tenant = $tenant;
