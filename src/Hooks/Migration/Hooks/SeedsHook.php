@@ -75,7 +75,7 @@ class SeedsHook extends ConfigurableHook
 
         $resolver->__invoke($this->event->tenant, $this->connection);
 
-        if($this->replaceDefaultConnection) {
+        if ($this->replaceDefaultConnection) {
             $db->setDefaultConnection($this->connection);
         }
 
@@ -89,7 +89,7 @@ class SeedsHook extends ConfigurableHook
 
         $resolver->__invoke(Tenancy::getTenant(), $this->connection);
 
-        if($this->replaceDefaultConnection) {
+        if ($this->replaceDefaultConnection) {
             $db->setDefaultConnection($default);
         }
 
