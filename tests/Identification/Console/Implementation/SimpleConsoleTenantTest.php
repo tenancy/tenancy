@@ -29,7 +29,12 @@ class SimpleConsoleTenantTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->app[ConsoleKernel::class]->rerouteSymfonyCommandEvents();
+        $kernel = $this->app[ConsoleKernel::class];
+
+        if(method_exists($kernel, 'rerouteSymfonyCommandEvents')) {
+            $kernel->rerouteSymfonyCommandEvents();
+        }
+
         $resolver = $this->app->make(ResolvesTenants::class);
         $resolver->addModel(SimpleConsoleTenant::class);
         $this->app->make(Kernel::class)->command(

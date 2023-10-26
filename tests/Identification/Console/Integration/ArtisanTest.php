@@ -29,7 +29,12 @@ class ArtisanTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->app[ConsoleKernel::class]->rerouteSymfonyCommandEvents();
+        $kernel = $this->app[ConsoleKernel::class];
+
+        if(method_exists($kernel, 'rerouteSymfonyCommandEvents')) {
+            $kernel->rerouteSymfonyCommandEvents();
+        }
+
         $this->app->make(Kernel::class)->command(
             'identifies',
             function () {
