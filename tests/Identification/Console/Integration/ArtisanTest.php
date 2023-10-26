@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification\Console\Integration;
 
+use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Console\Kernel;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
@@ -28,6 +29,12 @@ class ArtisanTest extends TestCase
 
     protected function afterSetUp()
     {
+        $kernel = $this->app[ConsoleKernel::class];
+
+        if (method_exists($kernel, 'rerouteSymfonyCommandEvents')) {
+            $kernel->rerouteSymfonyCommandEvents();
+        }
+
         $this->app->make(Kernel::class)->command(
             'identifies',
             function () {
