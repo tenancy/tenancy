@@ -31,7 +31,7 @@ class SimpleConsoleTenantTest extends TestCase
     {
         $kernel = $this->app[ConsoleKernel::class];
 
-        if(method_exists($kernel, 'rerouteSymfonyCommandEvents')) {
+        if (method_exists($kernel, 'rerouteSymfonyCommandEvents')) {
             $kernel->rerouteSymfonyCommandEvents();
         }
 
