@@ -31,14 +31,14 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Login to DockerHub
-              uses: docker/login-action@v1
+              uses: docker/login-action@v2
+              if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
               with:
                 username: ${{ env.DOCKERHUB_USERNAME }}
                 password: ${{ env.DOCKERHUB_TOKEN }}
-              if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
 
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
