@@ -26,7 +26,7 @@ use Tenancy\Tests\Mocks\Tenants\SimpleConsoleTenant;
 class SimpleConsoleTenantTest extends TestCase
 {
     use WithConsoleEvents;
-    
+
     protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
