@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification\Console\Implementation;
 
+use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Console\Kernel;
-use Illuminate\Foundation\Testing\WithConsoleEvents;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
@@ -25,12 +25,11 @@ use Tenancy\Tests\Mocks\Tenants\SimpleConsoleTenant;
 
 class SimpleConsoleTenantTest extends TestCase
 {
-    use WithConsoleEvents;
-
     protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
     {
+        $this->app[ConsoleKernel::class]->rerouteSymfonyCommandEvents();
         $resolver = $this->app->make(ResolvesTenants::class);
         $resolver->addModel(SimpleConsoleTenant::class);
         $this->app->make(Kernel::class)->command(

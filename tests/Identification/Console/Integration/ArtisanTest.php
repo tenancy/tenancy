@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification\Console\Integration;
 
+use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Console\Kernel;
-use Illuminate\Foundation\Testing\WithConsoleEvents;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
@@ -25,12 +25,11 @@ use Tenancy\Testing\TestCase;
 
 class ArtisanTest extends TestCase
 {
-    use WithConsoleEvents;
-
     protected array $additionalProviders = [IdentificationProvider::class];
 
     protected function afterSetUp()
     {
+        $this->app[ConsoleKernel::class]->rerouteSymfonyCommandEvents();
         $this->app->make(Kernel::class)->command(
             'identifies',
             function () {
