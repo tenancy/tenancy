@@ -46,4 +46,23 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
             $this->hook->seeds
         );
     }
+
+    /**
+     * @dataProvider tenantEventsProvider
+     *
+     * @test */
+    public function it_can_decide_whether_to_replace_the_default($tenantEvent)
+    {
+        $this->events->listen($this->eventClass, function ($event) {
+            $event->hook->withDefaultConnection(false);
+        });
+
+        $this->hook->for(new $tenantEvent($this->mockTenant()));
+
+        $reflection = new \ReflectionClass($this->hook);
+
+        $this->assertFalse(
+            $reflection->getProperty('replaceDefaultConnection')->getValue($this->hook)
+        );
+    }
 }
