@@ -36,7 +36,8 @@ class TenancyTest extends TestCase
     {
         $this->mock(Environment::class, function ($mock) {
             $mock
-                ->shouldReceive('isIdentified');
+                ->shouldReceive('isIdentified')
+                ->once();
         });
         Tenancy::isIdentified();
     }
