@@ -30,6 +30,8 @@ class MigratesHook extends ConfigurableHook
 
     public int $priority = -50;
 
+    protected bool $replaceDefaultConnection = true;
+
     public array $paths;
 
     public function __construct()
@@ -50,6 +52,13 @@ class MigratesHook extends ConfigurableHook
         return $this;
     }
 
+    public function withDefaultConnection(bool $replace = true): static
+    {
+        $this->replaceDefaultConnection = $replace;
+
+        return $this;
+    }
+
     public function fire(): void
     {
         $db = resolve('db');
@@ -66,7 +75,10 @@ class MigratesHook extends ConfigurableHook
         }
         call_user_func([$migrator, $this->action], $this->paths);
 
-        $resolver->__invoke(null, $this->connection);
-        $db->setDefaultConnection($default);
+        $resolver->__invoke(Tenancy::getTenant(), $this->connection);
+
+        if ($this->replaceDefaultConnection) {
+            $db->setDefaultConnection($default);
+        }
     }
 }
