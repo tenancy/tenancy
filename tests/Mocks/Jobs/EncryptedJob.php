@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Mocks\Jobs;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 
-class EncryptedJob extends SimpleJob implements ShouldQueue
+class EncryptedJob extends SimpleJob implements ShouldBeEncrypted
 {
 }
