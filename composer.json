@@ -1,16 +1,23 @@
 {
     "name": "tenancy/tenancy",
     "description": "Creating multi tenant saas from your Laravel app with ease",
-    "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
+    "keywords": [
+        "laravel",
+        "multi-tenant",
+        "saas",
+        "tenancy",
+        "aws",
+        "gce"
+    ],
     "license": "MIT",
     "require": {
-        "laravel/framework": "^9.0 | ^10.0",
+        "laravel/framework": "^9.0 | ^10.0 | ^11.0",
         "doctrine/dbal": "^3.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
         "laravel/laravel": "*",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^9.0 | ^10.5",
         "mockery/mockery": "^1.5.0"
     },
     "autoload": {
