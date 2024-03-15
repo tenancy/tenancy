@@ -26,6 +26,9 @@ jobs:
                     # Laravel 11 does not support PHP 8.0
                     - php: '8.0'
                       laravel: 11.*
+                    # Laravel 11 does not support PHP 8.1
+                    - php: '8.1'
+                      laravel: 11.*
 
         name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
 
