@@ -19,7 +19,6 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
 use Tenancy\Facades\Tenancy;
@@ -141,11 +140,17 @@ class Mysql implements ProvidesDatabase
         $resolver = resolve(ResolvesConnections::class);
         $resolver($tempTenant, Tenancy::getTenantConnectionName());
 
-        $tables = Schema::connection(Tenancy::getTenantConnectionName())->getTables();
+        $tables = [];
 
-        $tables = array_map(function ($tableData) {
-            return $tableData['name'];
-        }, $tables);
+        if (method_exists(Tenancy::getTenantConnection(), 'getDoctrineSchemaManager')) {
+            $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
+        } else {
+            $schemaData = Tenancy::getTenantConnection()->getSchemaBuilder()->getTables();
+
+            $tables = array_map(function ($tableData) {
+                return $tableData['name'];
+            }, $schemaData);
+        }
 
         $resolver(null, Tenancy::getTenantConnectionName());
 
