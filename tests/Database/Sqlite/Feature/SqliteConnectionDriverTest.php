@@ -31,6 +31,10 @@ class SqliteConnectionDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
+        if (class_exists(\Illuminate\Database\SQLiteDatabaseDoesNotExistException::class)) {
+            $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
+        }
+
         config(['database.connections.sqlite', include $this->getSqliteConfigurationPath()]);
 
         $this->configureBoth(function ($event) {

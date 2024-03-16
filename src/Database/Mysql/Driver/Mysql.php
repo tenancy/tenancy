@@ -84,7 +84,6 @@ class Mysql implements ProvidesDatabase
                 $this->statement("CREATE DATABASE `{$config['database']}`");
                 $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
 
-                dump($tables);
                 foreach ($tables as $table) {
                     $this->statement("RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}");
                 }

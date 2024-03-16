@@ -31,6 +31,10 @@ class SqliteConfigDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
+        if (class_exists(\Illuminate\Database\SQLiteDatabaseDoesNotExistException::class)) {
+            $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
+        }
+
         $this->configureBoth(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
                 'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
