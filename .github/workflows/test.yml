@@ -34,7 +34,7 @@ jobs:
                     # Laravel 9 does not support PHPUnit 10
                     - laravel: 9.*
                       phpunit: 10.*
-                    # Laravel 9 does not support PHPUnit 10
+                    # Laravel 10 does not support PHPUnit 9
                     - laravel: 10.*
                       phpunit: 9.*
                     # Laravel 11 does not support PHPUnit 9
