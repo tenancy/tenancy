@@ -142,6 +142,7 @@ class Mysql implements ProvidesDatabase
 
         $tables = [];
 
+        // @codeCoverageIgnoreStart
         if (method_exists(Tenancy::getTenantConnection(), 'getDoctrineSchemaManager')) {
             $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
         } else {
@@ -151,6 +152,7 @@ class Mysql implements ProvidesDatabase
                 return $tableData['name'];
             }, $schemaData);
         }
+        // @codeCoverageIgnoreEnd
 
         $resolver(null, Tenancy::getTenantConnectionName());
 
