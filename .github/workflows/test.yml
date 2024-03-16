@@ -30,9 +30,13 @@ jobs:
                     # Laravel 11 does not support PHP 8.1
                     - php: '8.1'
                       laravel: 11.*
+
                     # Laravel 9 does not support PHPUnit 10
                     - laravel: 9.*
                       phpunit: 10.*
+                    # Laravel 9 does not support PHPUnit 10
+                    - laravel: 10.*
+                      phpunit: 9.*
                     # Laravel 11 does not support PHPUnit 9
                     - laravel: 11.*
                       phpunit: 9.*
@@ -54,4 +58,4 @@ jobs:
                 password: ${{ env.DOCKERHUB_TOKEN }}
 
             - name: Run tests
-              run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }}
+              run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ matrix.phpunit }}
