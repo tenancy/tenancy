@@ -5,6 +5,7 @@ COMMAND=$1
 PHP_VERSION=8.2
 DB_VERSION=8
 LARAVEL_VERSION=11.*
+PHPUNIT_VERSION=10.*
 DEPENDENCY_VERSIONS=prefer-stable
 
 PHPUNIT_PREPEND=
@@ -15,6 +16,7 @@ while [[ "$#" -gt 0 ]]; do
         --php) PHP_VERSION="$2"; shift ;;
         --db) DB_VERSION="$2"; shift ;;
         --laravel) LARAVEL_VERSION="$2"; shift ;;
+        --phpunit) PHPUNIT_VERSION="$2"; shift ;;
         --dependencies) DEPENDENCY_VERSIONS="$2"; shift ;;
         --coverage) PHPUNIT_APPEND="${PHPUNIT_APPEND} --coverage-clover=coverage.xml" PHPUNIT_PREPEND="${PHPUNIT_PREPEND} XDEBUG_MODE=coverage";;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
@@ -24,6 +26,7 @@ done
 
 RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer require 'laravel/laravel:$LARAVEL_VERSION' --dev --no-interaction --no-update"
+RUNCOMMAND="${RUNCOMMAND} && composer require 'phpunit/phpunit:$PHPUNIT_VERSION' --dev --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction --$DEPENDENCY_VERSIONS"
 RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction nesbot/carbon"
 RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120 && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
