@@ -25,6 +25,12 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
+
+# If LARAVEL_VERSION is 9.*, then we need to install doctrine/dbal 3.0^
+if [[ $LARAVEL_VERSION == 9.* ]]; then
+    RUNCOMMAND="${RUNCOMMAND} && composer require 'doctrine/dbal:^3.0' --no-interaction --no-update"
+fi
+
 RUNCOMMAND="${RUNCOMMAND} && composer require 'laravel/laravel:$LARAVEL_VERSION' --dev --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer require 'phpunit/phpunit:$PHPUNIT_VERSION' --dev --no-interaction --no-update"
 RUNCOMMAND="${RUNCOMMAND} && composer update --no-ansi --no-interaction --$DEPENDENCY_VERSIONS"
