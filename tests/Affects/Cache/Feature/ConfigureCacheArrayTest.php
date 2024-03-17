@@ -19,7 +19,7 @@ namespace Tenancy\Tests\Affects\Cache\Feature;
 use Illuminate\Cache\ArrayStore;
 use Tenancy\Tests\Affects\Cache\UsesArrayDriver;
 
-class ConfigureCacheArrayTest extends DriverTest
+class ConfigureCacheArrayTest extends DriverTestCase
 {
     use UsesArrayDriver;
 

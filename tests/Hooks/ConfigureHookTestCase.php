@@ -69,7 +69,7 @@ abstract class ConfigureHookTestCase extends TestCase
         );
     }
 
-    public function tenantEventsProvider()
+    public static function tenantEventsProvider()
     {
         return [
             [Tenant\Created::class],

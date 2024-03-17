@@ -140,7 +140,19 @@ class Mysql implements ProvidesDatabase
         $resolver = resolve(ResolvesConnections::class);
         $resolver($tempTenant, Tenancy::getTenantConnectionName());
 
-        $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
+        $tables = [];
+
+        // @codeCoverageIgnoreStart
+        if (method_exists(Tenancy::getTenantConnection(), 'getDoctrineSchemaManager')) {
+            $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
+        } else {
+            $schemaData = Tenancy::getTenantConnection()->getSchemaBuilder()->getTables();
+
+            $tables = array_map(function ($tableData) {
+                return $tableData['name'];
+            }, $schemaData);
+        }
+        // @codeCoverageIgnoreEnd
 
         $resolver(null, Tenancy::getTenantConnectionName());
 

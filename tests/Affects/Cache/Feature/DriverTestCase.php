@@ -22,7 +22,7 @@ use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
 use Tenancy\Tests\Affects\AffectShouldBeUndone;
 
-abstract class DriverTest extends AffectsFeatureTestCase
+abstract class DriverTestCase extends AffectsFeatureTestCase
 {
     use AffectShouldBeUndone;
 
