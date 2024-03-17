@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "^9.0 | ^10.0 | ^11.0",
-        "doctrine/dbal": "^3.3"
+        "doctrine/dbal": "^3.3 | ^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
