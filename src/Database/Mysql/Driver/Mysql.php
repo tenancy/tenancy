@@ -19,9 +19,9 @@ namespace Tenancy\Database\Drivers\Mysql\Driver;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Database\Drivers\Mysql\Concerns\ManagesSystemConnection;
-use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Contracts\ProvidesDatabase;
 use Tenancy\Hooks\Database\Events\Drivers as Events;
 use Tenancy\Hooks\Database\Support\QueryManager;
@@ -136,13 +136,15 @@ class Mysql implements ProvidesDatabase
         $tempTenant = $tenant->replicate();
         $tempTenant->{$tenant->getTenantKeyName()} = $tenant->getOriginal($tenant->getTenantKeyName());
 
+        $tempConnectionName = Str::random(16);
+
         /** @var ResolvesConnections $resolver */
         $resolver = resolve(ResolvesConnections::class);
-        $resolver($tempTenant, Tenancy::getTenantConnectionName());
+        $resolver($tempTenant, $tempConnectionName);
 
-        $tables = Tenancy::getTenantConnection()->getDoctrineSchemaManager()->listTableNames();
+        $tables = DB::connection($tempConnectionName)->getDoctrineSchemaManager()->listTableNames();
 
-        $resolver(null, Tenancy::getTenantConnectionName());
+        $resolver(null, $tempConnectionName);
 
         return $tables;
     }
