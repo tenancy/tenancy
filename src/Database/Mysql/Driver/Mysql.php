@@ -70,7 +70,7 @@ class Mysql implements ProvidesDatabase
 
         event(new Events\Updating($tenant, $config, $this));
 
-        if (!isset($config['oldUsername'])) {
+        if (!isset($config['oldUsername']) && !isset($config['oldDatabase'])) {
             return false;
         }
 
@@ -84,11 +84,11 @@ class Mysql implements ProvidesDatabase
                 $this->statement("GRANT ALL ON `{$config['database']}`.* TO `{$config['username']}`@'{$config['host']}'");
 
                 foreach ($tables as $table) {
-                    $this->statement("RENAME TABLE `{$config['oldUsername']}`.{$table} TO `{$config['database']}`.{$table}");
+                    $this->statement("RENAME TABLE `{$config['oldDatabase']}`.{$table} TO `{$config['database']}`.{$table}");
                 }
 
                 // Add database drop statement as last statement
-                $this->statement("DROP DATABASE `{$config['oldUsername']}`");
+                $this->statement("DROP DATABASE `{$config['oldDatabase']}`");
             })
             ->getStatus();
 
