@@ -98,12 +98,12 @@ jobs:
                 password: ${{ env.DOCKERHUB_TOKEN }}
 
             - name: Install Laravel
-              run: docker run -it --rm -v ${PWD}:/app composer:latest composer create-project laravel/laravel:^${{ matrix.laravel }} application
+              run: docker run --rm -v ${PWD}:/app composer:latest composer create-project laravel/laravel:^${{ matrix.laravel }} application
 
             - name: Add the package as a path repository
               run: |
-                docker run -it --rm -v ${PWD}:/app --entrypoint sh composer:latest cd application && composer config repositories.0 path ../package
+                docker run --rm -v ${PWD}:/app --entrypoint sh composer:latest cd application && composer config repositories.0 path ../package
 
             - name: Require the package
               run: |
-                docker run -it --rm -v ${PWD}:/app composer:latest composer require tenancy/tenancy:dev-main
+                docker run --rm -v ${PWD}:/app composer:latest composer require tenancy/tenancy:dev-main
