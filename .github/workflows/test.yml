@@ -59,3 +59,51 @@ jobs:
 
             - name: Run tests
               run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ matrix.phpunit }}
+
+    installation-test:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ['8.0', '8.1', '8.2', "8.3"]
+                laravel: [9.*, 10.*, 11.*]
+                dependency-version: [prefer-lowest, prefer-stable]
+                exclude:
+                    # Laravel 10 does not support PHP 8.0
+                    - php: '8.0'
+                      laravel: 10.*
+                    # Laravel 11 does not support PHP 8.0
+                    - php: '8.0'
+                      laravel: 11.*
+                    # Laravel 11 does not support PHP 8.1
+                    - php: '8.1'
+                      laravel: 11.*
+
+        name: 'PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }}'
+
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                path: ./package
+
+            - name: Login to DockerHub
+              uses: docker/login-action@v3
+              if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
+              with:
+                username: ${{ env.DOCKERHUB_USERNAME }}
+                password: ${{ env.DOCKERHUB_TOKEN }}
+
+            - name: Install Laravel
+              run: docker run -it --rm -v ${PWD}:/app composer:latest composer create-project laravel/laravel:^${{ matrix.laravel }} application
+
+            - name: Add the package as a path repository
+              run: |
+                docker run -it --rm -v ${PWD}:/app --entrypoint sh composer:latest cd application && composer config repositories.0 path ../package
+
+            - name: Require the package
+              run: |
+                docker run -it --rm -v ${PWD}:/app composer:latest composer require tenancy/tenancy:dev-main
