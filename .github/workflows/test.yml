@@ -99,4 +99,4 @@ jobs:
 
             - name: Require the package
               run: |
-                docker run --rm -v ${PWD}:/app --workdir /app/application composer:latest composer require tenancy/tenancy:dev-main ${{ matrix.dependency-version }}
+                docker run --rm -v ${PWD}:/app --workdir /app/application composer:latest composer require tenancy/tenancy:dev-main
