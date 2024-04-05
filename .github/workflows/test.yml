@@ -102,7 +102,7 @@ jobs:
 
             - name: Add the package as a path repository
               run: |
-                docker run --rm -v ${PWD}:/app --workdir /app/application composer:latestcomposer config repositories.0 path ../package
+                docker run --rm -v ${PWD}:/app --workdir /app/application composer:latest composer config repositories.0 path ../package
 
             - name: Require the package
               run: |
