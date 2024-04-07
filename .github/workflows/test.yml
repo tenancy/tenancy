@@ -67,7 +67,6 @@ jobs:
             matrix:
                 php: ['8.0', '8.1', '8.2', "8.3"]
                 laravel: [9.0, 10.0, 11.0]
-                dependency-version: [prefer-lowest, prefer-stable]
                 exclude:
                     # Laravel 10 does not support PHP 8.0
                     - php: '8.0'
@@ -79,7 +78,7 @@ jobs:
                     - php: '8.1'
                       laravel: 11.0
 
-        name: 'Installation: PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }}'
+        name: 'Installation: PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }}'
 
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
