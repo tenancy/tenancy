@@ -30,16 +30,14 @@ class IdentificationProvider extends DriverProvider
 
     public function boot()
     {
-        $this->app->booted(function (Application $app) {
-            $app->extend('queue', function (QueueManager $queue) {
-                // Store tenant key and identifier on job payload when a tenant is identified.
-                $queue->createPayloadUsing($this->app->make(Middleware\SaveTenantOnQueuePayload::class));
+        $this->callAfterResolving(QueueManager::class, function (QueueManager $queue) {
+            // Store tenant key and identifier on job payload when a tenant is identified.
+            $queue->createPayloadUsing($this->app->make(Middleware\SaveTenantOnQueuePayload::class));
 
-                // Resolve any tenant related meta data on job and allow resolving of tenant.
-                $queue->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
+            // Resolve any tenant related meta data on job and allow resolving of tenant.
+            $queue->before($this->app->make(Middleware\ReadTenantFromQueuePayload::class));
 
-                return $queue;
-            });
+            return $queue;
         });
     }
 }
