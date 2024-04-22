@@ -7,7 +7,7 @@
         "tenancy/framework": "*",
         "tenancy/hooks-database": "*",
         "tenancy/affects-connections": "*",
-        "doctrine/dbal": "^2.9"
+        "doctrine/dbal": "^3.3"
     },
     "autoload": {
         "psr-4": {

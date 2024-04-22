@@ -28,11 +28,11 @@ class SeedsHook extends ConfigurableHook
 {
     public string $connection;
 
-    public ResolvesConnections $resolver;
-
     public ?string $action = null;
 
     public int $priority = -40;
+
+    protected bool $replaceDefaultConnection = true;
 
     /** @var array|string[] */
     public array $seeds = [];
@@ -40,7 +40,6 @@ class SeedsHook extends ConfigurableHook
     public function __construct()
     {
         $this->connection = Tenancy::getTenantConnectionName();
-        $this->resolver = resolve(ResolvesConnections::class);
     }
 
     public function for($event): static
@@ -54,6 +53,13 @@ class SeedsHook extends ConfigurableHook
         return $this;
     }
 
+    public function withDefaultConnection(bool $replace = true): static
+    {
+        $this->replaceDefaultConnection = $replace;
+
+        return $this;
+    }
+
     public function fire(): void
     {
         if (empty($this->seeds)) {
@@ -61,13 +67,17 @@ class SeedsHook extends ConfigurableHook
         }
 
         $db = resolve('db');
+        $resolver = resolve(ResolvesConnections::class);
 
         $default = $db->getDefaultConnection();
 
         Model::unguard();
 
-        $this->resolver->__invoke($this->event->tenant, $this->connection);
-        $db->setDefaultConnection($this->connection);
+        $resolver->__invoke($this->event->tenant, $this->connection);
+
+        if ($this->replaceDefaultConnection) {
+            $db->setDefaultConnection($this->connection);
+        }
 
         foreach ($this->seeds as $seed) {
             /** @var Seeder $seeder */
@@ -77,8 +87,11 @@ class SeedsHook extends ConfigurableHook
             $seeder();
         }
 
-        $this->resolver->__invoke(null, $this->connection);
-        $db->setDefaultConnection($default);
+        $resolver->__invoke(Tenancy::getTenant(), $this->connection);
+
+        if ($this->replaceDefaultConnection) {
+            $db->setDefaultConnection($default);
+        }
 
         Model::reguard();
     }

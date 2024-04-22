@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Migration\Hooks;
 
-use Illuminate\Database\Migrations\Migrator;
 use Tenancy\Affects\Connections\Contracts\ResolvesConnections;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
@@ -25,25 +24,21 @@ use Tenancy\Tenant\Events\Deleted;
 
 class MigratesHook extends ConfigurableHook
 {
-    public Migrator $migrator;
-
     public string $connection;
-
-    public ResolvesConnections $resolver;
 
     public $action;
 
     public int $priority = -50;
 
+    protected bool $replaceDefaultConnection = true;
+
     public array $paths;
 
     public function __construct()
     {
-        $this->migrator = resolve('migrator');
         $this->connection = Tenancy::getTenantConnectionName();
-        $this->resolver = resolve(ResolvesConnections::class);
 
-        $this->paths = $this->migrator->paths();
+        $this->paths = resolve('migrator')->paths();
     }
 
     public function for($event): static
@@ -57,20 +52,33 @@ class MigratesHook extends ConfigurableHook
         return $this;
     }
 
+    public function withDefaultConnection(bool $replace = true): static
+    {
+        $this->replaceDefaultConnection = $replace;
+
+        return $this;
+    }
+
     public function fire(): void
     {
         $db = resolve('db');
+        $migrator = resolve('migrator');
+        $resolver = resolve(ResolvesConnections::class);
+
         $default = $db->getDefaultConnection();
 
-        $this->resolver->__invoke($this->event->tenant, $this->connection);
-        $this->migrator->setConnection($this->connection);
+        $resolver->__invoke($this->event->tenant, $this->connection);
+        $migrator->setConnection($this->connection);
 
-        if (!$this->migrator->repositoryExists()) {
-            $this->migrator->getRepository()->createRepository();
+        if (!$migrator->repositoryExists()) {
+            $migrator->getRepository()->createRepository();
         }
-        call_user_func([$this->migrator, $this->action], $this->paths);
+        call_user_func([$migrator, $this->action], $this->paths);
 
-        $this->resolver->__invoke(null, $this->connection);
-        $db->setDefaultConnection($default);
+        $resolver->__invoke(Tenancy::getTenant(), $this->connection);
+
+        if ($this->replaceDefaultConnection) {
+            $db->setDefaultConnection($default);
+        }
     }
 }

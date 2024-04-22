@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace Tenancy\Identification\Drivers\Queue\Events;
 
+use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\SerializesAndRestoresModelIdentifiers;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Drivers\Queue\Jobs\Job as TenancyJob;
 
@@ -54,6 +56,10 @@ class Processing
 
     private function unserializeToJob(string $object): object
     {
+        if (!str_starts_with($object, 'O:')) {
+            $object = App::make(Encrypter::class)->decrypt($object);
+        }
+
         $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
 
         return unserialize($stdClassObj, ['allowed_classes' => [Job::class, TenancyJob::class]]);

@@ -46,6 +46,31 @@ class TenantIdentificationEventsTest extends TestCase
     }
 
     /** @test */
+    public function old_tenant_in_switched()
+    {
+        $oldTenant = null;
+        $this->events->listen(Switched::class, function (Switched $switched) use (&$newTenant, &$oldTenant) {
+            $newTenant = $switched->tenant;
+            $oldTenant = $switched->oldTenant;
+        });
+
+        $tenant1 = $this->mockTenant();
+        $tenant2 = $this->mockTenant();
+
+        $this->assertNotEquals($tenant1, $tenant2);
+
+        $this->environment->setTenant($tenant1);
+
+        $this->assertNull($oldTenant);
+        $this->assertEquals($tenant1, $newTenant);
+
+        $this->environment->setTenant($tenant2);
+
+        $this->assertEquals($tenant1, $oldTenant);
+        $this->assertEquals($tenant2, $newTenant);
+    }
+
+    /** @test */
     public function empty_tenant_is_resolved()
     {
         $switched = $resolving = $resolved = $nothingIdentified = $identified = 0;
