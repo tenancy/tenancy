@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Views\Feature;
 
 use Illuminate\Contracts\View\Factory;
+use Illuminate\View\ViewFinderInterface;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Tests\Affects\AffectsFeatureTestCase;
@@ -33,6 +34,6 @@ class ConfigureViewsPathTest extends AffectsFeatureTestCase
         /** @var Factory $views */
         $views = $this->app->make(Factory::class);
 
-        return $views->exists('test');
+        return $views->exists('test') && $this->app->make('view.finder') instanceof ViewFinderInterface;
     }
 }
