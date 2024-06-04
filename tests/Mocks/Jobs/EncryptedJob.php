@@ -14,15 +14,10 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-namespace Tenancy\Tests\Affects\Cache\Feature;
+namespace Tenancy\Tests\Mocks\Jobs;
 
-use Illuminate\Cache\FileStore;
-use Tenancy\Tests\Affects\Cache\UsesFileDriver;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 
-class ConfigureCacheFileTest extends DriverTestCase
+class EncryptedJob extends SimpleJob implements ShouldBeEncrypted
 {
-    use UsesFileDriver;
-
-    /** @var string */
-    protected $storeClass = FileStore::class;
 }

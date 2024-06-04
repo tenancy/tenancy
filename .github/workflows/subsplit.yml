@@ -9,11 +9,11 @@ on:
 
 jobs:
     subsplit:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
 
         steps:
             - uses: actions/checkout@master
-            - uses: webfactory/ssh-agent@v0.4.1
+            - uses: webfactory/ssh-agent@v0.9.0
               with:
                 ssh-private-key: ${{ secrets.SUBSPLIT_KEY }}
 

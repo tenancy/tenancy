@@ -37,7 +37,7 @@ class ConfigureViews
     public function addPath(string $path, bool $replace = false): static
     {
         if ($replace) {
-            config(['view.paths' => $path]);
+            config(['view.paths' => [$path]]);
             $finder = $this->view->getFinder();
 
             $finder->prependLocation($path);

@@ -42,5 +42,13 @@ class IdentificationProvider extends DriverProvider
 
             return $kernel;
         });
+
+        $this->app->afterResolving(Kernel::class, function (Kernel $kernel) {
+            if (config('tenancy.identification-driver-http.eager') && !$kernel->hasMiddleware(EagerIdentification::class)) {
+                $kernel->prependMiddleware(EagerIdentification::class);
+            }
+
+            return $kernel;
+        });
     }
 }
