@@ -39,4 +39,4 @@ RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120"
 RUNCOMMAND="${RUNCOMMAND} && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
 
 echo "${RUNCOMMAND}"
-PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker-compose -f ./.dev/docker/docker-compose.yaml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"
+PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker compose -f ./.dev/docker/docker-compose.yaml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"
