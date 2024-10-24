@@ -13,7 +13,7 @@ backing its development over at [OpenCollective](https://opencollective.com/tena
 [![Code Coverage](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
 ![Subsplit](https://github.com/tenancy/tenancy/workflows/Subsplit/badge.svg)
 
-> Before you start, we highly recommend you to read the extensive [online documentation](https://tenancy.dev/docs/tenancy/1.x).
+> Before you start, we highly recommend you to read the extensive [online documentation](https://tenancy.dev/docs/tenancy/2.x).
 
 # Installation
 
