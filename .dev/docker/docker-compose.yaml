@@ -1,41 +1,41 @@
 version: '3'
 
 services:
-    php:
-        image: tenancy/tenancy-ci-php-${PHP_VERSION}:latest
+  php:
+    image: tenancy/tenancy-ci-php-${PHP_VERSION}:latest
 
-        volumes:
-            - '${TENANCY_PATH-../../}:/var/www/html'
-            - '${TENANCY_PATH-../../}.dev/docker/partials/:/ops/'
-            
-        networks:
-            - application
+    volumes:
+      - '${TENANCY_PATH-../../}:/var/www/html'
+      - '${TENANCY_PATH-../../}.dev/docker/partials/:/ops/'
+      
+    networks:
+      - application
 
-        depends_on:
-            - mysql
+    depends_on:
+      - mysql
 
-        tty: true
-        stdin_open: true
+    tty: true
+    stdin_open: true
 
-    mysql:
-        image: tenancy/tenancy-ci-mysql-${DB_VERSION}:latest
+  mysql:
+    image: tenancy/tenancy-ci-mysql-${DB_VERSION}:latest
 
-        environment:
-            MYSQL_DATABASE: testing
-            MYSQL_USER: testing
-            MYSQL_PASSWORD: testing
-            MYSQL_ROOT_PASSWORD: password
-            MYSQL_ALLOW_EMPTY_PASSWORD: ''
-            MYSQL_ROOT_HOST: "%"
+    environment:
+      MYSQL_DATABASE: testing
+      MYSQL_USER: testing
+      MYSQL_PASSWORD: testing
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: ''
+      MYSQL_ROOT_HOST: "%"
 
-        command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password
 
-        ports:
-            - 13306:3306
-            
-        networks:
-            - application
+    ports:
+      - 13306:3306
+      
+    networks:
+      - application
 
 networks:
-    application:
-        driver: bridge
+  application:
+    driver: bridge
