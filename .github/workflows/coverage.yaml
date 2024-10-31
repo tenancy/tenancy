@@ -1,0 +1,22 @@
+name: Coverage
+
+on: [push, pull_request]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    env:
+      PHP_VERSION: '8.2'
+      DB_VERSION: '8'
+      LARAVEL_VERSION: '11.*'
+      DEPENDENCY_VERSION: 'prefer-stable'
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run tests for coverage
+        run: ./test --php ${{ env.PHP_VERSION }} --laravel ${{ env.LARAVEL_VERSION }} --db ${{ env.DB_VERSION }} --dependencies ${{ env.DEPENDENCY_VERSION }} --coverage
+
+      - name: Upload coverage
+        run: bash <(curl -s https://codecov.io/bash)

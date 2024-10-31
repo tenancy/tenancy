@@ -8,8 +8,8 @@ Feel free to show support by starring the project
 following progress via [twitter](https://twitter.com/tenancydev) and
 backing its development over at [OpenCollective](https://opencollective.com/tenancy) or [GitHub Sponsors](https://github.com/sponsors/tenancy).
 
-![Tests](https://github.com/tenancy/tenancy/actions/workflows/test.yml/badge.svg)
-![Code Style](https://github.com/tenancy/tenancy/workflows/Code%20Style/badge.svg)
+![Tests](https://github.com/tenancy/tenancy/actions/workflows/tests.yaml/badge.svg)
+<!-- ![Code Style](https://github.com/tenancy/tenancy/workflows/Code%20Style/badge.svg) -->
 [![Code Coverage](https://codecov.io/gh/tenancy/tenancy/branch/master/graph/badge.svg)](https://codecov.io/gh/tenancy/tenancy)
 ![Subsplit](https://github.com/tenancy/tenancy/workflows/Subsplit/badge.svg)
 
