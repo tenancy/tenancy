@@ -24,6 +24,9 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
+# Temporary copy of composer.json
+mkdir -p ./.tmp && cp composer.json ./.tmp/composer.json
+
 RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
 
 # If LARAVEL_VERSION is 9.*, then we need to install doctrine/dbal 3.0^
@@ -39,4 +42,8 @@ RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120"
 RUNCOMMAND="${RUNCOMMAND} && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
 
 echo "${RUNCOMMAND}"
+
 PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker compose -f ./.dev/docker/docker-compose.yaml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"
+
+# Restore composer.json
+cp ./.tmp/composer.json composer.json
