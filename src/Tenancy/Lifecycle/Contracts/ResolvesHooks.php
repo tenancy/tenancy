@@ -20,7 +20,7 @@ interface ResolvesHooks
 {
     public function addHook($hook): static;
 
-    public function handle($event, callable $fire = null);
+    public function handle($event, ?callable $fire = null);
 
     public function getHooks(): array;
 

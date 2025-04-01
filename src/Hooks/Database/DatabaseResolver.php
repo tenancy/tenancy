@@ -33,7 +33,7 @@ class DatabaseResolver implements ResolvesDatabases
         $this->events = $events;
     }
 
-    public function __invoke(Tenant $tenant = null): ?ProvidesDatabase
+    public function __invoke(?Tenant $tenant = null): ?ProvidesDatabase
     {
         /** @var ProvidesDatabase|null $provider */
         $provider = $this->events->until(new Events\Resolving($tenant));

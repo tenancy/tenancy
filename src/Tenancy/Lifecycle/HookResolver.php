@@ -47,7 +47,7 @@ class HookResolver extends Pipeline implements ResolvesHooks
         return $this;
     }
 
-    public function handle($event, callable $fire = null): Steps
+    public function handle($event, ?callable $fire = null): Steps
     {
         return parent::handle($event, function ($hooks) {
             $hooks->each(function (LifecycleHook $hook) {

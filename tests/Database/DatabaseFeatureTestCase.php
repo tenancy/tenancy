@@ -199,7 +199,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         return $this->db->connection(Tenancy::getTenantConnectionName());
     }
 
-    protected function cleanDatabase(Tenant $tenant = null)
+    protected function cleanDatabase(?Tenant $tenant = null)
     {
         $this->db->purge(Tenancy::getTenantConnectionName());
 

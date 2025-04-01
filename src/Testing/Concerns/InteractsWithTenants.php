@@ -32,7 +32,7 @@ trait InteractsWithTenants
         return Mock::factory()->make($attributes);
     }
 
-    protected function resolveTenant(Tenant $tenant = null)
+    protected function resolveTenant(?Tenant $tenant = null)
     {
         $this->events->listen(Resolving::class, function (Resolving $event) use ($tenant) {
             return $tenant;

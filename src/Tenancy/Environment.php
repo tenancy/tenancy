@@ -33,7 +33,7 @@ class Environment
 
     protected bool $identified = false;
 
-    public function setTenant(Tenant $tenant = null): static
+    public function setTenant(?Tenant $tenant = null): static
     {
         $oldTenant = $this->tenant;
 
@@ -53,7 +53,7 @@ class Environment
         return $this->tenant;
     }
 
-    public function identifyTenant(bool $refresh = false, string $contract = null): ?Tenant
+    public function identifyTenant(bool $refresh = false, ?string $contract = null): ?Tenant
     {
         if (!$this->identified || $refresh) {
             $resolver = $this->tenantResolver();
