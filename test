@@ -2,9 +2,9 @@
 
 COMMAND=$1
 
-PHP_VERSION=8.2
+PHP_VERSION=8.3
 DB_VERSION=8
-LARAVEL_VERSION=11.*
+LARAVEL_VERSION=12.*
 PHPUNIT_VERSION=10.*
 DEPENDENCY_VERSIONS=prefer-stable
 
@@ -39,4 +39,5 @@ RUNCOMMAND="${RUNCOMMAND} && /ops/wait-for-it.sh mysql:3306 --timeout=120"
 RUNCOMMAND="${RUNCOMMAND} && $PHPUNIT_PREPEND vendor/bin/phpunit $PHPUNIT_APPEND"
 
 echo "${RUNCOMMAND}"
+echo "PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker compose -f ./.dev/docker/docker-compose.yaml"
 PHP_VERSION=$PHP_VERSION DB_VERSION=$DB_VERSION docker compose -f ./.dev/docker/docker-compose.yaml run -T --rm --service-ports --use-aliases php bash -c "${RUNCOMMAND}"

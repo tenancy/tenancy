@@ -33,7 +33,7 @@ class SqliteConnectionDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
-        if (Str::startsWith(App::version(), '11')) {
+        if (Str::startsWith(App::version(), '11') || Str::startsWith(App::version(), '12')) {
             $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
         }
 
