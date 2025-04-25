@@ -16,6 +16,10 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Tenancy\Testing\Mocks\Factories\TenantFactory;
+use Tenancy\Testing\Mocks\Tenant;
+
 trait UsesTenants
 {
     protected function registerFactories()
@@ -32,5 +36,13 @@ trait UsesTenants
                 'Legacy'
             );
         }
+
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            if (is_subclass_of(new $modelName(), Tenant::class) || $modelName === Tenant::class) {
+                return TenantFactory::class;
+            }
+
+            throw new \InvalidArgumentException('This is only meant to be used by Tenancy');
+        });
     }
 }
