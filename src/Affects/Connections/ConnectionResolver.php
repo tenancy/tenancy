@@ -31,7 +31,7 @@ class ConnectionResolver implements ResolvesConnections
     ) {
     }
 
-    public function __invoke(Tenant $tenant = null, string $connection = null): ?ProvidesConfiguration
+    public function __invoke(?Tenant $tenant = null, ?string $connection = null): ?ProvidesConfiguration
     {
         /** @var ProvidesConfiguration|null $provider */
         $provider = $this->events->until(new Events\Resolving($tenant, $connection));
