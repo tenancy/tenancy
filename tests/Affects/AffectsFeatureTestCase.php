@@ -34,12 +34,12 @@ abstract class AffectsFeatureTestCase extends TestCase
 
     abstract protected function registerAffecting();
 
-    protected function beforeIdentification(Tenant $tenant = null)
+    protected function beforeIdentification(?Tenant $tenant = null)
     {
         //
     }
 
-    protected function afterIdentification(Tenant $tenant = null)
+    protected function afterIdentification(?Tenant $tenant = null)
     {
         //
     }
@@ -90,7 +90,7 @@ abstract class AffectsFeatureTestCase extends TestCase
         $this->assertAffected($newTenant);
     }
 
-    protected function identifyTenant(Tenant $tenant = null)
+    protected function identifyTenant(?Tenant $tenant = null)
     {
         $this->beforeIdentification($tenant);
 

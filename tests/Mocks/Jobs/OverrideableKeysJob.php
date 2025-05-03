@@ -58,8 +58,8 @@ class OverrideableKeysJob implements ShouldQueue
 
     public function __construct(
         Tenant $tenant,
-        Collection $collection = null,
-        Collection $anotherCollection = null
+        ?Collection $collection = null,
+        ?Collection $anotherCollection = null
     ) {
         $this->tenant_identifier = $tenant->getTenantIdentifier();
         $this->tenant_key = $tenant->getTenantKey();

@@ -50,8 +50,8 @@ class SimpleJob implements ShouldQueue
     private $anotherPrivateCollection;
 
     public function __construct(
-        Collection $collection = null,
-        Collection $anotherCollection = null
+        ?Collection $collection = null,
+        ?Collection $anotherCollection = null
     ) {
         $this->publicCollection = $collection;
         $this->protectedCollection = $collection;
