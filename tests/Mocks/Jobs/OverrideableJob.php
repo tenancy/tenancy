@@ -54,9 +54,9 @@ class OverrideableJob implements ShouldQueue
     private $anotherPrivateCollection;
 
     public function __construct(
-        Tenant $tenant = null,
-        Collection $collection = null,
-        Collection $anotherCollection = null
+        ?Tenant $tenant = null,
+        ?Collection $collection = null,
+        ?Collection $anotherCollection = null
     ) {
         $this->tenant = $tenant;
 
