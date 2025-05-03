@@ -42,7 +42,7 @@ class TenantResolver implements ResolvesTenants
         $this->configure();
     }
 
-    public function __invoke(string $contract = null): ?Tenant
+    public function __invoke(?string $contract = null): ?Tenant
     {
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
