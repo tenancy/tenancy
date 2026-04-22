@@ -37,13 +37,25 @@ jobs:
           - php: '8.2'
             laravel: '13.*'
 
-          # Laravel 12 does not support PHPUnit 10
+          # Laravel 10 does not support PHPUnit 10 or PHPUnit 12
+          - laravel: '10.*'
+            phpunit: '11.*'
+          - laravel: '10.*'
+            phpunit: '12.*'
+
+          # Laravel 11 does not support PHPUnit 10 or PHPUnit 12
+          - laravel: '11.*'
+            phpunit: '11.*'
+          - laravel: '11.*'
+            phpunit: '12.*'
+
+          # Laravel 12 does not support PHPUnit 10 or PHPUnit 12
           - laravel: '12.*'
             phpunit: '10.*'
+          - laravel: '12.*'
+            phpunit: '12.*'
             
           # Laravel 13 does not support PHPUnit 9 or PHPUnit 10 or PHPUnit 11
-          - laravel: '13.*'
-            phpunit: '9.*'
           - laravel: '13.*'
             phpunit: '10.*'
           - laravel: '13.*'
