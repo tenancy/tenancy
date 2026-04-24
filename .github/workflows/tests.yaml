@@ -82,7 +82,7 @@ jobs:
           CLEAN_PHPUNIT_VERSION=${PHPUNIT_VERSION//\.\*/}
           echo "CLEAN_PHPUNIT_VERSION=$CLEAN_PHPUNIT_VERSION" >> $GITHUB_ENV
       - name: Run tests
-        run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ env.CLEAN_PHPUNIT_VERSION }}
+        run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ matrix.phpunit }}
 
   installation-test:
     runs-on: ubuntu-latest
