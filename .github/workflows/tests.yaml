@@ -18,7 +18,6 @@ jobs:
         php: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
         laravel: [ '10.*', '11.*', '12.*', '13.*' ]
         phpunit: [ '10.*', '11.*', '12.*' ]
-        service: [ '5.7', '8' ]
         dependency-version: [ prefer-lowest, prefer-stable ]
         exclude:
           # PHP 8.1 does not support Laravel 11, Laravel 12, or Laravel 13
@@ -110,7 +109,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: ./package
 
