@@ -42,8 +42,8 @@ class SetConnection
             config(['database.connections.'.$connection => null]);
         }
 
-        if (!$event->tenant
-            || !$event->provider
+        if (! $event->tenant
+            || ! $event->provider
             || Arr::get($existingConfig, 'tenant-key') !== $key
             || Arr::get($existingConfig, 'tenant-identifier') !== $identifier) {
             /** @var DatabaseManager $manager */

@@ -22,6 +22,5 @@ class NothingIdentified
 {
     public function __construct(
         public ?Tenant $tenant = null
-    ) {
-    }
+    ) {}
 }

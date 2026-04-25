@@ -16,6 +16,4 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database\Events\Drivers;
 
-class Created extends ResultEvent
-{
-}
+class Created extends ResultEvent {}

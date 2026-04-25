@@ -32,7 +32,7 @@ class ConfiguringTest extends TestCase
     {
         $config = [];
 
-        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener());
+        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener);
 
         $this->assertNotEquals(
             config('database.connections.mysql'),
@@ -52,7 +52,7 @@ class ConfiguringTest extends TestCase
     {
         $config = [];
 
-        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener());
+        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener);
 
         $event->useConnection('mysql', ['driver' => 'tenancy']);
 
@@ -72,7 +72,7 @@ class ConfiguringTest extends TestCase
     {
         $config = [];
 
-        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener());
+        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener);
 
         $loadedConfig = include $this->getSqliteConfigurationPath();
 
@@ -89,7 +89,7 @@ class ConfiguringTest extends TestCase
     {
         $config = [];
 
-        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener());
+        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener);
 
         $event->useConfig($this->getSqliteConfigurationPath(), ['driver' => 'tenancy']);
 
@@ -104,7 +104,7 @@ class ConfiguringTest extends TestCase
     {
         $config = [];
 
-        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener());
+        $event = new Configuring($this->mockTenant(), $config, new ConnectionResolvingListener);
 
         $this->expectException(InvalidArgumentException::class);
 

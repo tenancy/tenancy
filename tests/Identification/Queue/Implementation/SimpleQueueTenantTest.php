@@ -50,7 +50,7 @@ class SimpleQueueTenantTest extends TestCase
             );
         });
 
-        dispatch(new SimpleJob());
+        dispatch(new SimpleJob);
     }
 
     #[Test]

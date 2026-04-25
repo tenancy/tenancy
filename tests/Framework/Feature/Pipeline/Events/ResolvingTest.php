@@ -31,10 +31,10 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step = new SimpleStep();
+        $step = new SimpleStep;
         $step->priority = -100;
 
-        $event = new $event('TestEvent', new Pipeline());
+        $event = new $event('TestEvent', new Pipeline);
         $event->step($step);
 
         $this->assertEquals(
@@ -43,15 +43,14 @@ class ResolvingTest extends EventFeatureTestCase
         );
     }
 
-
     public function it_can_replace_a_step()
     {
         $event = $this->event;
 
-        $step = new SimpleStep();
+        $step = new SimpleStep;
         $step->priority = -100;
 
-        $event = new $event('TestEvent', new Pipeline());
+        $event = new $event('TestEvent', new Pipeline);
         $event->step($step);
 
         $this->assertEquals(
@@ -59,7 +58,7 @@ class ResolvingTest extends EventFeatureTestCase
             $event->step->priority
         );
 
-        $event->replace(new SimpleStep());
+        $event->replace(new SimpleStep);
 
         $this->assertEquals(
             0,
@@ -67,15 +66,14 @@ class ResolvingTest extends EventFeatureTestCase
         );
     }
 
-
     public function it_can_remove_a_step()
     {
         $event = $this->event;
 
-        $step = new SimpleStep();
+        $step = new SimpleStep;
         $step->priority = -100;
 
-        $event = new $event('TestEvent', new Pipeline());
+        $event = new $event('TestEvent', new Pipeline);
         $event->step($step);
 
         $event->remove();

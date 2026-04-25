@@ -25,6 +25,5 @@ class Identified
         public ?Tenant $tenant,
         public ?string $connection,
         public ProvidesConfiguration &$provider
-    ) {
-    }
+    ) {}
 }

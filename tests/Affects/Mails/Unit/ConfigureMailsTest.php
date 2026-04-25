@@ -36,7 +36,7 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
         $this->app->register($this->affectsProvider);
 
         $this->events->listen($this->event, function (ConfigureMails $event) {
-            $event->replaceSymfonyTransport(new ArrayTransport());
+            $event->replaceSymfonyTransport(new ArrayTransport);
 
             $this->assertInstanceOf(ArrayTransport::class, $event->mailer->getSymfonyTransport());
         });

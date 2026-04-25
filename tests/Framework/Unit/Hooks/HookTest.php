@@ -44,14 +44,12 @@ class HookTest extends TestCase
         $this->assertTrue($this->hook->fires());
     }
 
-
     public function it_is_queued_by_default()
     {
         $this->assertTrue(
             $this->hook->queued()
         );
     }
-
 
     public function it_returns_null_if_no_queue_is_set()
     {

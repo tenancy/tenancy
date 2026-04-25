@@ -26,15 +26,14 @@ class EagerIdentification
 {
     public function __construct(
         protected Application $app
-    ) {
-    }
+    ) {}
 
     public function handle(CommandStarting $event)
     {
         /** @var Environment $tenancy */
         $tenancy = $this->app->make(Environment::class);
 
-        if (!$tenancy->isIdentified()) {
+        if (! $tenancy->isIdentified()) {
             $this->app->instance(InputInterface::class, $event->input);
             $tenancy->identifyTenant(false, IdentifiesByConsole::class);
         }

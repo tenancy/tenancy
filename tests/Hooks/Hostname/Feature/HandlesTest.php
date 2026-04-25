@@ -33,8 +33,8 @@ class HandlesTest extends TestCase
     #[Test]
     public function it_fires_the_handle_function_on_all_handlers()
     {
-        $handler = Mockery::mock(new SimpleHandler());
-        $otherHandler = Mockery::mock(new SimpleHandler());
+        $handler = Mockery::mock(new SimpleHandler);
+        $otherHandler = Mockery::mock(new SimpleHandler);
 
         $this->events->listen(ConfigureHostnames::class,
             function (ConfigureHostnames $event) use ($handler, $otherHandler) {

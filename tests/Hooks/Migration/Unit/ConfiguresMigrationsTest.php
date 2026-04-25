@@ -53,7 +53,6 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         );
     }
 
-
     #[DataProvider('tenantEventsProvider')]
     #[Test]
     public function it_can_clear_paths_from_the_migrator($tenantEvent)

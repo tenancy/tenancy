@@ -25,6 +25,5 @@ class Creating
         public Tenant $tenant,
         public array &$configuration,
         public ProvidesDatabase $provider
-    ) {
-    }
+    ) {}
 }

@@ -70,7 +70,7 @@ class MigratesHook extends ConfigurableHook
         $resolver->__invoke($this->event->tenant, $this->connection);
         $migrator->setConnection($this->connection);
 
-        if (!$migrator->repositoryExists()) {
+        if (! $migrator->repositoryExists()) {
             $migrator->getRepository()->createRepository();
         }
         call_user_func([$migrator, $this->action], $this->paths);

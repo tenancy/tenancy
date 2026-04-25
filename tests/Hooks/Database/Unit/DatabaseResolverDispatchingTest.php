@@ -65,7 +65,7 @@ class DatabaseResolverDispatchingTest extends TestCase
         $resolving = $resolved = $identified = $configuring = 0;
 
         $this->resolveDatabase(function () {
-            return new NullDriver();
+            return new NullDriver;
         });
 
         $this->expectEvent(Events\Resolving::class, $resolving);

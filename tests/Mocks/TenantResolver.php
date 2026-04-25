@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Mocks;
 
 use Tenancy\Identification\Contracts\ResolvesTenants;
+use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Support\TenantModelCollection;
 
 class TenantResolver implements ResolvesTenants
@@ -24,7 +25,7 @@ class TenantResolver implements ResolvesTenants
     /** @var array */
     public $drivers = [];
 
-    public function __invoke(?string $contract = null): ?\Tenancy\Identification\Contracts\Tenant
+    public function __invoke(?string $contract = null): ?Tenant
     {
         return null;
     }
@@ -39,14 +40,14 @@ class TenantResolver implements ResolvesTenants
         return null;
     }
 
-    public function setModels(\Tenancy\Identification\Support\TenantModelCollection $collection)
+    public function setModels(TenantModelCollection $collection)
     {
         return $this;
     }
 
-    public function getModels(): \Tenancy\Identification\Support\TenantModelCollection
+    public function getModels(): TenantModelCollection
     {
-        return new TenantModelCollection();
+        return new TenantModelCollection;
     }
 
     public function registerDriver(string $contract)

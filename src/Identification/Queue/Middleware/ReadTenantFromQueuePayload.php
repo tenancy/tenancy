@@ -28,8 +28,7 @@ class ReadTenantFromQueuePayload
     public function __construct(
         private Application $app,
         private ResolvesTenants $resolver
-    ) {
-    }
+    ) {}
 
     public function __invoke(JobProcessing $event)
     {

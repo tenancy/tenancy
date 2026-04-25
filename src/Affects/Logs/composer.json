@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-logs",
     "description": "The tenancy/tenancy logs mutations",
-    "keywords": ["affects", "tenancy", "logs"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "logs"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

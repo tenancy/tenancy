@@ -40,16 +40,12 @@ class Tenant extends Model implements Contract
         }
 
         return Factory::factoryForModel(get_called_class())
-                    ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
-                    ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
+            ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
+            ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
     }
 
     /**
      * Goes from the current class to a different class assuming they have the same key.
-     *
-     * @param string $class
-     *
-     * @return Model
      */
     public function as(string $class): Model
     {

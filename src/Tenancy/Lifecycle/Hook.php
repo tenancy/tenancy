@@ -23,6 +23,7 @@ use Tenancy\Tenant\Events\Event;
 abstract class Hook extends Step implements LifecycleHook
 {
     public bool $queued = true;
+
     public null|string|bool $queue = null;
 
     public function queued(): bool

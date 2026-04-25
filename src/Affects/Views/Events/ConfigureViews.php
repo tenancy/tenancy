@@ -24,8 +24,7 @@ class ConfigureViews
     public function __construct(
         public Switched $event,
         public Factory $view
-    ) {
-    }
+    ) {}
 
     public function addNamespace(string $path, string $namespace = 'tenant'): static
     {

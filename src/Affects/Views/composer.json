@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-views",
     "description": "The tenancy/tenancy views mutations",
-    "keywords": ["affects", "tenancy", "views"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "views"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

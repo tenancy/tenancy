@@ -25,6 +25,6 @@ class PipelineTest extends TestCase
     #[Test]
     public function it_gets_constructed_with_no_steps()
     {
-        $this->assertEmpty((new Pipeline())->getSteps());
+        $this->assertEmpty((new Pipeline)->getSteps());
     }
 }

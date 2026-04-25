@@ -38,7 +38,7 @@ class JobTest extends TestCase
             $this->assertArrayNotHasKey('tenant_key', $payload);
         });
 
-        dispatch(new SimpleJob());
+        dispatch(new SimpleJob);
     }
 
     #[Test]
@@ -55,6 +55,6 @@ class JobTest extends TestCase
             $this->assertEquals($tenant->getTenantKey(), $payload['tenant_key']);
         });
 
-        dispatch(new SimpleJob());
+        dispatch(new SimpleJob);
     }
 }

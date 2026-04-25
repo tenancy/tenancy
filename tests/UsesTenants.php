@@ -38,7 +38,7 @@ trait UsesTenants
         }
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
-            if (is_subclass_of(new $modelName(), Tenant::class) || $modelName === Tenant::class) {
+            if (is_subclass_of(new $modelName, Tenant::class) || $modelName === Tenant::class) {
                 return TenantFactory::class;
             }
 

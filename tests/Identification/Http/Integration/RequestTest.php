@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification\Http\Integration;
 
+use Fruitcake\Cors\CorsServiceProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
@@ -24,7 +25,7 @@ use Tenancy\Testing\TestCase;
 
 class RequestTest extends TestCase
 {
-    protected array $additionalProviders = [IdentificationProvider::class, \Fruitcake\Cors\CorsServiceProvider::class];
+    protected array $additionalProviders = [IdentificationProvider::class, CorsServiceProvider::class];
 
     #[Test]
     public function it_triggers_identification_on_incoming_requests()

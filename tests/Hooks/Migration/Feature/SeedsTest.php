@@ -37,9 +37,9 @@ use Tenancy\Tests\UsesSeeders;
 
 class SeedsTest extends TestCase
 {
-    use InteractsWithMigrations;
     use InteractsWithConnections;
     use InteractsWithDatabases;
+    use InteractsWithMigrations;
     use UsesConnections;
     use UsesMigrations;
     use UsesSeeders;
@@ -48,7 +48,7 @@ class SeedsTest extends TestCase
         MigrationProvider::class,
         DatabaseProvider::class,
         ConnectionsProvider::class,
-        SqliteProvider::class
+        SqliteProvider::class,
     ];
 
     #[Test]
@@ -81,7 +81,7 @@ class SeedsTest extends TestCase
     {
         $this->registerMigrationsPath($this->getMigrationsPath());
         $this->resolveConnection(function (Resolving $event) {
-            return new ConnectionResolvingListener();
+            return new ConnectionResolvingListener;
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [

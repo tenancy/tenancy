@@ -1,7 +1,14 @@
 {
     "name": "tenancy/testing",
     "description": "Creating multi tenant saas from your Laravel app with ease",
-    "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
+    "keywords": [
+        "laravel",
+        "multi-tenant",
+        "saas",
+        "tenancy",
+        "aws",
+        "gce"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

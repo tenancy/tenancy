@@ -1,7 +1,11 @@
 {
     "name": "tenancy/identification-driver-environment",
     "description": "The tenancy/tenancy identification driver using environment variables",
-    "keywords": ["identification", "tenancy", "environment"],
+    "keywords": [
+        "identification",
+        "tenancy",
+        "environment"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

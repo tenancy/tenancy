@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Routes\Integration;
 
+use Fruitcake\Cors\CorsServiceProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
@@ -26,7 +27,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
 {
     use AddsFromFile;
 
-    protected array $additionalProviders = [Provider::class, \Fruitcake\Cors\CorsServiceProvider::class];
+    protected array $additionalProviders = [Provider::class, CorsServiceProvider::class];
 
     #[Test]
     public function registered_routes_are_loaded()

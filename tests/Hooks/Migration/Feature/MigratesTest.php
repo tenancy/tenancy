@@ -36,9 +36,9 @@ use Tenancy\Tests\UsesMigrations;
 
 class MigratesTest extends TestCase
 {
-    use InteractsWithMigrations;
     use InteractsWithConnections;
     use InteractsWithDatabases;
+    use InteractsWithMigrations;
     use UsesConnections;
     use UsesMigrations;
 
@@ -46,7 +46,7 @@ class MigratesTest extends TestCase
         Provider::class,
         DatabaseProvider::class,
         ConnectionsProvider::class,
-        SqliteProvider::class
+        SqliteProvider::class,
     ];
 
     #[Test]
@@ -87,7 +87,7 @@ class MigratesTest extends TestCase
     private function registerTenantConnection()
     {
         $this->resolveConnection(function (Resolving $event) {
-            return new ConnectionResolvingListener();
+            return new ConnectionResolvingListener;
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [

@@ -23,6 +23,5 @@ class Resolving
     public function __construct(
         public ?Tenant $tenant = null,
         public ?string $connection = null
-    ) {
-    }
+    ) {}
 }

@@ -25,7 +25,7 @@ class AffectResolver extends Pipeline implements ResolvesAffects
 {
     public function addAffect($affect): static
     {
-        if (!in_array(AffectsApp::class, class_implements($affect))) {
+        if (! in_array(AffectsApp::class, class_implements($affect))) {
             throw new InvalidArgumentException("$affect has to implement ".AffectsApp::class);
         }
 

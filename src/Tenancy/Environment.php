@@ -41,7 +41,7 @@ class Environment
 
         $this->events()->dispatch(new Switched($tenant, $oldTenant));
 
-        if (!$this->identified) {
+        if (! $this->identified) {
             $this->identified = true;
         }
 
@@ -55,7 +55,7 @@ class Environment
 
     public function identifyTenant(bool $refresh = false, ?string $contract = null): ?Tenant
     {
-        if (!$this->identified || $refresh) {
+        if (! $this->identified || $refresh) {
             $resolver = $this->tenantResolver();
 
             $this->setTenant($resolver($contract));

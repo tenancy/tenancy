@@ -52,7 +52,6 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
         $this->hook->for(new $tenantEvent($this->getMockedTenant()));
     }
 
-
     #[DataProvider('tenantEventsProvider')]
     #[Test]
     public function it_can_register_handlers($tenantEvent)
@@ -60,7 +59,7 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
             $this->assertEmpty($event->getHandlers());
 
-            $event->registerHandler(new SimpleHandler());
+            $event->registerHandler(new SimpleHandler);
 
             $this->assertNotEmpty($event->getHandlers());
         });

@@ -33,7 +33,7 @@ class Steps extends Collection
 
             return $step;
         })
-        ->filter();
+            ->filter();
     }
 
     public function prioritized(): self

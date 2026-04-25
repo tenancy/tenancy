@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-mails",
     "description": "The tenancy/tenancy mails mutations",
-    "keywords": ["affects", "tenancy", "mails"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "mails"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

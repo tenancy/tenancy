@@ -28,7 +28,7 @@ class EagerIdentification
         /** @var Environment $tenancy */
         $tenancy = resolve(Environment::class);
 
-        if (!$tenancy->isIdentified()) {
+        if (! $tenancy->isIdentified()) {
             $tenancy->identifyTenant(false, IdentifiesByHttp::class);
         }
 

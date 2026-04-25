@@ -1,7 +1,11 @@
 {
     "name": "tenancy/identification-driver-http",
     "description": "The tenancy/tenancy identification driver for http",
-    "keywords": ["identification", "tenancy", "http"],
+    "keywords": [
+        "identification",
+        "tenancy",
+        "http"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

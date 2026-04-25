@@ -62,7 +62,7 @@ trait CreatesApplication
             }
         }
 
-        if (!$app) {
+        if (! $app) {
             throw new RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
         }
 
@@ -97,7 +97,7 @@ trait CreatesApplication
         }
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
-            if (is_subclass_of(new $modelName(), Tenant::class) || $modelName === Tenant::class) {
+            if (is_subclass_of(new $modelName, Tenant::class) || $modelName === Tenant::class) {
                 return TenantFactory::class;
             }
 

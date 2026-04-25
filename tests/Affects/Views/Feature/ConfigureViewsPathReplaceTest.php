@@ -35,7 +35,7 @@ class ConfigureViewsPathReplaceTest extends AffectsFeatureTestCase
         $views = $this->app->make(Factory::class);
 
         return $views->exists('test') && $views->exists('welcome') && $this->app->make(
-                'view.finder'
-            ) instanceof ViewFinderInterface;
+            'view.finder'
+        ) instanceof ViewFinderInterface;
     }
 }

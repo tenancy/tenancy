@@ -16,13 +16,15 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests;
 
+use Illuminate\Database\Eloquent\Factory;
+
 trait UsesModels
 {
     public function registerModelFactories()
     {
-        if (class_exists(\Illuminate\Database\Eloquent\Factory::class)) {
-            /** @var \Illuminate\Database\Eloquent\Factory $factory */
-            $factory = resolve(\Illuminate\Database\Eloquent\Factory::class);
+        if (class_exists(Factory::class)) {
+            /** @var Factory $factory */
+            $factory = resolve(Factory::class);
 
             $factory->load(
                 __DIR__.DIRECTORY_SEPARATOR.

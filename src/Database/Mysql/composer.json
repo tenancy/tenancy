@@ -1,7 +1,12 @@
 {
     "name": "tenancy/db-driver-mysql",
     "description": "The tenancy/tenancy database driver for mysql",
-    "keywords": ["database", "tenancy", "mysql", "mariadb"],
+    "keywords": [
+        "database",
+        "tenancy",
+        "mysql",
+        "mariadb"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",

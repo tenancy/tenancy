@@ -38,8 +38,7 @@ class ArtisanTest extends TestCase
 
         $this->app->make(Kernel::class)->command(
             'identifies',
-            function () {
-            }
+            function () {}
         );
     }
 

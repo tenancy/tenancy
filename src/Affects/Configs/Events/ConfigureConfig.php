@@ -24,8 +24,7 @@ class ConfigureConfig
     public function __construct(
         public Switched $event,
         public Repository $config
-    ) {
-    }
+    ) {}
 
     public function __call($name, $arguments)
     {

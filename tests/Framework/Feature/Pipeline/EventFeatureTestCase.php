@@ -31,7 +31,7 @@ abstract class EventFeatureTestCase extends TestCase
     {
         $event = $this->event;
 
-        $event = new $event('TestEvent', new Pipeline());
+        $event = new $event('TestEvent', new Pipeline);
 
         $this->assertTrue(
             $event->isForPipeline(Pipeline::class)

@@ -16,6 +16,4 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Mocks\Affects;
 
-class InvalidAffect
-{
-}
+class InvalidAffect {}

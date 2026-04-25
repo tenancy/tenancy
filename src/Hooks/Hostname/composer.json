@@ -1,7 +1,11 @@
 {
     "name": "tenancy/hooks-hostname",
     "description": "The tenancy/tenancy hostname mutations",
-    "keywords": ["hooks", "tenancy", "hostname"],
+    "keywords": [
+        "hooks",
+        "tenancy",
+        "hostname"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

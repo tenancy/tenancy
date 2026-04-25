@@ -16,6 +16,4 @@ declare(strict_types=1);
 
 namespace Tenancy\Pipeline\Events;
 
-class Fired extends Event
-{
-}
+class Fired extends Event {}

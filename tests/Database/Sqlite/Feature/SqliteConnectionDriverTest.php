@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database\Sqlite\Feature;
 
 use Illuminate\Database\QueryException;
+use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Tenancy\Database\Drivers\Sqlite\Provider;
@@ -34,7 +35,7 @@ class SqliteConnectionDriverTest extends DatabaseFeatureTestCase
     protected function registerDatabaseListener()
     {
         if (Str::startsWith(App::version(), ['11', '12', '13'])) {
-            $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
+            $this->exception = SQLiteDatabaseDoesNotExistException::class;
         }
 
         config(['database.connections.sqlite', include $this->getSqliteConfigurationPath()]);

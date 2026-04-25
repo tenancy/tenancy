@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Mocks;
 
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\ConnectionResolverInterface;
 
 class ConnectionResolver implements ConnectionResolverInterface
@@ -40,8 +41,7 @@ class ConnectionResolver implements ConnectionResolverInterface
      * Get a database connection instance.
      *
      * @param  string  $name
-     *
-     * @return \Illuminate\Database\ConnectionInterface
+     * @return ConnectionInterface
      */
     public function connection($name = null)
     {
@@ -62,7 +62,6 @@ class ConnectionResolver implements ConnectionResolverInterface
      * Set the default connection name.
      *
      * @param  string  $name
-     *
      * @return void
      */
     public function setDefaultConnection($name)

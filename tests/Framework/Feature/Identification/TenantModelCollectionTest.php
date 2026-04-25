@@ -37,7 +37,7 @@ class TenantModelCollectionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->collection = new TenantModelCollection();
+        $this->collection = new TenantModelCollection;
     }
 
     #[Test]

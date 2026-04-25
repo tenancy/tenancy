@@ -23,6 +23,5 @@ class Switched
     public function __construct(
         public ?Tenant $tenant = null,
         public ?Tenant $oldTenant = null
-    ) {
-    }
+    ) {}
 }

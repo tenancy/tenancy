@@ -22,6 +22,5 @@ class Resolving
 {
     public function __construct(
         public TenantModelCollection $models
-    ) {
-    }
+    ) {}
 }

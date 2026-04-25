@@ -18,6 +18,4 @@ namespace Tenancy\Contracts;
 
 use Tenancy\Pipeline\Contracts\Step;
 
-interface AffectsApp extends Step
-{
-}
+interface AffectsApp extends Step {}

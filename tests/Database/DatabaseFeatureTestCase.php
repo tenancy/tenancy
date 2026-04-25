@@ -51,8 +51,8 @@ abstract class DatabaseFeatureTestCase extends TestCase
     /** @var string */
     protected $exception = \PDOException::class;
 
-    use InteractsWithDatabases;
     use InteractsWithConnections;
+    use InteractsWithDatabases;
     use InteractsWithMigrations;
     use UsesMigrations;
 
@@ -68,7 +68,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->app->register(DatabaseProvider::class);
 
         $this->resolveConnection(function () {
-            return new ConnectionListener();
+            return new ConnectionListener;
         });
         $this->registerDatabaseListener();
     }

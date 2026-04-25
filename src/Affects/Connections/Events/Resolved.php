@@ -25,6 +25,5 @@ class Resolved
         public ?Tenant $tenant = null,
         public ?string $connection = null,
         public ?ProvidesConfiguration &$provider = null
-    ) {
-    }
+    ) {}
 }

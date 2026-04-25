@@ -22,6 +22,5 @@ class Identified
 {
     public function __construct(
         public Tenant $tenant
-    ) {
-    }
+    ) {}
 }

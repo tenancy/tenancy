@@ -7,7 +7,7 @@ services:
     volumes:
       - '${TENANCY_PATH-../../}:/var/www/html'
       - '${TENANCY_PATH-../../}.dev/docker/partials/:/ops/'
-      
+    
     networks:
       - application
 
@@ -32,7 +32,7 @@ services:
 
     ports:
       - "13306:3306"
-      
+    
     networks:
       - application
 

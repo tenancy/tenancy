@@ -1,7 +1,11 @@
 {
     "name": "tenancy/identification-driver-queue",
     "description": "The tenancy/tenancy identification driver for queues",
-    "keywords": ["identification", "tenancy", "queue"],
+    "keywords": [
+        "identification",
+        "tenancy",
+        "queue"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

@@ -23,16 +23,15 @@ class ConfigureModels
 {
     public function __construct(
         public Switched $event
-    ) {
-    }
+    ) {}
 
     public static function __callStatic($method, $parameters)
     {
-        if (!is_array($models = array_shift($parameters))) {
+        if (! is_array($models = array_shift($parameters))) {
             $models = [$models];
         }
         foreach ($models as $model) {
-            if (!class_exists($model)) {
+            if (! class_exists($model)) {
                 throw new InvalidArgumentException("$model does not exist");
             }
             forward_static_call([$model, $method], ...$parameters);
@@ -41,14 +40,14 @@ class ConfigureModels
 
     public function __call($method, $parameters)
     {
-        if (!is_array($models = array_shift($parameters))) {
+        if (! is_array($models = array_shift($parameters))) {
             $models = [$models];
         }
         foreach ($models as $model) {
-            if (!class_exists($model)) {
+            if (! class_exists($model)) {
                 throw new InvalidArgumentException("$model does not exist");
             }
-            (new $model())->{$method}(...$parameters);
+            (new $model)->{$method}(...$parameters);
         }
 
         return $this;

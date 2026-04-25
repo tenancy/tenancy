@@ -16,6 +16,4 @@ declare(strict_types=1);
 
 namespace Tenancy\Tenant\Events;
 
-class Deleted extends Event
-{
-}
+class Deleted extends Event {}

@@ -24,6 +24,6 @@ class ConfiguresTenantDatabase
 {
     public function handle(Resolving $resolving): ?ProvidesDatabase
     {
-        return new Mysql();
+        return new Mysql;
     }
 }
