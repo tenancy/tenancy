@@ -47,11 +47,11 @@ class TenantResolver implements ResolvesTenants
         /** @var Tenant|null $tenant */
         $tenant = $this->events()->until(new Events\Resolving($models = $this->getModels()));
 
-        if (! $tenant && ! is_null($contract)) {
+        if (!$tenant && !is_null($contract)) {
             return $this->identifyByContract($contract);
         }
 
-        if (! $tenant && count($this->drivers) > 0) {
+        if (!$tenant && count($this->drivers) > 0) {
             $tenant = $this->resolveFromDrivers($models);
         }
 
@@ -60,11 +60,11 @@ class TenantResolver implements ResolvesTenants
         }
 
         // Provide a debug log entry when no tenant was identified, possibly because no identification driver is active.
-        if (! $tenant && count($this->drivers) === 0) {
+        if (!$tenant && count($this->drivers) === 0) {
             logger('No tenant was identified, a possible cause being that no identification drivers are available.');
         }
 
-        if (! $tenant) {
+        if (!$tenant) {
             $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }
 
@@ -80,7 +80,7 @@ class TenantResolver implements ResolvesTenants
 
     public function addModel(string $class): self|static
     {
-        if (! in_array(Tenant::class, class_implements($class))) {
+        if (!in_array(Tenant::class, class_implements($class))) {
             throw new InvalidArgumentException("$class has to implement ".Tenant::class);
         }
 
@@ -162,7 +162,7 @@ class TenantResolver implements ResolvesTenants
     protected function identifyByContract(string $contract): ?Tenant
     {
         // Provide a debug log entry when no the specific identification driver has not been installed.
-        if (! in_array($contract, $this->drivers)) {
+        if (!in_array($contract, $this->drivers)) {
             logger('Identification driver '.$contract.' was not available');
 
             return null;
@@ -174,7 +174,7 @@ class TenantResolver implements ResolvesTenants
             $this->events()->dispatch(new Events\Identified($tenant));
         }
 
-        if (! $tenant) {
+        if (!$tenant) {
             $this->events()->dispatch(new Events\NothingIdentified($tenant));
         }
 

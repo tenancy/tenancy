@@ -56,7 +56,7 @@ class Processing
 
     private function unserializeToJob(string $object): object
     {
-        if (! str_starts_with($object, 'O:')) {
+        if (!str_starts_with($object, 'O:')) {
             $object = App::make(Encrypter::class)->decrypt($object);
         }
 

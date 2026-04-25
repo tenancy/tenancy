@@ -2,5 +2,3 @@ preset: psr12
 risky: true
 enabled:
   - declare_strict_types
-rules:
-  concat_space: single

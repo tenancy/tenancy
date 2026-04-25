@@ -33,6 +33,6 @@ class ConfigureConfigThroughConfigTest extends AffectsFeatureTestCase
         /** @var Repository */
         $repository = $this->app->make(Repository::class);
 
-        return ! is_null($repository->get('testing'));
+        return !is_null($repository->get('testing'));
     }
 }

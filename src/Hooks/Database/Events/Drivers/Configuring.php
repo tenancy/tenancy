@@ -42,7 +42,7 @@ class Configuring
 
     public function useConfig(string $path, array $override = []): static
     {
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             throw new InvalidArgumentException("Cannot set up tenant connection configuration, file $path does not exist.");
         }
 

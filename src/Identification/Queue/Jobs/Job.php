@@ -51,13 +51,13 @@ class Job
         $properties = (new ReflectionClass($this))->getProperties();
 
         foreach ($properties as $property) {
-            if (! in_array($property->getName(), ['tenant', 'tenant_identifier', 'tenant_key'])) {
+            if (!in_array($property->getName(), ['tenant', 'tenant_identifier', 'tenant_key'])) {
                 continue;
             }
 
             $name = $property->getName();
 
-            if (! array_key_exists($name, $values)) {
+            if (!array_key_exists($name, $values)) {
                 continue;
             }
 

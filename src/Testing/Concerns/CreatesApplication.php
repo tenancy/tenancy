@@ -62,7 +62,7 @@ trait CreatesApplication
             }
         }
 
-        if (! $app) {
+        if (!$app) {
             throw new RuntimeException('No Laravel bootstrap.php file found, is laravel/laravel installed?');
         }
 

@@ -1,6 +1,9 @@
 {
     "preset": "psr12",
     "rules": {
-        "unary_operator_spaces": false
+        "unary_operator_spaces": true,
+        "concat_space": {
+            "spacing": "none"
+        }
     }
 }
