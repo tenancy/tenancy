@@ -62,7 +62,6 @@ abstract class AffectsFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function not_affected_by_default()
     {
         $this->registerAffecting();
@@ -70,7 +69,6 @@ abstract class AffectsFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_can_affect_the_application()
     {
         $this->registerAffecting();
@@ -81,7 +79,6 @@ abstract class AffectsFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function can_override_previous_affect()
     {
         $this->registerAffecting();

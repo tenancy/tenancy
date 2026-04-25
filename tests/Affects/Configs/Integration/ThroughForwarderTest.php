@@ -29,14 +29,12 @@ class ThroughForwarderTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class];
 
     #[Test]
-    /** @test */
     public function by_default_the_helper_result_has_no_value()
     {
         $this->assertNull(config('testing.tenant'));
     }
 
     #[Test]
-    /** @test */
     public function it_changes_the_result_of_the_helper()
     {
         Tenancy::setTenant($this->tenant);

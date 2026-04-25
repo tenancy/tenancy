@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification\Http\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
@@ -25,7 +26,7 @@ class RequestTest extends TestCase
 {
     protected array $additionalProviders = [IdentificationProvider::class, \Fruitcake\Cors\CorsServiceProvider::class];
 
-    /** @test */
+    #[Test]
     public function it_triggers_identification_on_incoming_requests()
     {
         $this->mock(Environment::class, function ($mock) {
@@ -44,7 +45,7 @@ class RequestTest extends TestCase
         $this->get('/');
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_trigger_identification_when_a_tenant_is_already_identified()
     {
         $this->mock(Environment::class, function ($mock) {

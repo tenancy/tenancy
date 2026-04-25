@@ -35,7 +35,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_not_fired_for_switched()
     {
         $this->hook->for(new Switched($this->mockTenant()));
@@ -46,7 +45,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_fired_for_created()
     {
         $this->hook->for(new Tenant\Created($this->mockTenant()));
@@ -57,7 +55,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_fired_for_updated()
     {
         $this->hook->for(new Tenant\Updated($this->mockTenant()));
@@ -68,7 +65,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_fired_for_deleted()
     {
         $this->hook->for(new Tenant\Deleted($this->mockTenant()));
@@ -79,7 +75,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_fires_configure_database_mutation_for_tenant_events()
     {
         Event::fake([ConfigureDatabaseMutation::class]);
@@ -92,7 +87,6 @@ class DatabaseMutationTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_does_not_fire_configure_database_mutation_for_other_events()
     {
         Event::fake([ConfigureDatabaseMutation::class]);

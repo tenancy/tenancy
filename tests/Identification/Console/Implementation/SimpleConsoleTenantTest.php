@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Identification\Console\Implementation;
 
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Console\Kernel;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
@@ -44,7 +45,7 @@ class SimpleConsoleTenantTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_identify_null()
     {
         $this->createMockTenant();
@@ -58,7 +59,7 @@ class SimpleConsoleTenantTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_identify_a_tenant_by_name()
     {
         $tenant = $this->createMockTenant();

@@ -31,7 +31,6 @@ class ConfigureModelsTest extends AffectsEventUnitTestCase
     protected $event = ConfigureModels::class;
 
     #[Test]
-    /** @test */
     public function static_calls_detect_not_existing_classes()
     {
         new ConfigureModels(new Switched($this->tenant));
@@ -47,7 +46,6 @@ class ConfigureModelsTest extends AffectsEventUnitTestCase
     }
 
     #[Test]
-    /** @test */
     public function forward_calls_detect_not_existing_classes()
     {
         $event = new ConfigureModels(new Switched($this->tenant));

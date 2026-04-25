@@ -29,7 +29,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class, \Fruitcake\Cors\CorsServiceProvider::class];
 
     #[Test]
-    /** @test */
     public function registered_routes_are_loaded()
     {
         Tenancy::setTenant($this->tenant);
@@ -41,7 +40,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function registered_routes_can_be_accessed()
     {
         Tenancy::setTenant($this->tenant);
@@ -52,7 +50,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function registered_routes_have_the_right_data()
     {
         Tenancy::setTenant($this->tenant);
@@ -63,7 +60,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function registered_nested_routes_are_loaded()
     {
         Tenancy::setTenant($this->tenant);
@@ -75,7 +71,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function registered_nested_routes_can_be_accessed()
     {
         Tenancy::setTenant($this->tenant);
@@ -86,7 +81,6 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function registered_nested_routes_have_the_right_data()
     {
         Tenancy::setTenant($this->tenant);

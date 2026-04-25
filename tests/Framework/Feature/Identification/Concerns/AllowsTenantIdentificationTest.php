@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Feature\Identification\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Testing\TestCase;
 
@@ -31,7 +32,7 @@ class AllowsTenantIdentificationTest extends TestCase
         };
     }
 
-    /** @test */
+    #[Test]
     public function tenant_key_name_returns_the_model_key_name()
     {
         $this->assertEquals(
@@ -40,7 +41,7 @@ class AllowsTenantIdentificationTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function tenant_identifier_contains_the_table()
     {
         $this->assertStringContainsString(
@@ -49,7 +50,7 @@ class AllowsTenantIdentificationTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function by_default_the_tenant_identifier_uses_the_database_config()
     {
         $this->assertStringContainsString(

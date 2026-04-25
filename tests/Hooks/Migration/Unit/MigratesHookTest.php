@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Migration\Unit;
 
 use Illuminate\Support\Facades\Event;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
@@ -36,7 +35,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_enabled_by_default()
     {
         $this->assertTrue(
@@ -45,7 +43,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_initializes_paths_correctly()
     {
         $this->assertContains(
@@ -55,7 +52,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_fires_the_configure_migrations_event_when_running_for()
     {
         Event::fake(ConfigureMigrations::class);
@@ -66,7 +62,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function on_created_the_action_is_run()
     {
         $this->hook->for(new Tenant\Created($this->mockTenant()));
@@ -78,7 +73,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function on_updated_the_action_is_run()
     {
         $this->hook->for(new Tenant\Updated($this->mockTenant()));
@@ -90,7 +84,6 @@ class MigratesHookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function on_deleted_the_action_is_reset()
     {
         $this->hook->for(new Tenant\Deleted($this->mockTenant()));

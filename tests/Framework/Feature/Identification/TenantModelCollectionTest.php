@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Identification;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
 use Tenancy\Identification\Drivers\Http\Contracts\IdentifiesByHttp;
@@ -39,7 +40,7 @@ class TenantModelCollectionTest extends TestCase
         $this->collection = new TenantModelCollection();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_filter_based_on_contract()
     {
         $this->collection->add(Tenant::class);

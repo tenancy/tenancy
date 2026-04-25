@@ -58,7 +58,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     protected function afterSetUp()
     {
-        $this->db = $this->app->make(DatabaseManager::class);
+        $this->db     = $this->app->make(DatabaseManager::class);
         $this->tenant = $this->tenantModel::factory()->create()->as($this->tenantModel);
         $this->tenant->unguard();
 
@@ -76,7 +76,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     abstract protected function registerDatabaseListener();
 
     #[Test]
-    /** @test */
     public function it_creates_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -90,7 +89,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_updates_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -107,7 +105,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function updating_the_same_tenant_does_not_change_the_connection()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -128,7 +125,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function updating_keeps_the_data()
     {
         $this->app->register(MigrationProvider::class);
@@ -174,7 +170,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_deletes_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));

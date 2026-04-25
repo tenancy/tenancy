@@ -30,7 +30,6 @@ class ConfigureCacheFileTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class];
 
     #[Test]
-    /** @test */
     public function it_can_store_data()
     {
         Tenancy::setTenant($this->tenant);
@@ -44,7 +43,6 @@ class ConfigureCacheFileTest extends AffectsIntegrationTestCase
     }
 
     #[Test]
-    /** @test */
     public function data_is_not_shared_across_tenants()
     {
         Tenancy::setTenant($this->tenant);

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Pipeline;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Pipeline\Events\Event;
 use Tenancy\Pipeline\Pipeline;
 use Tenancy\Testing\TestCase;
@@ -25,7 +26,7 @@ abstract class EventFeatureTestCase extends TestCase
 {
     protected $event = Event::class;
 
-    /** @test */
+    #[Test]
     public function it_can_check_the_pipeline_it_is_for()
     {
         $event = $this->event;

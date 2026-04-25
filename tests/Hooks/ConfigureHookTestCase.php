@@ -38,10 +38,6 @@ abstract class ConfigureHookTestCase extends TestCase
 
     #[Test]
     #[DataProvider('tenantEventsProvider')]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_disable_the_hook($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -55,10 +51,6 @@ abstract class ConfigureHookTestCase extends TestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_prioritize_the_hook($tenantEvent)
     {
         $original = $this->hook->priority();

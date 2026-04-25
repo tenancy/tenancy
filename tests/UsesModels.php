@@ -25,10 +25,10 @@ trait UsesModels
             $factory = resolve(\Illuminate\Database\Eloquent\Factory::class);
 
             $factory->load(
-                __DIR__.DIRECTORY_SEPARATOR.
-                'Mocks'.DIRECTORY_SEPARATOR.
-                'Models'.DIRECTORY_SEPARATOR.
-                'Factories'.DIRECTORY_SEPARATOR.
+                __DIR__ . DIRECTORY_SEPARATOR .
+                'Mocks' . DIRECTORY_SEPARATOR .
+                'Models' . DIRECTORY_SEPARATOR .
+                'Factories' . DIRECTORY_SEPARATOR .
                 'Legacy'
             );
         }

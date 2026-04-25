@@ -14,8 +14,6 @@ declare(strict_types=1);
  * @see https://github.com/tenancy
  */
 
-use Tenancy\Facades\Tenancy;
-
 /*
  * This file is part of the tenancy/tenancy package.
  *

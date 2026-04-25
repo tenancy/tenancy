@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Feature\Affects;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Affects;
@@ -31,7 +32,7 @@ class AffectResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesAffects::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_affects()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -41,7 +42,7 @@ class AffectResolverTest extends TestCase
         $resolver->addAffect(Affects\InvalidAffect::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_adds_affects()
     {
         /** @var ResolvesAffects $resolver */
@@ -54,7 +55,7 @@ class AffectResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_sets_affects()
     {
         $this->resolver->setAffects([]);

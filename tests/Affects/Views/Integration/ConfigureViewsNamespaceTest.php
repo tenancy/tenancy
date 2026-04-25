@@ -30,7 +30,6 @@ class ConfigureViewsNamespaceTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class];
 
     #[Test]
-    /** @test */
     public function registered_views_can_be_rendered()
     {
         Tenancy::setTenant($this->tenant);

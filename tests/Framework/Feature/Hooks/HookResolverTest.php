@@ -36,16 +36,15 @@ class HookResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_prioritizes_hooks_on_handle()
     {
         $this->resolver->setHooks([]);
 
-        $hookLow = new ConfiguredHook();
+        $hookLow           = new ConfiguredHook();
         $hookLow->priority = -100;
         $this->resolver->addHook($hookLow);
 
-        $hookHigh = new ConfiguredHook();
+        $hookHigh           = new ConfiguredHook();
         $hookHigh->priority = 100;
         $this->resolver->addHook($hookHigh);
 
@@ -58,7 +57,6 @@ class HookResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function sets_hooks()
     {
         $this->resolver->setHooks([]);
@@ -79,14 +77,13 @@ class HookResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function can_queue()
     {
         Queue::fake();
 
         $this->resolver->setHooks([]);
 
-        $hook = new ConfiguredHook();
+        $hook        = new ConfiguredHook();
         $hook->queue = 'test';
         $this->resolver->addHook($hook);
 

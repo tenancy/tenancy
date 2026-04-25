@@ -34,7 +34,6 @@ class HookResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function by_default_the_hook_resolver_is_registered()
     {
         $this->assertInstanceOf(
@@ -44,7 +43,6 @@ class HookResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function validates_hooks()
     {
         $this->expectException(InvalidArgumentException::class);

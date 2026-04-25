@@ -31,7 +31,6 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
     protected $event = ConfigureMails::class;
 
     #[Test]
-    /** @test */
     public function the_event_can_replace_symfony_transport()
     {
         $this->app->register($this->affectsProvider);
@@ -46,7 +45,6 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
     }
 
     #[Test]
-    /** @test */
     public function the_event_can_delegate_to_mailer()
     {
         $this->app->register($this->affectsProvider);

@@ -31,7 +31,6 @@ class TenantProviderTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function all_provides_are_registered()
     {
         foreach ($this->provider->provides() as $abstract) {

@@ -23,7 +23,6 @@ use Tenancy\Testing\TestCase;
 class EnvironmentTest extends TestCase
 {
     #[Test]
-    /** @test */
     public function it_is_registered_as_singleton()
     {
         $tenant = $this->mockTenant();

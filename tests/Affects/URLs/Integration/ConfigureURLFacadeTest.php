@@ -28,35 +28,32 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class];
 
     #[Test]
-    /** @test */
     public function by_default_the_url_facade_is_not_affected()
     {
         $this->assertNotEquals(
-            $this->tenant->getTenantKey().'.tenancy.dev',
+            $this->tenant->getTenantKey() . '.tenancy.dev',
             URL::current()
         );
     }
 
     #[Test]
-    /** @test */
     public function changing_the_url_will_change_the_url_facade_base()
     {
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey().'.tenancy.dev',
+            $this->tenant->getTenantKey() . '.tenancy.dev',
             URL::current()
         );
     }
 
     #[Test]
-    /** @test */
     public function changing_the_url_will_change_the_url_facade_to()
     {
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey().'.tenancy.dev/testing',
+            $this->tenant->getTenantKey() . '.tenancy.dev/testing',
             URL::to('testing')
         );
     }
@@ -69,7 +66,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot($event->event->tenant->getTenantKey().'.tenancy.dev');
+            $event->changeRoot($event->event->tenant->getTenantKey() . '.tenancy.dev');
         });
     }
 }

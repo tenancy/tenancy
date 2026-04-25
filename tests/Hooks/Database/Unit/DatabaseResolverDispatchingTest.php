@@ -39,12 +39,11 @@ class DatabaseResolverDispatchingTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->tenant = $this->mockTenant();
+        $this->tenant   = $this->mockTenant();
         $this->resolver = $this->app->make(ResolvesDatabases::class);
     }
 
     #[Test]
-    /** @test */
     public function without_driver()
     {
         $resolving = $resolved = $identified = $configuring = 0;
@@ -61,7 +60,6 @@ class DatabaseResolverDispatchingTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function with_driver()
     {
         $resolving = $resolved = $identified = $configuring = 0;

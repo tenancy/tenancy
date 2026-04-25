@@ -31,7 +31,6 @@ class TenancyProviderTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function all_singletons_are_registered()
     {
         foreach ($this->provider->singletons as $abstract => $class) {
@@ -43,7 +42,6 @@ class TenancyProviderTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function all_provides_are_registered()
     {
         foreach ($this->provider->provides() as $abstract) {

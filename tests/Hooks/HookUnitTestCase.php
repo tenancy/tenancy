@@ -29,7 +29,6 @@ abstract class HookUnitTestCase extends TestCase
     protected $provider;
 
     #[Test]
-    /** @test */
     public function the_hooks_are_not_registered_by_default()
     {
         foreach ($this->hooks as $hook) {
@@ -41,7 +40,6 @@ abstract class HookUnitTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function the_hooks_are_registered()
     {
         $this->app->register($this->provider);

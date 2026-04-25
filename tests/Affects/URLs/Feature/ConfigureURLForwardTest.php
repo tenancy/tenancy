@@ -33,13 +33,13 @@ class ConfigureURLForwardTest extends AffectsFeatureTestCase
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
             if ($event->event->tenant) {
-                $event->forceRootUrl($event->event->tenant->name.'.tenant');
+                $event->forceRootUrl($event->event->tenant->name . '.tenant');
             }
         });
     }
 
     protected function isAffected(Tenant $tenant): bool
     {
-        return $tenant->name.'.tenant' === URL::current();
+        return $tenant->name . '.tenant' === URL::current();
     }
 }

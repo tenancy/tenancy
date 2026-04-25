@@ -30,7 +30,6 @@ class ConfigureViewsReplacesPathTest extends AffectsIntegrationTestCase
     protected array $additionalProviders = [Provider::class];
 
     #[Test]
-    /** @test */
     public function replaced_views_can_be_rendered()
     {
         /** @var Factory */

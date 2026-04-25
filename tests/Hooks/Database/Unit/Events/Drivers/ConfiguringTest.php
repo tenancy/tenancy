@@ -28,7 +28,6 @@ class ConfiguringTest extends TestCase
     use UsesConnections;
 
     #[Test]
-    /** @test */
     public function use_connection_uses_registered_connections()
     {
         $config = [];
@@ -49,7 +48,6 @@ class ConfiguringTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function use_connection_can_be_overridden()
     {
         $config = [];
@@ -70,7 +68,6 @@ class ConfiguringTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function use_config_uses_the_provided_path()
     {
         $config = [];
@@ -88,7 +85,6 @@ class ConfiguringTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function use_config_can_be_override()
     {
         $config = [];
@@ -104,7 +100,6 @@ class ConfiguringTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function use_config_checks_if_the_file_exists()
     {
         $config = [];
@@ -113,6 +108,6 @@ class ConfiguringTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $event->useConfig(__DIR__.'this_does_not_exist.php');
+        $event->useConfig(__DIR__ . 'this_does_not_exist.php');
     }
 }

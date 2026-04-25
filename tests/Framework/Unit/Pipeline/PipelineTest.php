@@ -23,7 +23,6 @@ use Tenancy\Testing\TestCase;
 class PipelineTest extends TestCase
 {
     #[Test]
-    /** @test */
     public function it_gets_constructed_with_no_steps()
     {
         $this->assertEmpty((new Pipeline())->getSteps());

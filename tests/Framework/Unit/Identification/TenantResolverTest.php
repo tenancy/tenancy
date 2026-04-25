@@ -32,7 +32,6 @@ class TenantResolverTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_validates_the_add_model_input()
     {
         $this->expectException(\InvalidArgumentException::class);

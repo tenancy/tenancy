@@ -21,7 +21,6 @@ use PHPUnit\Framework\Attributes\Test;
 trait AffectShouldBeUndone
 {
     #[Test]
-    /** @test */
     public function affects_can_be_undone()
     {
         $this->registerAffecting();

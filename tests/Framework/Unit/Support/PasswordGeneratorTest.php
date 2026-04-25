@@ -32,7 +32,6 @@ class PasswordGeneratorTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_is_registered_by_default()
     {
         $this->assertInstanceOf(

@@ -33,10 +33,6 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_add_seeds($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -53,10 +49,6 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_decide_whether_to_replace_the_default($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -66,7 +58,7 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $reflection = new \ReflectionClass($this->hook);
-        $property = $reflection->getProperty('replaceDefaultConnection');
+        $property   = $reflection->getProperty('replaceDefaultConnection');
         $property->setAccessible(true);
 
         $this->assertFalse(

@@ -39,20 +39,16 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_add_paths_to_the_migrator($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->path(realpath(__DIR__.'/..'));
+            $event->path(realpath(__DIR__ . '/..'));
         });
 
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $this->assertContains(
-            realpath(__DIR__.'/..'),
+            realpath(__DIR__ . '/..'),
             $this->hook->paths
         );
     }
@@ -60,10 +56,6 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_clear_paths_from_the_migrator($tenantEvent)
     {
         $this->assertContains(
@@ -85,10 +77,6 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_decide_whether_to_replace_the_default($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -98,7 +86,7 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $reflection = new \ReflectionClass($this->hook);
-        $property = $reflection->getProperty('replaceDefaultConnection');
+        $property   = $reflection->getProperty('replaceDefaultConnection');
         $property->setAccessible(true);
 
         $this->assertFalse(

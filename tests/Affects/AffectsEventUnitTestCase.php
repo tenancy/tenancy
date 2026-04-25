@@ -58,7 +58,6 @@ abstract class AffectsEventUnitTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function the_event_is_not_triggered_without_provider()
     {
         Event::fake($this->event);
@@ -69,7 +68,6 @@ abstract class AffectsEventUnitTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function the_event_is_triggered()
     {
         $this->app->register($this->affectsProvider);
@@ -82,7 +80,6 @@ abstract class AffectsEventUnitTestCase extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function the_event_contains_the_right_data()
     {
         $this->app->register($this->affectsProvider);

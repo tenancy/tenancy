@@ -53,13 +53,13 @@ class SimpleJob implements ShouldQueue
         ?Collection $collection = null,
         ?Collection $anotherCollection = null
     ) {
-        $this->publicCollection = $collection;
+        $this->publicCollection    = $collection;
         $this->protectedCollection = $collection;
-        $this->priveCollection = $collection;
+        $this->priveCollection     = $collection;
 
-        $this->anotherPublicCollection = $anotherCollection;
+        $this->anotherPublicCollection    = $anotherCollection;
         $this->anotherProtectedCollection = $anotherCollection;
-        $this->anotherPriveCollection = $anotherCollection;
+        $this->anotherPriveCollection     = $anotherCollection;
     }
 
     public function handle()

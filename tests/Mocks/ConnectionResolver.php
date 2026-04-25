@@ -33,13 +33,13 @@ class ConnectionResolver implements ConnectionResolverInterface
     public function __construct(string $connection, ConnectionResolverInterface $db)
     {
         $this->connection = $connection;
-        $this->db = $db;
+        $this->db         = $db;
     }
 
     /**
      * Get a database connection instance.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return \Illuminate\Database\ConnectionInterface
      */
@@ -61,7 +61,7 @@ class ConnectionResolver implements ConnectionResolverInterface
     /**
      * Set the default connection name.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return void
      */

@@ -45,7 +45,6 @@ class MigratesTest extends TestCase
     protected array $additionalProviders = [Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
 
     #[Test]
-    /** @test */
     public function it_can_migrate_a_database()
     {
         $this->registerTenantConnection();
@@ -87,12 +86,12 @@ class MigratesTest extends TestCase
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
         $this->configureDatabase(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

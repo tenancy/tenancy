@@ -32,21 +32,19 @@ class HookTest extends TestCase
     }
 
     #[Test]
-    /** @test */
     public function it_does_not_fire_normally()
     {
         $this->assertFalse($this->hook->fires());
     }
 
     #[Test]
-    /** @test */
     public function it_fires_for_tenant_events()
     {
         $this->hook->event = new Created($this->mockTenant());
         $this->assertTrue($this->hook->fires());
     }
 
-    /** @test */
+
     public function it_is_queued_by_default()
     {
         $this->assertTrue(
@@ -54,7 +52,7 @@ class HookTest extends TestCase
         );
     }
 
-    /** @test */
+
     public function it_returns_null_if_no_queue_is_set()
     {
         $this->assertNull($this->hook->queue());

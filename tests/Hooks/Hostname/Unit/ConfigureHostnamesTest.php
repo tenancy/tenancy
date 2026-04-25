@@ -43,10 +43,6 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_forwards_call_to_the_hook($tenantEvent)
     {
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
@@ -59,10 +55,6 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
 
     #[DataProvider('tenantEventsProvider')]
     #[Test]
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
     public function it_can_register_handlers($tenantEvent)
     {
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
