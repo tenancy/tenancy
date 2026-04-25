@@ -2,4 +2,5 @@ preset: psr12
 risky: true
 enabled:
   - declare_strict_types
-  - not_operator_with_successor_space
+rules:
+  concat_space: single

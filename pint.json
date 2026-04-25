@@ -1,3 +1,6 @@
 {
-    "preset": "psr12"
+    "preset": "psr12",
+    "rules": {
+        "unary_operator_spaces": false
+    }
 }
