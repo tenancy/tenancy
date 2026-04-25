@@ -108,6 +108,6 @@ class ConfiguringTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $event->useConfig(__DIR__.'this_does_not_exist.php');
+        $event->useConfig(__DIR__ . 'this_does_not_exist.php');
     }
 }

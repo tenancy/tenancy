@@ -42,7 +42,7 @@ class SqliteConnectionDriverTest extends DatabaseFeatureTestCase
 
         $this->configureBoth(function ($event) {
             $event->useConnection('sqlite', [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

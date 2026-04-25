@@ -3,7 +3,7 @@
     "rules": {
         "unary_operator_spaces": true,
         "concat_space": {
-            "spacing": "none"
+            "spacing": "one"
         }
     }
 }

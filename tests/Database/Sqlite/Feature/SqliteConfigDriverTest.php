@@ -40,7 +40,7 @@ class SqliteConfigDriverTest extends DatabaseFeatureTestCase
 
         $this->configureBoth(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

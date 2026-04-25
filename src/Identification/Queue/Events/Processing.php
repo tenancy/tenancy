@@ -60,7 +60,7 @@ class Processing
             $object = App::make(Encrypter::class)->decrypt($object);
         }
 
-        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:'.strlen(TenancyJob::class).':"'.TenancyJob::class.'"', $object);
+        $stdClassObj = preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen(TenancyJob::class) . ':"' . TenancyJob::class . '"', $object);
 
         return unserialize($stdClassObj, ['allowed_classes' => [Job::class, TenancyJob::class]]);
     }

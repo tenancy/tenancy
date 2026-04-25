@@ -42,13 +42,13 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
     public function it_can_add_paths_to_the_migrator($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->path(realpath(__DIR__.'/..'));
+            $event->path(realpath(__DIR__ . '/..'));
         });
 
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $this->assertContains(
-            realpath(__DIR__.'/..'),
+            realpath(__DIR__ . '/..'),
             $this->hook->paths
         );
     }

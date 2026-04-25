@@ -43,7 +43,7 @@ class AllowsTenantIdentificationTest extends TestCase
         $this->assertCount(
             $needs->count(),
             $has->intersect($needs),
-            AllowsTenantIdentification::class.' does not implement all required interface methods from '.Tenant::class
+            AllowsTenantIdentification::class . ' does not implement all required interface methods from ' . Tenant::class
         );
     }
 }

@@ -26,9 +26,9 @@ trait PublishesConfigs
             $configPath = basename($config);
             $configName = basename($config, '.php');
 
-            $this->publishes([$config => config_path('tenancy'.DIRECTORY_SEPARATOR.$configPath)], [$configName, 'tenancy']);
+            $this->publishes([$config => config_path('tenancy' . DIRECTORY_SEPARATOR . $configPath)], [$configName, 'tenancy']);
 
-            $this->mergeConfigFrom($config, 'tenancy.'.$configName);
+            $this->mergeConfigFrom($config, 'tenancy.' . $configName);
         }
     }
 }

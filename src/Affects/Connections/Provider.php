@@ -29,7 +29,7 @@ class Provider extends AffectsProvider
     use ProvidesListeners;
 
     protected array $configs = [
-        __DIR__.'/resources/config/connections.php',
+        __DIR__ . '/resources/config/connections.php',
     ];
 
     protected array $affects = [ConfiguresConnection::class];

@@ -85,12 +85,12 @@ class SeedsTest extends TestCase
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
         $this->configureDatabase(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

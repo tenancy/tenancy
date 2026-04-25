@@ -28,7 +28,7 @@ class IdentificationProvider extends DriverProvider
     ];
 
     protected array $configs = [
-        __DIR__.'/../resources/config/identification-driver-http.php',
+        __DIR__ . '/../resources/config/identification-driver-http.php',
     ];
 
     public function register()

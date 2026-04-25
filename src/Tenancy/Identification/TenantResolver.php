@@ -81,7 +81,7 @@ class TenantResolver implements ResolvesTenants
     public function addModel(string $class): self|static
     {
         if (!in_array(Tenant::class, class_implements($class))) {
-            throw new InvalidArgumentException("$class has to implement ".Tenant::class);
+            throw new InvalidArgumentException("$class has to implement " . Tenant::class);
         }
 
         $this->models->push($class);
@@ -163,7 +163,7 @@ class TenantResolver implements ResolvesTenants
     {
         // Provide a debug log entry when no the specific identification driver has not been installed.
         if (!in_array($contract, $this->drivers)) {
-            logger('Identification driver '.$contract.' was not available');
+            logger('Identification driver ' . $contract . ' was not available');
 
             return null;
         }
