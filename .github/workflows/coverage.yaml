@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Create admin user
+        run: mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "CREATE USER 'mysql_admin'@'%' IDENTIFIED BY 'mysql_admin_password'; GRANT ALL PRIVILEGES ON * . * TO 'mysql_admin'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+
       - name: Run tests for coverage
         run: ./test --php ${{ env.PHP_VERSION }} --laravel ${{ env.LARAVEL_VERSION }} --db ${{ env.DB_VERSION }} --dependencies ${{ env.DEPENDENCY_VERSION }} --coverage
 
