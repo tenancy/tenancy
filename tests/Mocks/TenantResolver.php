@@ -47,7 +47,7 @@ class TenantResolver implements ResolvesTenants
 
     public function getModels(): TenantModelCollection
     {
-        return new TenantModelCollection;
+        return new TenantModelCollection();
     }
 
     public function registerDriver(string $contract)

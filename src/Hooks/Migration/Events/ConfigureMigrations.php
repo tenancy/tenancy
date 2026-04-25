@@ -24,7 +24,8 @@ class ConfigureMigrations
     public function __construct(
         public Event $event,
         public MigratesHook $hook
-    ) {}
+    ) {
+    }
 
     public function path(string $path): static
     {

@@ -37,7 +37,7 @@ class TenantResolver implements ResolvesTenants
 
     public function __construct()
     {
-        $this->models = new TenantModelCollection;
+        $this->models = new TenantModelCollection();
 
         $this->configure();
     }
@@ -97,7 +97,7 @@ class TenantResolver implements ResolvesTenants
     public function findModel(string $identifier, $key = null)
     {
         $model = $this->getModels()->map(function (string $model) {
-            return new $model;
+            return new $model();
         })->first(function (Tenant $model) use ($identifier) {
             return $model->getTenantIdentifier() === $identifier;
         });

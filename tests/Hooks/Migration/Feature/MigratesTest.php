@@ -87,7 +87,7 @@ class MigratesTest extends TestCase
     private function registerTenantConnection()
     {
         $this->resolveConnection(function (Resolving $event) {
-            return new ConnectionResolvingListener;
+            return new ConnectionResolvingListener();
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [

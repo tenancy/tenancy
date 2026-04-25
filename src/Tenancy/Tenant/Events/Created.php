@@ -16,4 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tenant\Events;
 
-class Created extends Event {}
+class Created extends Event
+{
+}

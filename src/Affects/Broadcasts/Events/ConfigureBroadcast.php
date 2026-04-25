@@ -23,5 +23,6 @@ class ConfigureBroadcast
     public function __construct(
         public Switched $event,
         public array &$config = []
-    ) {}
+    ) {
+    }
 }

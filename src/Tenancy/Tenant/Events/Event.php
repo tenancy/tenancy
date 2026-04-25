@@ -22,5 +22,6 @@ class Event
 {
     public function __construct(
         public Tenant $tenant
-    ) {}
+    ) {
+    }
 }

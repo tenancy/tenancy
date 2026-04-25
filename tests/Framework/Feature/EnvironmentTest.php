@@ -30,7 +30,7 @@ class EnvironmentTest extends TestCase
     #[Test]
     public function error_on_wrong_object()
     {
-        $tenant = new \stdClass;
+        $tenant = new \stdClass();
 
         $this->expectException(\TypeError::class);
 

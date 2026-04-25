@@ -38,7 +38,7 @@ class EncryptedJobTest extends TestCase
             $this->assertArrayNotHasKey('tenant_key', $payload);
         });
 
-        dispatch(new EncryptedJob);
+        dispatch(new EncryptedJob());
     }
 
     #[Test]
@@ -55,6 +55,6 @@ class EncryptedJobTest extends TestCase
             $this->assertEquals($tenant->getTenantKey(), $payload['tenant_key']);
         });
 
-        dispatch(new EncryptedJob);
+        dispatch(new EncryptedJob());
     }
 }

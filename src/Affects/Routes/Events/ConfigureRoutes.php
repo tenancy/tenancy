@@ -25,11 +25,12 @@ class ConfigureRoutes
     public function __construct(
         public Switched $event,
         public Router $router
-    ) {}
+    ) {
+    }
 
     public function flush(): static
     {
-        $this->router->setRoutes(new RouteCollection);
+        $this->router->setRoutes(new RouteCollection());
 
         return $this;
     }

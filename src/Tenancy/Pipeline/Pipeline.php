@@ -24,7 +24,7 @@ class Pipeline
 
     public function __construct(?Steps $steps = null)
     {
-        $this->steps = $steps ?? new Steps;
+        $this->steps = $steps ?? new Steps();
     }
 
     public function getSteps(): Steps

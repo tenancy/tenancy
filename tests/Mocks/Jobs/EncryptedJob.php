@@ -18,4 +18,6 @@ namespace Tenancy\Tests\Mocks\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 
-class EncryptedJob extends SimpleJob implements ShouldBeEncrypted {}
+class EncryptedJob extends SimpleJob implements ShouldBeEncrypted
+{
+}

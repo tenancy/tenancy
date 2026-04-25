@@ -16,4 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Hooks\Database\Events\Drivers;
 
-class Deleted extends ResultEvent {}
+class Deleted extends ResultEvent
+{
+}

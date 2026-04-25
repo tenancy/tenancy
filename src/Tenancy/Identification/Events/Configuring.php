@@ -22,5 +22,6 @@ class Configuring
 {
     public function __construct(
         public ResolvesTenants &$resolver
-    ) {}
+    ) {
+    }
 }

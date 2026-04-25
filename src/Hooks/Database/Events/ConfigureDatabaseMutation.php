@@ -24,7 +24,8 @@ class ConfigureDatabaseMutation
     public function __construct(
         public Event $event,
         public DatabaseMutation $hook
-    ) {}
+    ) {
+    }
 
     public function disable(): static
     {

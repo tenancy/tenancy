@@ -31,7 +31,7 @@ class PipelineTest extends TestCase
     public function it_can_be_constructed_with_steps()
     {
         $steps = new Steps([
-            new SimpleStep,
+            new SimpleStep(),
         ]);
 
         $pipeline = new Pipeline($steps);
@@ -45,9 +45,9 @@ class PipelineTest extends TestCase
     #[Test]
     public function it_can_set_steps()
     {
-        $pipeline = new Pipeline;
+        $pipeline = new Pipeline();
 
-        $pipeline->setSteps([new SimpleStep]);
+        $pipeline->setSteps([new SimpleStep()]);
 
         $this->assertNotEmpty($pipeline->getSteps());
 
@@ -59,11 +59,11 @@ class PipelineTest extends TestCase
     #[Test]
     public function it_forwards_calls_to_steps()
     {
-        $prioritizedStep = new SimpleStep;
+        $prioritizedStep = new SimpleStep();
         $prioritizedStep->priority = -100;
 
         $steps = new Steps([
-            new SimpleStep,
+            new SimpleStep(),
             $prioritizedStep,
         ]);
 
@@ -85,7 +85,7 @@ class PipelineTest extends TestCase
             Events\Fired::class,
         ]);
 
-        $pipeline = new Pipeline;
+        $pipeline = new Pipeline();
 
         $pipeline->handle('TestEvent');
 

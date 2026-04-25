@@ -27,7 +27,8 @@ class Configuring
         public Tenant $tenant,
         public array &$configuration,
         public ProvidesDatabase $provider
-    ) {}
+    ) {
+    }
 
     public function useConnection(string $connection, array $override = []): static
     {

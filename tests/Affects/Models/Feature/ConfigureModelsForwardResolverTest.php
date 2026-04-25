@@ -41,6 +41,6 @@ class ConfigureModelsForwardResolverTest extends AffectsFeatureTestCase
 
     protected function isAffected(Tenant $tenant): bool
     {
-        return (new $this->model)->getConnectionResolver() instanceof ConnectionResolver;
+        return (new $this->model())->getConnectionResolver() instanceof ConnectionResolver;
     }
 }

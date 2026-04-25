@@ -22,5 +22,6 @@ class Resolving
 {
     public function __construct(
         public ?Tenant $tenant = null
-    ) {}
+    ) {
+    }
 }

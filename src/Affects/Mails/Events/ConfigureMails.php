@@ -25,7 +25,8 @@ class ConfigureMails
     public function __construct(
         public Switched $event,
         public Mailer $mailer
-    ) {}
+    ) {
+    }
 
     public function replaceSymfonyTransport(TransportInterface $transport): static
     {

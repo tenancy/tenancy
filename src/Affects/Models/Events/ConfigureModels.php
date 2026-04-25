@@ -23,7 +23,8 @@ class ConfigureModels
 {
     public function __construct(
         public Switched $event
-    ) {}
+    ) {
+    }
 
     public static function __callStatic($method, $parameters)
     {
@@ -47,7 +48,7 @@ class ConfigureModels
             if (! class_exists($model)) {
                 throw new InvalidArgumentException("$model does not exist");
             }
-            (new $model)->{$method}(...$parameters);
+            (new $model())->{$method}(...$parameters);
         }
 
         return $this;

@@ -59,7 +59,7 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
             $this->assertEmpty($event->getHandlers());
 
-            $event->registerHandler(new SimpleHandler);
+            $event->registerHandler(new SimpleHandler());
 
             $this->assertNotEmpty($event->getHandlers());
         });

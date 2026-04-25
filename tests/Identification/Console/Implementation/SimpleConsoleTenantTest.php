@@ -40,7 +40,8 @@ class SimpleConsoleTenantTest extends TestCase
         $resolver->addModel(SimpleConsoleTenant::class);
         $this->app->make(Kernel::class)->command(
             'identifies',
-            function () {}
+            function () {
+            }
         );
     }
 

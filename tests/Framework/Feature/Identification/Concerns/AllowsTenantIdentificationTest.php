@@ -27,8 +27,7 @@ class AllowsTenantIdentificationTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->class = new class extends Model
-        {
+        $this->class = new class () extends Model {
             use AllowsTenantIdentification;
         };
     }

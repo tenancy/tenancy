@@ -40,11 +40,11 @@ class HookResolverTest extends TestCase
     {
         $this->resolver->setHooks([]);
 
-        $hookLow = new ConfiguredHook;
+        $hookLow = new ConfiguredHook();
         $hookLow->priority = -100;
         $this->resolver->addHook($hookLow);
 
-        $hookHigh = new ConfiguredHook;
+        $hookHigh = new ConfiguredHook();
 
         $hookHigh->priority = 100;
         $this->resolver->addHook($hookHigh);
@@ -84,7 +84,7 @@ class HookResolverTest extends TestCase
 
         $this->resolver->setHooks([]);
 
-        $hook = new ConfiguredHook;
+        $hook = new ConfiguredHook();
         $hook->queue = 'test';
         $this->resolver->addHook($hook);
 

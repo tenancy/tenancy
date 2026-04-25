@@ -23,7 +23,8 @@ abstract class Event
     public function __construct(
         public $event,
         public Pipeline $pipeline
-    ) {}
+    ) {
+    }
 
     public function isForPipeline($pipeline): bool
     {

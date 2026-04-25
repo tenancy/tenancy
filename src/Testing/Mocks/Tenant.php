@@ -29,9 +29,8 @@ use Tenancy\Identification\Contracts\Tenant as Contract;
  */
 class Tenant extends Model implements Contract
 {
-    protected $table = 'users';
-
     use AllowsTenantIdentification;
+    protected $table = 'users';
 
     public static function factory(...$parameters): Factory
     {

@@ -26,7 +26,8 @@ class EagerIdentification
 {
     public function __construct(
         protected Application $app
-    ) {}
+    ) {
+    }
 
     public function handle(CommandStarting $event)
     {

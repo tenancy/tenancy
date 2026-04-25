@@ -16,4 +16,6 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Mocks\Hooks;
 
-class InvalidHook {}
+class InvalidHook
+{
+}

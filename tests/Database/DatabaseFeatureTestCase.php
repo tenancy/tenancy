@@ -39,6 +39,11 @@ abstract class DatabaseFeatureTestCase extends TestCase
 {
     use UsesModels;
 
+    use InteractsWithConnections;
+    use InteractsWithDatabases;
+    use InteractsWithMigrations;
+    use UsesMigrations;
+
     /** @var DatabaseManager */
     protected $db;
 
@@ -50,11 +55,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     /** @var string */
     protected $exception = \PDOException::class;
-
-    use InteractsWithConnections;
-    use InteractsWithDatabases;
-    use InteractsWithMigrations;
-    use UsesMigrations;
 
     protected function afterSetUp()
     {
@@ -68,7 +68,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->app->register(DatabaseProvider::class);
 
         $this->resolveConnection(function () {
-            return new ConnectionListener;
+            return new ConnectionListener();
         });
         $this->registerDatabaseListener();
     }
