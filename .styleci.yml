@@ -2,3 +2,4 @@ preset: psr12
 risky: true
 enabled:
   - declare_strict_types
+  - unary_operator_spaces
