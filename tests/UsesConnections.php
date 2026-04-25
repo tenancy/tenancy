@@ -25,9 +25,9 @@ trait UsesConnections
      */
     protected function getSqliteConfigurationPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'Mocks'
-            . DIRECTORY_SEPARATOR . 'Connections'
-            . DIRECTORY_SEPARATOR . 'sqlite.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'Mocks'
+            .DIRECTORY_SEPARATOR.'Connections'
+            .DIRECTORY_SEPARATOR.'sqlite.php';
     }
 
     /**
@@ -37,8 +37,8 @@ trait UsesConnections
      */
     protected function getMysqlConfigurationPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'Mocks'
-            . DIRECTORY_SEPARATOR . 'Connections'
-            . DIRECTORY_SEPARATOR . 'mysql.php';
+        return __DIR__.DIRECTORY_SEPARATOR.'Mocks'
+            .DIRECTORY_SEPARATOR.'Connections'
+            .DIRECTORY_SEPARATOR.'mysql.php';
     }
 }

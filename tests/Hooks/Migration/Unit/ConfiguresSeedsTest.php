@@ -58,7 +58,7 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $reflection = new \ReflectionClass($this->hook);
-        $property   = $reflection->getProperty('replaceDefaultConnection');
+        $property = $reflection->getProperty('replaceDefaultConnection');
         $property->setAccessible(true);
 
         $this->assertFalse(

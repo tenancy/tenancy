@@ -25,6 +25,6 @@ trait UsesViews
      */
     protected function getViewsPath()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'Mocks' . DIRECTORY_SEPARATOR . 'Views';
+        return __DIR__.DIRECTORY_SEPARATOR.'Mocks'.DIRECTORY_SEPARATOR.'Views';
     }
 }

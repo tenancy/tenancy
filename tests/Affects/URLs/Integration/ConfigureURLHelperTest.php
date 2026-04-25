@@ -30,7 +30,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
     public function by_default_the_url_helper_is_not_affected()
     {
         $this->assertNotEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev',
+            $this->tenant->getTenantKey().'.tenancy.dev',
             url('')
         );
     }
@@ -41,7 +41,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev',
+            $this->tenant->getTenantKey().'.tenancy.dev',
             url('')
         );
     }
@@ -52,7 +52,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev/testing',
+            $this->tenant->getTenantKey().'.tenancy.dev/testing',
             url('testing')
         );
     }
@@ -65,7 +65,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot($event->event->tenant->getTenantKey() . '.tenancy.dev');
+            $event->changeRoot($event->event->tenant->getTenantKey().'.tenancy.dev');
         });
     }
 }

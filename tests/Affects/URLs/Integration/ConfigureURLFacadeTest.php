@@ -31,7 +31,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
     public function by_default_the_url_facade_is_not_affected()
     {
         $this->assertNotEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev',
+            $this->tenant->getTenantKey().'.tenancy.dev',
             URL::current()
         );
     }
@@ -42,7 +42,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev',
+            $this->tenant->getTenantKey().'.tenancy.dev',
             URL::current()
         );
     }
@@ -53,7 +53,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
         Tenancy::setTenant($this->tenant);
 
         $this->assertEquals(
-            $this->tenant->getTenantKey() . '.tenancy.dev/testing',
+            $this->tenant->getTenantKey().'.tenancy.dev/testing',
             URL::to('testing')
         );
     }
@@ -66,7 +66,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
     protected function registerAffecting()
     {
         $this->events->listen(ConfigureURL::class, function (ConfigureURL $event) {
-            $event->changeRoot($event->event->tenant->getTenantKey() . '.tenancy.dev');
+            $event->changeRoot($event->event->tenant->getTenantKey().'.tenancy.dev');
         });
     }
 }

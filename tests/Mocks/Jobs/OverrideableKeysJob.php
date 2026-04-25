@@ -62,15 +62,15 @@ class OverrideableKeysJob implements ShouldQueue
         ?Collection $anotherCollection = null
     ) {
         $this->tenant_identifier = $tenant->getTenantIdentifier();
-        $this->tenant_key        = $tenant->getTenantKey();
+        $this->tenant_key = $tenant->getTenantKey();
 
-        $this->publicCollection    = $collection;
+        $this->publicCollection = $collection;
         $this->protectedCollection = $collection;
-        $this->priveCollection     = $collection;
+        $this->priveCollection = $collection;
 
-        $this->anotherPublicCollection    = $anotherCollection;
+        $this->anotherPublicCollection = $anotherCollection;
         $this->anotherProtectedCollection = $anotherCollection;
-        $this->anotherPriveCollection     = $anotherCollection;
+        $this->anotherPriveCollection = $anotherCollection;
     }
 
     public function handle()

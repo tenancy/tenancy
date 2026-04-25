@@ -19,7 +19,7 @@ use Tenancy\Tests\Mocks\Models\TenantModel;
 
 $factory->define(TenantModel::class, function (Faker $faker) {
     return [
-        'id'   => $faker->unixTime,
+        'id' => $faker->unixTime,
         'name' => $faker->name,
     ];
 });

@@ -40,7 +40,7 @@ class EnvironmentTest extends TestCase
     #[Test]
     public function prefers_identified_tenant()
     {
-        $tenant    = $this->mockTenant();
+        $tenant = $this->mockTenant();
         $newTenant = $this->mockTenant();
 
         $this->resolveTenant($newTenant);

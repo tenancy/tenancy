@@ -31,7 +31,7 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step           = new SimpleStep();
+        $step = new SimpleStep();
         $step->priority = -100;
 
         $event = new $event('TestEvent', new Pipeline());
@@ -48,7 +48,7 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step           = new SimpleStep();
+        $step = new SimpleStep();
         $step->priority = -100;
 
         $event = new $event('TestEvent', new Pipeline());
@@ -72,7 +72,7 @@ class ResolvingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $step           = new SimpleStep();
+        $step = new SimpleStep();
         $step->priority = -100;
 
         $event = new $event('TestEvent', new Pipeline());

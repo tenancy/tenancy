@@ -33,7 +33,7 @@ class ConnectionResolver implements ConnectionResolverInterface
     public function __construct(string $connection, ConnectionResolverInterface $db)
     {
         $this->connection = $connection;
-        $this->db         = $db;
+        $this->db = $db;
     }
 
     /**

@@ -37,13 +37,13 @@ class AllowsTenantIdentificationTest extends TestCase
     #[Test]
     public function has_required_methods()
     {
-        $has   = collect((new ReflectionClass($this->class))->getMethods())->pluck('name');
+        $has = collect((new ReflectionClass($this->class))->getMethods())->pluck('name');
         $needs = collect((new ReflectionClass(Tenant::class))->getMethods())->pluck('name');
 
         $this->assertCount(
             $needs->count(),
             $has->intersect($needs),
-            AllowsTenantIdentification::class . ' does not implement all required interface methods from ' . Tenant::class
+            AllowsTenantIdentification::class.' does not implement all required interface methods from '.Tenant::class
         );
     }
 }

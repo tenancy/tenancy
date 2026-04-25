@@ -44,7 +44,9 @@ class SeedsTest extends TestCase
     use UsesMigrations;
     use UsesSeeders;
 
-    protected array $additionalProviders = [MigrationProvider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
+    protected array $additionalProviders = [
+        MigrationProvider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class
+    ];
 
     #[Test]
     public function it_can_migrate_a_database()
@@ -80,12 +82,12 @@ class SeedsTest extends TestCase
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
         });
         $this->configureDatabase(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
         });
     }

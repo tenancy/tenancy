@@ -39,7 +39,7 @@ class DatabaseResolverDispatchingTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->tenant   = $this->mockTenant();
+        $this->tenant = $this->mockTenant();
         $this->resolver = $this->app->make(ResolvesDatabases::class);
     }
 

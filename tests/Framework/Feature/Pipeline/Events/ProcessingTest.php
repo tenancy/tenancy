@@ -33,7 +33,7 @@ class ProcessingTest extends EventFeatureTestCase
     {
         $event = $this->event;
 
-        $prioritizedStep           = new SimpleStep();
+        $prioritizedStep = new SimpleStep();
         $prioritizedStep->priority = -100;
 
         $steps = new Steps([
@@ -41,7 +41,7 @@ class ProcessingTest extends EventFeatureTestCase
             $prioritizedStep,
         ]);
 
-        $event        = new $event('TestEvent', new Pipeline());
+        $event = new $event('TestEvent', new Pipeline());
         $event->steps = $steps;
 
         $last = -1000;

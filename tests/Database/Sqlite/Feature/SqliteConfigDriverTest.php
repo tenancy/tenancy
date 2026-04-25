@@ -33,13 +33,14 @@ class SqliteConfigDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
-        if (Str::startsWith(App::version(), '11') || Str::startsWith(App::version(), '12') || Str::startsWith(App::version(), '13')) {
+        if (Str::startsWith(App::version(), '11') || Str::startsWith(App::version(),
+                '12') || Str::startsWith(App::version(), '13')) {
             $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
         }
 
         $this->configureBoth(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
             ]);
         });
     }
