@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Cache\Integration;
 
 use Illuminate\Support\Facades\Cache;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Cache\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
@@ -28,6 +29,7 @@ class ConfigureCacheFileTest extends AffectsIntegrationTestCase
 
     protected array $additionalProviders = [Provider::class];
 
+    #[Test]
     /** @test */
     public function it_can_store_data()
     {
@@ -41,6 +43,7 @@ class ConfigureCacheFileTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function data_is_not_shared_across_tenants()
     {

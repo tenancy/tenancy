@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Pipeline;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Pipeline\Pipeline;
 use Tenancy\Testing\TestCase;
 
 class PipelineTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_gets_constructed_with_no_steps()
     {

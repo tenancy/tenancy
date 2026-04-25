@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Migration\Feature;
 
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Events\Drivers\Configuring;
 use Tenancy\Affects\Connections\Events\Resolving;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
@@ -43,6 +44,7 @@ class MigratesTest extends TestCase
 
     protected array $additionalProviders = [Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
 
+    #[Test]
     /** @test */
     public function it_can_migrate_a_database()
     {

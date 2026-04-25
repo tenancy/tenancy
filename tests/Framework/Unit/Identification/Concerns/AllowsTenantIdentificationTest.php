@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Unit\Identification\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use ReflectionClass;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
@@ -33,6 +34,7 @@ class AllowsTenantIdentificationTest extends TestCase
         };
     }
 
+    #[Test]
     /** @test */
     public function has_required_methods()
     {

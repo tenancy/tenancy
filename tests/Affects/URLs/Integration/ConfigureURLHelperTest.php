@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\URLs\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Facades\Tenancy;
@@ -25,6 +26,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
 {
     protected array $additionalProviders = [Provider::class];
 
+    #[Test]
     /** @test */
     public function by_default_the_url_helper_is_not_affected()
     {
@@ -34,6 +36,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function changing_the_url_will_change_the_url_helper_base()
     {
@@ -45,6 +48,7 @@ class ConfigureURLHelperTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function changing_the_url_will_change_the_url_helper_with_path()
     {

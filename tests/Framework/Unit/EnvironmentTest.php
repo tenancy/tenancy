@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Environment;
 use Tenancy\Testing\TestCase;
 
 class EnvironmentTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_is_registered_as_singleton()
     {

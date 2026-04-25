@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database\Unit;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Database\Events\ConfigureDatabaseMutation;
 use Tenancy\Hooks\Database\Hooks\DatabaseMutation;
 use Tenancy\Hooks\Database\Provider;
@@ -33,6 +34,7 @@ class DatabaseMutationTest extends TestCase
         $this->hook = $this->app->make(DatabaseMutation::class);
     }
 
+    #[Test]
     /** @test */
     public function it_is_not_fired_for_switched()
     {
@@ -43,6 +45,7 @@ class DatabaseMutationTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function it_is_fired_for_created()
     {
@@ -53,6 +56,7 @@ class DatabaseMutationTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function it_is_fired_for_updated()
     {
@@ -63,6 +67,7 @@ class DatabaseMutationTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function it_is_fired_for_deleted()
     {
@@ -73,6 +78,7 @@ class DatabaseMutationTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function it_fires_configure_database_mutation_for_tenant_events()
     {
@@ -85,6 +91,7 @@ class DatabaseMutationTest extends TestCase
         Event::assertDispatchedTimes(ConfigureDatabaseMutation::class, 3);
     }
 
+    #[Test]
     /** @test */
     public function it_does_not_fire_configure_database_mutation_for_other_events()
     {

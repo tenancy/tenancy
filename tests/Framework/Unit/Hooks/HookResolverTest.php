@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Unit\Hooks;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Lifecycle\HookResolver;
 use Tenancy\Testing\TestCase;
@@ -32,6 +33,7 @@ class HookResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesHooks::class);
     }
 
+    #[Test]
     /** @test */
     public function by_default_the_hook_resolver_is_registered()
     {
@@ -41,6 +43,7 @@ class HookResolverTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function validates_hooks()
     {

@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Migration\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migration\Hooks\MigratesHook;
@@ -35,6 +37,8 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         parent::afterSetUp();
     }
 
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     /**
      * @dataProvider tenantEventsProvider
      *
@@ -53,6 +57,9 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         );
     }
 
+
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     /**
      * @dataProvider tenantEventsProvider
      *
@@ -76,6 +83,8 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         );
     }
 
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     /**
      * @dataProvider tenantEventsProvider
      *

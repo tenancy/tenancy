@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Identification;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Models\SimpleModel;
@@ -30,6 +31,7 @@ class TenantResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesTenants::class);
     }
 
+    #[Test]
     /** @test */
     public function it_validates_the_add_model_input()
     {

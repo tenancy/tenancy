@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\DatabaseManager;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
@@ -74,6 +75,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     abstract protected function registerDatabaseListener();
 
+    #[Test]
     /** @test */
     public function it_creates_the_database()
     {
@@ -87,6 +89,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
+    #[Test]
     /** @test */
     public function it_updates_the_database()
     {
@@ -103,6 +106,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
+    #[Test]
     /** @test */
     public function updating_the_same_tenant_does_not_change_the_connection()
     {
@@ -123,6 +127,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
+    #[Test]
     /** @test */
     public function updating_keeps_the_data()
     {
@@ -168,6 +173,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
+    #[Test]
     /** @test */
     public function it_deletes_the_database()
     {

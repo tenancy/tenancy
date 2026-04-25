@@ -16,8 +16,11 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects;
 
+use PHPUnit\Framework\Attributes\Test;
+
 trait AffectShouldBeUndone
 {
+    #[Test]
     /** @test */
     public function affects_can_be_undone()
     {

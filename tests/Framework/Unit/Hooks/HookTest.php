@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Hooks;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Tenant\Events\Created;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Hooks\SimpleHook;
@@ -30,12 +31,14 @@ class HookTest extends TestCase
         $this->hook = $this->app->make(SimpleHook::class);
     }
 
+    #[Test]
     /** @test */
     public function it_does_not_fire_normally()
     {
         $this->assertFalse($this->hook->fires());
     }
 
+    #[Test]
     /** @test */
     public function it_fires_for_tenant_events()
     {

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Hostname\Feature;
 
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Hostname\Events\ConfigureHostnames;
 use Tenancy\Hooks\Hostname\Provider;
 use Tenancy\Tenant\Events\Created;
@@ -29,6 +30,7 @@ class HandlesTest extends TestCase
 {
     protected array $additionalProviders = [Provider::class];
 
+    #[Test]
     /** @test */
     public function it_fires_the_handle_function_on_all_handlers()
     {

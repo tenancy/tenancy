@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Routes\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
@@ -27,6 +28,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
 
     protected array $additionalProviders = [Provider::class, \Fruitcake\Cors\CorsServiceProvider::class];
 
+    #[Test]
     /** @test */
     public function registered_routes_are_loaded()
     {
@@ -38,6 +40,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function registered_routes_can_be_accessed()
     {
@@ -48,6 +51,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertOk();
     }
 
+    #[Test]
     /** @test */
     public function registered_routes_have_the_right_data()
     {
@@ -58,6 +62,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertSeeText('test');
     }
 
+    #[Test]
     /** @test */
     public function registered_nested_routes_are_loaded()
     {
@@ -69,6 +74,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function registered_nested_routes_can_be_accessed()
     {
@@ -79,6 +85,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertOk();
     }
 
+    #[Test]
     /** @test */
     public function registered_nested_routes_have_the_right_data()
     {

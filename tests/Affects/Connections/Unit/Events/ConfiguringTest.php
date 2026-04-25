@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Connections\Unit\Events;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Events\Drivers\Configuring;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Connections\ConnectionResolvingListener;
@@ -26,6 +27,7 @@ class ConfiguringTest extends TestCase
 {
     use UsesConnections;
 
+    #[Test]
     /** @test */
     public function use_connection_uses_registered_connections()
     {
@@ -46,8 +48,9 @@ class ConfiguringTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
-    public function use_connection_can_be_overriden()
+    public function use_connection_can_be_overridden()
     {
         $config = [];
 
@@ -66,6 +69,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function use_config_uses_the_provided_path()
     {
@@ -83,6 +87,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function use_config_can_be_override()
     {
@@ -98,6 +103,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function use_config_checks_if_the_file_exists()
     {

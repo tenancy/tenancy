@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\URLs\Integration;
 
 use Illuminate\Support\Facades\URL;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\URLs\Events\ConfigureURL;
 use Tenancy\Affects\URLs\Provider;
 use Tenancy\Facades\Tenancy;
@@ -26,6 +27,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
 {
     protected array $additionalProviders = [Provider::class];
 
+    #[Test]
     /** @test */
     public function by_default_the_url_facade_is_not_affected()
     {
@@ -35,6 +37,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function changing_the_url_will_change_the_url_facade_base()
     {
@@ -46,6 +49,7 @@ class ConfigureURLFacadeTest extends AffectsIntegrationTestCase
         );
     }
 
+    #[Test]
     /** @test */
     public function changing_the_url_will_change_the_url_facade_to()
     {
