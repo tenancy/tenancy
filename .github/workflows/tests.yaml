@@ -61,26 +61,20 @@ jobs:
           - laravel: '13.*'
             phpunit: '11.*'
 
-    name: 'Tests: PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }} / MySQL ${{ matrix.service }}'
-
+    name: 'Tests: PHP ${{ matrix.php }} / Laravel: ${{ matrix.laravel }} / ${{ matrix.dependency-version }}'
+    
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v3
-      #   if: ${{ env.DOCKERHUB_USERNAME != null && env.DOCKERHUB_TOKEN != null }}
-      #   with:
-      #     username: ${{ env.DOCKERHUB_USERNAME }}
-      #     password: ${{ env.DOCKERHUB_TOKEN }}
-      - name: Replace .* in PHPUnit Matrix Version
-        run: |
-          PHPUNIT_VERSION=${{ matrix.phpunit }}
-          CLEAN_PHPUNIT_VERSION=${PHPUNIT_VERSION//\.\*/}
-          echo "CLEAN_PHPUNIT_VERSION=$CLEAN_PHPUNIT_VERSION" >> $GITHUB_ENV
+      - name: Create tenant database
+        run: mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "CREATE DATABASE IF NOT EXISTS test_tenant;"
+      - name: Show databases for root user
+        run: mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "SHOW DATABASES"
+
       - name: Run tests
         run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ matrix.phpunit }}
 
