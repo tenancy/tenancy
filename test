@@ -24,6 +24,9 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
+# Remove the .* from the PHP Version so that the xml file can be found
+PHPUNIT_APPEND="--configuration phpunit-${PHPUNIT_VERSION//\.\*/}.xml"
+
 RUNCOMMAND="composer require 'laravel/framework:$LARAVEL_VERSION' --no-interaction --no-update"
 
 # If LARAVEL_VERSION is 9.*, then we need to install doctrine/dbal 3.0^
