@@ -34,16 +34,18 @@ use Tenancy\Tests\Mocks\Tenants\SimpleQueueTenant;
 | model instances for testing / seeding your application's database.
 |
 */
-foreach ([
-             MysqlTenant::class,
-             NullConsoleTenant::class,
-             NullEnvironmentTenant::class,
-             NullHttpTenant::class,
-             NullMixedTenant::class,
-             NullQueueTenant::class,
-             SimpleConsoleTenant::class,
-             SimpleQueueTenant::class,
-         ] as $tenant) {
+foreach (
+    [
+        MysqlTenant::class,
+        NullConsoleTenant::class,
+        NullEnvironmentTenant::class,
+        NullHttpTenant::class,
+        NullMixedTenant::class,
+        NullQueueTenant::class,
+        SimpleConsoleTenant::class,
+        SimpleQueueTenant::class,
+    ] as $tenant
+) {
     $factory->define($tenant, function (Faker $faker) {
         return [
             'id' => $faker->unixTime,

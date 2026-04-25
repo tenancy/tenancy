@@ -26,7 +26,8 @@ use Tenancy\Identification\Drivers\Queue\Contracts\IdentifiesByQueue;
 use Tenancy\Identification\Drivers\Queue\Events\Processing;
 use Tenancy\Testing\Mocks\Tenant;
 
-class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByConsole, IdentifiesByQueue, IdentifiesByEnvironment
+class NullMixedTenant extends Tenant implements IdentifiesByHttp, IdentifiesByConsole, IdentifiesByQueue,
+                                                IdentifiesByEnvironment
 {
     public function tenantIdentificationByHttp(Request $request): ?TenantContract
     {

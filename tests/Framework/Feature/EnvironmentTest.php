@@ -79,7 +79,6 @@ class EnvironmentTest extends TestCase
         $this->assertNotNull($this->environment->identifyTenant());
     }
 
-
     public function refreshing_loads_new_tenant()
     {
         $this->assertNull($this->environment->identifyTenant());

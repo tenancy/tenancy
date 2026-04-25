@@ -45,7 +45,10 @@ class SeedsTest extends TestCase
     use UsesSeeders;
 
     protected array $additionalProviders = [
-        MigrationProvider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class
+        MigrationProvider::class,
+        DatabaseProvider::class,
+        ConnectionsProvider::class,
+        SqliteProvider::class
     ];
 
     #[Test]

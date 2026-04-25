@@ -43,7 +43,10 @@ class MigratesTest extends TestCase
     use UsesMigrations;
 
     protected array $additionalProviders = [
-        Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class
+        Provider::class,
+        DatabaseProvider::class,
+        ConnectionsProvider::class,
+        SqliteProvider::class
     ];
 
     #[Test]

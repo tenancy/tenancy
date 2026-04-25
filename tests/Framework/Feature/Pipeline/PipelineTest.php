@@ -59,7 +59,7 @@ class PipelineTest extends TestCase
     #[Test]
     public function it_forwards_calls_to_steps()
     {
-        $prioritizedStep           = new SimpleStep();
+        $prioritizedStep = new SimpleStep();
         $prioritizedStep->priority = -100;
 
         $steps = new Steps([

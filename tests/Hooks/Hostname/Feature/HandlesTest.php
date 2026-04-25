@@ -40,7 +40,8 @@ class HandlesTest extends TestCase
             function (ConfigureHostnames $event) use ($handler, $otherHandler) {
                 $event->registerHandler($handler);
                 $event->registerHandler($otherHandler);
-            });
+            }
+        );
 
         $this->events->dispatch(new Created($this->getHostnameTenant()));
 

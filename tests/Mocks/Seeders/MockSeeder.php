@@ -22,7 +22,8 @@ class MockSeeder extends Seeder
     public function run()
     {
         DB::table('mocks')->insert([
-            'id' => 5, 'name' => 'test',
+            'id' => 5,
+            'name' => 'test',
         ]);
     }
 }
