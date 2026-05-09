@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Views\Integration;
 
 use Illuminate\Contracts\View\Factory;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Views\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
@@ -28,7 +29,7 @@ class ConfigureViewsNamespaceTest extends AffectsIntegrationTestCase
 
     protected array $additionalProviders = [Provider::class];
 
-    /** @test */
+    #[Test]
     public function registered_views_can_be_rendered()
     {
         Tenancy::setTenant($this->tenant);

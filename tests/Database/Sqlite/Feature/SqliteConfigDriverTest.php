@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database\Sqlite\Feature;
 
 use Illuminate\Database\QueryException;
+use Illuminate\Database\SQLiteDatabaseDoesNotExistException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Tenancy\Database\Drivers\Sqlite\Provider;
@@ -33,13 +34,13 @@ class SqliteConfigDriverTest extends DatabaseFeatureTestCase
 
     protected function registerDatabaseListener()
     {
-        if (Str::startsWith(App::version(), '11') || Str::startsWith(App::version(), '12')) {
-            $this->exception = \Illuminate\Database\SQLiteDatabaseDoesNotExistException::class;
+        if (Str::startsWith(App::version(), ['11', '12', '13'])) {
+            $this->exception = SQLiteDatabaseDoesNotExistException::class;
         }
 
         $this->configureBoth(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

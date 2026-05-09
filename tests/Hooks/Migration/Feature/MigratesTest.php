@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Migration\Feature;
 
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Events\Drivers\Configuring;
 use Tenancy\Affects\Connections\Events\Resolving;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
@@ -35,15 +36,20 @@ use Tenancy\Tests\UsesMigrations;
 
 class MigratesTest extends TestCase
 {
-    use InteractsWithMigrations;
     use InteractsWithConnections;
     use InteractsWithDatabases;
+    use InteractsWithMigrations;
     use UsesConnections;
     use UsesMigrations;
 
-    protected array $additionalProviders = [Provider::class, DatabaseProvider::class, ConnectionsProvider::class, SqliteProvider::class];
+    protected array $additionalProviders = [
+        Provider::class,
+        DatabaseProvider::class,
+        ConnectionsProvider::class,
+        SqliteProvider::class,
+    ];
 
-    /** @test */
+    #[Test]
     public function it_can_migrate_a_database()
     {
         $this->registerTenantConnection();
@@ -85,12 +91,12 @@ class MigratesTest extends TestCase
         });
         $this->configureConnection(function (Configuring $event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
         $this->configureDatabase(function ($event) {
             $event->useConfig($this->getSqliteConfigurationPath(), [
-                'database' => database_path($event->tenant->getTenantKey().'.sqlite'),
+                'database' => database_path($event->tenant->getTenantKey() . '.sqlite'),
             ]);
         });
     }

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Testing\TestCase;
 
@@ -27,7 +28,7 @@ abstract class HookUnitTestCase extends TestCase
     /** @var string */
     protected $provider;
 
-    /** @test */
+    #[Test]
     public function the_hooks_are_not_registered_by_default()
     {
         foreach ($this->hooks as $hook) {
@@ -38,7 +39,7 @@ abstract class HookUnitTestCase extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function the_hooks_are_registered()
     {
         $this->app->register($this->provider);

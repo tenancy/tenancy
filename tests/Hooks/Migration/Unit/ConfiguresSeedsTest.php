@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Migration\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureSeeds;
 use Tenancy\Hooks\Migration\Hooks\SeedsHook;
@@ -29,10 +31,8 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
 
     protected $eventClass = ConfigureSeeds::class;
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_add_seeds($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -47,10 +47,8 @@ class ConfiguresSeedsTest extends ConfigureHookTestCase
         );
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_decide_whether_to_replace_the_default($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {

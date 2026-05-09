@@ -26,8 +26,8 @@ use Tenancy\Tests\UsesTenants;
 
 class MysqlConnectionDriverTest extends DatabaseFeatureTestCase
 {
-    use UsesTenants;
     use UsesConnections;
+    use UsesTenants;
 
     protected array $additionalProviders = [Provider::class];
 

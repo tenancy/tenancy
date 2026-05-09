@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Facades;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Environment;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
@@ -31,7 +32,7 @@ class TenancyTest extends TestCase
         $this->tenant = $this->mockTenant();
     }
 
-    /** @test */
+    #[Test]
     public function it_proxies_calls_to_the_environment()
     {
         $this->mock(Environment::class, function ($mock) {
@@ -42,7 +43,7 @@ class TenancyTest extends TestCase
         Tenancy::isIdentified();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_proxy_environment_calls_right()
     {
         $this->assertNull(Tenancy::identifyTenant());

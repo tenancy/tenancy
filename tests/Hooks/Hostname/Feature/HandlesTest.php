@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Hostname\Feature;
 
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Hostname\Events\ConfigureHostnames;
 use Tenancy\Hooks\Hostname\Provider;
 use Tenancy\Tenant\Events\Created;
@@ -29,16 +30,19 @@ class HandlesTest extends TestCase
 {
     protected array $additionalProviders = [Provider::class];
 
-    /** @test */
+    #[Test]
     public function it_fires_the_handle_function_on_all_handlers()
     {
         $handler = Mockery::mock(new SimpleHandler());
         $otherHandler = Mockery::mock(new SimpleHandler());
 
-        $this->events->listen(ConfigureHostnames::class, function (ConfigureHostnames $event) use ($handler, $otherHandler) {
-            $event->registerHandler($handler);
-            $event->registerHandler($otherHandler);
-        });
+        $this->events->listen(
+            ConfigureHostnames::class,
+            function (ConfigureHostnames $event) use ($handler, $otherHandler) {
+                $event->registerHandler($handler);
+                $event->registerHandler($otherHandler);
+            }
+        );
 
         $this->events->dispatch(new Created($this->getHostnameTenant()));
 

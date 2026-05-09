@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Pipeline\Events;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Pipeline\Events\Resolving;
 use Tenancy\Pipeline\Pipeline;
 use Tenancy\Tests\Framework\Feature\Pipeline\EventFeatureTestCase;
@@ -25,7 +26,7 @@ class ResolvingTest extends EventFeatureTestCase
 {
     protected $event = Resolving::class;
 
-    /** @test */
+    #[Test]
     public function it_can_set_a_step()
     {
         $event = $this->event;
@@ -42,7 +43,6 @@ class ResolvingTest extends EventFeatureTestCase
         );
     }
 
-    /** @test */
     public function it_can_replace_a_step()
     {
         $event = $this->event;
@@ -66,7 +66,6 @@ class ResolvingTest extends EventFeatureTestCase
         );
     }
 
-    /** @test */
     public function it_can_remove_a_step()
     {
         $event = $this->event;

@@ -1,7 +1,11 @@
 {
     "name": "tenancy/identification-driver-console",
     "description": "The tenancy/tenancy identification driver for the console",
-    "keywords": ["identification", "tenancy", "console"],
+    "keywords": [
+        "identification",
+        "tenancy",
+        "console"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

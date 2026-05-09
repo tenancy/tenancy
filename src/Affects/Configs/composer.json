@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-configs",
     "description": "The tenancy/tenancy configs mutations",
-    "keywords": ["affects", "tenancy", "configs"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "configs"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

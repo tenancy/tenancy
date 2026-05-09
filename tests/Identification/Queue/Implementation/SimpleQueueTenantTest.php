@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Identification\Queue\Implementation;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
@@ -35,7 +36,7 @@ class SimpleQueueTenantTest extends TestCase
         $resolver->addModel(SimpleQueueTenant::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_identifies_a_tenant()
     {
         $tenant = $this->createMockTenant();
@@ -52,7 +53,7 @@ class SimpleQueueTenantTest extends TestCase
         dispatch(new SimpleJob());
     }
 
-    /** @test */
+    #[Test]
     public function it_identifies_an_override_tenant()
     {
         $tenant = $this->createMockTenant();
@@ -71,7 +72,7 @@ class SimpleQueueTenantTest extends TestCase
         dispatch(new OverrideableJob($override));
     }
 
-    /** @test */
+    #[Test]
     public function it_identifies_an_override_tenant_on_keys()
     {
         $tenant = $this->createMockTenant();

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Support;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Support\Contracts\ProvidesPassword;
 use Tenancy\Support\PasswordGenerator;
 use Tenancy\Testing\TestCase;
@@ -30,7 +31,7 @@ class PasswordGeneratorTest extends TestCase
         $this->generator = $this->app->make(ProvidesPassword::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_is_registered_by_default()
     {
         $this->assertInstanceOf(

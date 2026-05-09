@@ -16,17 +16,18 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Testing\TestCase;
 
 class EnvironmentTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_null_when_no_tenant_identified()
     {
         $this->assertNull($this->environment->getTenant());
     }
 
-    /** @test */
+    #[Test]
     public function error_on_wrong_object()
     {
         $tenant = new \stdClass();
@@ -36,7 +37,7 @@ class EnvironmentTest extends TestCase
         $this->environment->setTenant($tenant);
     }
 
-    /** @test */
+    #[Test]
     public function prefers_identified_tenant()
     {
         $tenant = $this->mockTenant();
@@ -51,7 +52,7 @@ class EnvironmentTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_the_tenant()
     {
         $tenant = $this->mockTenant();
@@ -64,7 +65,7 @@ class EnvironmentTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function setting_identified_ignores_auto_identification()
     {
         $this->resolveTenant($this->mockTenant());
@@ -78,7 +79,6 @@ class EnvironmentTest extends TestCase
         $this->assertNotNull($this->environment->identifyTenant());
     }
 
-    /** @test */
     public function refreshing_loads_new_tenant()
     {
         $this->assertNull($this->environment->identifyTenant());

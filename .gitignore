@@ -4,3 +4,4 @@ composer.lock
 vendor/
 .tmp/
 .phpunit.cache/
+.idea/

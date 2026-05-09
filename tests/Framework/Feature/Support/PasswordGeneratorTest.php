@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Support;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Support\Contracts\ProvidesPassword;
 use Tenancy\Testing\TestCase;
 
@@ -29,7 +30,7 @@ class PasswordGeneratorTest extends TestCase
         $this->generator = $this->app->make(ProvidesPassword::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_the_same_password_every_time()
     {
         $tenant = $this->mockTenant();
@@ -42,7 +43,7 @@ class PasswordGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function by_default_it_uses_the_app_key()
     {
         $tenant = $this->mockTenant();
@@ -57,7 +58,7 @@ class PasswordGeneratorTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_uses_the_tenancy_key_rather_than_the_app_key()
     {
         $tenant = $this->mockTenant();

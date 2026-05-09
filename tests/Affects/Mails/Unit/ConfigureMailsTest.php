@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Affects\Mails\Unit;
 
 use Illuminate\Mail\Transport\ArrayTransport;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Mails\Events\ConfigureMails;
 use Tenancy\Affects\Mails\Provider;
 use Tenancy\Facades\Tenancy;
@@ -29,7 +30,7 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
 
     protected $event = ConfigureMails::class;
 
-    /** @test */
+    #[Test]
     public function the_event_can_replace_symfony_transport()
     {
         $this->app->register($this->affectsProvider);
@@ -43,7 +44,7 @@ class ConfigureMailsTest extends AffectsEventUnitTestCase
         Tenancy::setTenant($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function the_event_can_delegate_to_mailer()
     {
         $this->app->register($this->affectsProvider);

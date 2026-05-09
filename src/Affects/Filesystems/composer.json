@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-filesystems",
     "description": "The tenancy/tenancy filesystems mutations",
-    "keywords": ["affects", "tenancy", "filesystems"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "filesystems"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

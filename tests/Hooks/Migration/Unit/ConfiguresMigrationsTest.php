@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Migration\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionsProvider;
 use Tenancy\Hooks\Migration\Events\ConfigureMigrations;
 use Tenancy\Hooks\Migration\Hooks\MigratesHook;
@@ -35,28 +37,24 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         parent::afterSetUp();
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_add_paths_to_the_migrator($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
-            $event->path(realpath(__DIR__.'/..'));
+            $event->path(realpath(__DIR__ . '/..'));
         });
 
         $this->hook->for(new $tenantEvent($this->mockTenant()));
 
         $this->assertContains(
-            realpath(__DIR__.'/..'),
+            realpath(__DIR__ . '/..'),
             $this->hook->paths
         );
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_clear_paths_from_the_migrator($tenantEvent)
     {
         $this->assertContains(
@@ -76,10 +74,8 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
         );
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_decide_whether_to_replace_the_default($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {

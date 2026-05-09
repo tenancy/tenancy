@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-connections",
     "description": "The tenancy/tenancy connections mutations",
-    "keywords": ["affects", "tenancy", "connections"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "connections"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-broadcasts",
     "description": "The tenancy/tenancy broadcasts mutations",
-    "keywords": ["affects", "tenancy", "broadcasts"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "broadcasts"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

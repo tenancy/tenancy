@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Database\Unit\Events\Drivers;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Database\Events\Drivers\Configuring;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Database\NullDriver;
@@ -26,7 +27,7 @@ class ConfiguringTest extends TestCase
 {
     use UsesConnections;
 
-    /** @test */
+    #[Test]
     public function use_connection_uses_registered_connections()
     {
         $config = [];
@@ -46,8 +47,8 @@ class ConfiguringTest extends TestCase
         );
     }
 
-    /** @test */
-    public function use_connection_can_be_overriden()
+    #[Test]
+    public function use_connection_can_be_overridden()
     {
         $config = [];
 
@@ -66,7 +67,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function use_config_uses_the_provided_path()
     {
         $config = [];
@@ -83,7 +84,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function use_config_can_be_override()
     {
         $config = [];
@@ -98,7 +99,7 @@ class ConfiguringTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function use_config_checks_if_the_file_exists()
     {
         $config = [];
@@ -107,6 +108,6 @@ class ConfiguringTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $event->useConfig(__DIR__.'this_does_not_exist.php');
+        $event->useConfig(__DIR__ . 'this_does_not_exist.php');
     }
 }

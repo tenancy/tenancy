@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Affects;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\AffectResolver;
 use Tenancy\Affects\Contracts\ResolvesAffects;
 use Tenancy\Testing\TestCase;
@@ -31,7 +32,7 @@ class AffectResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesAffects::class);
     }
 
-    /** @test */
+    #[Test]
     public function by_default_the_affects_resolver_is_registered()
     {
         $this->assertInstanceOf(
@@ -40,7 +41,7 @@ class AffectResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function by_default_no_affects_are_registered()
     {
         $this->assertEmpty(
@@ -48,7 +49,7 @@ class AffectResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_is_registered_as_singleton()
     {
         $resolver = $this->resolver;

@@ -20,8 +20,8 @@ trait UsesMigrations
 {
     public function getMigrationsPath()
     {
-        return __DIR__.DIRECTORY_SEPARATOR
-            .'Mocks'.DIRECTORY_SEPARATOR
-            .'Migrations';
+        return __DIR__ . DIRECTORY_SEPARATOR
+            . 'Mocks' . DIRECTORY_SEPARATOR
+            . 'Migrations';
     }
 }

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks\Database\Unit;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Database\Contracts\ResolvesDatabases;
 use Tenancy\Hooks\Database\Events;
 use Tenancy\Hooks\Database\Provider;
@@ -42,7 +43,7 @@ class DatabaseResolverDispatchingTest extends TestCase
         $this->resolver = $this->app->make(ResolvesDatabases::class);
     }
 
-    /** @test */
+    #[Test]
     public function without_driver()
     {
         $resolving = $resolved = $identified = $configuring = 0;
@@ -58,7 +59,7 @@ class DatabaseResolverDispatchingTest extends TestCase
         $this->assertEquals(1, $resolved);
     }
 
-    /** @test */
+    #[Test]
     public function with_driver()
     {
         $resolving = $resolved = $identified = $configuring = 0;

@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Hooks\Hostname\Unit;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Hooks\Hostname\Events\ConfigureHostnames;
 use Tenancy\Hooks\Hostname\Hooks\HostnamesHook;
 use Tenancy\Hooks\Hostname\Provider;
@@ -39,10 +41,8 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
         return HostnameTenant::first();
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_forwards_call_to_the_hook($tenantEvent)
     {
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {
@@ -52,10 +52,8 @@ class ConfigureHostnamesTest extends ConfigureHookTestCase
         $this->hook->for(new $tenantEvent($this->getMockedTenant()));
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_register_handlers($tenantEvent)
     {
         Event::listen(ConfigureHostnames::class, function (ConfigureHostnames $event) {

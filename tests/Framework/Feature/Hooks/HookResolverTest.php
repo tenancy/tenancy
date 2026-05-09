@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Framework\Feature\Hooks;
 
 use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Support\Facades\Queue;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Lifecycle\Contracts\ResolvesHooks;
 use Tenancy\Pipeline\Events\Resolved;
 use Tenancy\Tenant\Events\Created;
@@ -34,7 +35,7 @@ class HookResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesHooks::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_prioritizes_hooks_on_handle()
     {
         $this->resolver->setHooks([]);
@@ -44,6 +45,7 @@ class HookResolverTest extends TestCase
         $this->resolver->addHook($hookLow);
 
         $hookHigh = new ConfiguredHook();
+
         $hookHigh->priority = 100;
         $this->resolver->addHook($hookHigh);
 
@@ -55,7 +57,7 @@ class HookResolverTest extends TestCase
         $this->resolver->handle(new Created($this->mockTenant()));
     }
 
-    /** @test */
+    #[Test]
     public function sets_hooks()
     {
         $this->resolver->setHooks([]);
@@ -75,7 +77,7 @@ class HookResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function can_queue()
     {
         Queue::fake();

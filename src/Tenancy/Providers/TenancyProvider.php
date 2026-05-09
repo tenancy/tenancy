@@ -34,11 +34,11 @@ class TenancyProvider extends ServiceProvider
     use Provides\ProvidesListeners;
 
     public array $singletons = [
-        Environment::class         => Environment::class,
-        ResolvesHooks::class       => HookResolver::class,
-        ResolvesAffects::class     => AffectResolver::class,
-        ResolvesTenants::class     => TenantResolver::class,
-        ProvidesPassword::class    => PasswordGenerator::class,
+        Environment::class => Environment::class,
+        ResolvesHooks::class => HookResolver::class,
+        ResolvesAffects::class => AffectResolver::class,
+        ResolvesTenants::class => TenantResolver::class,
+        ProvidesPassword::class => PasswordGenerator::class,
     ];
 
     protected array $listen = [
@@ -73,7 +73,7 @@ class TenancyProvider extends ServiceProvider
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = $runtime.class_basename($trait))) {
+            if (method_exists($class, $method = $runtime . class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
         }

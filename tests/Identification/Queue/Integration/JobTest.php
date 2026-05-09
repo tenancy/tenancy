@@ -19,6 +19,7 @@ namespace Tenancy\Tests\Identification\Queue\Integration;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Drivers\Queue\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\Jobs\SimpleJob;
@@ -27,7 +28,7 @@ class JobTest extends TestCase
 {
     protected array $additionalProviders = [IdentificationProvider::class];
 
-    /** @test */
+    #[Test]
     public function jobs_do_not_contain_the_tenant_when_none_identified()
     {
         Event::listen([JobProcessing::class, JobProcessed::class], function ($event) {
@@ -40,7 +41,7 @@ class JobTest extends TestCase
         dispatch(new SimpleJob());
     }
 
-    /** @test */
+    #[Test]
     public function jobs_do_contain_the_tenant_when_one_is_identified()
     {
         $tenant = $this->mockTenant();

@@ -26,7 +26,7 @@ class TenantModelFactory extends Factory
     public function definition()
     {
         return [
-            'id'   => $this->faker->unixTime,
+            'id' => $this->faker->unixTime,
             'name' => $this->faker->name,
         ];
     }

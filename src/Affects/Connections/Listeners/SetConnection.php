@@ -26,7 +26,7 @@ class SetConnection
     public function handle(Resolved $event): void
     {
         $connection = $event->connection ?? Tenancy::getTenantConnectionName();
-        $existingConfig = config('database.connections.'.$connection);
+        $existingConfig = config('database.connections.' . $connection);
 
         $key = optional($event->tenant)->getTenantKey();
         $identifier = optional($event->tenant)->getTenantIdentifier();
@@ -37,9 +37,9 @@ class SetConnection
             $configuration['tenant-key'] = $key;
             $configuration['tenant-identifier'] = $identifier;
 
-            config(['database.connections.'.$connection => $configuration]);
+            config(['database.connections.' . $connection => $configuration]);
         } else {
-            config(['database.connections.'.$connection => null]);
+            config(['database.connections.' . $connection => null]);
         }
 
         if (!$event->tenant

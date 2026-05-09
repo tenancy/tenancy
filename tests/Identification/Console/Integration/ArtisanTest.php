@@ -18,6 +18,7 @@ namespace Tenancy\Tests\Identification\Console\Integration;
 
 use Illuminate\Contracts\Console\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Console\Kernel;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Environment;
 use Tenancy\Identification\Drivers\Console\Contracts\IdentifiesByConsole;
 use Tenancy\Identification\Drivers\Console\Providers\IdentificationProvider;
@@ -42,7 +43,7 @@ class ArtisanTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_checks_if_a_tenant_is_identified()
     {
         $this->mock(Environment::class, function ($mock) {
@@ -55,7 +56,7 @@ class ArtisanTest extends TestCase
         $this->artisan('identifies');
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_trigger_identification_when_a_tenant_is_already_identified()
     {
         $this->mock(Environment::class, function ($mock) {
@@ -67,7 +68,7 @@ class ArtisanTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_triggers_console_identification()
     {
         $this->mock(Environment::class, function ($mock) {
@@ -81,7 +82,7 @@ class ArtisanTest extends TestCase
         $this->artisan('identifies');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_identify_null()
     {
         $this->artisan('identifies');

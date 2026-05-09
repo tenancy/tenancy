@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Unit\Providers;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Providers\TenantProvider;
 use Tenancy\Testing\TestCase;
 
@@ -29,7 +30,7 @@ class TenantProviderTest extends TestCase
         $this->provider = new TenantProvider($this->app);
     }
 
-    /** @test */
+    #[Test]
     public function all_provides_are_registered()
     {
         foreach ($this->provider->provides() as $abstract) {

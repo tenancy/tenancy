@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Unit\Identification\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use ReflectionClass;
 use Tenancy\Identification\Concerns\AllowsTenantIdentification;
 use Tenancy\Identification\Contracts\Tenant;
@@ -28,12 +29,12 @@ class AllowsTenantIdentificationTest extends TestCase
 
     protected function afterSetUp()
     {
-        $this->class = new class() extends Model {
+        $this->class = new class () extends Model {
             use AllowsTenantIdentification;
         };
     }
 
-    /** @test */
+    #[Test]
     public function has_required_methods()
     {
         $has = collect((new ReflectionClass($this->class))->getMethods())->pluck('name');
@@ -42,7 +43,7 @@ class AllowsTenantIdentificationTest extends TestCase
         $this->assertCount(
             $needs->count(),
             $has->intersect($needs),
-            AllowsTenantIdentification::class.' does not implement all required interface methods from '.Tenant::class
+            AllowsTenantIdentification::class . ' does not implement all required interface methods from ' . Tenant::class
         );
     }
 }

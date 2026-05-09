@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects\Models\Unit;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Models\Events\ConfigureModels;
 use Tenancy\Affects\Models\Provider;
 use Tenancy\Identification\Events\Switched;
@@ -29,7 +30,7 @@ class ConfigureModelsTest extends AffectsEventUnitTestCase
 
     protected $event = ConfigureModels::class;
 
-    /** @test */
+    #[Test]
     public function static_calls_detect_not_existing_classes()
     {
         new ConfigureModels(new Switched($this->tenant));
@@ -44,7 +45,7 @@ class ConfigureModelsTest extends AffectsEventUnitTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function forward_calls_detect_not_existing_classes()
     {
         $event = new ConfigureModels(new Switched($this->tenant));

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Pipeline\Events;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Pipeline\Contracts\Step;
 use Tenancy\Pipeline\Events\Processing;
 use Tenancy\Pipeline\Pipeline;
@@ -27,7 +28,7 @@ class ProcessingTest extends EventFeatureTestCase
 {
     protected $event = Processing::class;
 
-    /** @test */
+    #[Test]
     public function it_forwards_calls_to_the_steps()
     {
         $event = $this->event;

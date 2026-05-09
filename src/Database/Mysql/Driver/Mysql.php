@@ -126,11 +126,6 @@ class Mysql implements ProvidesDatabase
         return DB::connection($connection);
     }
 
-    /**
-     * @param Tenant $tenant
-     *
-     * @return array
-     */
     protected function retrieveTables(Tenant $tenant): array
     {
         $tempTenant = $tenant->replicate();
@@ -139,8 +134,6 @@ class Mysql implements ProvidesDatabase
         /** @var ResolvesConnections $resolver */
         $resolver = resolve(ResolvesConnections::class);
         $resolver($tempTenant, Tenancy::getTenantConnectionName());
-
-        $tables = [];
 
         // @codeCoverageIgnoreStart
         if (method_exists(Tenancy::getTenantConnection(), 'getDoctrineSchemaManager')) {

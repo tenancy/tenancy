@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Hooks;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Tenant\Events as Tenant;
 use Tenancy\Testing\TestCase;
 
@@ -34,10 +36,8 @@ abstract class ConfigureHookTestCase extends TestCase
         $this->hook = $this->app->make($this->hookClass);
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[Test]
+    #[DataProvider('tenantEventsProvider')]
     public function it_can_disable_the_hook($tenantEvent)
     {
         $this->events->listen($this->eventClass, function ($event) {
@@ -49,10 +49,8 @@ abstract class ConfigureHookTestCase extends TestCase
         $this->assertFalse($this->hook->fires);
     }
 
-    /**
-     * @dataProvider tenantEventsProvider
-     *
-     * @test */
+    #[DataProvider('tenantEventsProvider')]
+    #[Test]
     public function it_can_prioritize_the_hook($tenantEvent)
     {
         $original = $this->hook->priority();
@@ -69,7 +67,7 @@ abstract class ConfigureHookTestCase extends TestCase
         );
     }
 
-    public static function tenantEventsProvider()
+    public static function tenantEventsProvider(): array
     {
         return [
             [Tenant\Created::class],

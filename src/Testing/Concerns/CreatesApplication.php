@@ -49,9 +49,9 @@ trait CreatesApplication
         $app = null;
 
         // inside vendor
-        $appPaths[] = realpath(__DIR__.'/../../framework/');
+        $appPaths[] = realpath(__DIR__ . '/../../framework/');
         // as a framework
-        $appPaths[] = realpath(__DIR__.'/../../../vendor/laravel/laravel');
+        $appPaths[] = realpath(__DIR__ . '/../../../vendor/laravel/laravel');
 
         foreach ($appPaths as $path) {
             $bootstrap = "$path/bootstrap/app.php";
@@ -91,7 +91,7 @@ trait CreatesApplication
         if (class_exists(\Illuminate\Database\Eloquent\Factory::class)) {
             /** @var \Illuminate\Database\Eloquent\Factory */
             $factory = $this->app->make(\Illuminate\Database\Eloquent\Factory::class);
-            $factory->load(__DIR__.'/../Mocks/Factories/Legacy');
+            $factory->load(__DIR__ . '/../Mocks/Factories/Legacy');
 
             return;
         }

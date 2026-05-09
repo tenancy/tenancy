@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Feature\Pipeline;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Pipeline\Contracts\Step;
 use Tenancy\Pipeline\Events;
 use Tenancy\Pipeline\Pipeline;
@@ -26,7 +27,7 @@ use Tenancy\Tests\Mocks\Pipeline\SimpleStep;
 
 class PipelineTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_be_constructed_with_steps()
     {
         $steps = new Steps([
@@ -41,7 +42,7 @@ class PipelineTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_steps()
     {
         $pipeline = new Pipeline();
@@ -55,7 +56,7 @@ class PipelineTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_forwards_calls_to_steps()
     {
         $prioritizedStep = new SimpleStep();
@@ -75,7 +76,7 @@ class PipelineTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function handle_fires_the_events_with_data()
     {
         Event::fake([

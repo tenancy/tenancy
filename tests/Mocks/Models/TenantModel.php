@@ -34,7 +34,7 @@ class TenantModel extends Model
         }
 
         return App::make(TenantModelFactory::class)
-                    ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
-                    ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
+            ->count(is_numeric($parameters[0] ?? null) ? $parameters[0] : null)
+            ->state(is_array($parameters[0] ?? null) ? $parameters[0] : ($parameters[1] ?? []));
     }
 }

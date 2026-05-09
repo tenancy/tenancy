@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Database;
 
 use Illuminate\Database\DatabaseManager;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Connections\Provider as ConnectionProvider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Hooks\Database\Provider as DatabaseProvider;
@@ -38,6 +39,11 @@ abstract class DatabaseFeatureTestCase extends TestCase
 {
     use UsesModels;
 
+    use InteractsWithConnections;
+    use InteractsWithDatabases;
+    use InteractsWithMigrations;
+    use UsesMigrations;
+
     /** @var DatabaseManager */
     protected $db;
 
@@ -49,11 +55,6 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     /** @var string */
     protected $exception = \PDOException::class;
-
-    use InteractsWithDatabases;
-    use InteractsWithConnections;
-    use InteractsWithMigrations;
-    use UsesMigrations;
 
     protected function afterSetUp()
     {
@@ -74,7 +75,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
 
     abstract protected function registerDatabaseListener();
 
-    /** @test */
+    #[Test]
     public function it_creates_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -87,7 +88,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function it_updates_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -103,7 +104,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function updating_the_same_tenant_does_not_change_the_connection()
     {
         $this->events->dispatch(new Events\Created($this->tenant));
@@ -123,7 +124,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function updating_keeps_the_data()
     {
         $this->app->register(MigrationProvider::class);
@@ -168,7 +169,7 @@ abstract class DatabaseFeatureTestCase extends TestCase
         $this->cleanDatabase($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function it_deletes_the_database()
     {
         $this->events->dispatch(new Events\Created($this->tenant));

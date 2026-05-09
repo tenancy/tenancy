@@ -4,14 +4,15 @@
     "keywords": ["laravel", "multi-tenant", "saas", "tenancy", "aws", "gce"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "^9.0 | ^10.0 | ^11.0 | ^12.0",
+        "laravel/framework": "^10.0 | ^11.0 | ^12.0 | ^13.0",
         "doctrine/dbal": "^3.3 | ^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
         "laravel/laravel": "*",
-        "phpunit/phpunit": "^9.0 | ^10.0",
-        "mockery/mockery": "^1.5.0"
+        "phpunit/phpunit": "^10.0 | ^11.0 | ^12.0",
+        "mockery/mockery": "^1.5.0",
+        "laravel/pint": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +27,7 @@
         "psr-4": {
             "Tenancy\\Testing\\": "src/Testing",
             "Tenancy\\Tests\\": "tests/",
-            "Tenancy\\Tests\\Framework\\": "tests/Tenancy",
+            "Tenancy\\Tests\\Framework\\": "tests/Framework",
             "Tenancy\\Tests\\Affects\\": "tests/Affects",
             "Tenancy\\Tests\\Database\\": "tests/Database",
             "Tenancy\\Tests\\Hooks\\": "tests/Hooks",

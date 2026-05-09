@@ -1,7 +1,11 @@
 {
     "name": "tenancy/hooks-migration",
     "description": "The tenancy/tenancy migration mutations",
-    "keywords": ["hooks", "tenancy", "migration"],
+    "keywords": [
+        "hooks",
+        "tenancy",
+        "migration"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",

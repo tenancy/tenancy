@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Configs\Integration;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Configs\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
@@ -27,13 +28,13 @@ class ThroughForwarderTest extends AffectsIntegrationTestCase
 
     protected array $additionalProviders = [Provider::class];
 
-    /** @test */
+    #[Test]
     public function by_default_the_helper_result_has_no_value()
     {
         $this->assertNull(config('testing.tenant'));
     }
 
-    /** @test */
+    #[Test]
     public function it_changes_the_result_of_the_helper()
     {
         Tenancy::setTenant($this->tenant);

@@ -1,7 +1,11 @@
 {
     "name": "tenancy/affects-routes",
     "description": "The tenancy/tenancy routes mutations",
-    "keywords": ["affects", "tenancy", "routes"],
+    "keywords": [
+        "affects",
+        "tenancy",
+        "routes"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*"

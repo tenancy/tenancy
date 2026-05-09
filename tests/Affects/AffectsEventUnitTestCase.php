@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Affects;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Identification\Events\Switched;
@@ -56,7 +57,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
         return array_merge($this->defaultContent, $this->eventContains);
     }
 
-    /** @test */
+    #[Test]
     public function the_event_is_not_triggered_without_provider()
     {
         Event::fake($this->event);
@@ -66,7 +67,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
         Event::assertNotDispatched($this->event);
     }
 
-    /** @test */
+    #[Test]
     public function the_event_is_triggered()
     {
         $this->app->register($this->affectsProvider);
@@ -78,7 +79,7 @@ abstract class AffectsEventUnitTestCase extends TestCase
         Event::assertDispatched($this->event);
     }
 
-    /** @test */
+    #[Test]
     public function the_event_contains_the_right_data()
     {
         $this->app->register($this->affectsProvider);

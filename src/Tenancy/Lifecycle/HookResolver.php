@@ -27,7 +27,7 @@ class HookResolver extends Pipeline implements ResolvesHooks
     public function addHook($hook): static
     {
         if (!in_array(LifecycleHook::class, class_implements($hook))) {
-            throw new InvalidArgumentException("$hook has to implement ".LifecycleHook::class);
+            throw new InvalidArgumentException("$hook has to implement " . LifecycleHook::class);
         }
 
         $this->steps->add($hook);

@@ -1,7 +1,11 @@
 {
     "name": "tenancy/db-driver-sqlite",
     "description": "The tenancy/tenancy database driver for sqlite",
-    "keywords": ["database", "tenancy", "sqlite"],
+    "keywords": [
+        "database",
+        "tenancy",
+        "sqlite"
+    ],
     "license": "MIT",
     "require": {
         "tenancy/framework": "*",

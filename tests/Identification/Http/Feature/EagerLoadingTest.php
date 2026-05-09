@@ -17,20 +17,21 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Identification\Http\Feature;
 
 use Illuminate\Contracts\Http\Kernel;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Drivers\Http\Middleware\EagerIdentification;
 use Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider;
 use Tenancy\Testing\TestCase;
 
 class EagerLoadingTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function by_default_the_middleware_is_not_added()
     {
         $kernel = $this->app->make(Kernel::class);
         $this->assertFalse($kernel->hasMiddleware(EagerIdentification::class));
     }
 
-    /** @test */
+    #[Test]
     public function the_middleware_gets_registered()
     {
         $this->app->register(IdentificationProvider::class);
@@ -39,7 +40,7 @@ class EagerLoadingTest extends TestCase
         $this->assertTrue($kernel->hasMiddleware(EagerIdentification::class));
     }
 
-    /** @test */
+    #[Test]
     public function the_config_decides_if_the_middleware_is_registered()
     {
         config(['tenancy.identification-driver-http.eager' => false]);

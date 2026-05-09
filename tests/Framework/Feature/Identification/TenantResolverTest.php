@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace Tenancy\Tests\Framework\Feature\Identification;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Identification\Drivers\Environment\Contracts\IdentifiesByEnvironment;
@@ -37,7 +38,7 @@ class TenantResolverTest extends TestCase
         $this->resolver = $this->app->make(ResolvesTenants::class);
     }
 
-    /** @test */
+    #[Test]
     public function by_default_it_returns_an_empty_collection()
     {
         $this->assertInstanceOf(
@@ -48,7 +49,7 @@ class TenantResolverTest extends TestCase
         $this->assertEmpty($this->resolver->getModels());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_add_models()
     {
         $this->resolver->addModel(Tenant::class);
@@ -58,7 +59,7 @@ class TenantResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_models()
     {
         $collection = new TenantModelCollection([Tenant::class]);
@@ -72,13 +73,13 @@ class TenantResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function find_model_returns_null()
     {
         $this->assertNull($this->resolver->findModel(NotATenant::class));
     }
 
-    /** @test */
+    #[Test]
     public function find_model_can_find_the_right_model()
     {
         $this->resolver->addModel(Tenant::class);
@@ -91,7 +92,7 @@ class TenantResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function find_model_can_find_exact_model()
     {
         $this->resolver->addModel(Tenant::class);
@@ -114,7 +115,7 @@ class TenantResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function identifying_will_use_all_drivers()
     {
         $this->resolver->addModel(NullMixedTenant::class);
@@ -132,7 +133,7 @@ class TenantResolverTest extends TestCase
         Event::assertDispatched('mock.tenant.identification.environment');
     }
 
-    /** @test */
+    #[Test]
     public function identifying_a_not_registered_contract_will_not_cause_errors()
     {
         $this->resolver->registerDriver(IdentifiesByEnvironment::class);
@@ -145,7 +146,7 @@ class TenantResolverTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_identify_without_a_specific_driver()
     {
         $this->resolver->registerDriver(IdentifiesByEnvironment::class);

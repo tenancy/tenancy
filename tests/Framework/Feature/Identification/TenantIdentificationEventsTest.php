@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Framework\Feature\Identification;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Events\Identified;
 use Tenancy\Identification\Events\NothingIdentified;
 use Tenancy\Identification\Events\Resolved;
@@ -25,7 +26,7 @@ use Tenancy\Testing\TestCase;
 
 class TenantIdentificationEventsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function empty_tenant_is_forced()
     {
         $switched = $resolving = $resolved = $nothingIdentified = $identified = 0;
@@ -45,7 +46,7 @@ class TenantIdentificationEventsTest extends TestCase
         $this->assertEquals(0, $identified);
     }
 
-    /** @test */
+    #[Test]
     public function old_tenant_in_switched()
     {
         $oldTenant = null;
@@ -70,7 +71,7 @@ class TenantIdentificationEventsTest extends TestCase
         $this->assertEquals($tenant2, $newTenant);
     }
 
-    /** @test */
+    #[Test]
     public function empty_tenant_is_resolved()
     {
         $switched = $resolving = $resolved = $nothingIdentified = $identified = 0;
@@ -90,7 +91,7 @@ class TenantIdentificationEventsTest extends TestCase
         $this->assertEquals(0, $identified);
     }
 
-    /** @test */
+    #[Test]
     public function tenant_is_resolved()
     {
         $this->resolveTenant($this->mockTenant());
@@ -112,7 +113,7 @@ class TenantIdentificationEventsTest extends TestCase
         $this->assertEquals(1, $identified);
     }
 
-    /** @test */
+    #[Test]
     public function refreshing_events()
     {
         $this->resolveTenant($this->mockTenant());

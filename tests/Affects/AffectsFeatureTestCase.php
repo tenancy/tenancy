@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Identification\Contracts\Tenant;
 use Tenancy\Testing\TestCase;
@@ -60,14 +61,14 @@ abstract class AffectsFeatureTestCase extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function not_affected_by_default()
     {
         $this->registerAffecting();
         $this->assertNotAffected($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_affect_the_application()
     {
         $this->registerAffecting();
@@ -77,7 +78,7 @@ abstract class AffectsFeatureTestCase extends TestCase
         $this->assertAffected($this->tenant);
     }
 
-    /** @test */
+    #[Test]
     public function can_override_previous_affect()
     {
         $this->registerAffecting();

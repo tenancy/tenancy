@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Identification;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Identification\Contracts\ResolvesTenants;
 use Tenancy\Testing\TestCase;
 use Tenancy\Tests\Mocks\TenantResolver;
@@ -33,7 +34,7 @@ abstract class DriverTestCase extends TestCase
         $this->app->bind(ResolvesTenants::class, TenantResolver::class);
     }
 
-    /** @test */
+    #[Test]
     public function all_drivers_are_registered()
     {
         $this->app->register($this->provider);
@@ -43,7 +44,7 @@ abstract class DriverTestCase extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function only_these_drivers_are_registered()
     {
         $this->app->register($this->provider);

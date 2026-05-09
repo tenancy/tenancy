@@ -7,7 +7,7 @@ services:
     volumes:
       - '${TENANCY_PATH-../../}:/var/www/html'
       - '${TENANCY_PATH-../../}.dev/docker/partials/:/ops/'
-      
+    
     networks:
       - application
 
@@ -18,7 +18,7 @@ services:
     stdin_open: true
 
   mysql:
-    image: tenancy/tenancy-ci-mysql-${DB_VERSION}:latest
+    image: mysql:8.0
 
     environment:
       MYSQL_DATABASE: testing
@@ -27,12 +27,12 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_ALLOW_EMPTY_PASSWORD: ''
       MYSQL_ROOT_HOST: "%"
-
-    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./default_users.sql:/docker-entrypoint-initdb.d/default_users.sql
 
     ports:
-      - 13306:3306
-      
+      - "13306:3306"
+    
     networks:
       - application
 

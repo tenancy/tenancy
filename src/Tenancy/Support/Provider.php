@@ -35,7 +35,7 @@ abstract class Provider extends ServiceProvider
         $class = static::class;
 
         foreach (class_uses_recursive($class) as $trait) {
-            if (method_exists($class, $method = $runtime.class_basename($trait))) {
+            if (method_exists($class, $method = $runtime . class_basename($trait))) {
                 call_user_func([$this, $method]);
             }
         }

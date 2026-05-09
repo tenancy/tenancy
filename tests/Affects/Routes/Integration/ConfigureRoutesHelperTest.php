@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Tenancy\Tests\Affects\Routes\Integration;
 
+use Fruitcake\Cors\CorsServiceProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Tenancy\Affects\Routes\Provider;
 use Tenancy\Facades\Tenancy;
 use Tenancy\Tests\Affects\AffectsIntegrationTestCase;
@@ -25,9 +27,9 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
 {
     use AddsFromFile;
 
-    protected array $additionalProviders = [Provider::class, \Fruitcake\Cors\CorsServiceProvider::class];
+    protected array $additionalProviders = [Provider::class, CorsServiceProvider::class];
 
-    /** @test */
+    #[Test]
     public function registered_routes_are_loaded()
     {
         Tenancy::setTenant($this->tenant);
@@ -38,7 +40,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function registered_routes_can_be_accessed()
     {
         Tenancy::setTenant($this->tenant);
@@ -48,7 +50,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function registered_routes_have_the_right_data()
     {
         Tenancy::setTenant($this->tenant);
@@ -58,7 +60,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertSeeText('test');
     }
 
-    /** @test */
+    #[Test]
     public function registered_nested_routes_are_loaded()
     {
         Tenancy::setTenant($this->tenant);
@@ -69,7 +71,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function registered_nested_routes_can_be_accessed()
     {
         Tenancy::setTenant($this->tenant);
@@ -79,7 +81,7 @@ class ConfigureRoutesHelperTest extends AffectsIntegrationTestCase
             ->assertOk();
     }
 
-    /** @test */
+    #[Test]
     public function registered_nested_routes_have_the_right_data()
     {
         Tenancy::setTenant($this->tenant);
