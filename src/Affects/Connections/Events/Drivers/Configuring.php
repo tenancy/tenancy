@@ -60,10 +60,11 @@ class Configuring
 
         if ($tenant->isDirty($tenant->getTenantKeyName())) {
             $configuration['oldUsername'] = $tenant->getOriginal($tenant->getTenantKeyName());
+            $configuration['oldDatabase'] = $tenant->getOriginal($tenant->getTenantKeyName());
         }
 
         $configuration['username'] = $tenant->getTenantKey();
-        $configuration['database'] = $configuration['username'];
+        $configuration['database'] = $tenant->getTenantKey();
         $configuration['password'] = resolve(ProvidesPassword::class)->__invoke($tenant);
 
         return $configuration;
