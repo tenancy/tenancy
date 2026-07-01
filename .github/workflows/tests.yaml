@@ -68,7 +68,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Run tests
         run: ./test --php ${{ matrix.php }} --laravel ${{ matrix.laravel }} --db ${{ matrix.service }} --dependencies ${{ matrix.dependency-version }} --phpunit ${{ matrix.phpunit }}
@@ -110,7 +110,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           path: ./package
 
