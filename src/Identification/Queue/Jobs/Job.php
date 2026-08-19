@@ -61,8 +61,6 @@ class Job
                 continue;
             }
 
-            $property->setAccessible(true);
-
             $property->setValue($this, $this->restoreValue($values[$name]));
         }
     }
