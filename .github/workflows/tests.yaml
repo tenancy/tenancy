@@ -20,7 +20,7 @@ jobs:
         phpunit: [ '11.*', '12.*', '13.*' ]
         service: [ '8' ]
         dependency-version: [ prefer-lowest, prefer-stable ]
-        exclude:          
+        exclude:
           # PHP 8.5 does not support Laravel 11
           - php: '8.5'
             laravel: '11.*'
@@ -28,6 +28,10 @@ jobs:
           # PHP 8.2 does not support Laravel 13
           - php: '8.2'
             laravel: '13.*'
+          
+          # PHP 8.3 does not support PHPUnit 13
+          - php: '8.3'
+            phpunit: '13.*'
 
           # Laravel 11 does not support PHPUnit 10 or PHPUnit 12 or PHPUnit 13
           - laravel: '11.*'
@@ -42,7 +46,7 @@ jobs:
             phpunit: '12.*'
           - laravel: '12.*'
             phpunit: '13.*'
-            
+          
           # Laravel 13 does not support PHPUnit 11
           - laravel: '13.*'
             phpunit: '11.*'
@@ -65,7 +69,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [ '8.2', '8.3', '8.4', '8.5' ]
-        laravel: ['11.0', '12.0', '13.0' ]
+        laravel: ['11.43.1', '12.0', '13.0' ]
         exclude:            
           # PHP 8.2 does not support Laravel 13
           - php: '8.2'
