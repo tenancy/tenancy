@@ -86,7 +86,6 @@ class ConfiguresMigrationsTest extends ConfigureHookTestCase
 
         $reflection = new \ReflectionClass($this->hook);
         $property = $reflection->getProperty('replaceDefaultConnection');
-        $property->setAccessible(true);
 
         $this->assertFalse(
             $property->getValue($this->hook)
